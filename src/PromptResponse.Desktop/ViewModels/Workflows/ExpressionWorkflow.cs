@@ -27,11 +27,13 @@ internal sealed class ExpressionWorkflow
         IsApplying = true;
         try
         {
-            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
-            FormExpressions.RecomputeComputedValues(document, today);
+            var clock = DateTime.UtcNow;
+            var today = clock.ToString("yyyy-MM-dd");
+            var now = clock.ToString("o");
+            FormExpressions.RecomputeComputedValues(document, today, now: now);
             // Rebuild after computed values change so dependent visibility and
             // read-only expressions evaluate against the current model state.
-            var expressions = FormExpressions.BuildContext(document, today);
+            var expressions = FormExpressions.BuildContext(document, today, now: now);
             var promptsById = FormExpressions.GetAllPrompts(document)
                 .Where(prompt => !string.IsNullOrEmpty(prompt.Id))
                 .GroupBy(prompt => prompt.Id, StringComparer.Ordinal)

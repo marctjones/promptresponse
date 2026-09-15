@@ -27,8 +27,9 @@ public static class FormExpressions
     public static FormExpressionContext BuildContext(
         AprDocument document,
         string? today = null,
-        IReadOnlyDictionary<string, string>? ctx = null) =>
-        FormExpressionContext.Create(document, today, ctx);
+        IReadOnlyDictionary<string, string>? ctx = null,
+        string? now = null) =>
+        FormExpressionContext.Create(document, today, ctx, now);
 
     /// <summary>Whether this prompt should be hidden.</summary>
     public static bool IsHidden(Prompt prompt, FormExpressionContext context) =>
@@ -131,10 +132,11 @@ public static class FormExpressions
     public static bool RecomputeComputedValues(
         AprDocument document,
         string? today = null,
-        IReadOnlyDictionary<string, string>? ctx = null)
+        IReadOnlyDictionary<string, string>? ctx = null,
+        string? now = null)
     {
         ArgumentNullException.ThrowIfNull(document);
 
-        return ComputedValueRecalculator.Recompute(document, today, ctx);
+        return ComputedValueRecalculator.Recompute(document, today, ctx, now);
     }
 }

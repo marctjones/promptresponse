@@ -212,7 +212,7 @@ public final class AprConformanceTest {
         AprDocument ctxDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
             + "{\"id\":\"ctx\",\"label\":\"Ctx\",\"response\":\"a prompt, not the context\",\"hints\":{\"expectedDataType\":\"text\"}},"
             + "{\"id\":\"org\",\"label\":\"Org\",\"hints\":{\"expectedDataType\":\"text\",\"exprValue\":\"ctx.org\"}}]}]}");
-        var context = new AprExpressions.Context(ctxDocument, null, java.util.Map.of("org", "Skeptical Engineering"));
+        var context = new AprExpressions.Context(ctxDocument, null, java.util.Map.of("org", "Skeptical Engineering"), null);
         var orgPrompt = ((java.util.List<?>) ((java.util.Map<?,?>) ctxDocument.sections().get(0)).get("prompts")).get(1);
         if (!"Skeptical Engineering".equals(context.evaluate((java.util.Map<String,Object>) orgPrompt, "ctx.org")))
             throw new AssertionError("a field named ctx must not break the reserved ctx binding");
@@ -222,14 +222,14 @@ public final class AprConformanceTest {
         AprDocument trimDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
             + "{\"id\":\"n\",\"label\":\"N\",\"response\":\"Ada\",\"hints\":{\"expectedDataType\":\"text\"}},"
             + "{\"id\":\"trimmed\",\"label\":\"Trimmed\",\"hints\":{\"expectedDataType\":\"text\",\"exprValue\":\"n.trim()\"}}]}]}");
-        var trimContext = new AprExpressions.Context(trimDocument, null, null);
+        var trimContext = new AprExpressions.Context(trimDocument);
         var trimmedPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) trimDocument.sections().get(0)).get("prompts")).get(1);
         if (trimContext.evaluateRaw(trimmedPrompt, "n.trim()") != null) throw new AssertionError("a CEL extension function must be refused, not evaluated");
 
         // exprValidation is typed string; "2 + 2" evaluating to the number 4 is the
         // same failure as a compile error, not a value to stringify into "4".
         AprDocument validationDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"h\",\"label\":\"H\",\"hints\":{\"exprValidation\":\"2 + 2\"}}]}]}");
-        var validationContext = new AprExpressions.Context(validationDocument, null, null);
+        var validationContext = new AprExpressions.Context(validationDocument);
         var hPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) validationDocument.sections().get(0)).get("prompts")).get(0);
         Object raw = validationContext.evaluateRaw(hPrompt, "2 + 2");
         if (raw instanceof String) throw new AssertionError("a numeric exprValidation result must not be treated as a validation message");
@@ -335,19 +335,25 @@ public final class AprConformanceTest {
         prompt.put("id", "echo_id");
 
         var supplied = new AprExpressions.Context(
-            document, "2026-09-01T12:00:00Z", java.util.Map.of("team", "records"));
+            document, "2026-09-01", java.util.Map.of("team", "records"), "2025-03-04T12:00:00Z");
         if (!"echo_id".equals(supplied.evaluate(prompt, "_id")))
             throw new AssertionError("_id did not bind");
         if (!"2026-09-01".equals(supplied.evaluate(prompt, "_today")))
             throw new AssertionError("_today did not bind as a date string");
+        if (!"2025-03-04T12:00:00Z".equals(supplied.evaluate(prompt, "string(_now)")))
+            throw new AssertionError("_now did not bind as the supplied instant");
+        if (!"2025".equals(supplied.evaluate(prompt, "_now.getFullYear()")))
+            throw new AssertionError("_now is not a timestamp");
         if (!"records".equals(supplied.evaluate(prompt, "ctx['team']")))
             throw new AssertionError("ctx did not bind");
 
         // With nothing supplied the name is unbound, and the expression degrades
         // rather than silently using the host clock.
-        var unsupplied = new AprExpressions.Context(document, null, null);
+        var unsupplied = new AprExpressions.Context(document, null, null, null);
         if (unsupplied.evaluate(prompt, "_today") != null)
-            throw new AssertionError("_today bound without a caller-supplied instant");
+            throw new AssertionError("_today bound without a caller-supplied date");
+        if (unsupplied.evaluate(prompt, "string(_now)") != null)
+            throw new AssertionError("_now bound without a caller-supplied instant");
         System.out.println("Java expression activation passed");
     }
 

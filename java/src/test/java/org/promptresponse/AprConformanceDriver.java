@@ -140,11 +140,11 @@ public final class AprConformanceDriver {
 
     /** Order matters: hidden/validation see only the responses as read, then computed values (exprValue) fill in. */
     private static Map<String, Object> evaluate(AprDocument document, Map<String, Object> inputs) {
-        Object todayInput = inputs.containsKey("_today") ? inputs.get("_today") : inputs.get("_now");
-        String today = todayInput instanceof String text ? text : null;
+        String today = inputs.get("_today") instanceof String text ? text : null;
+        String now = inputs.get("_now") instanceof String text ? text : null;
         @SuppressWarnings("unchecked") Map<String, String> ctx = (Map<String, String>) inputs.get("ctx");
 
-        AprExpressions.Context context = new AprExpressions.Context(document, today, ctx);
+        AprExpressions.Context context = new AprExpressions.Context(document, today, ctx, now);
         Map<String, Object> hidden = new LinkedHashMap<>();
         Map<String, Object> expected = new LinkedHashMap<>();
         Map<String, Object> readOnly = new LinkedHashMap<>();
@@ -165,7 +165,7 @@ public final class AprConformanceDriver {
             }
         }
 
-        AprExpressions.recomputeComputedValues(document, today, ctx);
+        AprExpressions.recomputeComputedValues(document, today, ctx, now);
         Map<String, Object> responses = new LinkedHashMap<>();
         for (Map<String, Object> prompt : allPrompts(document.sections())) {
             String exprValue = AprDocument.string(hintsOf(prompt).get("exprValue"));

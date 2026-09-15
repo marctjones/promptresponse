@@ -153,6 +153,7 @@ static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inp
     // reproducible document and one whose answers depend on when it was opened.
     var supplied = inputs?.AsObject();
     var today = supplied?["_today"]?.GetValue<string>();
+    var now = supplied?["_now"]?.GetValue<string>();
     var context = supplied?["ctx"]?.AsObject()?.ToDictionary(
         pair => pair.Key, pair => pair.Value?.ToString() ?? string.Empty, StringComparer.Ordinal);
 
@@ -166,8 +167,8 @@ static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inp
         if (record is not AprFormRecord form) continue;
         // Settle the computed values first, then read them off. Every non-empty response
         // in the document as it was read is authored and is left alone.
-        FormExpressions.RecomputeComputedValues(form.Form, today, context);
-        var environment = FormExpressions.BuildContext(form.Form, today, context);
+        FormExpressions.RecomputeComputedValues(form.Form, today, context, now);
+        var environment = FormExpressions.BuildContext(form.Form, today, context, now);
         foreach (var prompt in FormExpressions.GetAllPrompts(form.Form))
         {
             if (prompt.Id is not { Length: > 0 } id) continue;

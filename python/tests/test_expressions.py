@@ -30,6 +30,8 @@ def _activation_document():
         "sections": [{"id": "s", "title": "S", "prompts": [
             {"id": "echo_id", "label": "E", "response": "", "hints": {"exprValue": "_id"}},
             {"id": "echo_today", "label": "T", "response": "", "hints": {"exprValue": "_today"}},
+            {"id": "echo_now", "label": "N", "response": "", "hints": {"exprValue": "string(_now)"}},
+            {"id": "now_year", "label": "Y", "response": "", "hints": {"exprValue": "_now.getFullYear()"}},
             {"id": "echo_ctx", "label": "C", "response": "", "hints": {"exprValue": "ctx['team']"}},
             {"id": "echo_this", "label": "S", "response": "seed", "hints": {"exprValue": "_this"}},
         ]}],
@@ -38,10 +40,13 @@ def _activation_document():
 
 def test_activation_binds_every_name_the_specification_defines():
     document = _activation_document()
-    context = pr.build_expression_context(document, "2026-09-01T12:00:00Z", {"team": "records"})
+    context = pr.build_expression_context(document, "2026-09-01", {"team": "records"}, "2025-03-04T12:00:00Z")
     values = {p.id: pr.compute_value(p, context) for p in document.all_prompts()}
     assert values["echo_id"] == "echo_id"
     assert values["echo_today"] == "2026-09-01"
+    # _now is the supplied instant as a CEL timestamp, not _today at midnight.
+    assert values["echo_now"] == "2025-03-04T12:00:00Z"
+    assert values["now_year"] == "2025"
     assert values["echo_ctx"] == "records"
     assert values["echo_this"] == "seed"
 
@@ -50,5 +55,6 @@ def test_temporal_names_are_unbound_when_the_caller_supplies_nothing():
     """Reading the host clock would make the same inputs evaluate differently twice."""
     document = _activation_document()
     context = pr.build_expression_context(document)
-    prompt = next(p for p in document.all_prompts() if p.id == "echo_today")
-    assert pr.compute_value(prompt, context) is None
+    for prompt in document.all_prompts():
+        if prompt.id in {"echo_today", "echo_now", "now_year"}:
+            assert pr.compute_value(prompt, context) is None, prompt.id

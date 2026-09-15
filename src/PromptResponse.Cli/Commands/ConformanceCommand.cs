@@ -145,6 +145,7 @@ public sealed class ConformanceCommand : ICommand
         // is what makes a form evaluate the same way twice.
         var supplied = inputs?.AsObject();
         var today = supplied?["_today"]?.GetValue<string>();
+        var now = supplied?["_now"]?.GetValue<string>();
         var context = supplied?["ctx"]?.AsObject()?.ToDictionary(
             pair => pair.Key, pair => pair.Value?.ToString() ?? string.Empty, StringComparer.Ordinal);
 
@@ -155,8 +156,8 @@ public sealed class ConformanceCommand : ICommand
         var validation = new JsonObject();
         foreach (var record in records.OfType<AprFormRecord>())
         {
-            FormExpressions.RecomputeComputedValues(record.Form, today, context);
-            var environment = FormExpressions.BuildContext(record.Form, today, context);
+            FormExpressions.RecomputeComputedValues(record.Form, today, context, now);
+            var environment = FormExpressions.BuildContext(record.Form, today, context, now);
             foreach (var prompt in FormExpressions.GetAllPrompts(record.Form))
             {
                 if (prompt.Id is not { Length: > 0 } id) continue;

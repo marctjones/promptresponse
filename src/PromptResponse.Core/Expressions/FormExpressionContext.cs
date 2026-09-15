@@ -44,10 +44,12 @@ public sealed class FormExpressionContext
     /// <param name="document">The document whose prompts declare the field types.</param>
     /// <param name="today">Optional ISO date bound to <c>_today</c>.</param>
     /// <param name="ctx">Optional host-supplied string map bound to <c>ctx</c>.</param>
+    /// <param name="now">Optional RFC 3339 instant bound to <c>_now</c>.</param>
     public static FormExpressionContext Create(
         AprDocument document,
         string? today = null,
-        IReadOnlyDictionary<string, string>? ctx = null)
+        IReadOnlyDictionary<string, string>? ctx = null,
+        string? now = null)
     {
         ArgumentNullException.ThrowIfNull(document);
 
@@ -81,13 +83,13 @@ public sealed class FormExpressionContext
         // same result.
         decls.Add(new VariableDecl("_today", CelType.String));
         decls.Add(new VariableDecl("_now", CelType.Timestamp));
+        // _now is the instant the caller supplied, a separate input from _today.
+        if (!string.IsNullOrWhiteSpace(now) && CelBinding.Bind(now, CelType.Timestamp) is { } instant)
+        {
+            bindings["_now"] = instant;
+        }
         if (!string.IsNullOrWhiteSpace(today))
         {
-            var instant = CelBinding.Bind(today, CelType.Timestamp);
-            if (instant is not null)
-            {
-                bindings["_now"] = instant;
-            }
             // _today is the date as YYYY-MM-DD, a string rather than a timestamp.
             bindings["_today"] = today!.Length >= 10 ? today[..10] : today;
         }

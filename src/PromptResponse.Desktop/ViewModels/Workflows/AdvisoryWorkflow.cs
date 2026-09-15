@@ -49,7 +49,8 @@ internal sealed class AdvisoryWorkflow
 
     private void AddExpressionWarnings(AprDocument document)
     {
-        var expressions = FormExpressions.BuildContext(document, DateTime.UtcNow.ToString("yyyy-MM-dd"));
+        var clock = DateTime.UtcNow;
+        var expressions = FormExpressions.BuildContext(document, clock.ToString("yyyy-MM-dd"), now: clock.ToString("o"));
         foreach (var prompt in FormExpressions.GetAllPrompts(document))
         {
             var message = FormExpressions.Validate(prompt, expressions);

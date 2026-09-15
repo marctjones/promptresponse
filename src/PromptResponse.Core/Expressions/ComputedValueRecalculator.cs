@@ -5,12 +5,13 @@ namespace PromptResponse.Core.Expressions;
 /// <summary>Applies bounded computed-value settling without overwriting authored responses.</summary>
 internal static class ComputedValueRecalculator
 {
-    internal static bool Recompute(AprDocument document, string? today, IReadOnlyDictionary<string, string>? ctx)
+    internal static bool Recompute(
+        AprDocument document, string? today, IReadOnlyDictionary<string, string>? ctx, string? now)
     {
         var changed = false;
         for (var pass = 0; pass < 5; pass++)
         {
-            var context = FormExpressionContext.Create(document, today, ctx);
+            var context = FormExpressionContext.Create(document, today, ctx, now);
             var changedThisPass = false;
             foreach (var prompt in PromptTreeTraversal.GetAll(document))
             {

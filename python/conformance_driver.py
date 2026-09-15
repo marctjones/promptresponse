@@ -46,9 +46,10 @@ def _evaluate(document, inputs: dict) -> dict:
     # Order matters: hidden/validation see only the responses as read, then
     # computed values (exprValue) fill in -- mirroring
     # scripts/aprexpr.py's evaluate(), which is the contract's own worked example.
-    today = inputs.get("_today") or inputs.get("_now")
+    today = inputs.get("_today")
+    now = inputs.get("_now")
     ctx = inputs.get("ctx")
-    context = expressions.build_expression_context(document, today, ctx)
+    context = expressions.build_expression_context(document, today, ctx, now)
 
     hidden: dict[str, bool] = {}
     expected: dict[str, bool] = {}
@@ -64,7 +65,7 @@ def _evaluate(document, inputs: dict) -> dict:
         if prompt.hints.expr_validation:
             result[prompt.id] = expressions.validation_message(prompt, context) or ""
 
-    expressions.recompute_computed_values(document, today, ctx)
+    expressions.recompute_computed_values(document, today, ctx, now)
     responses = {
         prompt.id: prompt.response
         for prompt in document.all_prompts()

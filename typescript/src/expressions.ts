@@ -29,13 +29,12 @@ function usesExtensionFunction(node: unknown): boolean {
 function prompts(sections: Section[]): Prompt[] {
   return sections.flatMap(section => [...section.prompts, ...prompts(section.sections)]);
 }
-function typeFor(expected?: string): "double" | "bool" | "dyn" | "list<string>" | "string" {
+const TIMESTAMP = "google.protobuf.Timestamp";
+function typeFor(expected?: string): "double" | "bool" | typeof TIMESTAMP | "list<string>" | "string" {
   switch ((expected ?? "").toLowerCase()) {
     case "number": case "currency": case "range": return "double";
     case "boolean": return "bool";
-    // cel-js has no public timestamp declaration despite supporting Date values at
-    // runtime; retain the value as dyn rather than misdeclare it as string.
-    case "date": case "time": case "datetime": return "dyn";
+    case "date": case "time": case "datetime": return TIMESTAMP;
     case "multichoice": return "list<string>";
     default: return "string";
   }
@@ -68,6 +67,11 @@ function stored(value: unknown): string {
   if (Array.isArray(value)) return value.map(String).join("\n");
   return value == null ? "" : String(value);
 }
+// The standard library's string(timestamp), which cel-js lacks: RFC 3339 in UTC,
+// with fractional seconds only where the instant has them.
+function timestampString(value: Date): string {
+  return value.toISOString().replace(/\.(\d{3})Z$/, (_, fraction: string) => fraction === "000" ? "Z" : `.${fraction.replace(/0+$/, "")}Z`);
+}
 
 const RESERVED_NAMES = new Set(["_now", "_today", "_id", "_this", "ctx"]);
 
@@ -77,18 +81,19 @@ export class ExpressionContext {
   // _now and _today are supplied by the caller and never read from the host
   // clock: defaulting them to "now" made every expression using them
   // non-deterministic, and different from the other implementations.
-  constructor(document: AprDocument, today?: string, ctx: ContextValues = {}) {
+  // _now is the instant the caller supplied, a separate input from _today.
+  constructor(document: AprDocument, today?: string, ctx: ContextValues = {}, now?: string) {
     this.fields = new Map(prompts(document.sections).filter(prompt => prompt.id).map(prompt => [prompt.id, prompt]));
     for (const prompt of this.fields.values()) {
       const value = bind(prompt.response, prompt.hints.expectedDataType);
       if (value !== undefined) this.bindings[prompt.id] = value;
     }
-    if (today) {
-      const instant = bind(today, "datetime");
+    if (now) {
+      const instant = bind(now, "datetime");
       if (instant !== undefined) this.bindings._now = instant;
-      // _today is the date as YYYY-MM-DD, a string rather than a timestamp.
-      this.bindings._today = today.slice(0, 10);
     }
+    // _today is the date as YYYY-MM-DD, a string rather than a timestamp.
+    if (today) this.bindings._today = today.slice(0, 10);
     this.bindings.ctx = ctx;
   }
   evaluate(prompt: Prompt, expression: string): unknown | undefined {
@@ -104,10 +109,11 @@ export class ExpressionContext {
       for (const field of this.fields.values()) if (!RESERVED_NAMES.has(field.id)) environment.registerVariable(field.id, typeFor(field.hints.expectedDataType));
       environment
         .registerVariable("_today", "string")
-        .registerVariable("_now", "dyn")
+        .registerVariable("_now", TIMESTAMP)
         .registerVariable("_id", "string")
         .registerVariable("ctx", "map<string, string>")
-        .registerVariable("_this", typeFor(prompt.hints.expectedDataType));
+        .registerVariable("_this", typeFor(prompt.hints.expectedDataType))
+        .registerFunction(`string(${TIMESTAMP}): string`, timestampString);
       const bindings = { ...this.bindings };
       const current = bind(prompt.response, prompt.hints.expectedDataType);
       if (current !== undefined) bindings._this = current;
@@ -117,7 +123,7 @@ export class ExpressionContext {
   }
 }
 
-export function buildExpressionContext(document: AprDocument, today?: string, ctx?: ContextValues): ExpressionContext { return new ExpressionContext(document, today, ctx); }
+export function buildExpressionContext(document: AprDocument, today?: string, ctx?: ContextValues, now?: string): ExpressionContext { return new ExpressionContext(document, today, ctx, now); }
 export function computeValue(prompt: Prompt, context: ExpressionContext): string | undefined {
   const expression = prompt.hints.exprValue;
   if (!expression?.trim()) return undefined;
@@ -135,10 +141,10 @@ export function validationMessage(prompt: Prompt, context: ExpressionContext): s
   if (typeof value !== "string") return undefined;
   return value || undefined;
 }
-export function recomputeComputedValues(document: AprDocument, today?: string, ctx?: ContextValues): boolean {
+export function recomputeComputedValues(document: AprDocument, today?: string, ctx?: ContextValues, now?: string): boolean {
   let changed = false;
   for (let pass = 0; pass < 5; pass++) {
-    const context = buildExpressionContext(document, today, ctx); let changedThisPass = false;
+    const context = buildExpressionContext(document, today, ctx, now); let changedThisPass = false;
     for (const prompt of prompts(document.sections)) {
       if (!prompt.hints.exprValue) continue;
       // Every non-empty response in the document as it was read is authored, whatever

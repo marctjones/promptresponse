@@ -47,9 +47,8 @@ function evaluate(document, inputs) {
   // Order matters: hidden/validation see only the responses as read, then
   // computed values (exprValue) fill in -- mirroring scripts/aprexpr.py's
   // evaluate(), which is the contract's own worked example.
-  const today = inputs._today || inputs._now;
-  const ctx = inputs.ctx;
-  const context = buildExpressionContext(document, today, ctx);
+  const { _today: today, _now: now, ctx } = inputs;
+  const context = buildExpressionContext(document, today, ctx, now);
 
   const hidden = {};
   const expected = {};
@@ -62,7 +61,7 @@ function evaluate(document, inputs) {
     if (prompt.hints.exprValidation) result[prompt.id] = validationMessage(prompt, context) ?? "";
   }
 
-  recomputeComputedValues(document, today, ctx);
+  recomputeComputedValues(document, today, ctx, now);
   const responses = {};
   for (const prompt of allPrompts(document.sections)) if (prompt.hints.exprValue) responses[prompt.id] = prompt.response;
   return { responses, hidden, expected, readOnly, validation: result };

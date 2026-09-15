@@ -20,12 +20,15 @@ public final class AprExpressions {
     private AprExpressions() { }
 
     public static boolean recomputeComputedValues(AprDocument document) {
-        return recomputeComputedValues(document, null, null);
+        return recomputeComputedValues(document, null, null, null);
     }
     public static boolean recomputeComputedValues(AprDocument document, String today, Map<String,String> ctx) {
+        return recomputeComputedValues(document, today, ctx, null);
+    }
+    public static boolean recomputeComputedValues(AprDocument document, String today, Map<String,String> ctx, String now) {
         boolean changed = false;
         for (int pass = 0; pass < 5; pass++) {
-            Context context = new Context(document, today, ctx); boolean changedThisPass = false;
+            Context context = new Context(document, today, ctx, now); boolean changedThisPass = false;
             for (Map<String,Object> prompt : prompts(document.sections())) {
                 Map<String,Object> hints = map(prompt.get("hints"));
                 String expression = AprDocument.string(hints.get("exprValue"));
@@ -52,10 +55,8 @@ public final class AprExpressions {
     public static final class Context {
         private final Map<String,Map<String,Object>> prompts = new LinkedHashMap<>();
         private final Map<String,Object> bindings = new LinkedHashMap<>();
-        private final String today;
-        Context(AprDocument document) { this(document, null, null); }
-        Context(AprDocument document, String instant, Map<String,String> context) {
-            this.today = instant;
+        Context(AprDocument document) { this(document, null, null, null); }
+        Context(AprDocument document, String today, Map<String,String> context, String now) {
             for (Map<String,Object> prompt : prompts(document.sections())) {
                 String id = AprDocument.string(prompt.get("id")); if (blank(id) || prompts.containsKey(id)) continue;
                 prompts.put(id, prompt); Object value = bind(prompt);
@@ -65,10 +66,12 @@ public final class AprExpressions {
             // clock, so the same form with the same inputs evaluates the same way
             // twice. Instant.now() made every expression using them
             // non-deterministic and unlike the other implementations.
-            if (instant != null && !instant.isBlank()) {
-                try { bindings.put("_now", Instant.parse(instant)); } catch (RuntimeException ignored) { }
-                bindings.put("_today", instant.length() >= 10 ? instant.substring(0, 10) : instant);
+            // _now is the instant the caller supplied, a separate input from _today.
+            if (now != null && !now.isBlank()) {
+                try { bindings.put("_now", Instant.parse(now)); } catch (RuntimeException ignored) { }
             }
+            if (today != null && !today.isBlank())
+                bindings.put("_today", today.length() >= 10 ? today.substring(0, 10) : today);
             bindings.put("ctx", context == null ? Map.of() : Map.copyOf(context));
         }
         /** Evaluates and stringifies. Use {@link #evaluateRaw} where the CEL type itself matters. */

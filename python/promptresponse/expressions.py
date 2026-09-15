@@ -55,7 +55,9 @@ def _bind(response: str, expected: Optional[str]):
                 source = "1970-01-01T" + source + "+00:00"
             elif source.endswith("Z"):
                 source = source[:-1] + "+00:00"
-            return datetime.fromisoformat(source).astimezone(timezone.utc)
+            # A CEL timestamp, so the standard library's timestamp functions and
+            # string() conversion apply; a plain datetime only compares.
+            return celtypes.TimestampType(datetime.fromisoformat(source).astimezone(timezone.utc))
         except ValueError:
             return None
     if kind == "multichoice":
@@ -76,7 +78,8 @@ def _stored(value) -> str:
 
 
 class ExpressionContext:
-    def __init__(self, document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None):
+    def __init__(self, document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None,
+                 now: Optional[str] = None):
         self.document = document
         self.prompts = {prompt.id: prompt for prompt in document.all_prompts() if prompt.id}
         self.bindings = {}
@@ -97,11 +100,14 @@ class ExpressionContext:
         # "<class 'celpy.celtypes.StringType'>" into a response. Leaving the name
         # undeclared makes the reference a compile error, which degrades to the
         # stored response as the specification requires.
-        if today:
-            instant = _bind(today, "datetime")
+        # _now is the instant the caller supplied, not a date the caller supplied at
+        # midnight: the two names are separate inputs and may disagree.
+        if now:
+            instant = _bind(now, "datetime")
             if instant is not None:
                 self.types["_now"] = celtypes.TimestampType
                 self.bindings["_now"] = instant
+        if today:
             # _today is the date as YYYY-MM-DD, a string rather than a timestamp.
             self.types["_today"] = celtypes.StringType
             self.bindings["_today"] = today[:10]
@@ -132,8 +138,9 @@ class ExpressionContext:
             return None
 
 
-def build_expression_context(document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None) -> ExpressionContext:
-    return ExpressionContext(document, today, ctx)
+def build_expression_context(document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None,
+                             now: Optional[str] = None) -> ExpressionContext:
+    return ExpressionContext(document, today, ctx, now)
 
 
 def compute_value(prompt: Prompt, context: ExpressionContext) -> Optional[str]:
@@ -162,10 +169,11 @@ def validation_message(prompt: Prompt, context: ExpressionContext) -> Optional[s
     return message or None
 
 
-def recompute_computed_values(document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None) -> bool:
+def recompute_computed_values(document: AprDocument, today: Optional[str] = None, ctx: Optional[Mapping[str, str]] = None,
+                              now: Optional[str] = None) -> bool:
     changed = False
     for _ in range(5):
-        context = build_expression_context(document, today, ctx)
+        context = build_expression_context(document, today, ctx, now)
         changed_this_pass = False
         for prompt in document.all_prompts():
             if not prompt.hints.expr_value:

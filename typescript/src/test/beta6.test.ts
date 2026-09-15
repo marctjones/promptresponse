@@ -291,16 +291,21 @@ test("the expression activation binds every name the specification defines", () 
     sections: [{ id: "s", title: "S", prompts: [
       { id: "echo_id", label: "E", response: "", hints: { exprValue: "_id" } },
       { id: "echo_today", label: "T", response: "", hints: { exprValue: "_today" } },
+      { id: "echo_now", label: "N", response: "", hints: { exprValue: "string(_now)" } },
+      { id: "now_fraction", label: "F", response: "", hints: { exprValue: "string(_now + duration('0.5s'))" } },
       { id: "echo_ctx", label: "C", response: "", hints: { exprValue: "ctx['team']" } },
       { id: "echo_this", label: "S", response: "seed", hints: { exprValue: "_this" } },
     ] }],
   }), "jsonc");
-  const context = buildExpressionContext(document, "2026-09-01T12:00:00Z", { team: "records" });
+  const context = buildExpressionContext(document, "2026-09-01", { team: "records" }, "2025-03-04T12:00:00Z");
   const value = (id: string) =>
     computeValue(document.sections[0].prompts.find(p => p.id === id)!, context);
 
   assert.equal(value("echo_id"), "echo_id");
   assert.equal(value("echo_today"), "2026-09-01");
+  // _now is the supplied instant, not _today at midnight, and string() gives RFC 3339.
+  assert.equal(value("echo_now"), "2025-03-04T12:00:00Z");
+  assert.equal(value("now_fraction"), "2025-03-04T12:00:00.5Z");
   assert.equal(value("echo_ctx"), "records");
   assert.equal(value("echo_this"), "seed");
 });
