@@ -151,6 +151,8 @@ def type_ok(value, declared: str) -> bool:
     if declared.startswith("array"):
         if not isinstance(value, list):
             return False
+        if "of string or object" in declared:
+            return all(isinstance(v, (str, dict)) for v in value)
         if "of string" in declared:
             return all(isinstance(v, str) for v in value)
         return True
@@ -362,6 +364,37 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
                         f"unknown member {name!r} carries no reverse-DNS prefix; "
                         f"unprefixed names are reserved to the specification",
                         "APR-MODEL-029", "APR-MODEL-031")
+
+
+def check_submission_entry(report: Report, entry, path: str) -> str | None:
+    """Checks one submissionUrls entry and returns the URL it names, if it names one.
+
+    A string is the shorthand for a `put` entry with that URL. An object states its
+    `kind` and `url`, and a `post` carries the policy `fields` it is sent with. An
+    entry that is neither was already reported by the metadata member table.
+    """
+    if isinstance(entry, str):
+        return entry
+    if not isinstance(entry, dict):
+        return None
+    for name, rule in (("kind", "APR-MODEL-128"), ("url", "APR-MODEL-129")):
+        if name not in entry:
+            report.error("REQUIRED_FIELD", f"{path}/{name}",
+                         f"a submission entry object carries {name}", rule)
+        elif not isinstance(entry[name], str):
+            report.error("WRONG_TYPE", f"{path}/{name}",
+                         f"a submission entry's {name} is a string", rule)
+    for name, kind, spelled, rule in (("fields", dict, "an object", "APR-MODEL-130"),
+                                      ("expires", str, "a string", "APR-MODEL-131"),
+                                      ("refresh", str, "a string", "APR-MODEL-132")):
+        if name in entry and not isinstance(entry[name], kind):
+            report.error("WRONG_TYPE", f"{path}/{name}",
+                         f"a submission entry's {name} is {spelled}", rule)
+    if entry.get("kind") == "post" and "fields" not in entry:
+        report.error("REQUIRED_FIELD", f"{path}/fields",
+                     "a post entry carries the policy fields it is sent with", "APR-MODEL-135")
+    url = entry.get("url")
+    return url if isinstance(url, str) else None
 
 
 ID_CHARACTERS = re.compile(r"[A-Za-z0-9_.-]*")
@@ -703,16 +736,22 @@ def validate_form(report: Report, form, members) -> None:
         if form.get("documentType") == "filledForm" and not metadata.get("templateId"):
             report.error("REQUIRED_FIELD", "/metadata/templateId",
                          "a filled form must name the template it answers", "APR-MODEL-008")
-        for index, url in enumerate(metadata.get("submissionUrls") or []):
-            point = first_excluded(url) if isinstance(url, str) else None
+        entries = metadata.get("submissionUrls")
+        for index, entry in enumerate(entries if isinstance(entries, list) else []):
+            where = f"/metadata/submissionUrls/{index}"
+            url = check_submission_entry(report, entry, where)
+            if url is None:
+                continue
+            if isinstance(entry, dict):
+                where += "/url"
+            point = first_excluded(url)
             if point is not None:
-                report.warn("SUBMISSION_URL_FORBIDDEN_CODE_POINT", f"/metadata/submissionUrls/{index}",
+                report.warn("SUBMISSION_URL_FORBIDDEN_CODE_POINT", where,
                             f"the entry carries U+{point:04X}, which the human-facing text "
                             f"floor excludes; it can render as one address while being another",
                             "APR-TEXT-007")
-            if isinstance(url, str) and url.split(":", 1)[0].lower() not in {"https", "mailto"}:
-                report.warn("SUBMISSION_URL_UNSUPPORTED",
-                            f"/metadata/submissionUrls/{index}",
+            if url.split(":", 1)[0].lower() not in {"https", "mailto"}:
+                report.warn("SUBMISSION_URL_UNSUPPORTED", where,
                             "only https and mailto targets are defined", "APR-MODEL-091")
         for index, reference in enumerate(metadata.get("regarding") or []):
             if not (isinstance(reference, str) and aprlib.DIGEST_PATTERN.match(reference)):

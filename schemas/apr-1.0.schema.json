@@ -68,6 +68,50 @@
     }
   ],
   "$defs": {
+    "submissionEntry": {
+      "type": "object",
+      "required": [
+        "kind",
+        "url"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "put or post."
+        },
+        "url": {
+          "type": "string",
+          "description": "The target the request is sent to, used verbatim, query string included."
+        },
+        "fields": {
+          "type": "object",
+          "description": "The policy fields a post target requires, each sent verbatim."
+        },
+        "expires": {
+          "type": "string",
+          "description": "An RFC 3339 instant after which the grant is spent."
+        },
+        "refresh": {
+          "type": "string",
+          "description": "A URL that issues a replacement entry. Never fetched without an explicit user action."
+        }
+      },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "post"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "fields"
+        ]
+      }
+    },
     "nonBlankString": {
       "type": "string",
       "pattern": "\\S",
@@ -116,7 +160,15 @@
         "submissionUrls": {
           "type": "array",
           "items": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Shorthand for a put entry with this url."
+              },
+              {
+                "$ref": "#/$defs/submissionEntry"
+              }
+            ]
           },
           "description": "Ordered explicit delivery choices for a completed form."
         },
