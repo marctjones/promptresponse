@@ -128,6 +128,17 @@ DRIVERS = {
 }
 
 
+def real_command(name: str) -> str:
+    """The command CI scores the undamaged driver with, run from the repository."""
+    return {
+        "python": f"{ROOT / 'python' / '.venv' / 'bin' / 'python'} {ROOT / 'python' / 'conformance_driver.py'}",
+        "typescript": f"node {ROOT / 'typescript' / 'conformance-driver.mjs'}",
+        "java": str(ROOT / "java" / "run-conformance-driver.sh"),
+        "dotnet-library": f"dotnet run --project {ROOT / 'tools' / 'PromptResponse.ConformanceDriver'} --no-build -v q",
+        "dotnet-cli": f"dotnet run --project {ROOT / 'src' / 'PromptResponse.Cli'} --no-build -v q -- conformance",
+    }[name]
+
+
 def score(command: str) -> dict | None:
     completed = subprocess.run([sys.executable, str(HARNESS), "--driver", command, "--json"],
                                capture_output=True, text=True, cwd=ROOT)
@@ -159,9 +170,15 @@ def main() -> int:
                     problems.append(f"{name}: a copy did not run under the harness "
                                     f"(control {'ran' if control else 'failed'}, mutant {'ran' if mutant else 'failed'})")
                     continue
-                if control["fail"] or control.get("discrepancy"):
-                    problems.append(f"{name}: the undamaged copy fails {control['fail']} cases, so the "
-                                    "mutant's failures cannot be told from the copying")
+                # The control must score exactly as the real driver does. A driver may warn
+                # about more than a case names (APR-VAL-002), so a discrepancy is not itself
+                # damage; a count that differs from the real driver's is.
+                real = score(real_command(name)) or {}
+                if control["fail"] or control.get("discrepancy", 0) != real.get("discrepancy", 0):
+                    problems.append(f"{name}: the undamaged copy fails {control['fail']} cases with "
+                                    f"{control.get('discrepancy', 0)} discrepancies where the real driver "
+                                    f"reports {real.get('discrepancy', 0)}, so the mutant's failures cannot "
+                                    "be told from the copying")
                 if mutant["fail"] <= control["fail"]:
                     problems.append(f"{name}: a driver that ignores its validator still fails only "
                                     f"{mutant['fail']} cases. Nothing scores what this driver's validation reports.")
