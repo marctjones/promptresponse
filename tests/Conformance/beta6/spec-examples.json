@@ -1285,10 +1285,10 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Inta\\u200bke\",\n    \"language\": \"ar\"\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
       "rules": [
-        "APR-MODEL-085"
+        "APR-VAL-032"
       ],
       "satisfies": [
-        "APR-MODEL-085"
+        "APR-VAL-032"
       ],
       "warns": [
         "FORBIDDEN_CODE_POINT"
