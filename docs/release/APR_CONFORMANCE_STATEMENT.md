@@ -1,4 +1,4 @@
-# APR 1.0-beta.6 Implementation Conformance Statement
+# APR 1.0-beta.7 Implementation Conformance Statement
 
 Generated from [the OSCAL rule catalog](apr-oscal-catalog.json) by
 `scripts/build-conformance-statement.py`. Do not edit; regenerate it.
@@ -96,7 +96,7 @@ class of product.
 | [APR-REP-027](../APR_SPECIFICATION.md#yaml-resolution) | MUST | Plain `null`, `Null`, `NULL`, `~`, or empty — null — **MUST** | |
 | [APR-REP-028](../APR_SPECIFICATION.md#yaml-resolution) | MUST | Plain `true`, `True`, `TRUE`, `false`, `False`, `FALSE` — a boolean — **MUST** | |
 | [APR-REP-029](../APR_SPECIFICATION.md#yaml-resolution) | MUST | A plain scalar matching JSON's `number` production (RFC 8259 §6) — a number — **MUST** | |
-| [APR-SEC-002](../APR_SPECIFICATION.md#version-compatibility) | MUST | A reader **MUST** reject a record whose `aprVersion` is not exactly `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. | |
+| [APR-SEC-002](../APR_SPECIFICATION.md#version-compatibility) | MUST | A reader **MUST** reject a record whose `aprVersion` is neither `"1.0-beta.7"` nor `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. | |
 | [APR-SEC-005](../APR_SPECIFICATION.md#media-types) | MUST | A reader **MUST** determine whether a document is a template or a filled form from its `documentType` member alone. | |
 | [APR-SEC-007](../APR_SPECIFICATION.md#media-types) | MUST NOT | A reader **MUST NOT** reject a document because its extension disagrees with its content. | |
 | [APR-SEC-010](../APR_SPECIFICATION.md#security) | MUST NOT | A reader **MUST NOT** fetch anything when it reads a document. | |
@@ -156,7 +156,7 @@ class of product.
 | [APR-VAL-007](../APR_SPECIFICATION.md#validation) | MUST NOT | A validator **MUST NOT** report a document as invalid for any reason the [Errors](../APR_SPECIFICATION.md#structural-validation) table does not list. | |
 | [APR-VAL-011](../APR_SPECIFICATION.md#structural-validation) | MUST | `NULL_DOCUMENT` — No document. — **MUST** | |
 | [APR-VAL-012](../APR_SPECIFICATION.md#structural-validation) | MUST | `REQUIRED_FIELD` — `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. — **MUST** | |
-| [APR-VAL-013](../APR_SPECIFICATION.md#structural-validation) | MUST | `UNSUPPORTED_VERSION` — `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](../APR_SPECIFICATION.md#version-compatibility)). — **MUST** | |
+| [APR-VAL-013](../APR_SPECIFICATION.md#structural-validation) | MUST | `UNSUPPORTED_VERSION` — `aprVersion` is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](../APR_SPECIFICATION.md#version-compatibility)). — **MUST** | |
 | [APR-VAL-014](../APR_SPECIFICATION.md#structural-validation) | MUST | `DUPLICATE_ID` — A section or prompt id repeats within its namespace. — **MUST** | |
 | [APR-VAL-015](../APR_SPECIFICATION.md#structural-validation) | MUST | `EMPTY_SECTION` — A section has no prompts and no child sections. — **MUST** | |
 | [APR-VAL-016](../APR_SPECIFICATION.md#structural-validation) | MUST | `EMPTY_TABLE` — A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](../APR_SPECIFICATION.md#table-rows)). — **MUST** | |
@@ -399,7 +399,7 @@ class of product.
 | Rule | Level | Requirement | Supported |
 | --- | --- | --- | --- |
 | [APR-ATTEST-001](../APR_SPECIFICATION.md#attestation-catalogue) | REQUIRED | `recordType` — string — **REQUIRED** — Exactly `attestation`. | |
-| [APR-ATTEST-002](../APR_SPECIFICATION.md#attestation-catalogue) | REQUIRED | `aprVersion` — string — **REQUIRED** — Exactly `1.0-beta.6`. | |
+| [APR-ATTEST-002](../APR_SPECIFICATION.md#attestation-catalogue) | REQUIRED | `aprVersion` — string — **REQUIRED** — `1.0-beta.7`, or `1.0-beta.6` ([Version compatibility](../APR_SPECIFICATION.md#version-compatibility)). | |
 | [APR-ATTEST-003](../APR_SPECIFICATION.md#attestation-catalogue) | REQUIRED | `subject.canonicalization` — string — **REQUIRED** — Exactly `jcs-sha256`. | |
 | [APR-ATTEST-004](../APR_SPECIFICATION.md#attestation-catalogue) | MAY | An attestation record **MAY** carry extension members. | |
 | [APR-ATTEST-005](../APR_SPECIFICATION.md#attestation-scope) | MUST | The manifest of a `fields` attestation **MUST** include each selected prompt, its response and hints, and every ancestor section's id, title, description, kind, and role. | |

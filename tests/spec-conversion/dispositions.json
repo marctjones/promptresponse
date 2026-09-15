@@ -18,7 +18,11 @@
       "text": "**Specification document version:** 1.0.0-beta.6-draft **Describes format version:** `1.0-beta.6` **Status:** BETA — the format is not frozen and breaking changes are intentional **Published:** 2026-09-01 **Editor:** Marc Jones **Normative schema:** `schemas/apr-1.0-beta.6.schema.json` **Conformance corpus:** `tests/Conformance/beta6/` **Repository:** <https://github.com/marctjones/promptresponse>",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "apr-specification/sentence/b2a145d5ee"
+      ],
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "scope/heading/ce2a142bc9": {
       "anchor": "scope",
@@ -63,7 +67,11 @@
       "text": "**This document is the normative definition of APR `1.0-beta.6`.**",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "scope/sentence/bcd531ccf9"
+      ],
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "scope/sentence/d836ea543c": {
       "anchor": "scope",
@@ -485,7 +493,11 @@
       "text": "| **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.6` |",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "version-numbers/table-row/a91480f1a6"
+      ],
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "version-numbers/table-row/8ce4d7ddf3": {
       "anchor": "version-numbers",
@@ -494,7 +506,11 @@
       "text": "| **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "version-numbers/table-row/ab91aa7f14"
+      ],
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "version-numbers/table-row/a5695bebb9": {
       "anchor": "version-numbers",
@@ -547,9 +563,9 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "version-compatibility/sentence/3d036b1091"
+        "version-compatibility/sentence/16a1c91ca8"
       ],
-      "note": "APR-SEC-002 stated once, with a reader as its subject",
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)",
       "issue": 473
     },
     "version-compatibility/sentence/6e807aeeb2": {
@@ -560,15 +576,19 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "version-compatibility/sentence/3d036b1091",
+        "version-compatibility/sentence/16a1c91ca8",
         "version-compatibility/sentence/32b81b37b7",
         "version-compatibility/sentence/503f848985",
         "version-compatibility/example/440616afc6",
         "version-compatibility/sentence/a3df42c1fe",
         "version-compatibility/sentence/107c011d8e",
-        "version-compatibility/example/1733a95cec"
+        "version-compatibility/example/1733a95cec",
+        "version-compatibility/sentence/358befdbbb",
+        "version-compatibility/sentence/1431e56e15",
+        "version-compatibility/sentence/86f2bcedfd",
+        "version-compatibility/sentence/befb65a676"
       ],
-      "note": "the rejection clause joins APR-SEC-002, shown by a satisfying and a violating example",
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)",
       "issue": 473
     },
     "version-compatibility/sentence/bd8c5aae62": {
@@ -1337,10 +1357,10 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "declaring-conformance/sentence/95ad26cced",
+        "declaring-conformance/sentence/806d2608b5",
         "declaring-conformance/sentence/1b7e01cdf4"
       ],
-      "note": "the example claim, and the Implementation Conformance Statement a claim is checked against",
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)",
       "issue": 475
     },
     "declaring-conformance/sentence/ead2e19560": {
@@ -7098,9 +7118,10 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "structural-validation/table-row/dde6c20db1"
+        "structural-validation/table-row/303e4cc40a"
       ],
-      "issue": 480
+      "issue": 480,
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "structural-validation/table-row/33150c855d": {
       "anchor": "structural-validation",
@@ -9976,9 +9997,9 @@
       "status": "applied",
       "issue": 484,
       "replacedBy": [
-        "attestation-catalogue/table-row/48ef116495"
+        "attestation-catalogue/table-row/cf2912c19e"
       ],
-      "note": "APR-ATTEST-002"
+      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
     },
     "attestation-catalogue/table-row/bdb2311258": {
       "anchor": "attestation-catalogue",
