@@ -53,6 +53,7 @@ surfaces first.
 - [ ] `python3 scripts/validate-apr.py --rule-coverage` — which catalog rules the validator enforces, recorded
 - [ ] `python3 scripts/check-rule-evidence.py` — per-rule evidence holds and has not regressed
 - [ ] `python3 scripts/check-rule-evidence.py --by-section` — per-section coverage recorded with the review
+- [ ] `python3 scripts/check-example-coverage.py --gate` — every rule has an example, a covering test, or an open issue tracking it
 - [ ] Every implementation suite passes: .NET, Python, TypeScript, Java, and the web demo
 - [ ] The executable examples pass in **all four** implementations, not only the reference one
 
@@ -70,7 +71,7 @@ surfaces first.
 - [ ] Every new rule is either gated by an executable example or a test, or recorded in the registry as `partial` with a named gap
 - [ ] No rule is claimed to be gated by a test that does not exercise it
 - [ ] Every new example names the anchor it demonstrates and, when it expects rejection, the diagnostic
-- [ ] Every rule `scripts/check-example-coverage.py` reports as uncovered is one the change did not add or alter
+- [ ] No rule the change added or altered is newly `tracked` in `tests/spec-conversion/example-exceptions.json`, and every `tracked` entry still names an open issue
 
 ## 5. What the specification says about itself
 
