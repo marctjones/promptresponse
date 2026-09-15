@@ -6245,9 +6245,12 @@
         "canonical-values/sentence/7f85d42e14",
         "canonical-values/sentence/dd6d0b76fd",
         "canonical-values/sentence/f16e7dad5d",
-        "canonical-values/sentence/fed0e4573a"
+        "canonical-values/sentence/fed0e4573a",
+        "canonical-values/example/37ba22a3cd",
+        "canonical-values/sentence/2fe9371ec9",
+        "canonical-values/sentence/b6baf1f37b"
       ],
-      "note": "examples of the forms accepted on read and of an empty response as no selection (APR-MODEL-023, APR-MODEL-120)"
+      "note": "examples of the forms accepted on read and of an empty response as no selection (APR-MODEL-023, APR-MODEL-120) an example of the canonical write forms a writer chooses (APR-MODEL-119)"
     },
     "canonical-values/sentence/4eafe393e1": {
       "anchor": "canonical-values",
@@ -6507,7 +6510,15 @@
       "text": "5.10 Roles — who each part is for",
       "disposition": "keep",
       "status": "applied",
-      "issue": 478
+      "issue": 478,
+      "replacedBy": [
+        "roles/heading/efe35aaf43",
+        "roles/example/4c23b5365e",
+        "roles/sentence/5baeaaafa0",
+        "roles/sentence/d7dd5800df",
+        "roles/sentence/ffc08c96d7"
+      ],
+      "note": "an example that a role no entry declares is an ordinary field (APR-MODEL-025)"
     },
     "roles/sentence/9057882298": {
       "anchor": "roles",
@@ -7115,7 +7126,15 @@
       "text": "7. Validation",
       "disposition": "keep",
       "status": "applied",
-      "issue": 480
+      "issue": 480,
+      "replacedBy": [
+        "validation/heading/229d030b59",
+        "validation/example/e0a9998b3c",
+        "validation/sentence/06953b5ca6",
+        "validation/sentence/5f7066f0cd",
+        "validation/sentence/d7c9c1878e"
+      ],
+      "note": "an example that nothing outside the errors table is a reason to refuse (APR-VAL-007)"
     },
     "validation/sentence/23cc986b65": {
       "anchor": "validation",
@@ -8534,7 +8553,18 @@
       "text": "9.3 Equivalence",
       "disposition": "keep",
       "status": "applied",
-      "issue": 482
+      "issue": 482,
+      "replacedBy": [
+        "stream-equivalence/heading/e99c0f2ced",
+        "stream-equivalence/example/88a4faedd9",
+        "stream-equivalence/example/df38bb768b",
+        "stream-equivalence/sentence/4554df5527",
+        "stream-equivalence/sentence/7a4b347aac",
+        "stream-equivalence/sentence/a32e2f6161",
+        "stream-equivalence/sentence/c987fef289",
+        "stream-equivalence/sentence/e2aab5f505"
+      ],
+      "note": "the same two records in both representations (APR-STREAM-002)"
     },
     "stream-equivalence/sentence/89041055a6": {
       "anchor": "stream-equivalence",
@@ -9086,9 +9116,14 @@
         "expr-activation/sentence/b04e2b9a0c",
         "expr-activation/example/324adf108b",
         "expr-activation/sentence/fa6c07e42e",
-        "expr-activation/sentence/cb346ea291"
+        "expr-activation/sentence/cb346ea291",
+        "expr-activation/example/c7995d2e1d",
+        "expr-activation/sentence/40a4a2aef8",
+        "expr-activation/sentence/94009b0401",
+        "expr-activation/sentence/f7d3f244da"
       ],
-      "issue": 483
+      "issue": 483,
+      "note": "an example that the activation is all an expression can reach (APR-EXPR-002, APR-EXPR-015)"
     },
     "expr-activation/sentence/758514db6f": {
       "anchor": "expr-activation",
