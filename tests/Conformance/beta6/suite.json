@@ -11,6 +11,9 @@
   "roundTrip": {
     "$comment": "A case marked roundTrip asks the implementation to write the document back out and return it as `written`. The result must carry the same semantic model, and every pointer in `preserves` must still resolve to the same value. Preservation is what makes additive change safe, and a read-only suite cannot test it."
   },
+  "verify": {
+    "$comment": "A case carrying verify states what verifying its attestations must report, one entry per attestation record in the order the records occur: its state, whether it is witnessed, and for each proof whether it verifies and whether its certificate is trusted. A document is valid whatever its attestations say, so acceptance cannot tell a verifier resolving by digest from one resolving by position. Only what an implementation reports can."
+  },
   "cases": [
     {
       "id": "spec:attestation-before-subject",
@@ -5584,30 +5587,109 @@
       "rule": "changed-forms",
       "anchors": [
         "changed-forms",
-        "streams"
+        "streams",
+        "verification"
       ],
       "rules": [
-        "APR-ATTEST-009"
+        "APR-ATTEST-009",
+        "APR-ATTEST-017",
+        "APR-ATTEST-048",
+        "APR-ATTEST-051"
       ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "profile": "core+streams",
-      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Grace\" }] }]\n}\n"
+      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Grace\" }] }]\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unresolved",
+          "witnessed": false
+        }
+      ]
+    },
+    {
+      "id": "corpus:streams/cms-proof.apr.jsonc",
+      "source": "corpus",
+      "rule": "proofs",
+      "anchors": [
+        "proofs",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-010",
+        "APR-ATTEST-035",
+        "APR-ATTEST-036",
+        "APR-ATTEST-037",
+        "APR-ATTEST-046"
+      ],
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "profile": "core+streams",
+      "document": "\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"cms/ecdsa-p256-sha256\",\n      \"value\": \"MIIDAQYJKoZIhvcNAQcCoIIC8jCCAu4CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggGeMIIBmjCCAUCgAwIBAgIIQVBSLVRFU1QwCgYIKoZIzj0EAwIwQjEfMB0GA1UEAwwWQVBSIGNvcnB1cyB0ZXN0IHNpZ25lcjEfMB0GA1UECgwWQVBSIGNvbmZvcm1hbmNlIGNvcnB1czAeFw0yNjAxMDEwMDAwMDBaFw0zNjAxMDEwMDAwMDBaMEIxHzAdBgNVBAMMFkFQUiBjb3JwdXMgdGVzdCBzaWduZXIxHzAdBgNVBAoMFkFQUiBjb25mb3JtYW5jZSBjb3JwdXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATpAFTL4qZJf29fA1/UE7KI1BzdMllbNCz1RBbmCi536wN0+LOgFutnlJP12iZIxYLITVf9/46ikS9qx80K94awoyAwHjAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH/BAIwADAKBggqhkjOPQQDAgNIADBFAiBNbO8YBXBK0k22lJGGE1gsq2t/7P3LaZ+XLijAXvvvVAIhAKDFuDXVmb2SQ5tmS42lJ6UOtmjc+zabrvP/fcFCHDzGMYIBJzCCASMCAQEwTjBCMR8wHQYDVQQDDBZBUFIgY29ycHVzIHRlc3Qgc2lnbmVyMR8wHQYDVQQKDBZBUFIgY29uZm9ybWFuY2UgY29ycHVzAghBUFItVEVTVDANBglghkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDEwMjAwMDAwMFowLwYJKoZIhvcNAQkEMSIEIFYOcAlvLytjj6C1+28/elZW6EskGOqicnm3u2ietP5wMAoGCCqGSM49BAMCBEgwRgIhAMhn4v82uTurB9dflAKJq0MMV/TQO8s9kBbJORYjbz60AiEA48z1usBDmt9HQDlsLWIIBlCd7TX4kY11dJet94Z8o3Q=\"\n    }\n  ],\n  \"witnesses\": []\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "valid",
+          "witnessed": false,
+          "proofs": [
+            {
+              "type": "cms/ecdsa-p256-sha256",
+              "verifies": true,
+              "trusted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corpus:streams/fields-changed-form.apr.jsonc",
+      "source": "corpus",
+      "rule": "attestation-scope",
+      "anchors": [
+        "attestation-scope",
+        "changed-forms",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-006",
+        "APR-ATTEST-015",
+        "APR-ATTEST-048"
+      ],
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "profile": "core+streams",
+      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"fields\",\n    \"fields\": [\n      \"name\"\n    ]\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit, revised\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unresolved",
+          "witnessed": false
+        }
+      ]
     },
     {
       "id": "corpus:streams/out-of-order.apr.jsonc",
       "source": "corpus",
       "rule": "streams",
       "anchors": [
-        "streams"
+        "streams",
+        "verification"
       ],
       "rules": [
-        "APR-STREAM-005"
+        "APR-STREAM-005",
+        "APR-ATTEST-017"
       ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "profile": "core+streams",
-      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
+      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable"
+        }
+      ]
     },
     {
       "id": "corpus:streams/out-of-order.apr.yaml",
@@ -5615,15 +5697,52 @@
       "rule": "streams",
       "anchors": [
         "streams",
-        "apr-yaml"
+        "apr-yaml",
+        "verification"
       ],
       "rules": [
-        "APR-STREAM-005"
+        "APR-STREAM-005",
+        "APR-ATTEST-017"
       ],
       "representation": "yaml-stream",
       "expect": "valid",
       "profile": "core+streams",
-      "document": "---\nrecordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries: []\nproofs: []\nwitnesses: []\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n"
+      "document": "---\nrecordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries: []\nproofs: []\nwitnesses: []\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable"
+        }
+      ]
+    },
+    {
+      "id": "corpus:streams/unsupported-proof.apr.jsonc",
+      "source": "corpus",
+      "rule": "proofs",
+      "anchors": [
+        "proofs",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-008",
+        "APR-ATTEST-049"
+      ],
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "profile": "core+streams",
+      "document": "\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "proofs": [
+            {
+              "type": "example/opaque-v1",
+              "verifies": false
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "corpus:streams/witness-chain.apr.jsonc",
@@ -5633,11 +5752,31 @@
         "streams",
         "verification"
       ],
-      "rules": [],
+      "rules": [
+        "APR-ATTEST-018",
+        "APR-ATTEST-050"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "profile": "core+streams",
-      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:0afc5c7ae1ebd165c9cbbf6da3274378c41bc9e30e43666ae1291ba2fc9dd85f\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
+      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:0afc5c7ae1ebd165c9cbbf6da3274378c41bc9e30e43666ae1291ba2fc9dd85f\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "witnessed": false
+        },
+        {
+          "record": 1,
+          "state": "unverifiable",
+          "witnessed": true
+        },
+        {
+          "record": 2,
+          "state": "unverifiable",
+          "witnessed": true
+        }
+      ]
     },
     {
       "id": "corpus:streams/witnessed.apr.jsonc",
@@ -5647,11 +5786,27 @@
         "streams",
         "verification"
       ],
-      "rules": [],
+      "rules": [
+        "APR-ATTEST-018",
+        "APR-ATTEST-049",
+        "APR-ATTEST-050"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "profile": "core+streams",
-      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
+      "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n",
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "witnessed": false
+        },
+        {
+          "record": 1,
+          "state": "unverifiable",
+          "witnessed": true
+        }
+      ]
     }
   ]
 }

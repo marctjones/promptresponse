@@ -1,0 +1,46 @@
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "fields",
+    "fields": [
+      "name"
+    ]
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      },
+      {
+        "path": "/sections/0/id",
+        "digest": "sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e"
+      },
+      {
+        "path": "/sections/0/prompts/0",
+        "digest": "sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a"
+      },
+      {
+        "path": "/sections/0/prompts/0/response",
+        "digest": "sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a"
+      },
+      {
+        "path": "/sections/0/title",
+        "digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+{
+  "aprVersion": "1.0-beta.6", "documentType": "template",
+  "metadata": { "title": "Beta 6 permit, revised" },
+  "sections": [{ "id": "applicant", "title": "Applicant", "prompts": [{ "id": "name", "label": "Name", "response": "Ada" }] }]
+}

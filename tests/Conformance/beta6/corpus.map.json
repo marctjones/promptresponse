@@ -141,6 +141,51 @@
       "witnesses": [
         "streams/witnessed.apr.jsonc[0]"
       ]
+    },
+    "streams/cms-proof.apr.jsonc[1]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": "*",
+      "proofs": [
+        {
+          "type": "cms/ecdsa-p256-sha256"
+        }
+      ],
+      "witnesses": []
+    },
+    "streams/unsupported-proof.apr.jsonc[1]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": "*",
+      "proofs": [
+        {
+          "type": "example/opaque-v1",
+          "value": "b3BhcXVl"
+        }
+      ],
+      "witnesses": []
+    },
+    "streams/fields-changed-form.apr.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "fields",
+        "fields": [
+          "name"
+        ]
+      },
+      "entries": [
+        "",
+        "/sections/0/id",
+        "/sections/0/prompts/0",
+        "/sections/0/prompts/0/response",
+        "/sections/0/title"
+      ],
+      "proofs": [],
+      "witnesses": []
     }
   },
   "digestVectors": {
@@ -241,6 +286,23 @@
       "anchors": [
         "streams",
         "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-018",
+        "APR-ATTEST-049",
+        "APR-ATTEST-050"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "witnessed": false
+        },
+        {
+          "record": 1,
+          "state": "unverifiable",
+          "witnessed": true
+        }
       ]
     },
     "streams/witness-chain.apr.jsonc": {
@@ -248,35 +310,83 @@
       "anchors": [
         "streams",
         "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-018",
+        "APR-ATTEST-050"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "witnessed": false
+        },
+        {
+          "record": 1,
+          "state": "unverifiable",
+          "witnessed": true
+        },
+        {
+          "record": 2,
+          "state": "unverifiable",
+          "witnessed": true
+        }
       ]
     },
     "streams/changed-form.apr.jsonc": {
       "expect": "valid",
       "anchors": [
         "changed-forms",
-        "streams"
+        "streams",
+        "verification"
       ],
       "rules": [
-        "APR-ATTEST-009"
+        "APR-ATTEST-009",
+        "APR-ATTEST-017",
+        "APR-ATTEST-048",
+        "APR-ATTEST-051"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unresolved",
+          "witnessed": false
+        }
       ]
     },
     "streams/out-of-order.apr.jsonc": {
       "expect": "valid",
       "anchors": [
-        "streams"
+        "streams",
+        "verification"
       ],
       "rules": [
-        "APR-STREAM-005"
+        "APR-STREAM-005",
+        "APR-ATTEST-017"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable"
+        }
       ]
     },
     "streams/out-of-order.apr.yaml": {
       "expect": "valid",
       "anchors": [
         "streams",
-        "apr-yaml"
+        "apr-yaml",
+        "verification"
       ],
       "rules": [
-        "APR-STREAM-005"
+        "APR-STREAM-005",
+        "APR-ATTEST-017"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable"
+        }
       ]
     },
     "malformed/attestation-missing-subject.apr.jsonc": {
@@ -1450,6 +1560,77 @@
       ],
       "anchors": [],
       "diagnostic": "WRONG_TYPE"
+    },
+    "streams/cms-proof.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "proofs",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-010",
+        "APR-ATTEST-035",
+        "APR-ATTEST-036",
+        "APR-ATTEST-037",
+        "APR-ATTEST-046"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "valid",
+          "witnessed": false,
+          "proofs": [
+            {
+              "type": "cms/ecdsa-p256-sha256",
+              "verifies": true,
+              "trusted": false
+            }
+          ]
+        }
+      ]
+    },
+    "streams/unsupported-proof.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "proofs",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-008",
+        "APR-ATTEST-049"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unverifiable",
+          "proofs": [
+            {
+              "type": "example/opaque-v1",
+              "verifies": false
+            }
+          ]
+        }
+      ]
+    },
+    "streams/fields-changed-form.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "attestation-scope",
+        "changed-forms",
+        "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-006",
+        "APR-ATTEST-015",
+        "APR-ATTEST-048"
+      ],
+      "verify": [
+        {
+          "record": 0,
+          "state": "unresolved",
+          "witnessed": false
+        }
+      ]
     }
   }
 }

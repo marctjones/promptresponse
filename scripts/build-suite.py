@@ -165,6 +165,8 @@ def build() -> dict:
             case["roundTrip"] = True
             if expected.get("preserves"):
                 case["preserves"] = expected["preserves"]
+        if expected.get("verify"):
+            case["verify"] = expected["verify"]
         cases.append(case)
 
     return {
@@ -190,6 +192,15 @@ def build() -> dict:
                         "carry the same semantic model, and every pointer in `preserves` "
                         "must still resolve to the same value. Preservation is what makes "
                         "additive change safe, and a read-only suite cannot test it.",
+        },
+        "verify": {
+            "$comment": "A case carrying verify states what verifying its attestations "
+                        "must report, one entry per attestation record in the order the "
+                        "records occur: its state, whether it is witnessed, and for each "
+                        "proof whether it verifies and whether its certificate is trusted. "
+                        "A document is valid whatever its attestations say, so acceptance "
+                        "cannot tell a verifier resolving by digest from one resolving by "
+                        "position. Only what an implementation reports can.",
         },
         "cases": cases,
     }

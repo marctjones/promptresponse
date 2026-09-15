@@ -15,8 +15,24 @@ Every implementation must parse the two form representations to the same model,
 produce the published document and leaf digests, preserve an independently
 encountered form occurrence, and keep an attestation separate from the form.
 `proofs: []` deliberately has no validity claim: it tests record resolution and
-manifest shape only. CMS proof vectors, a shared fields-scope fixture, and changed
-form vectors remain required before `core+attestations` can be claimed.
+manifest shape only.
+
+A stream fixture's expectation in `corpus.map.json` may carry `verify`: what a
+verifier must report for each attestation in it. A document is valid whatever its
+attestations say, so these are the vectors that separate a verifier resolving a
+subject by digest from one resolving it by position.
+
+`streams/cms-proof.apr.jsonc` holds the permit beside a CMS-signed attestation of
+it. The proof verifies, so the attestation is `valid`, and its self-signed
+certificate is not trusted: the two facts are reported apart.
+
+`streams/unsupported-proof.apr.jsonc` holds the permit beside an attestation whose
+only proof is of a type no verifier recognizes. It is `unverifiable`, never
+`invalid`.
+
+`streams/fields-changed-form.apr.jsonc` holds a fields-scope attestation beside a
+form edited outside the attested field. That form is not the subject, so the
+attestation is `unresolved`, not `invalid`.
 
 `streams/witnessed.apr.jsonc` pins a witness reference to an exact proof-free
 attestation envelope. Its stream order is still non-semantic: the form follows
