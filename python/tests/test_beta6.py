@@ -75,6 +75,16 @@ def test_beta6_reads_tab_line_breaks_and_a_surrogate_pair():
     assert document.metadata.title == "a\t\r\nb \U0001F600"
 
 
+@pytest.mark.parametrize("stated, code", [
+    (None, "REQUIRED_FIELD"), ('""', "REQUIRED_FIELD"), ('"  "', "REQUIRED_FIELD"), ('"2.0"', "UNSUPPORTED_VERSION")])
+def test_beta6_an_absent_or_blank_version_is_a_missing_member(stated, code):
+    source = FORM.replace('"aprVersion":"1.0-beta.6",', "" if stated is None else f'"aprVersion":{stated},')
+    assert source != FORM
+    with pytest.raises(pr.AprParseError) as refused:
+        pr.read_beta6_stream(source, "jsonc")
+    assert refused.value.code == code
+
+
 def test_beta6_shared_malformed_corpus_is_rejected():
     for path in (CORPUS.parent / "malformed").iterdir():
         with pytest.raises(pr.AprParseError):

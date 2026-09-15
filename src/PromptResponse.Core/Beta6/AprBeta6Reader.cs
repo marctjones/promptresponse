@@ -244,7 +244,14 @@ public sealed class AprBeta6Reader
 
     private static void RequireBeta6(JsonElement root)
     {
-        if (!root.TryGetProperty("aprVersion", out var version) || version.GetString() != Beta6)
+        // An absent or blank aprVersion states no version, so it is the missing member it
+        // is rather than a version this reader does not accept.
+        if (!root.TryGetProperty("aprVersion", out var version)
+            || version.ValueKind == JsonValueKind.Null
+            || (version.ValueKind == JsonValueKind.String && string.IsNullOrWhiteSpace(version.GetString())))
+            throw new SerializationException("APR beta.6 records must state `aprVersion`.")
+            { Code = "REQUIRED_FIELD" };
+        if (version.ValueKind != JsonValueKind.String || version.GetString() != Beta6)
             throw new SerializationException("APR beta.6 records must declare `aprVersion` '1.0-beta.6'.")
             { Code = "UNSUPPORTED_VERSION" };
     }

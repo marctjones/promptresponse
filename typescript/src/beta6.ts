@@ -75,6 +75,11 @@ function parseRecord(raw: string): Beta6Record {
   refuseForbiddenCodePoints(value);
   if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR");
   const object = value as JsonObject;
+  // An absent or blank aprVersion states no version, so it is the missing member it is
+  // rather than a version this reader does not accept.
+  if (object.aprVersion === undefined || object.aprVersion === null || (typeof object.aprVersion === "string" && !object.aprVersion.trim())) {
+    throw new AprParseError("an APR beta.6 record must state aprVersion", "REQUIRED_FIELD");
+  }
   if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`, "UNSUPPORTED_VERSION");
   if (object.recordType !== undefined) {
     if (object.recordType !== "attestation") throw new AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE");

@@ -122,6 +122,14 @@ test("beta.6 reads tab, line breaks and a surrogate pair", () => {
   assert.equal(readBeta6Form(source, "jsonc").metadata.title, "a\t\r\nb \u{1F600}");
 });
 
+test("beta.6 an absent or blank aprVersion is a missing member, not an unsupported version", () => {
+  for (const [replacement, code] of [["", "REQUIRED_FIELD"], ['"aprVersion":"",', "REQUIRED_FIELD"], ['"aprVersion":"  ",', "REQUIRED_FIELD"], ['"aprVersion":"2.0",', "UNSUPPORTED_VERSION"]]) {
+    const source = form.replace('"aprVersion":"1.0-beta.6",', replacement);
+    assert.notEqual(source, form);
+    assert.throws(() => readBeta6Stream(source, "jsonc"), (error: unknown) => error instanceof AprParseError && error.code === code, replacement);
+  }
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");

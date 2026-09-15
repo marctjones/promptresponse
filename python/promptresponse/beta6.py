@@ -109,7 +109,12 @@ def _parse_record(raw: str) -> Beta6Record:
     _refuse_forbidden_code_points(value)
     if not isinstance(value, dict):
         raise AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR")
-    if value.get("aprVersion") != VERSION:
+    stated = value.get("aprVersion")
+    if stated is None or (isinstance(stated, str) and not stated.strip()):
+        # An absent or blank aprVersion states no version, so it is the missing member
+        # it is rather than a version this reader does not accept.
+        raise AprParseError("an APR beta.6 record must state aprVersion", "REQUIRED_FIELD")
+    if stated != VERSION:
         raise AprParseError(
             f"APR beta.6 records must declare aprVersion {VERSION}", "UNSUPPORTED_VERSION")
     if "recordType" in value:

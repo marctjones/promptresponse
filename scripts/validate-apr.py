@@ -523,7 +523,7 @@ def validate_attestation(report: Report, record) -> None:
                      "recordType must be exactly 'attestation'", "APR-ATTEST-001",
                      "APR-STREAM-007", "APR-STREAM-008")
     version = record.get("aprVersion")
-    if version is None:
+    if version is None or (isinstance(version, str) and not version.strip()):
         report.error("REQUIRED_FIELD", "/aprVersion", "aprVersion is required",
                      "APR-ATTEST-002")
     elif version != FORMAT_VERSION:
@@ -657,8 +657,13 @@ def validate_form(report: Report, form, members) -> None:
 
     version_member = next((m for m in members["form"] if m.lower().endswith("version")), None)
     version = form.get(version_member) if version_member else None
-    # Absence is REQUIRED_FIELD, which the member-table pass below already reports.
-    if version is not None and version != FORMAT_VERSION:
+    # Absence is REQUIRED_FIELD, which the member-table pass below already reports. A
+    # blank member states no version either, so it is the same missing member rather
+    # than a version this document does not accept.
+    if isinstance(version, str) and not version.strip():
+        report.error("REQUIRED_FIELD", f"/{version_member}",
+                     f"{version_member} is blank, so it states no version", "APR-MODEL-053")
+    elif version is not None and version != FORMAT_VERSION:
         report.error("UNSUPPORTED_VERSION", f"/{version_member}",
                      f"{version!r} is not exactly {FORMAT_VERSION!r}", "APR-SEC-002")
 

@@ -8,6 +8,7 @@ public final class AprConformanceTest {
         expressionBinding();
         beta6();
         forbiddenCodePoints();
+        versionPresence();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -27,6 +28,25 @@ public final class AprConformanceTest {
         expectParseError("{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}", "a member name");
         AprDocument kept = AprBeta6.readForm(prefix + "\\t\\r\\n \\ud83d\\ude00" + suffix, AprBeta6.Representation.JSONC);
         if (!("a\t\r\n 😀b").equals(kept.metadata().get("title"))) throw new AssertionError("tab, line breaks and a surrogate pair must be read: " + kept.metadata().get("title"));
+    }
+
+    /** An absent or blank aprVersion states no version: REQUIRED_FIELD, never UNSUPPORTED_VERSION. */
+    private static void versionPresence() {
+        String rest = "\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+        expectCode("{" + rest, "REQUIRED_FIELD", "an absent aprVersion");
+        expectCode("{\"aprVersion\":\"\"," + rest, "REQUIRED_FIELD", "a blank aprVersion");
+        expectCode("{\"aprVersion\":\"  \"," + rest, "REQUIRED_FIELD", "a whitespace aprVersion");
+        expectCode("{\"aprVersion\":\"2.0\"," + rest, "UNSUPPORTED_VERSION", "a stated version this reader does not accept");
+    }
+
+    private static void expectCode(String source, String code, String what) {
+        try {
+            AprBeta6.readStream(source, AprBeta6.Representation.JSONC);
+        } catch (AprException refused) {
+            if (!code.equals(refused.code())) throw new AssertionError(what + " must be refused as " + code + ", not " + refused.code());
+            return;
+        }
+        throw new AssertionError(what + " must be refused while reading");
     }
 
     private static void expectParseError(String source, String what) {

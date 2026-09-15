@@ -100,6 +100,23 @@ public class AprBeta6ReaderTests
         form.Metadata!.Title.Should().Be("a\t\r\nb \U0001F600");
     }
 
+    [Theory]
+    [InlineData("", "REQUIRED_FIELD")]
+    [InlineData("\"aprVersion\":\"\",", "REQUIRED_FIELD")]
+    [InlineData("\"aprVersion\":\"  \",", "REQUIRED_FIELD")]
+    [InlineData("\"aprVersion\":\"2.0\",", "UNSUPPORTED_VERSION")]
+    public void AnAbsentOrBlankVersion_IsAMissingMember_NotAnUnsupportedOne(string version, string code)
+    {
+        // An absent or blank aprVersion states no version (section 7.1), so only a stated
+        // version this reader does not accept is UNSUPPORTED_VERSION.
+        var source = "{" + version + "\"metadata\":{\"title\":\"T\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be(code);
+    }
+
     private const string Digest = "sha256:abababababababababababababababababababababababababababababababab";
     private const string AttestationRecord =
         "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\","

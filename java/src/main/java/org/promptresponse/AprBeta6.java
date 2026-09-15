@@ -81,7 +81,11 @@ public final class AprBeta6 {
         refuseForbiddenCodePoints(parsed);
         if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object", "PARSE_ERROR");
         Map<String,Object> value = (Map<String,Object>) raw;
-        if (!VERSION.equals(value.get("aprVersion"))) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION, "UNSUPPORTED_VERSION");
+        // An absent or blank aprVersion states no version, so it is the missing member it
+        // is rather than a version this reader does not accept.
+        Object stated = value.get("aprVersion");
+        if (stated == null || (stated instanceof String text && text.isBlank())) throw new AprException("An APR beta.6 record must state aprVersion", "REQUIRED_FIELD");
+        if (!VERSION.equals(stated)) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION, "UNSUPPORTED_VERSION");
         if (value.containsKey("recordType")) {
             if (!"attestation".equals(value.get("recordType"))) throw new AprException("Unknown APR beta.6 stream record type", "WRONG_TYPE");
             validateAttestation(value);
