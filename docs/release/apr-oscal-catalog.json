@@ -17635,7 +17635,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -17673,7 +17673,7 @@
               {
                 "id": "apr-attest-010_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -17735,7 +17735,7 @@
               {
                 "id": "apr-attest-011_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           },
@@ -17797,7 +17797,7 @@
               {
                 "id": "apr-attest-012_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           },
@@ -17859,7 +17859,7 @@
               {
                 "id": "apr-attest-013_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           },
@@ -18131,7 +18131,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -18169,7 +18169,7 @@
               {
                 "id": "apr-attest-018_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -18231,7 +18231,7 @@
               {
                 "id": "apr-attest-019_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           },
@@ -19867,7 +19867,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -19905,7 +19905,7 @@
               {
                 "id": "apr-attest-046_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -19929,7 +19929,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -19967,7 +19967,7 @@
               {
                 "id": "apr-attest-047_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -19991,7 +19991,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -20029,7 +20029,7 @@
               {
                 "id": "apr-attest-048_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20053,7 +20053,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -20091,7 +20091,7 @@
               {
                 "id": "apr-attest-049_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20115,7 +20115,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -20153,7 +20153,7 @@
               {
                 "id": "apr-attest-050_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20177,7 +20177,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -20215,7 +20215,7 @@
               {
                 "id": "apr-attest-051_gap",
                 "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
+                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20277,7 +20277,7 @@
               {
                 "id": "apr-attest-052_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           },
@@ -20339,7 +20339,7 @@
               {
                 "id": "apr-attest-053_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+                "prose": "APR-ATTEST-053 has an example every implementation passes. Of the remaining five, one is partly reached and four are not — the entry previously said no vector distinguishes a conforming reader from one that gates, which understated its own gates. MismatchedManifest_IsInvalidButNeverRemovesTheForm and UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm each resolve an attestation that fails, one on a mismatched manifest root and one on an unrecognised proof type, and then assert the form is still there to read with its title and sections intact. That is part of APR-ATTEST-012: data stays extractable when an attestation is invalid or unverifiable. It is not the rest of 012's list — parse, validate, render, print, export — and it is none of APR-ATTEST-011, that saving, sending, accepting or processing never requires an attestation; nor 013, that refusing to act is a host policy rather than a format rule; nor 019, that an attestation is never authorization to read; nor 052, a renderer obligation. A document is valid either way, so no document vector reaches any of them. Closing them takes a test at each entry point, and for 052 a case in renderer/cases.json."
               }
             ]
           }
