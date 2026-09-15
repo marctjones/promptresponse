@@ -1155,7 +1155,7 @@
       "statement": "A submission entry is an https pre-signed target, as a put or a post, or a mailto address; delivery is one request or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523).",
+      "gap": "APR-MODEL-133 is evidenced both ways by spec:submission-string-entries and spec:submission-entry-wrong-type. The rest divides in two. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields, and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, enforcing the array-of-string shape beta.7 widened. Those stay uncovered rather than excepted, because the work is real and tracked (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523).",
       "rules": [
         "APR-MODEL-033",
         "APR-MODEL-034",
@@ -1191,7 +1191,6 @@
         "APR-MODEL-130",
         "APR-MODEL-131",
         "APR-MODEL-132",
-        "APR-MODEL-133",
         "APR-MODEL-134",
         "APR-MODEL-135",
         "APR-MODEL-136",
