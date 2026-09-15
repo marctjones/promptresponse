@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "24254b70-a754-5694-8b8a-077b03f3043f",
+    "uuid": "27f2d1ed-1e6e-5db8-826b-58ff559747ba",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "27d4c08733c614fea7bf31f9e67996b225258baa20eb6e9c82a7a2f2aca3cada"
+          "value": "e195d699100dc44a845cd2a510868509807bdc8cb83d921650d29c43d6779906"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -1362,7 +1362,7 @@
               {
                 "id": "apr-rep-002_gap",
                 "name": "assessment-gap",
-                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
               }
             ]
           },
@@ -1424,7 +1424,7 @@
               {
                 "id": "apr-rep-003_gap",
                 "name": "assessment-gap",
-                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
               }
             ]
           },
@@ -1486,7 +1486,7 @@
               {
                 "id": "apr-rep-004_gap",
                 "name": "assessment-gap",
-                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
               }
             ]
           },
@@ -2252,7 +2252,7 @@
               {
                 "id": "apr-rep-018_gap",
                 "name": "assessment-gap",
-                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
               }
             ]
           },
@@ -2314,7 +2314,7 @@
               {
                 "id": "apr-rep-019_gap",
                 "name": "assessment-gap",
-                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+                "prose": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
               }
             ]
           },

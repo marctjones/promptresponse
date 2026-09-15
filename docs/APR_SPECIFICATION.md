@@ -556,6 +556,45 @@ expect: valid
 }
 ```
 
+**Example 4.3-2.** A title carrying an escaped U+0000. The escape is well-formed
+JSON, and the string it decodes to is not an APR string.
+
+```apr-example
+id: encoding-nul-refused
+rule: encoding
+violates: APR-REP-004
+representation: jsonc
+expect: reject
+diagnostic: PARSE_ERROR
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Notes " },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 4.3-3.** A label carrying an unpaired surrogate.
+
+```apr-example
+id: encoding-unpaired-surrogate-refused
+rule: encoding
+violates: APR-REP-004
+representation: jsonc
+expect: reject
+diagnostic: PARSE_ERROR
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Notes" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "Half \ud83d" } ] }
+  ]
+}
+```
+
 ### 4.4 APR-JSONC {#apr-jsonc}
 
 APR-JSONC is the JSON grammar of RFC 8259 with comments and trailing commas

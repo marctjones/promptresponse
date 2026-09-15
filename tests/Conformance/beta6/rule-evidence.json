@@ -2,11 +2,11 @@
   "$comment": "Ratchet baseline for scripts/check-rule-evidence.py. Evidence is compared per rule, not in total: a rule may not lose a leg even when another rule gains one. `legs` is the record; `counts` is a readable summary of it. Regenerate with --write only when evidence has risen or a rule was deliberately retired.",
   "rules": 356,
   "counts": {
-    "enforced": 175,
+    "enforced": 176,
     "satisfied": 173,
-    "violated": 164,
-    "caught": 164,
-    "complete": 139
+    "violated": 165,
+    "caught": 165,
+    "complete": 140
   },
   "legs": {
     "APR-ATTEST-001": "esvc",
@@ -269,7 +269,7 @@
     "APR-REP-001": "esvc",
     "APR-REP-002": "----",
     "APR-REP-003": "----",
-    "APR-REP-004": "-s--",
+    "APR-REP-004": "esvc",
     "APR-REP-005": "esvc",
     "APR-REP-006": "esvc",
     "APR-REP-007": "esvc",

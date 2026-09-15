@@ -577,6 +577,36 @@
       ]
     },
     {
+      "id": "encoding-nul-refused",
+      "number": "4.3-2",
+      "rule": "encoding",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Notes\u0000\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-REP-004"
+      ],
+      "violates": [
+        "APR-REP-004"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
+      "id": "encoding-unpaired-surrogate-refused",
+      "number": "4.3-3",
+      "rule": "encoding",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Notes\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"Half \\ud83d\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-REP-004"
+      ],
+      "violates": [
+        "APR-REP-004"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
       "id": "expr-activation-is-all-there-is",
       "number": "11.4-1",
       "rule": "expr-activation",

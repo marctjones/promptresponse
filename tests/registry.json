@@ -1702,6 +1702,14 @@
         {
           "type": "test",
           "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "AForbiddenCodePoint_IsRefusedWhileReading"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_refuses_a_forbidden_code_point_while_reading"
         }
       ],
       "rules": [
@@ -1711,7 +1719,7 @@
         "APR-REP-018",
         "APR-REP-019"
       ],
-      "gap": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
+      "gap": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
     },
     {
       "id": "REQ-response-verbatim",

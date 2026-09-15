@@ -1623,7 +1623,14 @@
         "encoding/example/fbc9aa2745",
         "encoding/sentence/1862fc6ead",
         "encoding/sentence/49ee18d4a2",
-        "encoding/sentence/6f125033db"
+        "encoding/sentence/6f125033db",
+        "encoding/sentence/dbd8ce53d6",
+        "encoding/sentence/0f968e0f67",
+        "encoding/sentence/e9b02a9e14",
+        "encoding/example/ba6c83c4c1",
+        "encoding/sentence/9af2758aec",
+        "encoding/sentence/b5b9e95fb1",
+        "encoding/example/a5a84528e9"
       ],
       "note": "an example that tab, carriage return and line feed are the control characters a string may carry (APR-REP-004)"
     },
