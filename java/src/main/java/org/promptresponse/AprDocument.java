@@ -11,9 +11,7 @@ public final class AprDocument {
     /**
      * The prompts this filling session computed, by identity.
      *
-     * Not a member, and never written. beta.6 retired {@code responseMetadata.source},
-     * which tried to carry this between parties and rested a prohibition on a marker
-     * every reader was free to drop. Every non-empty response in a document as it was
+     * Not a member, and never written. Every non-empty response in a document as it was
      * read is authored, whatever produced it, so what may be recomputed is a fact about
      * this session. With a raw JSON tree the session is the document object, so the set
      * lives here rather than on a prompt.

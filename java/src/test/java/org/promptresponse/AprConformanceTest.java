@@ -7,7 +7,6 @@ public final class AprConformanceTest {
     public static void main(String[] args) throws Exception {
         expressionBinding();
         beta6();
-        retiredMembers();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -15,20 +14,6 @@ public final class AprConformanceTest {
         validationVocabulary();
         expressionEdgeCases();
         System.out.println("Java APR beta.6 conformance passed");
-    }
-
-    /**
-     * Specification 5.8.1 retires the table-column presentation set ("width" and
-     * its siblings), not "tableLayout", the wrapper that used to carry them. A
-     * name only the specification retires is dropped; anything merely
-     * unfamiliar -- including a name that only resembles a retired one -- is
-     * preserved (issue #376).
-     */
-    private static void retiredMembers() {
-        String withExtras = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"width\":40,\"tableLayout\":{\"columns\":[]},\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
-        String written = AprBeta6.writeForm(AprBeta6.readForm(withExtras, AprBeta6.Representation.JSONC), AprBeta6.Representation.JSONC);
-        if (written.contains("\"width\"")) throw new AssertionError("a retired presentation member must be dropped: " + written);
-        if (!written.contains("\"tableLayout\"")) throw new AssertionError("a name that merely resembles a retired one must be preserved: " + written);
     }
 
     /** The text floor, confusable-script-mix, and table-shape checks added while building AprConformanceDriver. */
@@ -253,7 +238,6 @@ public final class AprConformanceTest {
         java.util.List<AprBeta6.Record> records = AprBeta6.readStream(stream, AprBeta6.Representation.JSONC);
         if (records.size() != 3 || records.stream().filter(record -> record instanceof AprBeta6.FormRecord).count() != 2) throw new AssertionError("beta.6 stream lost an occurrence");
         try { AprBeta6.readForm(stream, AprBeta6.Representation.JSONC); throw new AssertionError("stream selected a record implicitly"); } catch (AprException expected) { if (!"APR_STREAM_REQUIRES_ITERATION".equals(expected.code())) throw expected; }
-        try { AprBeta6.readForm(form.substring(0, form.length() - 1) + ",\"signatures\":[]}", AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted embedded signatures"); } catch (AprException expected) { if (!"RETIRED_EMBEDDED_SIGNATURES".equals(expected.code())) throw expected; }
         try { AprBeta6.readForm(form.replace("\"metadata\":", "\"metadata\":{},\"metadata\":"), AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted duplicate JSONC members"); } catch (AprException expected) { }
         Object value = Json.parse(form);
         if (!"sha256:b944624a9883f7317f9415090804ddea080806c28ff531664d7d63a66cef50a2".equals(AprBeta6Integrity.digest(value))) throw new AssertionError("beta.6 digest is not representation-neutral");

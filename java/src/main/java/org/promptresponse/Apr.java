@@ -22,9 +22,7 @@ public final class Apr {
         // Present-but-null is a value, and this member has no null spelling: a document
         // either declares a kind or leaves the member out entirely.
         if (root.containsKey("documentType") && root.get("documentType") == null) throw new AprException("documentType, if present, must be a string", "PARSE_ERROR");
-        if (root.containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         rejectBadShape(root);
-        dropRetiredMembers(root);
         return new AprDocument(root);
     }
     public static AprDocument read(Path path) throws IOException {
@@ -356,58 +354,12 @@ public final class Apr {
         }
     }
     @SuppressWarnings("unchecked") private static void rejectBadShape(Map<String,Object> root) {
-        Map<String,Object> metadata=(Map<String,Object>)root.get("metadata"); if(metadata.containsKey("submissionUrl")) throw new AprException("metadata.submissionUrl is retired; use submissionUrls array");
+        Map<String,Object> metadata=(Map<String,Object>)root.get("metadata");
         strings(metadata,"submissionUrls","metadata.submissionUrls");
         if(root.containsKey("roles") && !(root.get("roles") instanceof List<?>)) throw new AprException("roles must be an array", "WRONG_TYPE");
         structuralTypes(root, DOCUMENT, "");
         structuralTypes(metadata, METADATA, "/metadata");
         sections((List<Object>)root.get("sections"));
-    }
-
-    /**
-     * Members retired from the format: the pre-1.0 table-column presentation set
-     * (specification 5.8.1) plus the workflow state beta.6 retired.
-     *
-     * None carried a claim whose silent loss would be worse than its removal — unlike
-     * embedded {@code signatures}, which is refused with a diagnostic because a document
-     * holding it was making a cryptographic claim beta.6 cannot honour. Preserving these
-     * would write them back into a document the format says has none.
-     */
-    private static final Set<String> RETIRED_MEMBERS = Set.of(
-        "width", "alignment", "color", "background", "fontSize", "bold", "style",
-        "responseMetadata");
-
-    /**
-     * Drops retired names from the objects the format defines -- the document, its
-     * metadata, roles, every section at any depth, prompts and hints -- and nowhere else.
-     * An extension member's value is data this reader does not interpret, so a key
-     * inside it that happens to share a retired name must come back unchanged
-     * (APR-MODEL-021). Python, TypeScript and .NET drop at the same level.
-     */
-    @SuppressWarnings("unchecked") private static void dropRetiredMembers(Map<String,Object> root) {
-        root.keySet().removeAll(RETIRED_MEMBERS);
-        if (root.get("metadata") instanceof Map<?,?> metadata) ((Map<String,Object>) metadata).keySet().removeAll(RETIRED_MEMBERS);
-        if (root.get("roles") instanceof List<?> roles) {
-            for (Object role : roles) if (role instanceof Map<?,?> r) ((Map<String,Object>) r).keySet().removeAll(RETIRED_MEMBERS);
-        }
-        if (root.get("sections") instanceof List<?> sections) dropRetiredMembersFromSections(sections);
-    }
-
-    @SuppressWarnings("unchecked") private static void dropRetiredMembersFromSections(List<?> sections) {
-        for (Object item : sections) {
-            if (!(item instanceof Map<?,?> raw)) continue;
-            Map<String,Object> section = (Map<String,Object>) raw;
-            section.keySet().removeAll(RETIRED_MEMBERS);
-            if (section.get("prompts") instanceof List<?> prompts) {
-                for (Object p : prompts) {
-                    if (!(p instanceof Map<?,?> rawPrompt)) continue;
-                    Map<String,Object> prompt = (Map<String,Object>) rawPrompt;
-                    prompt.keySet().removeAll(RETIRED_MEMBERS);
-                    if (prompt.get("hints") instanceof Map<?,?> hints) ((Map<String,Object>) hints).keySet().removeAll(RETIRED_MEMBERS);
-                }
-            }
-            if (section.get("sections") instanceof List<?> nested) dropRetiredMembersFromSections(nested);
-        }
     }
 
     /**

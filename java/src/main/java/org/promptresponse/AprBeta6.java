@@ -59,7 +59,6 @@ public final class AprBeta6 {
     /** Writes a beta.6 form in the requested representation. */
     public static String writeForm(AprDocument document, Representation representation) {
         if (!VERSION.equals(document.version())) throw new AprException("APR beta.6 writers require version " + VERSION);
-        if (document.raw().containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         return writeJson(document.toJson(), representation);
     }
 
@@ -86,7 +85,6 @@ public final class AprBeta6 {
             validateAttestation(value);
             return new AttestationRecord(Map.copyOf(value));
         }
-        if (value.containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         return new FormRecord(Apr.parse(Json.write(value)), value);
     }
 
