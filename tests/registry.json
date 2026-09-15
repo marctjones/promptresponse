@@ -351,9 +351,13 @@
         {
           "type": "suite",
           "ref": "desktop.unit"
+        },
+        {
+          "type": "test",
+          "ref": "APromptWhoseResponseDrawsWarnings_StaysEditable_AndTypingReachesTheModel"
         }
       ],
-      "gap": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not. The renderer suite asks the saving half through renderer:a-hint-mismatch-does-not-block-saving; nothing asks the typing half, and the exhaustive GUI driver types into every editable TextBox without first putting a warned value in one, so it does not reach APR-VAL-033 either. Closing it means a renderer case in tests/Conformance/beta6/renderer/cases.json, which is a fixture rather than specification text. APR-VAL-034 is a permission.",
+      "gap": "APR-VAL-006 is a renderer obligation: a warning never prevents saving. A document is valid either way, so no document case distinguishes a renderer that blocks saving from one that does not; the renderer suite asks it through renderer:a-hint-mismatch-does-not-block-saving. APR-VAL-034 is a permission.",
       "rules": [
         "APR-VAL-002",
         "APR-VAL-006",
@@ -362,7 +366,6 @@
       ],
       "gapRules": [
         "APR-VAL-006",
-        "APR-VAL-033",
         "APR-VAL-034"
       ]
     },
@@ -706,6 +709,14 @@
         {
           "type": "test",
           "ref": "test_beta6_a_manifest_carries_an_entry_for_every_value"
+        },
+        {
+          "type": "test",
+          "ref": "AVerifier_ReportsOnlyThePathsTheManifestCarries"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_a_verifier_reports_only_the_paths_the_manifest_carries"
         }
       ],
       "rules": [
@@ -720,9 +731,8 @@
         "APR-DIGEST-009",
         "APR-DIGEST-010"
       ],
-      "gap": "Two rules have no vector, for two different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding.",
+      "gap": "One rule has no vector. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding.",
       "gapRules": [
-        "APR-DIGEST-005",
         "APR-DIGEST-007"
       ]
     },
@@ -1545,6 +1555,10 @@
         {
           "type": "test",
           "ref": "test_a_section_and_a_prompt_may_share_an_id"
+        },
+        {
+          "type": "test",
+          "ref": "MovePrompt_KeepsEveryPromptId"
         }
       ],
       "rules": [
@@ -1560,11 +1574,10 @@
         "APR-MODEL-093",
         "APR-MODEL-094"
       ],
-      "gap": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525).",
+      "gap": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows.",
       "gapRules": [
         "APR-MODEL-011",
-        "APR-MODEL-093",
-        "APR-MODEL-094"
+        "APR-MODEL-093"
       ]
     },
     {

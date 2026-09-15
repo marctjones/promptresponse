@@ -275,6 +275,15 @@
       "corpus:rules/apr-rep-001-roundtrip.apr.jsonc"
     ]
   },
+  "APR-DIGEST-005": {
+    "reason": "A rule on what a verifier reports, which no input document shows. The tests resolve an attestation whose manifest carries only the root and one changed leaf, and check the verifier reports exactly those two paths.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-DIGEST-006": {
     "reason": "A rule on how a digest is computed; no document can make an implementation compute another.",
     "coveredBy": [
@@ -792,6 +801,12 @@
     "reason": "A rule about two versions of a template, not about one document. No single example can hold an id constant across a revision the corpus does not have.",
     "coveredBy": [
       "spec:id-namespaces"
+    ]
+  },
+  "APR-MODEL-094": {
+    "reason": "A rule on what a writer does when it reorders prompts, which no input document shows. The editor test moves prompts and checks every prompt keeps the id it had.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/ReorderTests.cs"
     ]
   },
   "APR-MODEL-097": {
@@ -1498,6 +1513,12 @@
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
     "coveredBy": [
       "spec:title-forbidden-code-point"
+    ]
+  },
+  "APR-VAL-033": {
+    "reason": "A rule on what a renderer lets a person do, which no input document shows. The test gives a field a response that draws two warnings and checks it stays editable and that typing reaches the model.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/AdvisoryNeverBlocksTypingTests.cs"
     ]
   },
   "APR-VAL-034": {
