@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lint the whole specification against the writing approach, without the ledger.
+"""Lint the whole specification against the writing approach.
 
 tests/spec-conversion/approach.json configures the approach: the classes of product a
 requirement may bind, the sections and unit kinds that are informative, and the

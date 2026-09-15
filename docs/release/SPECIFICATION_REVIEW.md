@@ -37,7 +37,6 @@ surfaces first.
 
 - [ ] `python3 scripts/check-spec-shape.py` — the document has its declared shape
 - [ ] `python3 scripts/check-spec-approach.py --gate` — every requirement names a defined class of product, states one level and carries a rule, and no text describes history
-- [ ] `python3 scripts/check-spec-conversion.py --gate` — every unit of the baseline specification carries an applied disposition
 - [ ] `python3 scripts/check-spec-completeness.py` — concepts, schema members and profiles are covered
 - [ ] `python3 scripts/check-schema-agrees.py` — schema and type registry match the member tables
 - [ ] `python3 scripts/extract-spec-examples.py` — the corpus still matches the specification

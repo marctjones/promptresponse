@@ -1,5 +1,5 @@
 {
-  "$comment": "The writing approach the specification is converted to: W3C QA Framework Specification Guidelines, BCP 14 keywords, and OASIS-style rule identifiers. Read by scripts/check-spec-approach.py and scripts/check-spec-conversion.py.",
+  "$comment": "The writing approach the specification follows: W3C QA Framework Specification Guidelines, BCP 14 keywords, and OASIS-style rule identifiers. Read by scripts/check-spec-approach.py.",
   "classes": [
     "application",
     "client",

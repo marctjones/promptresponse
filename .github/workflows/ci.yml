@@ -253,22 +253,18 @@ jobs:
       - name: Test the example extractor on every header key and malformed headers
         run: python3 scripts/extract-spec-examples.py --self-test
 
-      - name: Test the specification rewrite tools
-        # The rewrite to the W3C writing approach is tracked by these tools, so each
-        # proves on its fixture that it catches what it claims before its report is
-        # believed. The tools are gated; what they report about the text is not.
+      - name: Test the specification tools
+        # Each tool proves on its fixture that it catches what it claims before its
+        # report about the specification is believed.
         run: |
           python3 scripts/spec-units.py --self-test
-          python3 scripts/check-spec-conversion.py --self-test
           python3 scripts/check-spec-approach.py --self-test
           python3 scripts/check-example-coverage.py --self-test
 
       - name: Gate the specification's writing approach
-        # Every unit of the baseline specification carries an applied disposition,
-        # and the approach lint finds nothing: a requirement names a defined class of
-        # product, states one level, carries a rule, and no text describes history.
+        # A requirement names a defined class of product, states one level and carries
+        # a rule, and no text describes history.
         run: |
-          python3 scripts/check-spec-conversion.py --gate
           python3 scripts/check-spec-approach.py --gate
 
       - name: Gate example coverage

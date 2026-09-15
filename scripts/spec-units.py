@@ -3,17 +3,15 @@
 
 Every heading, prose sentence, list item, table row, rationale block, other
 blockquote, and example or code block becomes one unit, with an identifier that
-survives lines moving and changes when its text changes. A conversion ledger keys
-its decisions on these identifiers, so a sentence nobody decided about cannot hide.
+survives lines moving and changes when its text changes. The approach lint and the
+example-coverage report read the specification through these units.
 
     python3 scripts/spec-units.py                    # summary of the specification
-    python3 scripts/spec-units.py --check            # fail if units.jsonl is stale
-    python3 scripts/spec-units.py --write            # regenerate units.jsonl
     python3 scripts/spec-units.py --self-test        # check segmentation on the fixture
     python3 scripts/spec-units.py --self-test --update   # rewrite the fixture's expected units
 
 Flags on each unit (keywords, lowercase obligations, history vocabulary) are hints
-for the reviewer. Deciding what a unit is belongs to the ledger, not to this script.
+for the approach lint, which decides what they mean.
 """
 from __future__ import annotations
 
@@ -25,7 +23,6 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
-OUT = ROOT / "tests" / "spec-conversion" / "units.jsonl"
 FIXTURE = ROOT / "tests" / "spec-conversion" / "fixture.md"
 FIXTURE_EXPECTED = ROOT / "tests" / "spec-conversion" / "fixture.expected.jsonl"
 
@@ -263,18 +260,6 @@ def main(argv: list[str]) -> int:
     if "--self-test" in argv:
         return self_test("--update" in argv)
     units = segment(SPEC.read_text(encoding="utf-8"))
-    text = render(units)
-    if "--write" in argv:
-        OUT.parent.mkdir(parents=True, exist_ok=True)
-        OUT.write_text(text, encoding="utf-8")
-        print(f"Wrote {OUT.relative_to(ROOT)}: {len(units)} units")
-        return 0
-    if "--check" in argv:
-        if not OUT.exists() or OUT.read_text(encoding="utf-8") != text:
-            print(f"{OUT.relative_to(ROOT)} is stale; run scripts/spec-units.py --write")
-            return 1
-        print(f"{OUT.relative_to(ROOT)} is current: {len(units)} units")
-        return 0
     kinds: dict[str, int] = {}
     for u in units:
         kinds[u["kind"]] = kinds.get(u["kind"], 0) + 1
