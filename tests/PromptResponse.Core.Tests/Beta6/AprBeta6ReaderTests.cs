@@ -100,6 +100,45 @@ public class AprBeta6ReaderTests
         form.Metadata!.Title.Should().Be("a\t\r\nb \U0001F600");
     }
 
+    private const string Digest = "sha256:abababababababababababababababababababababababababababababababab";
+    private const string AttestationRecord =
+        "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\","
+        + "\"subject\":{\"digest\":\"" + Digest + "\",\"canonicalization\":\"jcs-sha256\"},"
+        + "\"scope\":{\"kind\":\"document\"},"
+        + "\"manifest\":{\"root\":\"" + Digest + "\",\"entries\":[{\"path\":\"\",\"digest\":\"" + Digest + "\"}]},"
+        + "\"proofs\":[],\"witnesses\":[]}";
+
+    [Fact]
+    public void AWellFormedAttestation_Reads()
+    {
+        _reader.ReadStream(AttestationRecord, AprRepresentation.Jsonc).Single()
+            .Should().BeOfType<AprAttestationRecord>();
+    }
+
+    [Theory]
+    [InlineData(",\"proofs\":[]", "", "REQUIRED_FIELD")]
+    [InlineData(",\"witnesses\":[]", "", "REQUIRED_FIELD")]
+    [InlineData(",\"canonicalization\":\"jcs-sha256\"", "", "REQUIRED_FIELD")]
+    [InlineData("\"kind\":\"document\"", "\"kind\":\"fields\"", "REQUIRED_FIELD")]
+    [InlineData("\"path\":\"\",", "", "REQUIRED_FIELD")]
+    [InlineData(",\"digest\":\"" + Digest + "\"}]", "}]", "REQUIRED_FIELD")]
+    [InlineData("\"digest\":\"" + Digest + "\",\"canonicalization\"", "\"canonicalization\"", "REQUIRED_FIELD")]
+    [InlineData("\"proofs\":[]", "\"proofs\":[{\"value\":\"b3BhcXVl\"}]", "REQUIRED_FIELD")]
+    [InlineData("\"proofs\":[]", "\"proofs\":[{\"type\":\"example/opaque-v1\"}]", "REQUIRED_FIELD")]
+    [InlineData("\"proofs\":[]", "\"proofs\":[{\"type\":1,\"value\":\"b3BhcXVl\"}]", "WRONG_TYPE")]
+    [InlineData("\"witnesses\":[]", "\"witnesses\":[\"" + Digest + "\",\"" + Digest + "\"]", "WRONG_TYPE")]
+    public void AnAttestationMember_IsRefusedUnderTheCodeItsRowNames(string from, string to, string code)
+    {
+        // A member absent is REQUIRED_FIELD and a member of the wrong kind WRONG_TYPE
+        // (section 7.1); a proof names its type and value, and witnesses never repeat.
+        var source = AttestationRecord.Replace(from, to, StringComparison.Ordinal);
+        source.Should().NotBe(AttestationRecord);
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be(code);
+    }
+
     [Fact]
     public void Yaml_SixteenSectionLevels_StillRead()
     {

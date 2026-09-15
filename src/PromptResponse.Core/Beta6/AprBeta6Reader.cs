@@ -251,40 +251,56 @@ public sealed class AprBeta6Reader
 
     private static void ValidateAttestation(JsonElement value)
     {
+        // Each member is REQUIRED_FIELD when absent and WRONG_TYPE when present but
+        // outside what its row allows, as section 7.1 names the two conditions.
         RequireObject(value, "subject", out var subject);
         RequireDigest(subject, "digest", "subject.digest");
-        if (!subject.TryGetProperty("canonicalization", out var canonicalization) || canonicalization.GetString() != AprSemanticDigest.Canonicalization)
+        RequireString(subject, "canonicalization", "subject.canonicalization");
+        if (subject.GetProperty("canonicalization").GetString() != AprSemanticDigest.Canonicalization)
             throw new SerializationException("beta.6 attestation subject.canonicalization must be jcs-sha256.")
                 { Code = "WRONG_TYPE" };
         RequireObject(value, "scope", out var scope);
-        if (!scope.TryGetProperty("kind", out var kind) || kind.ValueKind != JsonValueKind.String || (kind.GetString() is not ("document" or "fields")))
+        RequireString(scope, "kind", "scope.kind");
+        var kind = scope.GetProperty("kind").GetString();
+        if (kind is not ("document" or "fields"))
             throw new SerializationException("beta.6 attestation scope.kind must be document or fields.")
                 { Code = "WRONG_TYPE" };
-        if (kind.GetString() == "fields")
+        if (kind == "fields")
         {
-            if (!scope.TryGetProperty("fields", out var fields) || fields.ValueKind != JsonValueKind.Array || fields.GetArrayLength() == 0 || fields.EnumerateArray().Any(field => field.ValueKind != JsonValueKind.String || string.IsNullOrWhiteSpace(field.GetString())))
+            RequireArray(scope, "fields", "scope.fields", out var fields);
+            if (fields.GetArrayLength() == 0 || fields.EnumerateArray().Any(field => field.ValueKind != JsonValueKind.String || string.IsNullOrWhiteSpace(field.GetString())))
                 throw new SerializationException("beta.6 fields attestations require non-blank scope.fields.")
                 { Code = "WRONG_TYPE" };
         }
         RequireObject(value, "manifest", out var manifest);
         RequireDigest(manifest, "root", "manifest.root");
-        if (!manifest.TryGetProperty("entries", out var entries) || entries.ValueKind != JsonValueKind.Array)
-            throw new SerializationException("beta.6 attestation manifest.entries must be an array.")
-                { Code = "WRONG_TYPE" };
+        RequireArray(manifest, "entries", "manifest.entries", out var entries);
         foreach (var entry in entries.EnumerateArray())
         {
-            if (entry.ValueKind != JsonValueKind.Object || !entry.TryGetProperty("path", out var path) || path.ValueKind != JsonValueKind.String)
-                throw new SerializationException("beta.6 attestation manifest entries require a string path.")
+            if (entry.ValueKind != JsonValueKind.Object)
+                throw new SerializationException("beta.6 attestation manifest entries are objects.")
                 { Code = "WRONG_TYPE" };
+            RequireString(entry, "path", "manifest.entries[].path");
             RequireDigest(entry, "digest", "manifest.entries[].digest");
         }
-        if (!value.TryGetProperty("proofs", out var proofs) || proofs.ValueKind != JsonValueKind.Array || !value.TryGetProperty("witnesses", out var witnesses) || witnesses.ValueKind != JsonValueKind.Array)
-            throw new SerializationException("beta.6 attestations require proofs and witnesses arrays.")
+        RequireArray(value, "proofs", "proofs", out var proofs);
+        foreach (var proof in proofs.EnumerateArray())
+        {
+            if (proof.ValueKind != JsonValueKind.Object)
+                throw new SerializationException("a beta.6 proof is an object.")
                 { Code = "WRONG_TYPE" };
+            RequireString(proof, "type", "proofs[].type");
+            RequireString(proof, "value", "proofs[].value");
+        }
+        RequireArray(value, "witnesses", "witnesses", out var witnesses);
+        var witnessed = new HashSet<string>(StringComparer.Ordinal);
         foreach (var witness in witnesses.EnumerateArray())
         {
             if (witness.ValueKind != JsonValueKind.String || !IsDigest(witness.GetString()))
                 throw new SerializationException("beta.6 attestation witnesses must be sha256 digests.")
+                { Code = "WRONG_TYPE" };
+            if (!witnessed.Add(witness.GetString()!))
+                throw new SerializationException("beta.6 attestation witnesses must not repeat a digest.")
                 { Code = "WRONG_TYPE" };
         }
         // The closed sub-objects. An attestation record itself carries extension
@@ -361,8 +377,31 @@ public sealed class AprBeta6Reader
 
     private static void RequireDigest(JsonElement parent, string name, string path)
     {
-        if (!parent.TryGetProperty(name, out var value) || value.ValueKind != JsonValueKind.String || !IsDigest(value.GetString()))
+        if (!parent.TryGetProperty(name, out var value))
+            throw new SerializationException($"beta.6 attestation {path} is required.")
+            { Code = "REQUIRED_FIELD" };
+        if (value.ValueKind != JsonValueKind.String || !IsDigest(value.GetString()))
             throw new SerializationException($"beta.6 attestation {path} must be a lowercase sha256 digest.")
+            { Code = "WRONG_TYPE" };
+    }
+
+    private static void RequireString(JsonElement parent, string name, string path)
+    {
+        if (!parent.TryGetProperty(name, out var value))
+            throw new SerializationException($"beta.6 attestation {path} is required.")
+            { Code = "REQUIRED_FIELD" };
+        if (value.ValueKind != JsonValueKind.String)
+            throw new SerializationException($"beta.6 attestation {path} must be a string.")
+            { Code = "WRONG_TYPE" };
+    }
+
+    private static void RequireArray(JsonElement parent, string name, string path, out JsonElement value)
+    {
+        if (!parent.TryGetProperty(name, out value))
+            throw new SerializationException($"beta.6 attestation {path} is required.")
+            { Code = "REQUIRED_FIELD" };
+        if (value.ValueKind != JsonValueKind.Array)
+            throw new SerializationException($"beta.6 attestation {path} must be an array.")
             { Code = "WRONG_TYPE" };
     }
 
