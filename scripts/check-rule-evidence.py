@@ -510,10 +510,20 @@ def main() -> int:
             continue
         if case["expect"] == "valid":
             # A case requiring an advisory is a violating case: the document breaks
-            # the rule, and the rule says to report it rather than refuse it.
-            for rule in cited:
-                violated[rule] = violated.get(rule, 0) + 1
+            # the rule, and the rule says to report it rather than refuse it. The same
+            # document may also satisfy a rule no advisory is about, as two canonically
+            # equivalent ids are distinct while each draws an id warning. Such a rule is
+            # shown satisfied; every other cited rule is held to an advisory citing it.
             outcome, _, _, warned = evaluate(case, members)
+            satisfying = set(case.get("satisfies") or [])
+            traced = {rule for code in case["warns"] if code in warned
+                      for rule in cited if rule in warned[code]}
+            held = [rule for rule in cited if rule not in satisfying or rule in traced]
+            for rule in cited:
+                if rule not in held:
+                    satisfied[rule] = satisfied.get(rule, 0) + 1
+            for rule in held:
+                violated[rule] = violated.get(rule, 0) + 1
             if outcome != "valid":
                 problems.append(
                     f"{case['id']} expects acceptance with a warning, but the validator "
@@ -524,10 +534,10 @@ def main() -> int:
                     problems.append(
                         f"{case['id']} requires the advisory {code}, which nothing reports")
                     continue
-                for rule in cited:
+                for rule in held:
                     if rule in warned[code]:
                         caught[rule] = "warning"
-            for rule in cited:
+            for rule in held:
                 if rule not in caught:
                     problems.append(
                         f"{case['id']} is warned about, but not traceably for {rule}: no "
