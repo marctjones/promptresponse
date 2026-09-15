@@ -331,7 +331,9 @@ public sealed class AprBeta6Reader
     /// member ignored, because refusing it would lose a document over a name. Writing
     /// one is a refusal, because APR-MODEL-031 reserves the unprefixed space to this
     /// specification and a producer minting a name there collides with every member a
-    /// later version adds.
+    /// later version adds. Writing back one the document carried when it was read is
+    /// not minting it: APR-MODEL-021 requires it back unchanged, so only a name absent
+    /// from the object's <c>ArrivedExtensionNames</c> is refused.
     ///
     /// The asymmetry is the point: tolerant of what arrives, strict about what leaves.
     /// A stream record written back from its parsed value is not checked, because
@@ -339,23 +341,26 @@ public sealed class AprBeta6Reader
     /// </remarks>
     private static void RequirePrefixedExtensions(AprDocument form)
     {
-        Check(form.Extensions, "the document");
-        Check(form.Metadata?.Extensions, "metadata");
+        Check(form.Extensions, form.ArrivedExtensionNames, "the document");
+        Check(form.Metadata?.Extensions, form.Metadata?.ArrivedExtensionNames, "metadata");
         foreach (var section in PromptTreeSections(form))
         {
-            Check(section.Extensions, $"section '{section.Id}'");
+            Check(section.Extensions, section.ArrivedExtensionNames, $"section '{section.Id}'");
             foreach (var prompt in section.Prompts ?? [])
             {
-                Check(prompt.Extensions, $"prompt '{prompt.Id}'");
-                Check(prompt.Hints?.Extensions, $"the hints of prompt '{prompt.Id}'");
+                Check(prompt.Extensions, prompt.ArrivedExtensionNames, $"prompt '{prompt.Id}'");
+                Check(prompt.Hints?.Extensions, prompt.Hints?.ArrivedExtensionNames,
+                    $"the hints of prompt '{prompt.Id}'");
             }
         }
 
-        static void Check(Dictionary<string, JsonElement>? extensions, string where)
+        static void Check(
+            Dictionary<string, JsonElement>? extensions, IReadOnlySet<string>? arrived, string where)
         {
             foreach (var name in extensions?.Keys ?? Enumerable.Empty<string>())
             {
                 if (name.Contains('.', StringComparison.Ordinal)) continue;
+                if (arrived?.Contains(name) == true) continue;
                 throw new SerializationException(
                     $"cannot write '{name}' on {where}: an extension member is named by "
                     + "its owner, with a reverse-DNS prefix. Unprefixed names are "

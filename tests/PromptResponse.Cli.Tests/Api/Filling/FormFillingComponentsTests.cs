@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Cli;
 using PromptResponse.Cli.Api.Filling;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Models;
@@ -108,5 +109,21 @@ public class FormFillingComponentsTests
         filled.Should().NotBeSameAs(template);
         filled.DocumentType.Should().Be(DocumentType.FilledForm);
         template.DocumentType.Should().Be(DocumentType.Template);
+    }
+
+    [Fact]
+    public void FilledFormFactory_KeepsAnUnprefixedMemberTheTemplateCarried()
+    {
+        // `apr fill` clones through Beta6AprSerializer, whose write refuses an unprefixed
+        // member set in code. One the template arrived with is not set in code, and a
+        // writer puts it back (APR-MODEL-021) -- this used to throw before filling began.
+        var serializer = new Beta6AprSerializer();
+        var template = serializer.Deserialize(
+            """{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","tableLayout":{"fixedRows":2},"prompts":[{"id":"p","label":"P"}]}]}""");
+
+        var filled = new FilledFormFactory(serializer).Create(template, null);
+
+        filled.Sections[0].Extensions.Should().ContainKey("tableLayout");
+        serializer.Serialize(filled).Should().Contain("tableLayout");
     }
 }

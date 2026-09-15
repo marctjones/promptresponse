@@ -1,3 +1,5 @@
+using System.Collections.Frozen;
+using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using PromptResponse.Core.Models;
 
@@ -44,6 +46,38 @@ internal static class AprPresenceContract
             When(info, "suggestedValues", owner => ((PromptHints)owner)
                 is { SuggestedValuesAreDeclared: true } or { SuggestedValues.Count: > 0 });
     }
+
+    /// <summary>Records which extension members each object carried when it was read.</summary>
+    /// <remarks>
+    /// Runs on deserialization only. The sanitizer runs when writing as well as reading,
+    /// so recording there would mark a member set in code as arrived the first time
+    /// anything serialized it, and the writer could no longer refuse it.
+    /// </remarks>
+    internal static void RecordExtensionsThatArrived(JsonTypeInfo info)
+    {
+        if (info.Type == typeof(AprDocument))
+            info.OnDeserialized = owner => ((AprDocument)owner).ArrivedExtensionNames =
+                NamesIn(((AprDocument)owner).Extensions);
+        else if (info.Type == typeof(Metadata))
+            info.OnDeserialized = owner => ((Metadata)owner).ArrivedExtensionNames =
+                NamesIn(((Metadata)owner).Extensions);
+        else if (info.Type == typeof(Section))
+            info.OnDeserialized = owner => ((Section)owner).ArrivedExtensionNames =
+                NamesIn(((Section)owner).Extensions);
+        else if (info.Type == typeof(Prompt))
+            info.OnDeserialized = owner => ((Prompt)owner).ArrivedExtensionNames =
+                NamesIn(((Prompt)owner).Extensions);
+        else if (info.Type == typeof(PromptHints))
+            info.OnDeserialized = owner => ((PromptHints)owner).ArrivedExtensionNames =
+                NamesIn(((PromptHints)owner).Extensions);
+    }
+
+    // Ordinal: member names are case-sensitive, so `Routing` did not arrive because
+    // `routing` did.
+    private static IReadOnlySet<string> NamesIn(Dictionary<string, JsonElement>? extensions) =>
+        extensions is { Count: > 0 }
+            ? extensions.Keys.ToFrozenSet(StringComparer.Ordinal)
+            : FrozenSet<string>.Empty;
 
     private static void When(JsonTypeInfo info, string name, Func<object, bool> carried)
     {
