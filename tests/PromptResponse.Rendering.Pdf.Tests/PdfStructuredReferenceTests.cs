@@ -43,11 +43,13 @@ public class PdfStructuredReferenceTests
     [MemberData(nameof(AllForms))]
     public void TheCommittedReferenceMatchesWhatThePdfStates(string id)
     {
+        // The committed reference is LF on every platform (.gitattributes); the JSON
+        // writer indents with the platform newline, which on Windows is CRLF.
         var actual = PdfReferenceExtractor.ToJson(
             PdfReferenceExtractor.Extract(
                 CorpusPath(id),
                 id,
-                Derived.FirstOrDefault(d => d.Id == id).AnswerKey));
+                Derived.FirstOrDefault(d => d.Id == id).AnswerKey)).ReplaceLineEndings("\n");
         var file = Path.Combine(ReferenceDir, $"{id}.json");
 
         if (Environment.GetEnvironmentVariable("UPDATE_PDF_REFERENCE") == "1")

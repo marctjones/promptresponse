@@ -34,7 +34,9 @@ public class PipelineScorecardTests
     [Fact]
     public void TheCommittedScorecardMatchesWhatThePipelineProducesNow()
     {
-        var report = BuildScorecard();
+        // The committed file is LF on every platform (.gitattributes); the builder writes
+        // the platform newline, which on Windows is CRLF.
+        var report = BuildScorecard().ReplaceLineEndings("\n");
         var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "SCORECARD.md");
 
         if (Environment.GetEnvironmentVariable("UPDATE_SCORECARD") == "1")

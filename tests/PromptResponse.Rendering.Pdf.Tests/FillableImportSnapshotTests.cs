@@ -51,7 +51,9 @@ public class FillableImportSnapshotTests
 
         // Title is passed explicitly so the snapshot does not encode the file path.
         var imported = new PdfFormImporter().Import(pdf, id);
-        var actual = new AprJsonSerializer().Serialize(imported);
+        // The committed snapshot is LF on every platform (.gitattributes); the serializer
+        // indents with the platform newline, which on Windows is CRLF.
+        var actual = new AprJsonSerializer().Serialize(imported).ReplaceLineEndings("\n");
 
         var snapshot = Path.Combine(SnapshotDir, $"{id}.aprt");
 
