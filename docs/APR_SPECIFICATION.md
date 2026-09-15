@@ -1,7 +1,7 @@
 # APR File Format Specification {#apr-specification}
 
-**Specification document version:** 1.0.0-beta.6-draft
-**Describes format version:** `1.0-beta.6`
+**Specification document version:** 1.0.0-beta.7-draft
+**Describes format version:** `1.0-beta.7`
 **Status:** BETA — the format is not frozen and breaking changes are intentional
 **Published:** 2026-09-01
 **Editor:** Marc Jones
@@ -17,7 +17,7 @@ APR (Adaptive Prompt Response) is a file format for forms. An APR document
 describes *what to collect*, never *how to display it*. A blank form and a
 completed form are the same structure, distinguished by one member.
 
-**This document is the normative definition of APR `1.0-beta.6`.** Everything
+**This document is the normative definition of APR `1.0-beta.7`.** Everything
 else that describes the format is derived from it:
 
 | Artifact | Role |
@@ -136,8 +136,8 @@ strictly apart.
 
 | Number | Changes | Lives in | Today |
 | --- | --- | --- | --- |
-| **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.6` |
-| **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |
+| **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.7` |
+| **Specification document version** | every release | this document's header | `1.0.0-beta.7-draft` |
 | **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
 
 The format version changes only with the wire format. Two releases that do not
@@ -145,8 +145,18 @@ change the wire format declare the same format version.
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 
-A reader **MUST** reject a record whose `aprVersion` is not exactly
-`"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
+A reader **MUST** reject a record whose `aprVersion` is neither `"1.0-beta.7"`
+nor `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
+
+`1.0-beta.7` is the current format version. `1.0-beta.6` is accepted alongside it
+because beta.7 adds no member to a record and removes none: every beta.6 record is
+a beta.7 record already, and refusing one would discard a document for a number
+rather than for its content.
+
+The bump is a breaking change in the forward direction only. A reader that knows
+only beta.6 refuses a beta.7 record, which is what makes it a format version rather
+than a document release; tolerance runs the other way, so nothing written before
+this version stops being readable.
 
 **Example 1.4.1-1.** A record at this format version.
 
@@ -425,7 +435,7 @@ An implementation **MUST** state, in its conformance claim, the profiles it
 claims, the submission transports it implements (`https`, `mailto`, both, or
 none — [Submission targets](#submission)), and the corpus revision it passes. [APR-CONF-014]
 
-"APR 1.0-beta.6 core+streams, submits https, corpus beta6 @ `<sha>`" is a
+"APR 1.0-beta.7 core+streams, submits https, corpus beta6 @ `<sha>`" is a
 complete claim.
 
 An implementation **MUST NOT** claim a profile without passing the corpus
@@ -3031,7 +3041,7 @@ validator reports an error under the row's code.
 | --- | --- | --- | --- |
 | `NULL_DOCUMENT` | No document. | **MUST** | [APR-VAL-011] |
 | `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. | **MUST** | [APR-VAL-012] |
-| `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
+| `UNSUPPORTED_VERSION` | `aprVersion` is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. | **MUST** | [APR-VAL-014] |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. | **MUST** | [APR-VAL-015] |
 | `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). | **MUST** | [APR-VAL-016] |
@@ -4813,7 +4823,7 @@ member outside what its row allows, by the codes
 | Member | Type | Requirement | Rule | Notes |
 | --- | --- | --- | --- | --- |
 | `recordType` | string | **REQUIRED** | [APR-ATTEST-001] | Exactly `attestation`. |
-| `aprVersion` | string | **REQUIRED** | [APR-ATTEST-002] | Exactly `1.0-beta.6`. |
+| `aprVersion` | string | **REQUIRED** | [APR-ATTEST-002] | `1.0-beta.7`, or `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
 | `subject` | object | **REQUIRED** | [APR-ATTEST-021] | `digest` and `canonicalization`, and no other member. |
 | `subject.digest` | string | **REQUIRED** | [APR-ATTEST-022] | The digest ([Digests and manifests](#digests)) of the subject form's complete semantic model. |
 | `subject.canonicalization` | string | **REQUIRED** | [APR-ATTEST-003] | Exactly `jcs-sha256`. |

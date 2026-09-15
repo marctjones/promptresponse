@@ -1,21 +1,21 @@
 {
   "catalog": {
-    "uuid": "daaa689c-dacf-517c-90be-5e9dc714039f",
+    "uuid": "10ee953d-8cf9-5caa-a9b6-83908b51ac88",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
-      "version": "1.0.0-beta.6-draft",
+      "version": "1.0.0-beta.7-draft",
       "oscal-version": "1.1.2",
       "props": [
         {
           "name": "format-version",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "1.0-beta.6"
+          "value": "1.0-beta.7"
         },
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "6a31fd5a198429940d7206ffec999d697b18f00e4b82ab0c3ebd226b874532f2"
+          "value": "311a87b5b6ebaf2ec29e36ae4c5ea44aab6be9cbf0eb8b6f394f70626f891e6f"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -78,7 +78,7 @@
               {
                 "id": "apr-sec-002_smt",
                 "name": "statement",
-                "prose": "A reader **MUST** reject a record whose `aprVersion` is not exactly `\"1.0-beta.6\"`, reporting `UNSUPPORTED_VERSION`."
+                "prose": "A reader **MUST** reject a record whose `aprVersion` is neither `\"1.0-beta.7\"` nor `\"1.0-beta.6\"`, reporting `UNSUPPORTED_VERSION`."
               }
             ]
           }
@@ -10779,7 +10779,7 @@
               {
                 "id": "apr-val-013_smt",
                 "name": "statement",
-                "prose": "`UNSUPPORTED_VERSION` — `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). — **MUST**"
+                "prose": "`UNSUPPORTED_VERSION` — `aprVersion` is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). — **MUST**"
               }
             ]
           },
@@ -16095,7 +16095,7 @@
               {
                 "id": "apr-attest-002_smt",
                 "name": "statement",
-                "prose": "`aprVersion` — string — **REQUIRED** — Exactly `1.0-beta.6`."
+                "prose": "`aprVersion` — string — **REQUIRED** — `1.0-beta.7`, or `1.0-beta.6` ([Version compatibility](#version-compatibility))."
               },
               {
                 "id": "apr-attest-002_gap",

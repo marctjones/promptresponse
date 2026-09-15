@@ -10,7 +10,7 @@
         { "$ref": "apr-1.0.schema.json" },
         {
           "properties": {
-            "aprVersion": { "const": "1.0-beta.6" }
+            "aprVersion": { "enum": [ "1.0-beta.7", "1.0-beta.6" ] }
           }
         }
       ]
@@ -21,7 +21,7 @@
       "required": [ "recordType", "aprVersion", "subject", "scope", "manifest", "proofs", "witnesses" ],
       "properties": {
         "recordType": { "const": "attestation" },
-        "aprVersion": { "const": "1.0-beta.6" },
+        "aprVersion": { "enum": [ "1.0-beta.7", "1.0-beta.6" ] },
         "subject": {
           "type": "object",
           "required": [ "digest", "canonicalization" ],
