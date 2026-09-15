@@ -2642,8 +2642,8 @@ A writer **SHOULD NOT** nest sections more than five levels deep. [APR-MODEL-017
 
 Deeper forms are difficult to navigate with any input method.
 
-**Example 5.6-1.** Six levels of nesting. The advice is a **SHOULD NOT**, so the
-document is valid and a reader opens it.
+**Example 5.6-1.** Six levels of nesting. The advice above is advice, so a deeper
+document is still valid and a reader opens it.
 
 ```apr-example
 id: nesting-six-levels

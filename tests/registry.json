@@ -501,12 +501,16 @@
       "id": "REQ-authoring-never-rewritten",
       "section": "authoring-strictness",
       "statement": "An implementation never Unicode-normalizes authoring data or removes a code point from it",
-      "strength": "none",
-      "gates": [],
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
       "rules": [
         "APR-TEXT-006"
-      ],
-      "gap": "No case checks it, and the Python and TypeScript SDKs break it: they normalize and strip hint and role text when they read it (#412)."
+      ]
     },
     {
       "id": "REQ-submission-url-advisory",
