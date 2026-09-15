@@ -50,7 +50,7 @@
     },
     "conformanceStatement": {
       "path": "docs/release/APR_CONFORMANCE_STATEMENT.md",
-      "sha256": "sha256:6d4a40eb090752d86b468492cf05e65756585b0fbc526dd3371bcdf68ea24bae"
+      "sha256": "sha256:d7a5f0a2cb6baf0c561f8ff12707c538a7706a95486122424c6a7ed85caa5038"
     }
   },
   "corpus": {
