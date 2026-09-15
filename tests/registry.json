@@ -1853,9 +1853,20 @@
         {
           "type": "test",
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_shared_out_of_order_stream_resolves_by_digest_not_position"
+        },
+        {
+          "type": "test",
+          "ref": "PairedFormsAndStreams_FollowTheSharedBeta6Corpus"
         }
       ],
       "gap": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it.",
+      "gapRules": [
+        "APR-STREAM-004"
+      ],
       "rules": [
         "APR-STREAM-001",
         "APR-STREAM-003",

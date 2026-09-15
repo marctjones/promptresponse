@@ -1141,6 +1141,17 @@
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
     ]
   },
+  "APR-STREAM-005": {
+    "reason": "A rule on what a reader declines to infer from where a record sits. The driver protocol reports outcome, diagnostic, digest, warnings, evaluated and written, and none of those says what an attestation resolved to, so a stream in which position misleads reads as valid to a positional reader and a digest one alike; an example could only assert what both answer. The out-of-order fixture is built to separate them \u2014 an attestation first, then two byte-identical copies of the form its subject digest names \u2014 and four SDK suites read it and assert unverifiable with two form records surviving. Unresolved is what a reader consulting only preceding records reports, valid is what a reader letting a leading attestation vouch for what follows reports, and one record is what a reader reading the second occurrence as a revision reports. The chronology clause has no assertion of its own; the fixture carries no time to misread.",
+    "coveredBy": [
+      "corpus:streams/out-of-order.apr.jsonc",
+      "corpus:streams/out-of-order.apr.yaml",
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-STREAM-008": {
     "reason": "A rule on how a reader tells a record's kind; a document cannot make a reader choose the other.",
     "coveredBy": [
