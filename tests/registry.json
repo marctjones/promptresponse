@@ -791,8 +791,13 @@
       "id": "REQ-expr-fallback",
       "section": "expr-fallback",
       "statement": "A result is written in its canonical form, and a failed hint applies its fallback",
-      "strength": "partial",
-      "gates": [],
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
       "rules": [
         "APR-EXPR-028",
         "APR-EXPR-029",
@@ -800,11 +805,6 @@
         "APR-EXPR-031",
         "APR-EXPR-032",
         "APR-EXPR-033"
-      ],
-      "gap": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first.",
-      "gapRules": [
-        "APR-EXPR-030",
-        "APR-EXPR-031"
       ]
     },
     {

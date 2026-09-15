@@ -5249,6 +5249,84 @@ expects: {"responses": {"total": "7"}}
 }
 ```
 
+**Example 11.8-5.** An `exprExpected` that evaluates marks its prompt expected, and
+one that fails does not.
+
+```apr-example
+id: expr-fallback-expected
+rule: expr-fallback
+satisfies: APR-EXPR-030
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"expected": {"signature": true, "details": false}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "consent", "label": "Consent", "response": "yes" },
+        {
+          "id": "signature",
+          "label": "Signature",
+          "hints": { "exprExpected": "consent == 'yes'" }
+        },
+        {
+          "id": "details",
+          "label": "Details",
+          "hints": { "exprExpected": "nosuch == 'no'" }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-6.** An `exprReadOnly` that evaluates marks its prompt read-only, and
+one that fails keeps its prompt editable.
+
+```apr-example
+id: expr-fallback-read-only
+rule: expr-fallback
+satisfies: APR-EXPR-031
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"readOnly": {"reference": true, "details": false}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "consent", "label": "Consent", "response": "yes" },
+        {
+          "id": "reference",
+          "label": "Reference",
+          "hints": { "exprReadOnly": "consent == 'yes'" }
+        },
+        {
+          "id": "details",
+          "label": "Details",
+          "hints": { "exprReadOnly": "nosuch == 'no'" }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.9 A computed value is a suggestion, not a lock {#expr-computed}
 
 A renderer **MUST** keep a computed prompt editable. [APR-EXPR-014]

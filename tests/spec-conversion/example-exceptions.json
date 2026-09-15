@@ -427,6 +427,18 @@
       "spec:expr-fallback-hidden"
     ]
   },
+  "APR-EXPR-030": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": [
+      "spec:expr-fallback-expected"
+    ]
+  },
+  "APR-EXPR-031": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": [
+      "spec:expr-fallback-read-only"
+    ]
+  },
   "APR-EXPR-032": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": [

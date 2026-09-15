@@ -941,6 +941,33 @@
       }
     },
     {
+      "id": "expr-fallback-expected",
+      "number": "11.8-5",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"consent\", \"label\": \"Consent\", \"response\": \"yes\" },\n        {\n          \"id\": \"signature\",\n          \"label\": \"Signature\",\n          \"hints\": { \"exprExpected\": \"consent == 'yes'\" }\n        },\n        {\n          \"id\": \"details\",\n          \"label\": \"Details\",\n          \"hints\": { \"exprExpected\": \"nosuch == 'no'\" }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-030"
+      ],
+      "satisfies": [
+        "APR-EXPR-030"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "expected": {
+          "signature": true,
+          "details": false
+        }
+      }
+    },
+    {
       "id": "expr-fallback-hidden",
       "number": "11.8-2",
       "rule": "expr-fallback",
@@ -962,6 +989,33 @@
       },
       "expects": {
         "hidden": {
+          "details": false
+        }
+      }
+    },
+    {
+      "id": "expr-fallback-read-only",
+      "number": "11.8-6",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"consent\", \"label\": \"Consent\", \"response\": \"yes\" },\n        {\n          \"id\": \"reference\",\n          \"label\": \"Reference\",\n          \"hints\": { \"exprReadOnly\": \"consent == 'yes'\" }\n        },\n        {\n          \"id\": \"details\",\n          \"label\": \"Details\",\n          \"hints\": { \"exprReadOnly\": \"nosuch == 'no'\" }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-031"
+      ],
+      "satisfies": [
+        "APR-EXPR-031"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "readOnly": {
+          "reference": true,
           "details": false
         }
       }

@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "dfb0ce1b-5406-542a-b124-ab1c0cd5da41",
+    "uuid": "bc3e2c58-3e09-525e-b5e8-8026c5c802f6",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "7a96005b6ab89ae5a1fd11edf844f95055fcef281f5b944cc24b04aa35538d0b"
+          "value": "51de1aa7ae456a33c99ff9c8445020bb9b79a544c920fb106535740f27b87e23"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -16570,7 +16570,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16604,11 +16604,6 @@
                 "id": "apr-expr-028_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST** write a result back to a stored string through the canonical write forms of [Canonical value forms](#canonical-values)."
-              },
-              {
-                "id": "apr-expr-028_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16632,7 +16627,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16666,11 +16661,6 @@
                 "id": "apr-expr-029_smt",
                 "name": "statement",
                 "prose": "`exprHidden` — `bool` — false — show the prompt — **MUST**"
-              },
-              {
-                "id": "apr-expr-029_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16694,7 +16684,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16728,11 +16718,6 @@
                 "id": "apr-expr-030_smt",
                 "name": "statement",
                 "prose": "`exprExpected` — `bool` — false — do not mark expected — **MUST**"
-              },
-              {
-                "id": "apr-expr-030_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16756,7 +16741,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16790,11 +16775,6 @@
                 "id": "apr-expr-031_smt",
                 "name": "statement",
                 "prose": "`exprReadOnly` — `bool` — false — keep editable — **MUST**"
-              },
-              {
-                "id": "apr-expr-031_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16818,7 +16798,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16852,11 +16832,6 @@
                 "id": "apr-expr-032_smt",
                 "name": "statement",
                 "prose": "`exprValidation` — `string` — empty — no advisory — **MUST**"
-              },
-              {
-                "id": "apr-expr-032_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16880,7 +16855,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16914,11 +16889,6 @@
                 "id": "apr-expr-033_smt",
                 "name": "statement",
                 "prose": "`exprValue` — the prompt's bound type — Do not write; retain the stored response exactly — **MUST**"
-              },
-              {
-                "id": "apr-expr-033_gap",
-                "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
