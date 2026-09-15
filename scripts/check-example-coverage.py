@@ -13,6 +13,8 @@ examples rather than counted as them.
   uncovered           nothing anywhere cites it
   not-expressible     recorded in tests/spec-conversion/example-exceptions.json:
                       no document can show it, and another test covers it
+  tracked             recorded there with an open issue instead of a test: showing
+                      or testing it waits on the work that issue tracks
 
 Examples come from the specification through extract-spec-examples.py, corpus
 cases from tests/Conformance/beta6/suite.json, and renderer cases from
@@ -21,7 +23,7 @@ renderer-suite.json.
     python3 scripts/check-example-coverage.py            # report, never fails
     python3 scripts/check-example-coverage.py --missing  # only rules not covered
     python3 scripts/check-example-coverage.py --chapter 1
-    python3 scripts/check-example-coverage.py --gate     # fail unless every rule is covered or excepted
+    python3 scripts/check-example-coverage.py --gate     # fail unless every rule is covered, excepted or tracked
     python3 scripts/check-example-coverage.py --json
     python3 scripts/check-example-coverage.py --self-test
 """
@@ -47,8 +49,10 @@ spec_units = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(spec_units)
 
 STATUSES = ("covered", "missing-violating", "missing-satisfying", "corpus-only", "uncovered",
-            "not-expressible")
+            "not-expressible", "tracked")
+FINISHED = {"covered", "not-expressible", "tracked"}
 RULE_TAG = re.compile(r"\[(APR-[A-Z]+-\d{3})\]")
+ISSUE = re.compile(r"#\d+")
 
 
 def stated_rules(text: str) -> list[str]:
@@ -65,7 +69,13 @@ def exception_problems(exceptions: dict, rules: set[str], case_ids: set[str]) ->
         if not str(entry.get("reason", "")).strip():
             problems.append(f"{rule}: excepted without a reason")
         covered_by = entry.get("coveredBy") or []
-        if not covered_by:
+        issue = entry.get("issue")
+        if covered_by and issue is not None:
+            problems.append(f"{rule}: names a covering test and a tracking issue; it is one or the other")
+        elif issue is not None:
+            if not ISSUE.fullmatch(str(issue)):
+                problems.append(f"{rule}: tracked by {issue!r}, which is not an issue number such as #123")
+        elif not covered_by:
             problems.append(f"{rule}: excepted without naming the test that covers it instead")
         for test in covered_by:
             if test not in case_ids and not (ROOT / test).exists():
@@ -89,7 +99,7 @@ def classify(rules: list[str], examples: list[dict], cases: list[dict], exceptio
                 report[rule][leg].append(case["id"])
     for rule, row in report.items():
         if rule in exceptions:
-            row["status"] = "not-expressible"
+            row["status"] = "tracked" if exceptions[rule].get("issue") is not None else "not-expressible"
         elif row["satisfying"] and row["violating"]:
             row["status"] = "covered"
         elif row["satisfying"]:
@@ -126,7 +136,7 @@ def counts(report: dict[str, dict]) -> dict[str, int]:
 
 def self_test() -> int:
     problems: list[str] = []
-    rules = ["APR-T-001", "APR-T-002", "APR-T-003", "APR-T-004", "APR-T-005", "APR-T-006"]
+    rules = ["APR-T-001", "APR-T-002", "APR-T-003", "APR-T-004", "APR-T-005", "APR-T-006", "APR-T-007"]
     examples = [
         {"id": "good", "satisfies": ["APR-T-001", "APR-T-002"]},
         {"id": "bad", "violates": ["APR-T-001", "APR-T-003"]},
@@ -136,10 +146,12 @@ def self_test() -> int:
         {"id": "corpus:x.apr.jsonc", "source": "corpus", "rules": ["APR-T-004"]},
         {"id": "renderer:y", "rules": ["APR-T-005", "APR-T-006"]},
     ]
-    exceptions = {"APR-T-006": {"reason": "rendering", "coveredBy": ["renderer:y"]}}
+    exceptions = {"APR-T-006": {"reason": "rendering", "coveredBy": ["renderer:y"]},
+                  "APR-T-007": {"reason": "waits on a renderer", "issue": "#1"}}
     report = classify(rules, examples, cases, exceptions)
     wanted = {"APR-T-001": "covered", "APR-T-002": "missing-violating", "APR-T-003": "missing-satisfying",
-              "APR-T-004": "corpus-only", "APR-T-005": "corpus-only", "APR-T-006": "not-expressible"}
+              "APR-T-004": "corpus-only", "APR-T-005": "corpus-only", "APR-T-006": "not-expressible",
+              "APR-T-007": "tracked"}
     for rule, status in wanted.items():
         if report[rule]["status"] != status:
             problems.append(f"{rule}: classified {report[rule]['status']}, expected {status}")
@@ -155,6 +167,10 @@ def self_test() -> int:
         ("no covering test", {"APR-T-006": {"reason": "r"}}, "without naming the test"),
         ("a covering test that does not exist", {"APR-T-006": {"reason": "r", "coveredBy": ["renderer:nope"]}},
          "neither a case id nor a file"),
+        ("a test and an issue at once", {"APR-T-006": {"reason": "r", "coveredBy": ["renderer:y"], "issue": "#1"}},
+         "one or the other"),
+        ("an issue that is not an issue number", {"APR-T-007": {"reason": "r", "issue": "soon"}},
+         "not an issue number"),
     ]
     if exception_problems(exceptions, set(rules), ids):
         problems.append("a well-formed exception reports a problem")
@@ -195,7 +211,7 @@ def main(argv: list[str]) -> int:
             print(f"  PROBLEM  {p}")
     if problems:
         return 1
-    unfinished = sum(n for s, n in totals.items() if s not in {"covered", "not-expressible"})
+    unfinished = sum(n for s, n in totals.items() if s not in FINISHED)
     return 1 if "--gate" in argv and unfinished else 0
 
 

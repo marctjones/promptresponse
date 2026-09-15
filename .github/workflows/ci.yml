@@ -271,15 +271,16 @@ jobs:
           python3 scripts/check-spec-conversion.py --gate
           python3 scripts/check-spec-approach.py --gate
 
-      - name: Report example coverage
-        # Report mode until every rule is shown by an example or holds a recorded
-        # exception naming the test that covers it (#488).
+      - name: Gate example coverage
+        # Every rule is shown by an example, holds a recorded exception naming the test
+        # that covers it, or is tracked by an open issue.
         if: always()
         run: |
           mkdir -p spec-rewrite-report
           python3 scripts/check-example-coverage.py > spec-rewrite-report/example-coverage.txt
           python3 scripts/check-example-coverage.py --json > spec-rewrite-report/example-coverage.json
           { echo "### Example coverage"; echo '```'; head -n 40 spec-rewrite-report/example-coverage.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          python3 scripts/check-example-coverage.py --gate
 
       - name: Publish the specification rewrite report
         if: always()

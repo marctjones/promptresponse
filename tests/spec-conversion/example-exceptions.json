@@ -1,5 +1,5 @@
 {
-  "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead. Read by scripts/check-example-coverage.py.",
+  "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead, or, where that waits on work not yet done, the open issue tracking it. Read by scripts/check-example-coverage.py.",
   "APR-ATTEST-004": {
     "reason": "A permission, which nothing can violate.",
     "coveredBy": [
@@ -76,6 +76,10 @@
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
     ]
   },
+  "APR-ATTEST-016": {
+    "reason": "A rule on what a verifier reports beyond the verification vocabulary, which no case asks a verifier for yet.",
+    "issue": "#541"
+  },
   "APR-ATTEST-017": {
     "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
@@ -101,6 +105,10 @@
       "tests/PromptResponse.Core.Tests/Beta6/AttestationsNeverGateTheDataTests.cs",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
+  },
+  "APR-ATTEST-020": {
+    "reason": "A rule on what a verifier reports beyond the verification vocabulary, which no case asks a verifier for yet.",
+    "issue": "#541"
   },
   "APR-ATTEST-031": {
     "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
@@ -142,6 +150,18 @@
       "spec:attestation-unknown-proof-preserved",
       "tests/Conformance/beta6/rules/apr-attest-038-roundtrip.apr.jsonc"
     ]
+  },
+  "APR-ATTEST-039": {
+    "reason": "A rule on what a renderer shows or an implementation concludes about an attestation, which no document can show and no renderer case asks yet.",
+    "issue": "#540"
+  },
+  "APR-ATTEST-040": {
+    "reason": "A rule on what a renderer shows or an implementation concludes about an attestation, which no document can show and no renderer case asks yet.",
+    "issue": "#540"
+  },
+  "APR-ATTEST-041": {
+    "reason": "A rule on what a renderer shows or an implementation concludes about an attestation, which no document can show and no renderer case asks yet.",
+    "issue": "#540"
   },
   "APR-ATTEST-044": {
     "reason": "A rule on what a reader accepts; no document can make a reader refuse a stream it has to accept.",
@@ -204,6 +224,10 @@
       "java/src/test/java/org/promptresponse/AprConformanceTest.java",
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
     ]
+  },
+  "APR-ATTEST-052": {
+    "reason": "A rule on what a renderer shows or an implementation concludes about an attestation, which no document can show and no renderer case asks yet.",
+    "issue": "#540"
   },
   "APR-ATTEST-053": {
     "reason": "A rule on what a validator leaves out of its errors; no document can make a validator report attestation state.",
@@ -281,11 +305,19 @@
       "corpus:rules/apr-conf-002-roundtrip.apr.jsonc"
     ]
   },
+  "APR-CONF-012": {
+    "reason": "A rule on what a renderer shows or an implementation concludes about an attestation, which no document can show and no renderer case asks yet.",
+    "issue": "#540"
+  },
   "APR-CONF-013": {
     "reason": "A rule on what a writer preserves across a round trip; no document can make a writer drop an expression string.",
     "coveredBy": [
       "spec:expression-preserved"
     ]
+  },
+  "APR-CONF-014": {
+    "reason": "A rule on what a conformance claim names outside the harness, which no case can check.",
+    "issue": "#527"
   },
   "APR-DIGEST-002": {
     "reason": "A rule on what an implementation computes, which a document shows only through the digest it expects.",
@@ -309,6 +341,10 @@
       "spec:digest-ignores-source-syntax",
       "spec:digest-same-in-yaml"
     ]
+  },
+  "APR-DIGEST-007": {
+    "reason": "A rule on what a verifier reports beyond the verification vocabulary, which no case asks a verifier for yet.",
+    "issue": "#541"
   },
   "APR-DIGEST-010": {
     "reason": "A SHOULD on what a manifest producer emits, which no input document shows. The tests compare a produced manifest's paths against every pointer in a form carrying an unknown member.",
@@ -378,6 +414,17 @@
     "reason": "A SHOULD on what an implementation reports to an author, which no document shows. The test checks a sound expression yields no diagnostic and a type error or undeclared reference yields one; position information is not asserted.",
     "coveredBy": [
       "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"
+    ]
+  },
+  "APR-EXPR-011": {
+    "reason": "A rule on bounding expression evaluation, which no implementation here does yet, so there is no bound for a case to reach.",
+    "issue": "#542"
+  },
+  "APR-EXPR-012": {
+    "reason": "A rule that defers to cel-spec release v0.25.3 and its conformance suite, which no in-spec example can show an implementation passing. The corpus evaluation case exercises the surface, and the expression oracle checks that each implementation exposes exactly the pinned language.",
+    "coveredBy": [
+      "corpus:rules/apr-expr-012-evaluates.apr.jsonc",
+      "scripts/check-expression-oracle.py"
     ]
   },
   "APR-EXPR-013": {
@@ -511,6 +558,10 @@
     "coveredBy": [
       "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"
     ]
+  },
+  "APR-EXPR-035": {
+    "reason": "A rule on bounding expression evaluation, which no implementation here does yet, so there is no bound for a case to reach.",
+    "issue": "#542"
   },
   "APR-MODEL-002": {
     "reason": "A permission, which nothing can violate; a response contradicting its hints stays valid and draws a warning.",
@@ -656,6 +707,18 @@
     "coveredBy": [
       "corpus:rules/apr-model-040-roundtrip.apr.jsonc"
     ]
+  },
+  "APR-MODEL-041": {
+    "reason": "A rule on how a writer repairs ids, which no implementation here does yet.",
+    "issue": "#432"
+  },
+  "APR-MODEL-042": {
+    "reason": "A rule on how a writer repairs ids, which no implementation here does yet.",
+    "issue": "#432"
+  },
+  "APR-MODEL-044": {
+    "reason": "A rule on how a reader presents a reference, which no renderer case asks yet.",
+    "issue": "#434"
   },
   "APR-MODEL-045": {
     "reason": "A rule on what a reader does with an unresolved reference. A document shows the reference is valid, but not a reader rejecting it.",
@@ -827,6 +890,10 @@
       "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
     ]
   },
+  "APR-MODEL-083": {
+    "reason": "A rule on how a reader inherits a language, which no renderer here applies yet.",
+    "issue": "#524"
+  },
   "APR-MODEL-084": {
     "reason": "A rule on what a writer does to language members when it fills a form, which no input document shows. The tests fill a form carrying a document and a section language and check both come back unchanged, with none added.",
     "coveredBy": [
@@ -908,6 +975,10 @@
       "typescript/src/test/beta6.test.ts",
       "java/src/test/java/org/promptresponse/AprConformanceTest.java"
     ]
+  },
+  "APR-MODEL-096": {
+    "reason": "A rule on how a writer repairs ids, which no implementation here does yet.",
+    "issue": "#432"
   },
   "APR-MODEL-097": {
     "reason": "A rule on what a reader preserves, which no document can violate.",
@@ -1031,6 +1102,10 @@
       "spec:unusable-hint"
     ]
   },
+  "APR-MODEL-117": {
+    "reason": "A rule on the order a renderer applies hints in, which no renderer case asks yet.",
+    "issue": "#526"
+  },
   "APR-MODEL-118": {
     "reason": "A rule on how a reader compares member names, which no document can violate; the example shows its consequence.",
     "coveredBy": [
@@ -1100,11 +1175,30 @@
       "tests/PromptResponse.Core.Tests/Beta6/SubmissionTargetTests.cs"
     ]
   },
+  "APR-MODEL-136": {
+    "reason": "A rule on the request a post submission makes, which no client here sends yet.",
+    "issue": "#418"
+  },
+  "APR-MODEL-137": {
+    "reason": "A rule on the request a post submission makes, which no client here sends yet.",
+    "issue": "#418"
+  },
+  "APR-MODEL-138": {
+    "reason": "A rule on the request a post submission makes, which no client here sends yet.",
+    "issue": "#418"
+  },
   "APR-MODEL-139": {
     "reason": "A rule on what an implementation acts on, which no document can show. The command-line and desktop tests offer a post entry and an entry of an unknown kind, and neither is acted on.",
     "coveredBy": [
       "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs",
       "tests/PromptResponse.Desktop.Tests/ViewModels/MainShellViewModelTests.Behaviors.cs"
+    ]
+  },
+  "APR-MODEL-140": {
+    "reason": "A rule on the message a mailto submission composes, which no document can show. The desktop test hands the completed file to mail as an attachment and finds no document in the body; the command-line client composes no mail and says to attach the file.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/MainShellViewModelTests.Behaviors.cs",
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"
     ]
   },
   "APR-RENDER-001": {
@@ -1342,6 +1436,14 @@
       "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
     ]
   },
+  "APR-SEC-013": {
+    "reason": "A rule on what a reader does with a media type or a document's size, which nothing here reads or bounds yet.",
+    "issue": "#543"
+  },
+  "APR-SEC-014": {
+    "reason": "A rule on what a reader does with a media type or a document's size, which nothing here reads or bounds yet.",
+    "issue": "#543"
+  },
   "APR-SEC-015": {
     "reason": "A rule about a disagreement between a file's extension and its documentType. One half of the comparison is the filename, which a document does not carry.",
     "coveredBy": [
@@ -1359,6 +1461,10 @@
     "coveredBy": [
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationTrustTests.cs"
     ]
+  },
+  "APR-SEC-018": {
+    "reason": "A rule on what a reader does with a media type or a document's size, which nothing here reads or bounds yet.",
+    "issue": "#543"
   },
   "APR-SEC-019": {
     "reason": "A rule on how a reader fails on hostile input; every document in the suite is within any bound a reader applies.",
