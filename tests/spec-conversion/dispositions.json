@@ -9168,7 +9168,10 @@
         "expr-activation/example/c7995d2e1d",
         "expr-activation/sentence/40a4a2aef8",
         "expr-activation/sentence/94009b0401",
-        "expr-activation/sentence/f7d3f244da"
+        "expr-activation/sentence/f7d3f244da",
+        "expr-activation/sentence/3b30d3142e",
+        "expr-activation/sentence/d111f123c1",
+        "expr-activation/example/ab4baf64f1"
       ],
       "issue": 483,
       "note": "an example that the activation is all an expression can reach (APR-EXPR-002, APR-EXPR-015)"

@@ -391,6 +391,12 @@
       "spec:expr-id"
     ]
   },
+  "APR-EXPR-020": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": [
+      "spec:expr-now"
+    ]
+  },
   "APR-EXPR-021": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": [

@@ -764,7 +764,7 @@
       "id": "REQ-expr-activation",
       "section": "expr-activation",
       "statement": "The read-only activation and its reserved names; an expression sees the activation and nothing else; an id that is not a CEL identifier is unreachable",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -773,11 +773,15 @@
         {
           "type": "test",
           "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
+        },
+        {
+          "type": "test",
+          "ref": "Activation_BindsEveryNameTheSpecificationDefines"
+        },
+        {
+          "type": "suite",
+          "ref": "core.conformance"
         }
-      ],
-      "gap": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike.",
-      "gapRules": [
-        "APR-EXPR-020"
       ],
       "rules": [
         "APR-EXPR-004",

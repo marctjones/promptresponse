@@ -4893,6 +4893,47 @@ expects: {"responses": {"greeting": ""}}
 }
 ```
 
+**Example 11.4-9.** `_now` is the instant the caller supplies, separately from `_today`.
+
+```apr-example
+id: expr-now
+rule: expr-activation
+satisfies: APR-EXPR-020, APR-EXPR-005
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2025-03-04T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"stamped": "2025-03-04T12:00:00Z", "year": "2025"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "stamped",
+          "label": "Stamped",
+          "hints": {
+            "exprValue": "string(_now)"
+          }
+        },
+        {
+          "id": "year",
+          "label": "Year",
+          "hints": {
+            "exprValue": "_now.getFullYear()"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.5 The type environment {#expr-binding}
 
 CEL is statically typed. `expectedDataType` supplies the types, and an

@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "c8d7e8cf-6bfa-535a-85db-f7d945a23463",
+    "uuid": "b5f4ca5f-f169-56d3-99ab-8d0658896ef1",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "222311cc498fd75f8ecae0ec9e977609d4c0ce00a47787f2eb1c066cde5ebb5f"
+          "value": "ef40c693a15b93e03ec6c304411ddb21fa4fe381eb3a3879b056bc01c3b13f26"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -14987,7 +14987,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15021,11 +15021,6 @@
                 "id": "apr-expr-004_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST NOT** let a direct binding shadow `_this`, `_id`, `_now`, `_today`, or `ctx`."
-              },
-              {
-                "id": "apr-expr-004_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15049,7 +15044,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15083,11 +15078,6 @@
                 "id": "apr-expr-005_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST** take `_now` and `_today` from the caller and never from the host clock during evaluation."
-              },
-              {
-                "id": "apr-expr-005_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15644,7 +15634,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15678,11 +15668,6 @@
                 "id": "apr-expr-015_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST** evaluate an expression against this read-only activation and nothing else."
-              },
-              {
-                "id": "apr-expr-015_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15706,7 +15691,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15740,11 +15725,6 @@
                 "id": "apr-expr-016_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST NOT** give a prompt whose id is not a valid CEL identifier a direct binding, nor make it reachable from an expression by any other name."
-              },
-              {
-                "id": "apr-expr-016_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15768,7 +15748,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15802,11 +15782,6 @@
                 "id": "apr-expr-017_smt",
                 "name": "statement",
                 "prose": "a prompt's `id` — that prompt's bound type — Direct binding, where the id is a valid CEL identifier and not reserved. — **MUST**"
-              },
-              {
-                "id": "apr-expr-017_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15830,7 +15805,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15864,11 +15839,6 @@
                 "id": "apr-expr-018_smt",
                 "name": "statement",
                 "prose": "`_this` — the owning prompt's bound type — The response of the prompt carrying this hint. — **MUST**"
-              },
-              {
-                "id": "apr-expr-018_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15892,7 +15862,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15926,11 +15896,6 @@
                 "id": "apr-expr-019_smt",
                 "name": "statement",
                 "prose": "`_id` — `string` — The owning prompt's id. — **MUST**"
-              },
-              {
-                "id": "apr-expr-019_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15954,7 +15919,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -15988,11 +15953,6 @@
                 "id": "apr-expr-020_smt",
                 "name": "statement",
                 "prose": "`_now` — `timestamp` — The evaluation instant, supplied by the caller. — **MUST**"
-              },
-              {
-                "id": "apr-expr-020_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16016,7 +15976,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16050,11 +16010,6 @@
                 "id": "apr-expr-021_smt",
                 "name": "statement",
                 "prose": "`_today` — `string` — The evaluation date, supplied by the caller. — **MUST**"
-              },
-              {
-                "id": "apr-expr-021_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16078,7 +16033,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16112,11 +16067,6 @@
                 "id": "apr-expr-022_smt",
                 "name": "statement",
                 "prose": "`ctx` — `map` — Host-supplied context ([Context](#expr-context)). — **MUST**"
-              },
-              {
-                "id": "apr-expr-022_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-020 types `_now` as the evaluation instant supplied by the caller, and only the reference validator reads it. Measured through the driver protocol across all six drivers, as three `exprValue` expressions, with `_today` and `_now` deliberately on different dates — `_today` 2026-09-01, `_now` 2026-03-04T12:00:00Z:\n  comparison against timestamp('2026-01-01T00:00:00Z')  after everywhere but Java, which returns the fallback\n  _now.getFullYear()   2026 in reference, both .NET drivers and TypeScript; the fallback in Python and Java\n  string(_now)         2026-03-04T12:00:00Z in the reference alone; 2026-09-01T00:00:00Z in both .NET drivers; 2026-09-01 00:00:00+00:00 in Python; the fallback in TypeScript and Java\nFour defects, not one. Java never binds `_now` (#513). .NET and Python both ignore the supplied instant and synthesize `_now` from `_today` — they answer with `_today`'s date at midnight, not a truncation of `_now` but a different day (#536, #533); Python additionally marshals it as datetime.__str__ rather than RFC 3339 and fails getFullYear(). TypeScript binds a correct timestamp and fails only string() (#534). The two expressions anyone reaches for cannot see the .NET and Python substitution: the comparison and getFullYear() both answer the same whichever date is bound, so only string(_now), with the two names disagreeing, separates them — which is why .NET was previously recorded as answering this rule correctly. Every existing vector supplies `_today` and `_now` on the same date, so none of them could have caught it. A case naming APR-EXPR-020 fails at least four of the six drivers, and closing it is four separate SDK fixes. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },

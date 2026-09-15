@@ -1131,6 +1131,35 @@
       }
     },
     {
+      "id": "expr-now",
+      "number": "11.4-9",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"stamped\",\n          \"label\": \"Stamped\",\n          \"hints\": {\n            \"exprValue\": \"string(_now)\"\n          }\n        },\n        {\n          \"id\": \"year\",\n          \"label\": \"Year\",\n          \"hints\": {\n            \"exprValue\": \"_now.getFullYear()\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-020",
+        "APR-EXPR-005"
+      ],
+      "satisfies": [
+        "APR-EXPR-020",
+        "APR-EXPR-005"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2025-03-04T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "stamped": "2025-03-04T12:00:00Z",
+          "year": "2025"
+        }
+      }
+    },
+    {
       "id": "expr-reserved-name",
       "number": "11.4-7",
       "rule": "expr-activation",
