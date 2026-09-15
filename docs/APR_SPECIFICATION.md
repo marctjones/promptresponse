@@ -154,10 +154,10 @@ because a version number moved.
 A reader **MUST** reject a record that states an `aprVersion` other than
 `"1.0-beta.7"` or `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
 
-A record that states no version states nothing to compare, so an absent or blank
-`aprVersion` is the missing member it is, reported as `REQUIRED_FIELD`
-([Errors](#structural-validation)). Only a version a record actually carries can
-be unsupported.
+A record states a version by carrying a non-empty `aprVersion`. An absent or
+blank member states none, so it is the missing member it is, reported as
+`REQUIRED_FIELD` ([Errors](#structural-validation)). Only a version a record
+actually carries can be unsupported.
 
 `1.0-beta.7` is the current format version. `1.0-beta.6` is accepted alongside it
 because beta.7 adds no member to a record and removes none: every beta.6 record is

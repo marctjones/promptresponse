@@ -597,7 +597,8 @@
         "version-compatibility/sentence/1431e56e15",
         "version-compatibility/sentence/86f2bcedfd",
         "version-compatibility/sentence/befb65a676",
-        "version-compatibility/sentence/786ead62cc",
+        "version-compatibility/sentence/c6a7d372ac",
+        "version-compatibility/sentence/a159b41ccf",
         "version-compatibility/sentence/14f479c939"
       ],
       "note": "only a version a record states can be unsupported; absent or blank is REQUIRED_FIELD",
