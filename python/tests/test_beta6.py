@@ -50,6 +50,31 @@ def test_beta6_rejects_duplicate_jsonc_members():
         pr.read_beta6_form(FORM.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc")
 
 
+@pytest.mark.parametrize("escaped", ["\\u0000", "\\u0007", "\\ud800", "\\udc00"])
+def test_beta6_refuses_a_forbidden_code_point_while_reading(escaped):
+    # APR-REP-004. Refused as a parse failure, never a crash: an unpaired surrogate
+    # has no UTF-8 encoding, so a reader that waited would fail computing a digest.
+    source = FORM.replace('"title":"T"', f'"title":"a{escaped}b"')
+    assert source != FORM
+    with pytest.raises(pr.AprParseError) as refused:
+        pr.read_beta6_stream(source, "jsonc")
+    assert refused.value.code == "PARSE_ERROR"
+
+
+def test_beta6_refuses_a_forbidden_code_point_in_a_member_name():
+    source = FORM.replace('"metadata":', '"metadata":{},"x.a\\u0001b":1,"metadata2":')
+    with pytest.raises(pr.AprParseError) as refused:
+        pr.read_beta6_stream(source, "jsonc")
+    assert refused.value.code == "PARSE_ERROR"
+
+
+def test_beta6_reads_tab_line_breaks_and_a_surrogate_pair():
+    source = FORM.replace('"title":"T"', '"title":"a\\t\\r\\nb \\ud83d\\ude00"')
+    assert source != FORM
+    document = pr.read_beta6_form(source, "jsonc")
+    assert document.metadata.title == "a\t\r\nb \U0001F600"
+
+
 def test_beta6_shared_malformed_corpus_is_rejected():
     for path in (CORPUS.parent / "malformed").iterdir():
         with pytest.raises(pr.AprParseError):

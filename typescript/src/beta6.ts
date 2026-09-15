@@ -72,6 +72,7 @@ function parseRecord(raw: string): Beta6Record {
     const code = message.startsWith("duplicate member") ? "DUPLICATE_MEMBER" : "PARSE_ERROR";
     throw new AprParseError(`not valid beta.6 representation: ${message}`, code);
   }
+  refuseForbiddenCodePoints(value);
   if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR");
   const object = value as JsonObject;
   if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`, "UNSUPPORTED_VERSION");
@@ -81,6 +82,41 @@ function parseRecord(raw: string): Beta6Record {
     return { type: "attestation", value: object };
   }
   return { type: "form", document: loads(JSON.stringify(object)), value: object };
+}
+
+/**
+ * Refuses a string carrying U+0000, an unpaired surrogate, or a C0 control other than
+ * tab, line feed and carriage return (APR-REP-004). Refused while reading, before
+ * anything is digested or rendered. Member names count.
+ */
+function refuseForbiddenCodePoints(value: unknown): void {
+  if (typeof value === "string") {
+    if (carriesForbiddenCodePoint(value)) {
+      throw new AprParseError("a string carries U+0000, an unpaired surrogate, or a control character other than tab, line feed and carriage return", "PARSE_ERROR");
+    }
+  } else if (Array.isArray(value)) {
+    for (const item of value) refuseForbiddenCodePoints(item);
+  } else if (value !== null && typeof value === "object") {
+    for (const [name, item] of Object.entries(value)) {
+      refuseForbiddenCodePoints(name);
+      refuseForbiddenCodePoints(item);
+    }
+  }
+}
+
+function carriesForbiddenCodePoint(text: string): boolean {
+  for (let i = 0; i < text.length; i++) {
+    const unit = text.charCodeAt(i);
+    if (unit >= 0xd800 && unit <= 0xdbff && i + 1 < text.length) {
+      const next = text.charCodeAt(i + 1);
+      if (next >= 0xdc00 && next <= 0xdfff) {
+        i++;
+        continue;
+      }
+    }
+    if ((unit >= 0xd800 && unit <= 0xdfff) || (unit < 0x20 && unit !== 0x09 && unit !== 0x0a && unit !== 0x0d)) return true;
+  }
+  return false;
 }
 
 /** Lightweight JSON member scanner used before JSON.parse's otherwise silent last-key-wins behavior. */

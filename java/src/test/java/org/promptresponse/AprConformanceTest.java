@@ -7,6 +7,7 @@ public final class AprConformanceTest {
     public static void main(String[] args) throws Exception {
         expressionBinding();
         beta6();
+        forbiddenCodePoints();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -14,6 +15,28 @@ public final class AprConformanceTest {
         validationVocabulary();
         expressionEdgeCases();
         System.out.println("Java APR beta.6 conformance passed");
+    }
+
+    /** APR-REP-004: a forbidden code point is a parse failure while reading, never a crash later. */
+    private static void forbiddenCodePoints() {
+        String prefix = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"a";
+        String suffix = "b\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+        for (String escaped : new String[] { "\\u0000", "\\u0007", "\\ud800", "\\udc00" }) {
+            expectParseError(prefix + escaped + suffix, escaped);
+        }
+        expectParseError("{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}", "a member name");
+        AprDocument kept = AprBeta6.readForm(prefix + "\\t\\r\\n \\ud83d\\ude00" + suffix, AprBeta6.Representation.JSONC);
+        if (!("a\t\r\n 😀b").equals(kept.metadata().get("title"))) throw new AssertionError("tab, line breaks and a surrogate pair must be read: " + kept.metadata().get("title"));
+    }
+
+    private static void expectParseError(String source, String what) {
+        try {
+            AprBeta6.readStream(source, AprBeta6.Representation.JSONC);
+        } catch (AprException refused) {
+            if (!"PARSE_ERROR".equals(refused.code())) throw new AssertionError(what + " must be refused as PARSE_ERROR, not " + refused.code());
+            return;
+        }
+        throw new AssertionError(what + " must be refused while reading");
     }
 
     /** The text floor, confusable-script-mix, and table-shape checks added while building AprConformanceDriver. */

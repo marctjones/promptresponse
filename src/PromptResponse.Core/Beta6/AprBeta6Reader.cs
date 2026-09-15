@@ -167,6 +167,18 @@ public sealed class AprBeta6Reader
         if (representation == AprRepresentation.Jsonc) EnsureUniqueObjectMembers(json);
         using var parsed = JsonDocument.Parse(json);
         var root = parsed.RootElement;
+        try
+        {
+            RefuseForbiddenCodePoints(root);
+        }
+        catch (InvalidOperationException exception)
+        {
+            // System.Text.Json parses an escaped unpaired surrogate and then refuses to
+            // decode it into a string. That refusal is this check's, under its own code.
+            throw new SerializationException(
+                "A string carries an unpaired surrogate.", exception)
+            { Code = "PARSE_ERROR" };
+        }
         if (root.ValueKind != JsonValueKind.Object)
             throw new SerializationException("An APR beta.6 record must be an object.");
         if (root.TryGetProperty("recordType", out var kind))
@@ -185,6 +197,49 @@ public sealed class AprBeta6Reader
         // typed deserializer cannot tell the two conditions apart.
         AprStructuralTypes.Require(root);
         return new AprFormRecord(_forms.Deserialize(root.GetRawText()), root.Clone());
+    }
+
+    // A string carries no U+0000, unpaired surrogate, or C0 control other than tab, line
+    // feed and carriage return (APR-REP-004). Refused while reading, before anything
+    // digests or renders it. Member names count.
+    private static void RefuseForbiddenCodePoints(JsonElement element)
+    {
+        switch (element.ValueKind)
+        {
+            case JsonValueKind.String:
+                RefuseForbiddenCodePoints(element.GetString()!);
+                break;
+            case JsonValueKind.Object:
+                foreach (var property in element.EnumerateObject())
+                {
+                    RefuseForbiddenCodePoints(property.Name);
+                    RefuseForbiddenCodePoints(property.Value);
+                }
+                break;
+            case JsonValueKind.Array:
+                foreach (var item in element.EnumerateArray())
+                    RefuseForbiddenCodePoints(item);
+                break;
+        }
+    }
+
+    private static void RefuseForbiddenCodePoints(string text)
+    {
+        for (var i = 0; i < text.Length; i++)
+        {
+            var unit = text[i];
+            if (char.IsHighSurrogate(unit) && i + 1 < text.Length && char.IsLowSurrogate(text[i + 1]))
+            {
+                i++;
+                continue;
+            }
+            if (char.IsSurrogate(unit) || (unit < ' ' && unit is not ('\t' or '\n' or '\r')))
+            {
+                throw new SerializationException(
+                    "A string carries U+0000, an unpaired surrogate, or a control character other than tab, line feed and carriage return.")
+                { Code = "PARSE_ERROR" };
+            }
+        }
     }
 
     private static void RequireBeta6(JsonElement root)

@@ -78,6 +78,7 @@ public final class AprBeta6 {
     @SuppressWarnings("unchecked") private static Record parseRecord(String json) {
         rejectDuplicateObjectMembers(json);
         Object parsed = Json.parse(json);
+        refuseForbiddenCodePoints(parsed);
         if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object", "PARSE_ERROR");
         Map<String,Object> value = (Map<String,Object>) raw;
         if (!VERSION.equals(value.get("aprVersion"))) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION, "UNSUPPORTED_VERSION");
@@ -87,6 +88,33 @@ public final class AprBeta6 {
             return new AttestationRecord(Map.copyOf(value));
         }
         return new FormRecord(Apr.parse(Json.write(value)), value);
+    }
+
+    /**
+     * Refuses a string carrying U+0000, an unpaired surrogate, or a C0 control other
+     * than tab, line feed and carriage return (APR-REP-004). Refused while reading,
+     * before anything is digested or rendered. Member names count.
+     */
+    private static void refuseForbiddenCodePoints(Object value) {
+        if (value instanceof String text) {
+            for (int i = 0; i < text.length(); i++) {
+                char unit = text.charAt(i);
+                if (Character.isHighSurrogate(unit) && i + 1 < text.length() && Character.isLowSurrogate(text.charAt(i + 1))) {
+                    i++;
+                    continue;
+                }
+                if (Character.isSurrogate(unit) || (unit < 0x20 && unit != '\t' && unit != '\n' && unit != '\r')) {
+                    throw new AprException("A string carries U+0000, an unpaired surrogate, or a control character other than tab, line feed and carriage return", "PARSE_ERROR");
+                }
+            }
+        } else if (value instanceof Map<?, ?> map) {
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                refuseForbiddenCodePoints(entry.getKey());
+                refuseForbiddenCodePoints(entry.getValue());
+            }
+        } else if (value instanceof List<?> list) {
+            for (Object item : list) refuseForbiddenCodePoints(item);
+        }
     }
 
     private static List<String> splitJsonc(String source) {

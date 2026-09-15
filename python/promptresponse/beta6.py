@@ -106,6 +106,7 @@ def _parse_record(raw: str) -> Beta6Record:
         value = json.loads(raw, object_pairs_hook=_unique_object)
     except (json.JSONDecodeError, TypeError) as exc:
         raise AprParseError(f"not valid beta.6 representation: {exc}", "PARSE_ERROR") from exc
+    _refuse_forbidden_code_points(value)
     if not isinstance(value, dict):
         raise AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR")
     if value.get("aprVersion") != VERSION:
@@ -117,6 +118,28 @@ def _parse_record(raw: str) -> Beta6Record:
         _validate_attestation(value)
         return Beta6AttestationRecord(value)
     return Beta6FormRecord(loads(json.dumps(value, ensure_ascii=False)), value)
+
+
+def _refuse_forbidden_code_points(value: Any) -> None:
+    """Refuse a string carrying U+0000, an unpaired surrogate, or a C0 control other
+    than tab, line feed and carriage return (APR-REP-004).
+
+    Refused while reading, before anything is digested: an unpaired surrogate has no
+    UTF-8 encoding, so waiting turns a refusal into a crash. Member names count.
+    """
+    pending = [value]
+    while pending:
+        node = pending.pop()
+        if isinstance(node, dict):
+            pending.extend(node.keys())
+            pending.extend(node.values())
+        elif isinstance(node, list):
+            pending.extend(node)
+        elif isinstance(node, str) and any(
+                (ord(ch) < 0x20 and ch not in "\t\n\r") or 0xD800 <= ord(ch) <= 0xDFFF for ch in node):
+            raise AprParseError(
+                "a string carries U+0000, an unpaired surrogate, or a control character other than "
+                "tab, line feed and carriage return", "PARSE_ERROR")
 
 
 def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:

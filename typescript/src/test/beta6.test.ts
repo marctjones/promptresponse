@@ -106,6 +106,22 @@ test("beta.6 rejects duplicate JSONC members", () => {
   assert.throws(() => readBeta6Form(form.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc"), /duplicate member/);
 });
 
+test("beta.6 refuses a forbidden code point while reading (APR-REP-004)", () => {
+  for (const escaped of ["\\u0000", "\\u0007", "\\ud800", "\\udc00"]) {
+    const source = form.replace('"title":"T"', `"title":"a${escaped}b"`);
+    assert.notEqual(source, form);
+    assert.throws(() => readBeta6Stream(source, "jsonc"), (error: unknown) => error instanceof AprParseError && error.code === "PARSE_ERROR", escaped);
+  }
+  const named = form.replace('"metadata":', '"metadata":{},"x.a\\u0001b":1,"metadata2":');
+  assert.throws(() => readBeta6Stream(named, "jsonc"), (error: unknown) => error instanceof AprParseError && error.code === "PARSE_ERROR");
+});
+
+test("beta.6 reads tab, line breaks and a surrogate pair", () => {
+  const source = form.replace('"title":"T"', '"title":"a\\t\\r\\nb \\ud83d\\ude00"');
+  assert.notEqual(source, form);
+  assert.equal(readBeta6Form(source, "jsonc").metadata.title, "a\t\r\nb \u{1F600}");
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");

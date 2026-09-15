@@ -62,6 +62,44 @@ public class AprBeta6ReaderTests
         act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
     }
 
+    [Theory]
+    [InlineData("\\u0000")]
+    [InlineData("\\u0007")]
+    [InlineData("\\ud800")]
+    [InlineData("\\udc00")]
+    public void AForbiddenCodePoint_IsRefusedWhileReading(string escaped)
+    {
+        // APR-REP-004. A parse failure, before anything digests or renders the string.
+        var source = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"a" + escaped + "b\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
+    }
+
+    [Fact]
+    public void AForbiddenCodePointInAMemberName_IsRefusedWhileReading()
+    {
+        const string source = "{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
+    }
+
+    [Fact]
+    public void TabLineBreaksAndASurrogatePair_AreRead()
+    {
+        const string source = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"a\\t\\r\\nb \\ud83d\\ude00\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var form = _reader.ReadForm(source, AprRepresentation.Jsonc);
+
+        form.Metadata!.Title.Should().Be("a\t\r\nb \U0001F600");
+    }
+
     [Fact]
     public void Yaml_SixteenSectionLevels_StillRead()
     {
@@ -269,14 +307,15 @@ public class AprBeta6ReaderTests
         // Two implementations can read RFC 8785 and disagree about that, so this is
         // settled against the oracle rather than by argument: the expectation comes from
         // scripts/aprlib.py, which check-oracle.py holds to the RFC's own vectors.
+        // The value is parsed directly rather than read: a reader refuses U+001F in a
+        // string (APR-REP-004), but its canonical form is still the digest's to define.
         const string expected = "sha256:373da0c93c482e4c159f227afab924b5334dbf547bf3543d2f6cd4253638df62";
-        var record = (AprFormRecord)_reader.ReadStream(
+        using var value = JsonDocument.Parse(
             "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Z\\u00fcrich \\u00e9 \\ud83d\\ude00 \\\" \\\\ /\"},"
             + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\","
-            + "\"response\":\"caf\\u00e9 \\ud83c\\udf0d \\u0009tab \\u001f\"}]}]}",
-            AprRepresentation.Jsonc).Single();
+            + "\"response\":\"caf\\u00e9 \\ud83c\\udf0d \\u0009tab \\u001f\"}]}]}");
 
-        AprSemanticDigest.Digest(record.Value).Should().Be(expected);
+        AprSemanticDigest.Digest(value.RootElement).Should().Be(expected);
     }
 
     [Fact]

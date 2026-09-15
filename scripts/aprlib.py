@@ -87,7 +87,8 @@ ENFORCES = {
     # The generic parse refusal. It is what enforces the two representation rules
     # whose violation is a decoding failure rather than a named construct, and
     # naming it is what APR-VAL-010 asks for.
-    "PARSE_ERROR": ("APR-REP-005", "APR-REP-007", "APR-REP-009", "APR-STREAM-006", "APR-VAL-010"),
+    "PARSE_ERROR": ("APR-REP-004", "APR-REP-005", "APR-REP-007", "APR-REP-009", "APR-STREAM-006",
+                    "APR-VAL-010"),
 }
 
 
@@ -245,28 +246,54 @@ def load_yaml(text: str) -> list:
 def read_records(text: str, representation: str) -> list:
     """Every record in a document or stream, in order."""
     if representation == "yaml":
-        return load_yaml(text)
-    parts = [p for p in text.split(RS) if p.strip()] if RS in text else [text]
-    records = []
-    for part in parts:
-        try:
-            records.append(load_jsonc(part))
-        except AprError as failure:
-            # A record in a JSONC stream that will not decode as JSON is either
-            # malformed or written in the other representation, and those are
-            # different faults. Saying "invalid JSON" for a YAML record would
-            # report the symptom and hide the rule that was broken. Any other
-            # failure — a duplicate member, say — is already the right diagnosis.
-            if str(failure) != "PARSE_ERROR" or RS not in text:
-                raise
+        records = load_yaml(text)
+    else:
+        parts = [p for p in text.split(RS) if p.strip()] if RS in text else [text]
+        records = []
+        for part in parts:
             try:
-                other = load_yaml(part)
-            except AprError:
-                raise failure
-            if other:
-                raise AprError("APR_STREAM_MIXED_REPRESENTATIONS") from failure
-            raise
+                records.append(load_jsonc(part))
+            except AprError as failure:
+                # A record in a JSONC stream that will not decode as JSON is either
+                # malformed or written in the other representation, and those are
+                # different faults. Saying "invalid JSON" for a YAML record would
+                # report the symptom and hide the rule that was broken. Any other
+                # failure — a duplicate member, say — is already the right diagnosis.
+                if str(failure) != "PARSE_ERROR" or RS not in text:
+                    raise
+                try:
+                    other = load_yaml(part)
+                except AprError:
+                    raise failure
+                if other:
+                    raise AprError("APR_STREAM_MIXED_REPRESENTATIONS") from failure
+                raise
+    for record in records:
+        refuse_forbidden_code_points(record)
     return records
+
+
+def refuse_forbidden_code_points(value) -> None:
+    """Refuse a string carrying U+0000, an unpaired surrogate, or a C0 control other
+    than tab, line feed and carriage return. [APR-REP-004]
+
+    Refused while reading, before anything is digested. An unpaired surrogate has no
+    UTF-8 encoding, so a reader that waited would crash computing a digest rather
+    than refuse the document, and every other case in the same run would go with it.
+    Member names are strings too.
+    """
+    pending = [value]
+    while pending:
+        node = pending.pop()
+        if isinstance(node, dict):
+            pending.extend(node.keys())
+            pending.extend(node.values())
+        elif isinstance(node, list):
+            pending.extend(node)
+        elif isinstance(node, str) and any(
+                (ord(ch) < 0x20 and ch not in "\t\n\r") or 0xD800 <= ord(ch) <= 0xDFFF
+                for ch in node):
+            raise AprError("PARSE_ERROR")
 
 
 def representation_of(text: str) -> str:
