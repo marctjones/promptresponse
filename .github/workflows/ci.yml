@@ -500,6 +500,13 @@ jobs:
           python3 scripts/run-conformance.py
           --driver "java/run-conformance-driver.sh"
 
+      - name: Prove the Python, TypeScript and Java drivers fail when they ignore their SDK
+        # The harness teeth damage the reference driver, never these. Each driver is
+        # copied twice: an undamaged control that must score cleanly, and a mutant that
+        # drops its validator's errors and must fail cases.
+        if: ${{ !cancelled() }}
+        run: python3 scripts/check-driver-teeth.py --drivers python,typescript,java
+
   conformance-drivers:
     name: Conformance drivers (library, CLI, desktop client, exporter)
     runs-on: ubuntu-latest
@@ -539,6 +546,12 @@ jobs:
           dotnet build src/PromptResponse.Cli -v q
           python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q"
           python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance"
+
+      - name: Prove both .NET drivers fail when they ignore their library
+        # The harness teeth damage the reference driver, never these. Each driver is
+        # rebuilt twice from a copy: an undamaged control that must score cleanly, and a
+        # mutant that ignores its validator's errors and must fail cases.
+        run: python3 scripts/check-driver-teeth.py --drivers dotnet-library,dotnet-cli
 
       - name: Score the Avalonia client against the renderer suite
         # The desktop client is the one renderer a person actually uses, and until this
