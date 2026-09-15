@@ -3324,7 +3324,7 @@
               {
                 "id": "apr-model-012_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table."
+                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation."
               }
             ]
           },
@@ -3386,7 +3386,7 @@
               {
                 "id": "apr-model-013_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table."
+                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation."
               }
             ]
           },
@@ -13216,7 +13216,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",

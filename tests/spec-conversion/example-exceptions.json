@@ -500,6 +500,15 @@
       "renderer:table-cells-name-their-header"
     ]
   },
+  "APR-MODEL-013": {
+    "reason": "A rule on what a writer adds to a table, which no input document shows. The tests fill a table's cell, write the form back, and check the result is the source plus that response, with no presentation member.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-MODEL-015": {
     "reason": "A document can show the sixteen-level floor and the corpus does; the specification carries no sixteen-level example because it would be long and says nothing a reader of the prose needs.",
     "coveredBy": [

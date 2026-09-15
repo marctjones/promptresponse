@@ -568,7 +568,7 @@
       "id": "REQ-authoring-never-rewritten",
       "section": "authoring-strictness",
       "statement": "An implementation never Unicode-normalizes authoring data or removes a code point from it",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",
@@ -2149,9 +2149,17 @@
         {
           "type": "suite",
           "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "FillingATable_AddsNoPresentationMember"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_filling_a_table_adds_no_presentation_member"
         }
       ],
-      "gap": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table.",
+      "gap": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation.",
       "rules": [
         "APR-MODEL-012",
         "APR-MODEL-013"
