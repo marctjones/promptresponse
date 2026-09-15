@@ -61,22 +61,27 @@ def read(example):
     return pr.read_beta6_form(document, representation)
 
 
-def rejected(example) -> bool:
-    """Whether the example is refused: its read fails, or a form it holds fails validation.
+def rejection_codes(example) -> tuple[bool, list[str]]:
+    """Whether the example is refused, and the codes the refusal reported.
 
     A prompt without a label parses and is a validation error, a malformed document
     fails to parse, and the specification asks for rejection either way, as the
-    conformance driver reports it.
+    conformance driver reports it. The code has to be the one the example names, or a
+    reader refusing for an unrelated reason would pass.
     """
     try:
         result = read(example)
-    except Exception:
-        return True
+    except Exception as error:
+        code = getattr(error, "code", None)
+        return True, [code] if code else []
     records = result if isinstance(result, list) else [result]
     documents = [getattr(r, "document", r) for r in records
                  if not isinstance(r, pr.beta6.Beta6Record) or isinstance(r, pr.beta6.Beta6FormRecord)]
     # A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
-    return not documents or any(pr.validate(document).errors for document in documents)
+    if not documents:
+        return True, ["NULL_DOCUMENT"]
+    errors = [error for document in documents for error in pr.validate(document).errors]
+    return bool(errors), [error.code for error in errors]
 
 
 def identifiers():
@@ -106,7 +111,11 @@ def test_specification_example_behaves_as_the_specification_says(example, reques
         return
 
     if expectation == "reject":
-        assert rejected(example), f"{example['id']} was accepted; the specification requires rejection"
+        refused, codes = rejection_codes(example)
+        assert refused, f"{example['id']} was accepted; the specification requires rejection"
+        assert example["diagnostic"] in codes, (
+            f"{example['id']} was refused with {codes or 'no code'}; "
+            f"the specification names {example['diagnostic']}")
         return
 
     pytest.fail(f"unrecognised expectation {expectation!r}")
@@ -125,3 +134,9 @@ def test_known_divergences_name_only_real_examples():
     ids = {e["id"] for e in load_examples()}
     unknown = sorted(set(KNOWN_DIVERGENCES) - ids)
     assert not unknown, f"KNOWN_DIVERGENCES names examples that do not exist: {unknown}"
+
+
+def test_the_rejection_examples_name_more_than_one_diagnostic():
+    """A reader refusing every rejection example with one code passes only if every example names it."""
+    named = {e["diagnostic"] for e in load_examples() if e["expect"] == "reject"}
+    assert len(named) > 1, f"every rejection example names {named}"

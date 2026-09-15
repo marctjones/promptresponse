@@ -78,8 +78,10 @@ def _parse_jsonc_record(part: str, is_stream: bool) -> Beta6Record:
 def read_beta6_form(source: str, representation: str) -> AprDocument:
     """Read one form, refusing to silently select a record from a stream."""
     records = read_beta6_stream(source, representation)
+    if not records:
+        raise AprParseError("the source holds no document", "NULL_DOCUMENT")
     if len(records) != 1 or not isinstance(records[0], Beta6FormRecord):
-        raise AprParseError("APR_STREAM_REQUIRES_ITERATION")
+        raise AprParseError("APR_STREAM_REQUIRES_ITERATION", "APR_STREAM_REQUIRES_ITERATION")
     return records[0].document
 
 
