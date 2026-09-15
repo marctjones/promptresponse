@@ -2368,14 +2368,17 @@ downstream consumer and every attestation covering it.
 
 **Example 5.4-3.** Two prompt ids that are canonically equivalent under Unicode
 normalization. Compared by code point they are distinct, so neither is a
-duplicate.
+duplicate. Each carries a character outside `[A-Za-z0-9_.-]`, which is a warning
+([Authoring data](#authoring-strictness)).
 
 ```apr-example
 id: id-code-point-equality
 rule: prompt-object
 satisfies: APR-MODEL-011
+violates: APR-TEXT-010, APR-VAL-038
 representation: jsonc
 expect: valid
+warns: ID_FORBIDDEN_CHARACTER
 ---
 {
   "aprVersion": "1.0-beta.6",
@@ -3850,6 +3853,56 @@ cell addresses.
 A validator **SHOULD** report a warning, `ID_FORBIDDEN_CHARACTER`
 ([Warnings](#warnings)), for an id that contains a character outside
 `[A-Za-z0-9_.-]`. [APR-TEXT-010]
+
+**Example 8.2.2-2.** A prompt id with a space in it. The document is valid, and the
+id draws a warning.
+
+```apr-example
+id: id-forbidden-character
+rule: authoring-strictness
+violates: APR-TEXT-010, APR-VAL-038
+representation: jsonc
+expect: valid
+warns: ID_FORBIDDEN_CHARACTER
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Registration" },
+  "sections": [
+    {
+      "id": "applicant",
+      "title": "Applicant",
+      "prompts": [
+        { "id": "first name", "label": "First name" }
+      ]
+    }
+  ]
+}
+```
+
+**Example 8.2.2-3.** Ids using every character the rule admits. No warning.
+
+```apr-example
+id: id-allowed-characters
+rule: authoring-strictness
+satisfies: APR-TEXT-010, APR-VAL-038
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Registration" },
+  "sections": [
+    {
+      "id": "applicant.Details-2",
+      "title": "Applicant",
+      "prompts": [
+        { "id": "first_name.v2-A", "label": "First name" }
+      ]
+    }
+  ]
+}
+```
 
 #### 8.2.3 Human-facing text {#human-text}
 

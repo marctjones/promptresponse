@@ -4518,10 +4518,11 @@
         "prompt-object/sentence/5522e57a40",
         "prompt-object/sentence/756bc84849",
         "prompt-object/example/7f9cc54028",
-        "prompt-object/example/b42c2e7e03",
+        "prompt-object/example/f50be178a1",
         "prompt-object/sentence/af3faaf0bd",
         "prompt-object/sentence/d6c5387260",
-        "prompt-object/sentence/db1afe8f12"
+        "prompt-object/sentence/db1afe8f12",
+        "prompt-object/sentence/18a4b3f21f"
       ],
       "note": "examples added so the specification shows each rule it states here (#488) an example that ids are compared by code point, so canonically equivalent ids are distinct (APR-MODEL-011)"
     },
@@ -7981,7 +7982,15 @@
         "authoring-strictness/example/ad15844747",
         "authoring-strictness/sentence/14c2a3a7ff",
         "authoring-strictness/sentence/cf516c1687",
-        "authoring-strictness/sentence/ecba0a34d6"
+        "authoring-strictness/sentence/ecba0a34d6",
+        "authoring-strictness/sentence/77dd97b769",
+        "authoring-strictness/sentence/063770fc07",
+        "authoring-strictness/sentence/f21f193b7e",
+        "authoring-strictness/example/16ffc402a4",
+        "authoring-strictness/sentence/08bce92188",
+        "authoring-strictness/sentence/d2d62fcf57",
+        "authoring-strictness/sentence/e83e761aeb",
+        "authoring-strictness/example/227676ebf7"
       ],
       "note": "a round-trip example that authoring data is not Unicode-normalized (APR-TEXT-006)"
     },

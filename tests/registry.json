@@ -402,11 +402,10 @@
         "APR-VAL-037",
         "APR-VAL-038"
       ],
-      "gap": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508).",
+      "gap": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507).",
       "gapRules": [
         "APR-VAL-036",
-        "APR-VAL-037",
-        "APR-VAL-038"
+        "APR-VAL-037"
       ]
     },
     {
@@ -582,12 +581,24 @@
       "id": "REQ-id-characters",
       "section": "authoring-strictness",
       "statement": "A validator warns on an id outside [A-Za-z0-9_.-]",
-      "strength": "none",
-      "gates": [],
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "AnIdOutsideTheMachineKeyCharacters_Warns"
+        },
+        {
+          "type": "test",
+          "ref": "test_an_id_outside_the_machine_key_characters_warns"
+        },
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
       "rules": [
         "APR-TEXT-010"
-      ],
-      "gap": "The second half of this gap is out of date and this replaces it: section 7.2 now names ID_FORBIDDEN_CHARACTER (APR-VAL-038), so the warnings table no longer lacks a code for an id outside [A-Za-z0-9_.-]. No implementation reports it. Measured on an id carrying a space and an exclamation mark, all five readers — reference, .NET, Python, TypeScript and Java — accept the document and warn about nothing, which makes this the least evidenced of the three hidden-character conditions: the other two at least draw a differently spelled warning from somebody (#508)."
+      ]
     },
     {
       "id": "REQ-human-text",

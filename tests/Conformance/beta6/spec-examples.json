@@ -1235,6 +1235,22 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "id-allowed-characters",
+      "number": "8.2.2-3",
+      "rule": "authoring-strictness",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Registration\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant.Details-2\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"first_name.v2-A\", \"label\": \"First name\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-010",
+        "APR-VAL-038"
+      ],
+      "satisfies": [
+        "APR-TEXT-010",
+        "APR-VAL-038"
+      ]
+    },
+    {
       "id": "id-code-point-equality",
       "number": "5.4-3",
       "rule": "prompt-object",
@@ -1242,10 +1258,38 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Caf\\u00e9\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"caf\\u00e9\", \"label\": \"Composed\" },\n        { \"id\": \"cafe\\u0301\", \"label\": \"Decomposed\" }\n      ]\n    }\n  ]\n}\n",
       "rules": [
-        "APR-MODEL-011"
+        "APR-MODEL-011",
+        "APR-TEXT-010",
+        "APR-VAL-038"
       ],
       "satisfies": [
         "APR-MODEL-011"
+      ],
+      "violates": [
+        "APR-TEXT-010",
+        "APR-VAL-038"
+      ],
+      "warns": [
+        "ID_FORBIDDEN_CHARACTER"
+      ]
+    },
+    {
+      "id": "id-forbidden-character",
+      "number": "8.2.2-2",
+      "rule": "authoring-strictness",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Registration\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"first name\", \"label\": \"First name\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-010",
+        "APR-VAL-038"
+      ],
+      "violates": [
+        "APR-TEXT-010",
+        "APR-VAL-038"
+      ],
+      "warns": [
+        "ID_FORBIDDEN_CHARACTER"
       ]
     },
     {
