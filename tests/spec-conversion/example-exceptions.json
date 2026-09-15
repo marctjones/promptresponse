@@ -1310,6 +1310,12 @@
       "renderer:opening-fetches-nothing"
     ]
   },
+  "APR-SEC-017": {
+    "reason": "A rule on what an implementation contacts while verifying a proof, which no document can show. The test signs a proof whose certificate names its missing intermediate at a loopback URL, and asserts verification contacts that URL only when the caller asks for online checking.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationTrustTests.cs"
+    ]
+  },
   "APR-SEC-019": {
     "reason": "A rule on how a reader fails on hostile input; every document in the suite is within any bound a reader applies.",
     "coveredBy": [
