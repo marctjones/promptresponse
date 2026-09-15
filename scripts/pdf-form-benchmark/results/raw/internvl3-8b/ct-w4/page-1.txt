@@ -1,0 +1,265 @@
+```json
+{
+  "sections": [
+    {
+      "id": "employee-instructions",
+      "title": "Employee Instructions"
+    },
+    {
+      "id": "withholding-code",
+      "title": "Withholding Code"
+    },
+    {
+      "id": "employee-details",
+      "title": "Employee Details"
+    },
+    {
+      "id": "employer-details",
+      "title": "Employer Details"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Print Form",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Clear Fields",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form CT-W4",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Effective January 1, 2026",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of Revenue Services",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "State of Connecticut",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "(Rev. 12/25)",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employee Instructions",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Read the instructions on Page 2 before completing this form.",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Select the filing status you expect to report on your Connecticut income tax return.",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Choose the statement that best describes your gross income.",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Enter the Withholding Code on Line 1 below.",
+      "section_id": "employee-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Withholding Code",
+      "section_id": "withholding-code",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "First name",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MI",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Last name",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Home address (number and street, apartment number, suite number, PO Box)",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/town",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP code",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Social Security Number",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Declaration",
+      "section_id": "employee-details",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "employee-details",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Is this a new or rehired employee?",
+      "section_id": "employer-details",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        {
+          "label": "No",
+          "value": "No"
+        },
+        {
+          "label": "Yes",
+          "value": "Yes"
+        }
+      ]
+    },
+    {
+      "label": "Enter date hired:",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employer's business name",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Federal Employer Identification Number",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employer's business address",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/town",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP code",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Contact person",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Telephone number",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}
+```

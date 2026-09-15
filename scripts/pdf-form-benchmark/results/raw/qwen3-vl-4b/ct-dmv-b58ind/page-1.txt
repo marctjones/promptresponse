@@ -1,0 +1,282 @@
+{
+  "sections": [
+    {
+      "id": "about-you",
+      "title": "About You"
+    },
+    {
+      "id": "residence-address",
+      "title": "Your Residence Address"
+    },
+    {
+      "id": "mailing-address",
+      "title": "Your Mailing Address"
+    },
+    {
+      "id": "organ-tissue-donor-status",
+      "title": "Organ and Tissue Donor Status"
+    },
+    {
+      "id": "email-address",
+      "title": "Your E-mail Address"
+    },
+    {
+      "id": "vehicles-vessels",
+      "title": "Your Vehicles/Vessels"
+    },
+    {
+      "id": "voter-registration",
+      "title": "Voter Registration Application Section"
+    }
+  ],
+  "fields": [
+    {
+      "label": "NAME (Last, First, Middle)",
+      "section_id": "about-you",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "BIRTH DATE",
+      "section_id": "about-you",
+      "field_kind": "text_line",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "OPERATOR LICENSE/ID NUMBER",
+      "section_id": "about-you",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "TELEPHONE NUMBER",
+      "section_id": "about-you",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    },
+    {
+      "label": "STREET ADDRESS",
+      "section_id": "residence-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "UNIT/APT. #",
+      "section_id": "residence-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CITY",
+      "section_id": "residence-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE",
+      "section_id": "residence-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP CODE",
+      "section_id": "residence-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STREET ADDRESS",
+      "section_id": "mailing-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "UNIT/APT. #",
+      "section_id": "mailing-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CITY",
+      "section_id": "mailing-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE",
+      "section_id": "mailing-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP CODE",
+      "section_id": "mailing-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "I consent to organ and tissue donation and wish to be in the donor registry",
+      "section_id": "organ-tissue-donor-status",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "I no longer wish to be in the donor registry",
+      "section_id": "organ-tissue-donor-status",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "E-MAIL",
+      "section_id": "email-address",
+      "field_kind": "text_line",
+      "expected_data_type": "email",
+      "required": true
+    },
+    {
+      "label": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.",
+      "section_id": "email-address",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "PLATE/VEHICLE NO:",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ADDRESS",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "PLATE/VEHICLE NO:",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ADDRESS",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "PLATE/VEHICLE NO:",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ADDRESS",
+      "section_id": "vehicles-vessels",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE REQUIRED",
+      "section_id": "vehicles-vessels",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "DATE",
+      "section_id": "vehicles-vessels",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Are you a citizen of the United States of America?",
+      "section_id": "voter-registration",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "YES",
+        "NO"
+      ]
+    },
+    {
+      "label": "Will you be at least 18 years of age on or before election day?",
+      "section_id": "voter-registration",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "YES",
+        "NO"
+      ]
+    },
+    {
+      "label": "Do you wish to enroll in a political party?",
+      "section_id": "voter-registration",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "YES",
+        "NO"
+      ]
+    },
+    {
+      "label": "NAME OF PARTY:",
+      "section_id": "voter-registration",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "DEMOCRATIC",
+        "REPUBLICAN",
+        "OTHER"
+      ]
+    },
+    {
+      "label": "I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.",
+      "section_id": "voter-registration",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "X SIGNATURE FOR VOTER REGISTRATION ONLY **",
+      "section_id": "voter-registration",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "voter-registration",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

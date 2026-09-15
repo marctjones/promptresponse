@@ -1,0 +1,52 @@
+{
+  "sections": [
+    {
+      "id": "step-2b-multiple-jobs-worksheet",
+      "title": "Step 2(b) — Multiple Jobs Worksheet"
+    }
+  ],
+  "fields": [
+    {
+      "label": "1 $",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "2a $",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "2b $",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "2c $",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "3",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "4 $",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    }
+  ]
+}

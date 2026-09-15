@@ -1,0 +1,503 @@
+using Excise.Core.Document;
+using PromptResponse.Core.Models;
+using PromptResponse.Rendering.Pdf;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
+
+namespace PromptResponse.Conversion.Pdf;
+
+/// <summary>
+/// Phase 1. Decides which field sources the PDF offers, before anything tries to
+/// read it.
+/// </summary>
+/// <remarks>
+/// Everything downstream routes on this, and a wrong call is expensive in both
+/// directions: treat a digitally-authored form as a scan and OCR re-derives text
+/// the file already states exactly; treat a scan as text-bearing and the
+/// converter produces an empty document.
+/// </remarks>
+public sealed class DetectSourcesPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "detect-sources";
+
+    /// <inheritdoc/>
+    public string Purpose => "Which field sources does this PDF offer: AcroForm, text layer, neither?";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        var report = PdfSourceDetector.Detect(state.SourcePath);
+        var sources = report.IsImageOnly ? "image-only (needs OCR)" : report.Sources.ToString();
+
+        return (
+            state with { Sources = report },
+            PhaseStatus.Completed,
+            $"{sources}; {report.ImportableFieldCount} importable field(s), " +
+            $"{report.CharacterCount} character(s) across {report.Pages.Count} page(s)");
+    }
+}
+
+/// <summary>
+/// Phase 2. Reads the printed text with its coordinates.
+/// </summary>
+/// <remarks>
+/// Exact text with exact page positions, straight from the file — no OCR error
+/// and no model. This is the evidence every later phase reasons over: what the
+/// form says, and where it says it.
+/// </remarks>
+public sealed class ExtractTextPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "extract-text";
+
+    /// <inheritdoc/>
+    public string Purpose => "Read the printed text and where each run of it sits on the page.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.Sources?.HasTextLayer != true)
+        {
+            return (state, PhaseStatus.Skipped,
+                "no text layer; the pixels would need OCR, which is not built");
+        }
+
+        var measured = TextExtraction.Extract(state.SourcePath);
+        var spans = measured
+            .Select(m => new TextSpan(m.PageNumber, m.Text, m.Rect))
+            .ToList();
+
+        return (state with { Spans = spans, Measured = measured }, PhaseStatus.Completed,
+            $"{spans.Count} text span(s) with geometry");
+    }
+}
+
+/// <summary>
+/// Phase 3. Takes the fields the PDF already declares.
+/// </summary>
+/// <remarks>
+/// Free and exact where it applies: an AcroForm states its fields, their types,
+/// their options and where each one sits. Nothing later can improve on that, so
+/// it runs before any inference and later phases only fill gaps it leaves.
+/// </remarks>
+/// <param name="honourFormAuthorLabels">
+/// Whether a field's <c>/TU</c> tooltip may be used as its label. Setting this
+/// false is what makes the tooltip a held-out answer key: 152 of the corpus's
+/// 444 fields carry the form author's own words, and hiding them forces label
+/// recovery to find the question on the page and be scored against what the
+/// author actually wrote. Without it those fields short-circuit and grade
+/// nothing — <c>fed-i9</c> scores 128/128 while exercising no pairing at all.
+/// </param>
+public sealed class DiscoverAcroFormFieldsPhase(bool honourFormAuthorLabels = true) : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "discover-acroform";
+
+    /// <inheritdoc/>
+    public string Purpose => "Take the fields the PDF declares outright, with their types and positions.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.Sources?.HasAcroForm != true)
+        {
+            return (state, PhaseStatus.Skipped, "no AcroForm; fields must be found from the page");
+        }
+
+        var manifest = PdfWidgetManifest.Extract(state.SourcePath);
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var fields = new List<DiscoveredField>();
+
+        foreach (var entry in manifest.Importable)
+        {
+            var id = UniqueId(string.IsNullOrWhiteSpace(entry.FullName) ? "field" : entry.FullName, seen);
+            var label = Meaningful(entry.Tooltip) ? entry.Tooltip : null;
+
+            // The review queue is built here rather than at the end: a field
+            // whose only name is `f1_01[0]` is a known deficiency the moment it
+            // is read, and saying so now is what lets a later phase target it.
+            var review = new List<string>();
+            if (label is null)
+            {
+                review.Add("no human-readable label; the field name is not a question");
+            }
+
+            fields.Add(new DiscoveredField(
+                id,
+                label,
+                label is null ? LabelSource.None : LabelSource.FormAuthor,
+                FieldOrigin.AcroFormWidget,
+                entry.PageNumber ?? 0,
+                entry.Rect,
+                ExpectedDataType: DataTypeFor(entry.FieldType),
+                Options: null,
+                NeedsReview: review.Count == 0 ? null : review));
+        }
+
+        var labelled = fields.Count(f => f.HasLabel);
+        return (state with { Fields = fields }, PhaseStatus.Completed,
+            $"{fields.Count} field(s); {labelled} arrived with the form author's own label, " +
+            $"{fields.Count - labelled} need one recovered");
+    }
+
+    private bool Meaningful(string? tooltip)
+    {
+        if (!honourFormAuthorLabels)
+        {
+            return false;
+        }
+
+        // A present tooltip is not a good tooltip: every field in ct-dmv-a25
+        // carries a /TU and every one of them says "TextField1". Treating those
+        // as labels would report the problem as solved.
+        if (string.IsNullOrWhiteSpace(tooltip))
+        {
+            return false;
+        }
+
+        return !ImportQualityHeuristics.LooksCryptic(tooltip);
+    }
+
+    private static string DataTypeFor(PdfFieldType type) => type switch
+    {
+        PdfFieldType.Button => "boolean",
+        PdfFieldType.Choice => "text",
+        _ => "text",
+    };
+
+    private static string UniqueId(string candidate, HashSet<string> seen)
+    {
+        var id = candidate;
+        for (var suffix = 2; !seen.Add(id); suffix++)
+        {
+            id = $"{candidate}#{suffix}";
+        }
+
+        return id;
+    }
+}
+
+/// <summary>
+/// Phase 4. Finds fields on a form that declares none — the converter's actual target.
+/// </summary>
+/// <remarks>
+/// The blank a person writes on is not absence: it is a drawn vector primitive,
+/// a long thin rectangle or line, and a checkbox is a small square. Reading
+/// those gives what the text layer alone cannot — where the answer goes. Not
+/// built (#424).
+/// </remarks>
+public sealed class DiscoverTextLayerFieldsPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "discover-text-layer";
+
+    /// <inheritdoc/>
+    public string Purpose => "Find the blanks and checkboxes on a form that declares no fields.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        // Read even when the AcroForm made discovery unnecessary: the rules are
+        // what tell label recovery which text is fenced in with which field.
+        var rulings = PageRulings.ReadAll(state.SourcePath);
+        state = state with { Rulings = rulings };
+
+        if (state.Sources?.HasAcroForm == true)
+        {
+            return (state, PhaseStatus.Skipped,
+                $"the AcroForm already stated every field; {rulings.Count} drawn rule(s) kept for labelling");
+        }
+
+        if (rulings.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped,
+                "the page draws no rules or boxes; with no AcroForm either, there is nothing to find");
+        }
+
+        var found = BlankDetector.Detect(rulings, state.MeasuredOrEmpty);
+        if (found.Count == 0)
+        {
+            return (state, PhaseStatus.Completed,
+                $"{rulings.Count} drawn rule(s) read, none of which is a blank");
+        }
+
+        var ticks = found.Count(f => f.ExpectedDataType == "boolean");
+        return (state with { Fields = [.. state.FieldsOrEmpty, .. found] }, PhaseStatus.Completed,
+            $"{found.Count} field(s) found in {rulings.Count} drawn rule(s): " +
+            $"{ticks} tick box(es), {found.Count - ticks} write-on blank(s)");
+    }
+}
+
+/// <summary>
+/// Phase 5. Decides what each run of text is doing: heading, label, instruction, furniture.
+/// </summary>
+/// <remarks>
+/// The phase with the largest downside when wrong, and no mechanical oracle.
+/// Reading instructions as fields is how a model produced 130 "fields" for a
+/// W-4 whose ground truth is 19. Not built.
+/// </remarks>
+public sealed class ClassifySpansPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "classify-spans";
+
+    /// <inheritdoc/>
+    public string Purpose => "Separate headings and questions from instructions and page furniture.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.MeasuredOrEmpty.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped, "no text to classify");
+        }
+
+        // Blocks, not baselines. A wrapped question is one thing to classify,
+        // and the fields are what tell one block from the next -- which is why
+        // this happens here, after discovery, rather than in extract-text.
+        var blocks = TextBlocks.Assemble(
+            state.MeasuredOrEmpty,
+            [.. state.FieldsOrEmpty
+                .Where(f => f.TargetRect is not null)
+                .Select(f => (f.PageNumber, f.TargetRect!.Value))]);
+
+        var classified = SpanClassifier.Classify(blocks);
+        var counts = classified
+            .GroupBy(s => s.Role!.Value)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        string Count(SpanRole role) => counts.TryGetValue(role, out var n) ? n.ToString() : "0";
+
+        // Label is deliberately absent from this report: this phase cannot
+        // produce one. What it hands on is a pool of runs it could not rule
+        // out, which recover-labels then competes fields over.
+        return (state with { Spans = classified }, PhaseStatus.Completed,
+            $"{Count(SpanRole.Heading)} heading(s), {Count(SpanRole.Instruction)} instruction(s), " +
+            $"{Count(SpanRole.Furniture)} furniture, {Count(SpanRole.Unclassified)} left as label candidates");
+    }
+}
+
+/// <summary>
+/// Phase 6. Gives a cryptic field a real question by reading the text beside it.
+/// </summary>
+/// <remarks>
+/// The highest value-per-effort step in the milestone: two thirds of the
+/// corpus's fields are cryptic, and every one of those forms carries a text
+/// layer. The widget knows exactly where it sits and the text layer knows
+/// exactly what is printed nearby. Not built (#426).
+/// </remarks>
+public sealed class RecoverLabelsPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "recover-labels";
+
+    /// <inheritdoc/>
+    public string Purpose => "Turn a cryptic field name into the question printed beside it.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.FieldsOrEmpty.Count == 0)
+        {
+            // Distinguished from the success case below on purpose: "no fields
+            // need a label" and "no fields were found" produce the same empty
+            // set, and reporting the second as the first is a phase claiming
+            // success for work that never happened.
+            return (state, PhaseStatus.Skipped, "no fields were discovered, so there is nothing to label");
+        }
+
+        var needing = state.FieldsOrEmpty.Count(f => !f.HasLabel);
+        if (needing == 0)
+        {
+            return (state, PhaseStatus.Skipped, "every field already carries a real label");
+        }
+
+        if (state.SpansOrEmpty.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped, "no text layer to recover labels from");
+        }
+
+        var result = LabelRecovery.Recover(state.FieldsOrEmpty, state.SpansOrEmpty, state.RulingsOrEmpty);
+        var stillNeeding = needing - result.Recovered;
+
+        var groups = result.GroupInstructions == 0
+            ? string.Empty
+            : $"; {result.GroupInstructions} run(s) rejected as group instructions, wanted by " +
+              $"{LabelRecovery.GroupInstructionClaims}+ fields each";
+
+        return (state with { Fields = result.Fields, Spans = result.Spans }, PhaseStatus.Completed,
+            $"{result.Recovered} of {needing} label(s) recovered from nearby text, " +
+            $"{stillNeeding} still unresolved{groups}");
+    }
+}
+
+/// <summary>
+/// Joins the boxes of one split value back into a single question.
+/// </summary>
+/// <remarks>
+/// Runs after labels are recovered, because the label is part of the evidence:
+/// two boxes are pieces of one answer only if they ask the same thing. See
+/// <see cref="SplitEntries"/> for why the printed separator, and not adjacency,
+/// is what decides.
+/// </remarks>
+public sealed class MergeSplitEntriesPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "merge-split-entries";
+
+    /// <inheritdoc/>
+    public string Purpose => "Ask once for a value the form printed as several boxes.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.FieldsOrEmpty.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped, "no fields were discovered, so there is nothing to join");
+        }
+
+        var merged = SplitEntries.Merge(state.FieldsOrEmpty, state.SpansOrEmpty);
+        var joined = merged.Count(f => f.Parts is { Count: > 1 });
+        if (joined == 0)
+        {
+            return (state, PhaseStatus.Completed, "no value on this form is printed as separated boxes");
+        }
+
+        var boxes = merged.Where(f => f.Parts is { Count: > 1 }).Sum(f => f.Parts!.Count);
+        return (state with { Fields = merged }, PhaseStatus.Completed,
+            $"{boxes} box(es) joined into {joined} question(s); {merged.Count} field(s) remain");
+    }
+}
+
+/// <summary>
+/// Phase 8. Turns the discovered fields into an APR template.
+/// </summary>
+/// <remarks>
+/// The one phase that must never invent: it arranges what earlier phases found
+/// and adds nothing of its own. A field with no label still becomes a prompt,
+/// carrying its deficiency into the quality report rather than being dropped —
+/// a silently missing question is worse than a badly named one.
+/// </remarks>
+public sealed class AssembleDocumentPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "assemble";
+
+    /// <inheritdoc/>
+    public string Purpose => "Arrange the discovered fields into a valid APR template.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        var fields = state.FieldsOrEmpty;
+        if (fields.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped, "no fields were discovered, so there is nothing to assemble");
+        }
+
+        var sections = fields
+            .GroupBy(f => f.PageNumber)
+            .OrderBy(g => g.Key)
+            .Select(g => new Section
+            {
+                Id = $"page-{g.Key}",
+                Title = $"Page {g.Key}",
+                Prompts = [.. g.Select(ToPrompt)],
+            })
+            .ToList();
+
+        var document = new AprDocument
+        {
+            DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = state.Title },
+            Sections = sections,
+        };
+
+        var placeholders = fields.Count(f => !f.HasLabel);
+        var guidance = fields.Count(f => !string.IsNullOrWhiteSpace(f.HelpText));
+
+        // Say how many prompts carry a placeholder instead of a question. The
+        // document cannot show it: APR requires a non-empty label, so an
+        // unlabelled field ships with its id in the label, and a bare
+        // "43 prompt(s)" would read as 43 usable questions.
+        var caveat = placeholders == 0
+            ? string.Empty
+            : $"; {placeholders} carry the field id as a placeholder, not a recovered question";
+
+        return (state with { Document = document }, PhaseStatus.Completed,
+            $"{sections.Count} section(s), {fields.Count} prompt(s), " +
+            $"{guidance} with the form's own guidance attached{caveat}");
+    }
+
+    private static Prompt ToPrompt(DiscoveredField field)
+    {
+        var hints = new PromptHints { ExpectedDataType = field.ExpectedDataType };
+
+        // The remainder of the block whose first sentence became the label.
+        // This is how a form's instructions survive conversion attached to the
+        // prompt they explain, rather than being dropped as prose -- it was
+        // being computed and then discarded here.
+        if (!string.IsNullOrWhiteSpace(field.HelpText))
+        {
+            hints.HelpText = field.HelpText;
+        }
+
+        // Assigned only when there are options: the setter records that
+        // suggested values were declared, and declaring an empty set says
+        // something different from saying nothing.
+        if (field.Options is { Count: > 0 } options)
+        {
+            hints.SuggestedValues = [.. options];
+        }
+
+        return new Prompt
+        {
+            Id = field.Id,
+            // Falling back to the id keeps the prompt valid -- APR requires a
+            // non-empty label -- and the phase report says how many did so.
+            Label = field.HasLabel ? field.Label! : field.Id,
+            Response = string.Empty,
+            Hints = hints,
+        };
+    }
+}
+
+/// <summary>
+/// Phase 8. Lets a small local model repair what determinism could not decide.
+/// </summary>
+/// <remarks>
+/// Runs per flagged field, never per document, and only on the residue the
+/// earlier phases left. On a well-formed fillable PDF that residue should be
+/// empty and the model should never load at all. Not built (#423), and
+/// deliberately last: the deterministic phases have to be as good as they can be
+/// before anything is asked of a model.
+/// </remarks>
+public sealed class ModelTouchUpPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "model-touch-up";
+
+    /// <inheritdoc/>
+    public string Purpose => "Ask a small local model only about the fields determinism could not resolve.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.FieldsOrEmpty.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped,
+                "no fields were discovered; an empty review queue here means the earlier " +
+                "phases found nothing, not that they resolved everything");
+        }
+
+        var queue = state.ReviewQueue.Count;
+        if (queue == 0)
+        {
+            return (state, PhaseStatus.Skipped,
+                "nothing was flagged, so no model would be loaded — which is the intended outcome");
+        }
+
+        return (state, PhaseStatus.NotImplemented,
+            $"{queue} field(s) would be sent to a local model (#423); no model is loaded by this build");
+    }
+}

@@ -1,0 +1,103 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "before-you-begin-for-guidance-related-to-the-purpose-of-form-w-9-see-purpose-of-form-below",
+      "title": "Before you begin. For guidance related to the purpose of Form W-9, see Purpose of Form, below.",
+      "prompts": [
+        {
+          "id": "form",
+          "label": "Form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "rev-march-2024",
+          "label": "(Rev. March 2024)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-the-treasury",
+          "label": "Department of the Treasury",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "internal-revenue-service",
+          "label": "Internal Revenue Service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "by-signing-the-filled-out-form-you",
+      "title": "By signing the filled-out form, you:",
+      "prompts": [
+        {
+          "id": "definition-of-a-u-s-person-for-federal-tax-purposes-you-are-considered-a-u-s-person-if-you-are",
+          "label": "Definition of a U.S. person. For federal tax purposes, you are considered a U.S. person if you are:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-i-taxpayer-identification-number-tin",
+      "title": "Part I. Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "protect-your-ssn",
+          "label": "\u00b7 Protect your SSN,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester",
+      "prompts": [
+        {
+          "id": "payments",
+          "label": "payments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "secure-your-tax-records-from-identity-theft",
+      "title": "Secure Your Tax Records From Identity Theft",
+      "prompts": [
+        {
+          "id": "to-reduce-your-risk",
+          "label": "To reduce your risk:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

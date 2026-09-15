@@ -1,0 +1,46 @@
+{
+ "model": "granite-4.0-3b-vision",
+ "repo": "/Users/marc/Documents/GitHub/promptresponse/.claude/worktrees/pdf-form-conversion-models-6bacad/scripts/pdf-form-benchmark/local_models/granite-4.0-3b-vision-mlx-4bit",
+ "mode": "split",
+ "prompt": "final",
+ "max_tokens": 8192,
+ "seconds": 38,
+ "pages": [
+  {
+   "page": 1,
+   "blanks": 23,
+   "fell_back": false
+  },
+  {
+   "page": 2,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  },
+  {
+   "page": 3,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  },
+  {
+   "page": 4,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  },
+  {
+   "page": 5,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  },
+  {
+   "page": 6,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  }
+ ],
+ "fell_back": []
+}

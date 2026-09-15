@@ -1,0 +1,142 @@
+<doctag><page_header><loc_23><loc_12><loc_155><loc_26>SPECIAL POWER OF ATTORNEY A-83 REV. 6-2008</page_header>
+<section_header_level_1><loc_177><loc_17><loc_325><loc_36>STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES 60 STATE STREET, WETHERSFIELD, CT 06161</section_header_level_1>
+<picture><loc_404><loc_17><loc_439><loc_39></picture>
+<text><loc_23><loc_45><loc_479><loc_71>INSTRUCTIONS:  The form below may be used as a special Power of Attorney to authorize, according to Connecticut law, another person designated by you to make, to complete and to sign on your behalf an application for a motor vehicle registration and certificate of title, or other written document, form or application that is required to be filed with the Commissioner of Motor Vehicles in connection with any other transactions involving a motor vehicle registration or title.</text>
+<text><loc_23><loc_76><loc_155><loc_83>Please note the following carefully:</text>
+<unordered_list><list_item><loc_19><loc_83><loc_479><loc_96>1. This form must be completed in its entirety.  The form requires your signature, the signature of two witnesses, and the signature of an officer authorized to take acknowledgments (a Notary Public, Justice of the Peace, or Commissioner of the Superior Court).</list_item>
+<list_item><loc_19><loc_96><loc_479><loc_109>2. The Special Power of Attorney does not authorize your agent to perform transactions related to your motor vehicle operator's license or identification card, or other transactions with the Commissioner that are unrelated to a motor vehicle registration or title.</list_item>
+<list_item><loc_19><loc_109><loc_365><loc_115>3. This Special Power of Attorney, bearing original signatures must be shown and will be returned to you.</list_item>
+<list_item><loc_19><loc_115><loc_479><loc_129>4. The grantor of any Special Power of Attorney or the attorney-in-fact may make application to any Court of Probate for an accounting, as provided in subsection (b) of section 45a-175 of the Connecticut General Statutes.</list_item>
+</unordered_list>
+<text><loc_23><loc_150><loc_446><loc_157>KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I,</text>
+<text><loc_23><loc_165><loc_456><loc_173>, do hereby appoint</text>
+<text><loc_23><loc_173><loc_236><loc_181>(Print your full name above)</text>
+<text><loc_23><loc_188><loc_456><loc_196>, as my attorney-in-fact</text>
+<text><loc_23><loc_197><loc_479><loc_256>to act in my name, place and stead in any way which I myself could do, as if I were personally present, to the full extent permitted by law to act as an agent, to make, to complete, and to execute any application or other written document or form that is required to be filed with the Commissioner of Motor Vehicles of the State of Connecticut, pursuant to the authority that is granted to the said Commissioner by any provision of the General Statutes of Connecticut or the regulations of Connecticut State Agencies, in connection with the registration of any motor vehicle or the certificate of title to any motor vehicle.  This Special Power of Attorney is granted and is valid only for the express purposes stated herein, and may not be used for any transaction involving any other person or party who is not named herein.</text>
+<text><loc_23><loc_264><loc_291><loc_272>IN WITNESS WHEREOF, I have hereunto signed my name below on this</text>
+<text><loc_331><loc_264><loc_357><loc_272>day of</text>
+<text><loc_423><loc_264><loc_456><loc_272>, 20</text>
+<text><loc_23><loc_282><loc_59><loc_290>Principal:</text>
+<text><loc_251><loc_282><loc_273><loc_290>(L.S.)</text>
+<text><loc_23><loc_300><loc_227><loc_315>Attested and subscribed in the presence of the Principal and subsequent to the Principal subscribing same:</text>
+<text><loc_23><loc_331><loc_180><loc_340>(Signature of Witness)</text>
+<text><loc_23><loc_349><loc_130><loc_358>STATE OF CONNECTICUT)</text>
+<text><loc_23><loc_364><loc_72><loc_373>COUNTY OF</text>
+<text><loc_125><loc_364><loc_154><loc_373>)     SS:</text>
+<text><loc_23><loc_388><loc_100><loc_397>Personally appeared</text>
+<text><loc_251><loc_388><loc_464><loc_397>, signer and sealer of the foregoing Power of Attorney, who</text>
+<text><loc_23><loc_402><loc_285><loc_411>acknowledged the same as his or her free act and deed, before me, this</text>
+<text><loc_323><loc_402><loc_347><loc_411>day of</text>
+<text><loc_431><loc_402><loc_456><loc_411>, 20</text>
+<text><loc_23><loc_422><loc_100><loc_431>seal of the Notary Public or Justice of Peace</text>
+<text><loc_23><loc_464><loc_207><loc_472>Seal of the Notary Public or Justice of Peace</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449><loc_472>My commission expires:__________________</text>
+<text><loc_287><loc_464><loc_449

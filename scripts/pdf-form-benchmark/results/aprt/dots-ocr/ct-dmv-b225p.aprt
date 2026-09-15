@@ -1,0 +1,253 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-225P (Disabled Parking Placard, Renewable)"
+  },
+  "sections": [
+    {
+      "id": "part-a-completed-by-applicant",
+      "title": "PART A - COMPLETED BY APPLICANT",
+      "prompts": [
+        {
+          "id": "type-of-application",
+          "label": "TYPE OF APPLICATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-1st-issue",
+          "label": "\u2610 NEW (1st issue)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "replacement",
+          "label": "\u2610 REPLACEMENT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "renewal",
+          "label": "\u2610 RENEWAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "applicant-is-check-one",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "disabled",
+          "label": "\u2610 DISABLED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "blind",
+          "label": "\u2610 BLIND",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "guardian-of-blind-or-disabled-person",
+          "label": "GUARDIAN OF BLIND OR DISABLED PERSON",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "organization-transporting-blind-or-disabled-person",
+          "label": "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qualifying-veteran-see-c-below",
+          "label": "QUALIFYING VETERAN (See C below)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "criteria-to-qualify",
+      "title": "CRITERIA TO QUALIFY",
+      "prompts": [
+        {
+          "id": "the-applicant-may-obtain-a-placard-if-they-meet-one-or-more-of-the-following-conditions",
+          "label": "The applicant may obtain a placard if they meet one or more of the following conditions:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "4-the-applicant-uses-portable-oxygen-or",
+          "label": "4. The applicant uses portable oxygen; or",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "certifier-s-name-please-print",
+          "label": "CERTIFIER'S NAME (Please print)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one",
+          "label": "CHECK ONE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "physician-assistant",
+          "label": "\u2610 PHYSICIAN ASSISTANT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "besb",
+          "label": "\u2610 BESB",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "usva-psychiatrist",
+          "label": "\u2610 USVA PSYCHIATRIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "physician",
+          "label": "\u2610 PHYSICIAN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "aprn",
+          "label": "\u2610 APRN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "optometrist",
+          "label": "\u2610 OPTOMETRIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ophthalmologist",
+          "label": "\u2610 OPHTHALMOLOGIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-license-number-required",
+          "label": "MEDICAL LICENSE NUMBER (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "medical-licensing-state-required",
+          "label": "MEDICAL LICENSING STATE (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-address-no-and-street",
+          "label": "OFFICE ADDRESS (No. and Street)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "(City or Town)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "(State)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "(Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "office-telephone-number",
+          "label": "OFFICE TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

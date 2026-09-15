@@ -1,0 +1,199 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-225P (Disabled Parking Placard, Renewable)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "date-expires-date-replacement",
+          "label": "DATE: EXPIRES: DATE: REPLACEMENT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expense-number-no-card",
+          "label": "EXPENSE NUMBER: NO CARD",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "renewable-parking-placard",
+          "label": "RENEWABLE PARKING PLACARD -",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions",
+          "label": "INSTRUCTIONS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "application-information",
+          "label": "APPLICATION INFORMATION:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "type-of-application-new-3rd-issue",
+          "label": "TYPE OF APPLICATION: NEW (3rd issue)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qualifying-veteran-see-c-below-guardian-of-organization",
+          "label": "QUALIFYING VETERAN (see C below) GUARDIAN OF ORGANIZATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-required",
+          "label": "DATE OF BIRTH (required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "driver-s-license-card-number-required-daytime-telephone-number",
+          "label": "DRIVER'S LICENSE/CARD NUMBER (required) DAYTIME TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "identification-applicant-address-phone-no",
+          "label": "IDENTIFICATION Applicant: Address: Phone No.:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "(City or Town):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "(State)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "CITY OR TOWN:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-address",
+          "label": "MAILING ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "no-and-street",
+          "label": "(No. and Street)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "(City or Town)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "(State)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP Code:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "the-applicant-is-requesting-a-placard-if-they-meet-one-of-three-of-the-following-conditions",
+          "label": "The applicant is requesting a placard if they meet one of three of the following conditions:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "application-s-signature",
+          "label": "APPLICATION'S SIGNATURE:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-applicant-s-with-power-of-attorney",
+          "label": "Signature of Applicant/s with Power of Attorney",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-number",
+          "label": "STATE NUMBER:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

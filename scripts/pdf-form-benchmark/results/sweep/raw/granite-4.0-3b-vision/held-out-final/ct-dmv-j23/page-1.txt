@@ -1,0 +1,94 @@
+{
+  "sections": [
+    {
+      "id": "1",
+      "title": "Driver License Information"
+    },
+    {
+      "id": "2",
+      "title": "License Restrictions, Application, Original Issue Date and Status"
+    },
+    {
+      "id": "3",
+      "title": "Driving History (List of violations and sanctions - certified)"
+    },
+    {
+      "id": "4",
+      "title": "Registration Records"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Endorsements, License Restrictions, Application, Original Issue Date and Status.",
+      "section_id": "1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "1"
+    },
+    {
+      "n": 2,
+      "label": "Document. This is NOT a duplicate license.",
+      "section_id": "2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "2"
+    },
+    {
+      "n": 3,
+      "label": "Driving History (List of violations and sanctions - certified)",
+      "section_id": "3",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "3"
+    },
+    {
+      "n": 4,
+      "label": "Registration File Information (Copy of current certificate)",
+      "section_id": "4",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "4"
+    },
+    {
+      "n": 5,
+      "label": "Registration Certificate (Copy of most current)",
+      "section_id": "4",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "4"
+    },
+    {
+      "n": 6,
+      "label": "Registration Return Plate Receipt (Copy of current)",
+      "section_id": "4",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "4"
+    },
+    {
+      "n": 7,
+      "label": "Insurance Information (Only)",
+      "section_id": "4",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "7"
+    },
+    {
+      "n": 8,
+      "label": "Insurance Information (Certified)",
+      "section_id": "7",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "7"
+    },
+    {
+      "n": 9,
+      "label": "Miscellaneous Request",
+      "section_id": "4",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "9"
+    }
+  ]
+}

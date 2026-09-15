@@ -1,0 +1,223 @@
+{
+  "sections": [
+    {
+      "id": "form-header",
+      "title": "Form CT-W4 Employee's Withholding Certificate"
+    },
+    {
+      "id": "employee-instructions",
+      "title": "Employee Instructions"
+    },
+    {
+      "id": "withholding-code-selection",
+      "title": "Withholding Code Selection"
+    },
+    {
+      "id": "employee-details",
+      "title": "Employee Details"
+    },
+    {
+      "id": "declaration",
+      "title": "Declaration"
+    },
+    {
+      "id": "employer-details",
+      "title": "Employer Details"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Choose the statement that best describes your gross income.",
+      "section_id": "withholding-code-selection",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Enter the Withholding Code on Line 1 below.",
+      "section_id": "withholding-code-selection",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Withholding Code",
+      "section_id": "withholding-code-selection",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. Withholding Code: Enter Withholding Code letter chosen from above.",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "2. Additional withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "3. Reduced withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+      "section_id": "employee-details",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "First name",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MI",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Last name",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Social Security Number",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Home address (number and street, apartment number, suite number, PO Box)",
+      "section_id": "employee-details",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/town",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP code",
+      "section_id": "employee-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employee's signature",
+      "section_id": "declaration",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "declaration",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Is this a new or rehired employee?",
+      "section_id": "employer-details",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "label": "Enter date hired:",
+      "section_id": "employer-details",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Employer's business name",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Federal Employer Identification Number",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employer's business address",
+      "section_id": "employer-details",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/town",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP code",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Contact person",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Telephone number",
+      "section_id": "employer-details",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    }
+  ]
+}

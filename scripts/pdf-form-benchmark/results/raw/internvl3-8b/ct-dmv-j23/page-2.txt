@@ -1,0 +1,48 @@
+```json
+{
+  "sections": [
+    {
+      "id": "identification-requirements",
+      "title": "Identification Requirements"
+    },
+    {
+      "id": "special-instructions-obtain-record-information",
+      "title": "Special Instructions for Those Who Wish to Obtain Record Information"
+    },
+    {
+      "id": "special-instructions-obtain-their-own-record-information",
+      "title": "Special Instructions for Those Who Wish to Obtain Their Own Record Information"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+      "section_id": "special-instructions-obtain-record-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "I hereby request the Department of Motor Vehicles to disclose personal information from its records.",
+      "section_id": "special-instructions-obtain-record-information",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Full name and address of individual required (Attorney Name or Case Name and Court Location - REQUIRED)",
+      "section_id": "special-instructions-obtain-record-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Specify the code below in the space on the front of this form in the REQUEST SECTION and complete the form including applicant signature. The identification requirements apply when requesting a copy of your own DMV record.",
+      "section_id": "special-instructions-obtain-their-own-record-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}
+```

@@ -1,0 +1,339 @@
+{
+  "sections": [
+    {
+      "id": "top",
+      "title": "Application for Employer Identification Number"
+    },
+    {
+      "id": "entity-info",
+      "title": "Entity Information"
+    },
+    {
+      "id": "address-info",
+      "title": "Address Information"
+    },
+    {
+      "id": "responsible-party",
+      "title": "Responsible Party"
+    },
+    {
+      "id": "entity-type",
+      "title": "Entity Type"
+    },
+    {
+      "id": "incorporation",
+      "title": "Incorporation"
+    },
+    {
+      "id": "reason-for-applying",
+      "title": "Reason for Applying"
+    },
+    {
+      "id": "business-details",
+      "title": "Business Details"
+    },
+    {
+      "id": "principal-activity",
+      "title": "Principal Activity"
+    },
+    {
+      "id": "previous-ein",
+      "title": "Previous EIN"
+    },
+    {
+      "id": "third-party-designee",
+      "title": "Third Party Designee"
+    },
+    {
+      "id": "declaration",
+      "title": "Declaration"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "section_id": "entity-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Trade name of business (if different from name on line 1)",
+      "section_id": "entity-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Executor, administrator, trustee, \"care of\" name",
+      "section_id": "entity-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Mailing address (room, apt., suite no. and street, or P.O. box)",
+      "section_id": "address-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "address-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Street address (if different) (Don’t enter a P.O. box.)",
+      "section_id": "address-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "address-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "County and state where principal business is located",
+      "section_id": "address-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Name of responsible party",
+      "section_id": "responsible-party",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "SSN, ITIN, or EIN",
+      "section_id": "responsible-party",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Is this application for a limited liability company (LLC) (or a foreign equivalent)?",
+      "section_id": "responsible-party",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "label": "If 8a is \"Yes,\" was the LLC organized in the United States?",
+      "section_id": "responsible-party",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+      "section_id": "entity-type",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Sole proprietor (SSN)",
+        "Partnership",
+        "Corporation (enter form number to be filed)",
+        "Personal service corporation",
+        "Church or church-controlled organization",
+        "Other nonprofit organization (specify)",
+        "Other (specify)",
+        "Estate (SSN of decedent)",
+        "Plan administrator (TIN)",
+        "Trust (TIN of grantor)",
+        "Military/National Guard",
+        "State/local government",
+        "Federal government",
+        "Farmers’ cooperative",
+        "REMIC",
+        "Indian tribal governments/enterprises"
+      ]
+    },
+    {
+      "label": "If a corporation, name the state or foreign country (if applicable) where incorporated",
+      "section_id": "incorporation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason-for-applying",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Started new business (specify type)",
+        "Changed type of organization (specify new type)",
+        "Hired employees (Check the box and see line 13.)",
+        "Compliance with IRS withholding regulations",
+        "Other (specify)",
+        "Purchased going business",
+        "Created a trust (specify type)",
+        "Created a pension plan (specify type)"
+      ]
+    },
+    {
+      "label": "Date business started or acquired (month, day, year). See instructions.",
+      "section_id": "business-details",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Closing month of accounting year",
+      "section_id": "business-details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "business-details",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 944 annually instead of Forms 941 quarterly, check here.",
+      "section_id": "business-details",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+      "section_id": "business-details",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal-activity",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Health care & social assistance",
+        "Wholesale—agent/broker",
+        "Construction",
+        "Rental & leasing",
+        "Transportation & warehousing",
+        "Accommodation & food service",
+        "Wholesale—other",
+        "Retail",
+        "Real estate",
+        "Manufacturing",
+        "Finance & insurance",
+        "Other (specify)"
+      ]
+    },
+    {
+      "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+      "section_id": "principal-activity",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "section_id": "previous-ein",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "label": "If \"Yes,\" write previous EIN here",
+      "section_id": "previous-ein",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Designee’s name",
+      "section_id": "third-party-designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Designee’s telephone number (include area code)",
+      "section_id": "third-party-designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "Designee’s fax number (include area code)",
+      "section_id": "third-party-designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "Address and ZIP code",
+      "section_id": "third-party-designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Applicant’s telephone number (include area code)",
+      "section_id": "third-party-designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "Applicant’s fax number (include area code)",
+      "section_id": "third-party-designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "Name and title (type or print clearly)",
+      "section_id": "declaration",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature",
+      "section_id": "declaration",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "declaration",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

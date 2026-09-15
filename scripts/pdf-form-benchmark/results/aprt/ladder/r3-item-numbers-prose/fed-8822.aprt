@@ -1,0 +1,221 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-8822"
+  },
+  "sections": [
+    {
+      "id": "complete-this-part-to-change-your-home-mailing-a",
+      "title": "Complete This Part To Change Your Home Mailing Address",
+      "prompts": [
+        {
+          "id": "individual-income-tax-returns-forms-1040-1040-sr",
+          "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "if-your-last-return-was-a-joint-return-and-you-a",
+          "label": "If your last return was a joint return and you are now establishing a residence separate from the spouse with whom you filed that return, check here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "gift-estate-or-generation-skipping-transfer-tax-",
+          "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "decedent-s-name",
+          "label": "Decedent's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-name-first-name-initial-and-last-name",
+          "label": "Your name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-social-security-number",
+          "label": "Your social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-name-first-name-initial-and-last-name",
+          "label": "Spouse's name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-social-security-number",
+          "label": "Spouse's social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-prior-name-s-see-instructions",
+          "label": "Your prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-prior-name-s-see-instructions",
+          "label": "Spouse's prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-old-address-no-street-apt-no-city-or-town-s",
+          "label": "Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-if-different-from-line-6a-n",
+          "label": "Spouse's old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-2",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-2",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-2",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-address-no-street-apt-no-city-or-town-state-",
+          "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-3",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-3",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-3",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "title": "Signature",
+      "prompts": [
+        {
+          "id": "daytime-telephone-number-of-person-to-contact-op",
+          "label": "Daytime telephone number of person to contact (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "title",
+          "label": "Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

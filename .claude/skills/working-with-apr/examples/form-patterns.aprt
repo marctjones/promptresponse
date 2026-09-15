@@ -1,0 +1,192 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "APR form patterns",
+    "description": "One small example of each pattern in the working-with-apr skill.",
+    "templateId": "tag:example.com,2026:apr-form-patterns"
+  },
+  "sections": [
+    {
+      "id": "taxpayer",
+      "title": "Part I — Taxpayer information",
+      "description": "Enter the information exactly as it appears on your tax return.",
+      "prompts": [
+        {
+          "id": "legal_name",
+          "label": "1 Name of entity/individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "An entry is required. For a sole proprietor, enter the owner's name."
+          }
+        },
+        {
+          "id": "tax_classification",
+          "label": "3a Federal tax classification",
+          "response": "",
+          "hints": {
+            "expectedDataType": "select",
+            "suggestedValues": [
+              "Individual/sole proprietor",
+              "C corporation",
+              "S corporation",
+              "Partnership",
+              "Trust/estate",
+              "LLC",
+              "Other"
+            ],
+            "helpText": "Check only one."
+          }
+        },
+        {
+          "id": "ssn",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "placeholder": "123-45-6789",
+            "validationPattern": "^\\d{3}-?\\d{2}-?\\d{4}$"
+          }
+        },
+        {
+          "id": "daytime_phone",
+          "label": "Daytime telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "additional_withholding",
+          "label": "2 Additional withholding amount per pay period",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "min": 0
+          }
+        },
+        {
+          "id": "date_signed",
+          "label": "Date signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "Returns this change affects",
+      "prompts": [
+        {
+          "id": "affected_returns",
+          "label": "Check all boxes this change affects",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "suggestedValues": [
+              "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+              "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "title": "Identity and employment authorization documents",
+      "kind": "table",
+      "sections": [
+        {
+          "id": "list_a",
+          "title": "List A",
+          "prompts": [
+            {
+              "id": "list_a.title",
+              "label": "Document title",
+              "response": ""
+            },
+            {
+              "id": "list_a.issuer",
+              "label": "Issuing authority",
+              "response": ""
+            },
+            {
+              "id": "list_a.number",
+              "label": "Document number",
+              "response": ""
+            },
+            {
+              "id": "list_a.expires",
+              "label": "Expiration date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              }
+            }
+          ]
+        },
+        {
+          "id": "list_b",
+          "title": "List B",
+          "prompts": [
+            {
+              "id": "list_b.title",
+              "label": "Document title",
+              "response": ""
+            },
+            {
+              "id": "list_b.issuer",
+              "label": "Issuing authority",
+              "response": ""
+            },
+            {
+              "id": "list_b.number",
+              "label": "Document number",
+              "response": ""
+            },
+            {
+              "id": "list_b.expires",
+              "label": "Expiration date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              }
+            }
+          ]
+        },
+        {
+          "id": "list_c",
+          "title": "List C",
+          "prompts": [
+            {
+              "id": "list_c.title",
+              "label": "Document title",
+              "response": ""
+            },
+            {
+              "id": "list_c.issuer",
+              "label": "Issuing authority",
+              "response": ""
+            },
+            {
+              "id": "list_c.number",
+              "label": "Document number",
+              "response": ""
+            },
+            {
+              "id": "list_c.expires",
+              "label": "Expiration date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

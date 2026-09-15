@@ -1,0 +1,783 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "USCIS Form I-9 (Employment Eligibility Verification)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "employment-eligibility-verification-form-1-9-form-1-9",
+          "label": "Employment Eligibility Verification Form 1-9 (Form 1-9)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "u-s-government-employee-record-security",
+          "label": "U.S. Government - Employee Record Security",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-direct-number-and-name",
+          "label": "Address (Direct Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "u-s-social-security-number",
+          "label": "U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "employee-s-employee-number",
+          "label": "Employee's Employee Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "1-a-citizen-of-the-united-states",
+          "label": "1. A citizen of the United States",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-time-place",
+          "label": "(Date, time & place)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "2-an-american-national-of-the-united-states-see-instructions",
+          "label": "2. An American national of the United States (see instructions )",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "a-foreign-passport-number-and-or-country-of-issuence",
+          "label": "a foreign passport number and/or Country of Issuence",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "date-time-any",
+          "label": "(Date, time & Any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "foreign-passport-number-and-country-of-issuence",
+          "label": "Foreign Passport Number and Country of Issuence",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "form-i-94-admission-number",
+          "label": "Form I-94 Admission Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "uscis-a-number",
+          "label": "USCIS A Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "signature-of-employee",
+          "label": "Signature of Employee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-day-year",
+          "label": "Today's Date (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "date",
+          "label": "(Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "list-a",
+          "label": "List A",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-passport-number-and-country-of-issuence-2",
+          "label": "Foreign Passport Number and Country of Issuence",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "document-title-1",
+          "label": "Document Title 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "additional-information",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-2-if-any",
+          "label": "Document Title 2 (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-2",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-2",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "document-title-3-if-any",
+          "label": "Document Title 3 (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-3",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-time-any-2",
+          "label": "(Date, time & Any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "document-title-4-if-any-issuing-authority",
+          "label": "Document Title 4 (If any) Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-time-and-any",
+          "label": "(Date, time and Any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-employee-s-authorized-representative",
+          "label": "Signature of Employee's Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-day-year-2",
+          "label": "Today's Date (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employee-s-business-or-organization-name",
+          "label": "Employee's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "lists-of-acceptable-documents",
+          "label": "LISTS OF ACCEPTABLE DOCUMENTS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-a-2",
+          "label": "LIST A",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-c",
+          "label": "LIST C",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "documents-that-issue-birth-identity-and-employment-authorization",
+          "label": "Documents that Issue Birth Identity and Employment Authorization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "or",
+          "label": "OR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-u-s-passport-or-u-s-passport-card-form-i-60",
+          "label": "1. U.S. Passport or U.S. Passport Card (Form I-60)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "3-certificate-of-birth-with-photograph-form-f15-240",
+          "label": "3. Certificate of birth with photograph (Form F15-240)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "for-persons-under-age-18-who-are-not-u-s-citizens-or-documents-listed-above",
+          "label": "For persons under age 18 who are not U.S. citizens or documents listed above:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "7-u-s-coast-guard-marine-corps-mariner-card-form-i-60",
+          "label": "7. U.S. Coast Guard Marine Corps Mariner Card (Form I-60)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "homeland-security",
+          "label": "homeland security",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-homeland-security",
+          "label": "DEPARTMENT OF HOMELAND SECURITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle Initial (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-direct-number-and-name-2",
+          "label": "Address (Direct Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "last-name-family-name-2",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-2",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-2",
+          "label": "Middle Initial (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-direct-number-and-name-3",
+          "label": "Address (Direct Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "last-name-family-name-3",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-3",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-3",
+          "label": "Middle Initial (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-direct-number-and-name-4",
+          "label": "Address (Direct Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "last-name-family-name-4",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-4",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-4",
+          "label": "Middle Initial (If any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-4",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-4",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "state-4",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-direct-number-and-name-5",
+          "label": "Address (Direct Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "form-i-9-edition-01-28-23",
+          "label": "Form I-9 Edition - 01/28/23",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "u-s-department-of-homeland-security",
+          "label": "U.S. DEPARTMENT OF HOMELAND SECURITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-from-section-1",
+          "label": "Last Name (Family Name) from Section 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-from-section-1",
+          "label": "First Name (Given Name) from Section 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-mm-day-year-last-name-family-name-first-name-given-name",
+          "label": "Date (mm/day/year) Last Name (Family Name) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "enter-information-here",
+          "label": "(enter information here.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-3",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-day-year",
+          "label": "Expiration Date (if any) (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "additional-information-initial-and-date-each-notation",
+          "label": "Additional information (initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-employee-or-authorized-representative",
+          "label": "Signature of Employee or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-mm-day-year-last-name-family-name-first-name-given-name-2",
+          "label": "Date (mm/day/year) Last Name (Family Name) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "enter-information-here-2",
+          "label": "(enter information here.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-day-year-3",
+          "label": "Today's Date (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "document-number-if-any-4",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter-information-here-3",
+          "label": "(enter information here.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-day-year-2",
+          "label": "Expiration Date (if any) (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "additional-information-initial-and-date-each-notation-2",
+          "label": "Additional information (initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "date-mm-day-year-last-name-family-name-first-name-given-name-3",
+          "label": "Date (mm/day/year) Last Name (Family Name) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "enter-information-here-4",
+          "label": "(enter information here.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-day-year-4",
+          "label": "Today's Date (mm/day/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "document-number-if-any-5",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter-information-here-5",
+          "label": "(enter information here.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

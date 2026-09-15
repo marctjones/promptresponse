@@ -1,0 +1,140 @@
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Part I Taxpayer Identification Number (TIN)"
+    },
+    {
+      "id": "part-ii",
+      "title": "Part II Certification"
+    },
+    {
+      "id": "general-instructions",
+      "title": "General Instructions"
+    },
+    {
+      "id": "what-s-new",
+      "title": "What's New"
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "Purpose of Form"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner’s name on line 1, and enter the business/disregarded entity’s name on line 2.)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Business name/disregarded entity name, if different from above.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "Individual/sole proprietor",
+        "C corporation",
+        "S corporation",
+        "Partnership",
+        "Trust/estate",
+        "LLC",
+        "Other (see instructions)"
+      ]
+    },
+    {
+      "label": "If on line 3a you checked “Partnership” or “Trust/estate,” or checked “LLC” and entered “P” as its tax classification, and you are providing this form to a partnership, trust, or estate in which you have an ownership interest, check this box if you have any foreign partners, owners, or beneficiaries.",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Address (number, street, and apt. or suite no.). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City, state, and ZIP code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "List account number(s) here (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exemptions (codes apply only to certain entities, not individuals; see instructions on page 3):",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exempt payee code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Requester’s name and address (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

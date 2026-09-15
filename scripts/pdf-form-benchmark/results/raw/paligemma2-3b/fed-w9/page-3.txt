@@ -1,0 +1,15 @@
+Form W-9 Rev. 3/2014
+Page 3
+example, if a foreign LLC that is treated as a disregarded entity for U.S. tax purposes has been dissolved and transferred to another country (e.g., the owner's name is required to be provided on line 1). If the direct owner of the business remains in the US, you can still avoid paying income taxes on your foreign LLC by filing Form W-9 as a U.S. citizen or purposes of chapter 3 and section 607(d)(5) (see instructions for form W-9.)
+Certain payments and payments are exempt from backup withholding under Section 8181, which is the same law that applies to all U.S. tax returns in Form W-9. See examples of this law below. If you have a foreign business name on your U.S. income taxes (see instructions for form W-9) and are not able to provide an exempt person from FATCA reporting, see Examples from FATCA reporting code; table and section 607(d)(5).
+What is FATCA Reporting?
+Line 2a
+You have a business name, trade name, DBA name or disregarded entity on Form W-9. Check the appropriate box for line 1 (THEN check the box for ... in each row)
+If you are not subject to tax law because your foreign address and/or TIN changes for the account; for example: if the grantor of a U.S. person is changing their business name or location, then do so immediately before making any change. If you have no TIN (changes for the account), for example: in the grantee of a tax return on Form W-9, check only one box on line 2a
+Line 3b
+updating your information
+Check the appropriate box for line 3b for the U.S. federal tax laws (check only one box on form W-9). If you are not subject to income taxes in the US and have a foreign business name, check the box on line 3a
+If you are an individual or corporation: Individual or partner; LLC classified as a partnership Limited liability company and limited partners; Corporation: P. Partnership; S -Corporation; C-corporation; Trust/estate; Partnership; Trust/estate; Trust/estate; Criminal penalty for falsifying information, Willful falsification of tax returns (see instructions on Form W9); or other penalties
+Penalties
+If you have a TIN in the U.S., if you fail to furnish your correct TIN to a regulator, you are subject to a penalty of $50 for each such failure; and if you provide an incorrect TIN on form W-9 (see instructions on Form W9); or if you do not file any tax return on Form W-9 in the U.S., then you will be penalized by the government with no penalties that result in a loss of your business name, trade name or DBA name; and may incur additional costs to recover from the social security administration for such damages (see instructions on form W9).
+Check this box if you are a partnership including an LLC classified as a foreign partner; limited liability company and limited partners; corporation P. Partnership; S -Corporation; C-corporation; Trust/estate; Partnership; Trust/estate; Trust/estate;

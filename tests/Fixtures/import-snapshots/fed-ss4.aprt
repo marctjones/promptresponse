@@ -1,0 +1,731 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-ss4",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/fed-ss4",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].PgHeader[0].f1_1[0]",
+          "label": "f1_1[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_2[0]",
+          "label": "f1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_3[0]",
+          "label": "f1_3[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_4[0]",
+          "label": "f1_4[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_5[0]",
+          "label": "f1_5[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_6[0]",
+          "label": "f1_6[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_7[0]",
+          "label": "f1_7[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_8[0]",
+          "label": "f1_8[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_9[0]",
+          "label": "f1_9[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_10[0]",
+          "label": "f1_10[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_11[0]",
+          "label": "f1_11[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[0]",
+          "label": "c1_1[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[1]",
+          "label": "c1_1[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_12[0]",
+          "label": "f1_12[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[0]",
+          "label": "c1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[1]",
+          "label": "c1_2[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[0]",
+          "label": "c1_3[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_13[0]",
+          "label": "f1_13[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[1]",
+          "label": "c1_3[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_14[0]",
+          "label": "f1_14[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[2]",
+          "label": "c1_3[2]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[3]",
+          "label": "c1_3[3]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_15[0]",
+          "label": "f1_15[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[4]",
+          "label": "c1_3[4]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_16[0]",
+          "label": "f1_16[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[5]",
+          "label": "c1_3[5]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_17[0]",
+          "label": "f1_17[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[6]",
+          "label": "c1_3[6]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[7]",
+          "label": "c1_3[7]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[8]",
+          "label": "c1_3[8]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[9]",
+          "label": "c1_3[9]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[10]",
+          "label": "c1_3[10]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[11]",
+          "label": "c1_3[11]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[12]",
+          "label": "c1_3[12]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_18[0]",
+          "label": "f1_18[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[13]",
+          "label": "c1_3[13]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[14]",
+          "label": "c1_3[14]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[15]",
+          "label": "c1_3[15]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_19[0]",
+          "label": "f1_19[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_20[0]",
+          "label": "f1_20[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_21[0]",
+          "label": "f1_21[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_22[0]",
+          "label": "f1_22[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[0]",
+          "label": "c1_4[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_25[0]",
+          "label": "f1_25[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_26[0]",
+          "label": "f1_26[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[1]",
+          "label": "c1_4[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_27[0]",
+          "label": "f1_27[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[2]",
+          "label": "c1_4[2]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[3]",
+          "label": "c1_4[3]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[4]",
+          "label": "c1_4[4]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_28[0]",
+          "label": "f1_28[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[5]",
+          "label": "c1_4[5]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[6]",
+          "label": "c1_4[6]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_29[0]",
+          "label": "f1_29[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[7]",
+          "label": "c1_4[7]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[8]",
+          "label": "c1_4[8]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_24[0]",
+          "label": "f1_24[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_30[0]",
+          "label": "f1_30[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_31[0]",
+          "label": "f1_31[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_32[0]",
+          "label": "f1_32[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_33[0]",
+          "label": "f1_33[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_34[0]",
+          "label": "f1_34[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_35[0]",
+          "label": "f1_35[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_5[0]",
+          "label": "c1_5[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_36[0]",
+          "label": "f1_36[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[0]",
+          "label": "c1_6[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[1]",
+          "label": "c1_6[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[2]",
+          "label": "c1_6[2]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[3]",
+          "label": "c1_6[3]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[4]",
+          "label": "c1_6[4]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[5]",
+          "label": "c1_6[5]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[6]",
+          "label": "c1_6[6]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[7]",
+          "label": "c1_6[7]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[8]",
+          "label": "c1_6[8]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[9]",
+          "label": "c1_6[9]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[10]",
+          "label": "c1_6[10]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[11]",
+          "label": "c1_6[11]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_37[0]",
+          "label": "f1_37[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_38[0]",
+          "label": "f1_38[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_7[0]",
+          "label": "c1_7[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_7[1]",
+          "label": "c1_7[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_39[0]",
+          "label": "f1_39[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_40[0]",
+          "label": "f1_40[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_41[0]",
+          "label": "f1_41[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_42[0]",
+          "label": "f1_42[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_43[0]",
+          "label": "f1_43[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_44[0]",
+          "label": "f1_44[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_45[0]",
+          "label": "f1_45[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_46[0]",
+          "label": "f1_46[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

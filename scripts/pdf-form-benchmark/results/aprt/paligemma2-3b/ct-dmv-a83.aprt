@@ -1,0 +1,143 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-83 (Special Power of Attorney)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "special-power-of-attorney-a-63-rev-6-2008",
+          "label": "SPECIAL POWER OF ATTORNEY A-63 REV. 6/2008",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut-department-of-motor-vehicles",
+          "label": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "90-state-street-wethersfield-ct-06141",
+          "label": "90 STATE STREET, WETHERSFIELD, CT 06141",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-your-full-name-above",
+          "label": "(Print your full name above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-my-attorney-in-fact",
+          "label": "as my attorney-in-fact",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-20",
+          "label": "day of 20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-witness-whereof-i-have-hereby-signed-my-name-below-on-this-l-s-principal",
+          "label": "IN Witness Whereof, I have hereby signed my name below on this (L.S.) Principal:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "sign-your-full-name-as-above",
+          "label": "(Sign your full name as above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness",
+          "label": "(Signature of witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut-county-of",
+          "label": "STATE OF CONNECTICUT) COUNTY OF",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ss",
+          "label": "SS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-20-2",
+          "label": "day of 20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "who-is-is-called-as",
+          "label": "who is/is called as",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "full-name-of-principal",
+          "label": "(Full name of Principal)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "notary-public-justice-of-peace-commissioner-of-the-superior-court-my-commission-expires",
+          "label": "Notary Public/Justice of Peace Commissioner of the Superior Court My commission expires:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    }
+  ]
+}

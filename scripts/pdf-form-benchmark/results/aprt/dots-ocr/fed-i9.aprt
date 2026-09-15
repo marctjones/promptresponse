@@ -1,0 +1,53 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "USCIS Form I-9 (Employment Eligibility Verification)"
+  },
+  "sections": [
+    {
+      "id": "lists-of-acceptable-documents",
+      "title": "# LISTS OF ACCEPTABLE DOCUMENTS",
+      "prompts": [
+        {
+          "id": "omb-no-1615-0047",
+          "label": "OMB No.1615-0047",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "expires-05-31-2027",
+          "label": "Expires 05/31/2027",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "supplement-a-preparer-and-or-translator-certification-for-section-1",
+      "title": "Supplement A, Preparer and/or Translator Certification for Section 1",
+      "prompts": [
+        {
+          "id": "department-of-homeland-security",
+          "label": "Department of Homeland Security",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "u-s-citizenship-and-immigration-services",
+          "label": "U.S. Citizenship and Immigration Services",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "state-of-connecticut-department-of-motor-vehicles",
+      "title": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
+      "prompts": [
+        {
+          "id": "telephone-number-1-800-842-8222",
+          "label": "Telephone Number: 1-800-842-8222",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "on-the-web-at-ct-gov-dmv",
+          "label": "On The Web At ct.gov/dmv",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv-validation",
+          "label": "DMV VALIDATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "license-records-check",
+          "label": "LICENSE RECORDS, CHECK ( \u2713 )",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "fill-in-section-s",
+          "label": "FILL IN SECTION(S)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "price",
+          "label": "PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "records",
+          "label": "RECORDS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "available",
+          "label": "AVAILABLE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-license-file-information-printout-of-license-class-endorsements-restrictions-original-issue-date-and-status",
+          "label": "Driver License File Information (Printout of license class, endorsements, restrictions, original issue date and status.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-license-application-copy-of-most-current-document-this-is-not-a-duplicate-license",
+          "label": "Driver License Application (Copy of most current document). This is NOT a duplicate license",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driving-history-list-of-violations-and-sanctions-certified",
+          "label": "Driving History (List of violations and sanctions - certified)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "reg",
+          "label": "Reg",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "cdl",
+          "label": "CDL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

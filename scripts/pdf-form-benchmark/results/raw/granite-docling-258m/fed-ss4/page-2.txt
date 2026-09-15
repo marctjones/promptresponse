@@ -1,0 +1,16 @@
+<doctag><page_header><loc_29><loc_22><loc_96><loc_28>Form SS-4 (Rev. 12-2025)</page_header>
+<page_header><loc_451><loc_21><loc_471><loc_28>Page 2</page_header>
+<text><loc_56><loc_31><loc_439><loc_42>See below to determine whether you need an EIN. However, for further information on applying for an EIN, including how to submit an EIN application, see the separate instructions at www.irs.gov/FormSS4.</text>
+<section_header_level_1><loc_200><loc_48><loc_300><loc_58>Do I Need an EIN?</section_header_level_1>
+<text><loc_52><loc_60><loc_435><loc_71>File Form SS-4 if the applicant entity doesn't already have an EIN but is required to show an EIN on any return, statement, or other document. 1 See also the separate instructions for each line on Form SS-4.</text>
+<otsl><loc_28><loc_71><loc_471><loc_320></otsl>
+<footnote><loc_29><loc_328><loc_462><loc_344>1 For example, a sole proprietorship or self-employed farmer who establishes a qualified retirement plan, or is required to file excise, employment, alcohol, tobacco, or firearms returns, must have an EIN. A partnership, corporation, REMIC (real estate mortgage investment conduit), nonprofit organization (church, club, etc.), or farmers' cooperative must use an EIN for any tax-related purpose even if the entity doesn't have employees.</footnote>
+<footnote><loc_29><loc_346><loc_465><loc_361>2 However, don't apply for a new EIN if the existing entity only (a) changed its business name, (b) elected on Form 8832 to change the way it is taxed (or is covered by the default rules), or (c) terminated its partnership status because at least 50% of the total interests in partnership capital and profits were sold or exchanged within a 12month period. The EIN of the terminated partnership should continue to be used. See Regulations section 301.6109-1(d)(2)(iii).</footnote>
+<footnote><loc_29><loc_363><loc_316><loc_369>3 Don't use the EIN of the prior business unless you became the "owner" of a corporation by acquiring its stock.</footnote>
+<footnote><loc_29><loc_370><loc_458><loc_381>4 However, grantor trusts that don't file using Optional Method 1 and IRA trusts that are required to file Form 990-T, Exempt Organization Business Income Tax Return, must have an EIN. For more information on grantor trusts, see the Instructions for Form 1041.</footnote>
+<footnote><loc_29><loc_383><loc_384><loc_389>5 A plan administrator is the person or group of persons specified as the administrator by the instrument under which the plan is operated.</footnote>
+<footnote><loc_29><loc_390><loc_351><loc_396>6 Entities applying to be a Qualified Intermediary (QI) need a QI-EIN even if they already have an EIN. See Rev. Proc. 2000-12.</footnote>
+<footnote><loc_29><loc_398><loc_422><loc_404>7 See also Household employer agent in the instructions. Note: State or local agencies may need an EIN for other reasons, for example, hired employees.</footnote>
+<footnote><loc_29><loc_406><loc_269><loc_412>8 See Disregarded entities in the instructions for details on completing Form SS-4 for an LLC.</footnote>
+<footnote><loc_29><loc_413><loc_318><loc_419>9 An existing corporation that is electing or revoking SS corporation status should use its previously assigned EIN.</footnote>
+</doctag>

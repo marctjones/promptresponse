@@ -1,0 +1,319 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 8822 (Change of Address)"
+  },
+  "sections": [
+    {
+      "id": "complete-this-part-to-change-your-home-mailing-address",
+      "title": "Complete This Part To Change Your Home Mailing Address",
+      "prompts": [
+        {
+          "id": "check-all-boxes-this-change-affects",
+          "label": "Check all boxes this change affects:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Individual income tax returns",
+              "Gift, estate, or generation-skipping transfer tax returns"
+            ]
+          }
+        },
+        {
+          "id": "decedent-s-name",
+          "label": "Decedent's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-social-security-number",
+          "label": "Your social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "spouse-s-name-first-name-initial-and-last-name",
+          "label": "Spouse\u2019s name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-social-security-number",
+          "label": "Spouse\u2019s social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "your-prior-name-s-see-instructions",
+          "label": "Your prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-prior-name-s-see-instructions",
+          "label": "Spouse\u2019s prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-old-address-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-if-different-from-line-6a-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "Spouse\u2019s old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-2",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-2",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-2",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-address-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-3",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-3",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-3",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-your-box-number-instead-of-your-street-address-only-if-your-post-office-does-not-deliver-mail-to-your-street-address",
+          "label": "Enter your box number instead of your street address only if your post office does not deliver mail to your street address.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "follow-the-country-s-practice-for-entering-the-postal-code-please-do-not-abbreviate-the-country",
+          "label": "Follow the country\u2019s practice for entering the postal code. Please do not abbreviate the country.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-receive-your-mail-in-care-of-a-third-party-such-as-an-accountant-or-attorney-enter-c-o-followed-by-the-third-party-s-name-and-street-address-or-p-o-box",
+          "label": "If you receive your mail in care of a third party (such as an accountant or attorney), enter 'C/O' followed by the third party\u2019s name and street address or P.O. box.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-taxpayer-executor-donor-or-an-authorized-representative-must-sign-if-your-last-return-was-a-joint-return-your-spouse-must-also-sign-unless-you-have-indicated-by-checking-the-box-on-line-1-that-you-are-establishing-a-separate-residence",
+          "label": "The taxpayer, executor, donor, or an authorized representative must sign. If your last return was a joint return, your spouse must also sign (unless you have indicated by checking the box on line 1 that you are establishing a separate residence).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "if-you-are-a-representative-signing-on-behalf-of-the-taxpayer-you-must-attach-to-form-8822-a-copy-of-your-power-of-attorney-to-do-this-you-can-use-form-2848-the-internal-revenue-service-will-not-complete-an-address-change-from-an-unauthorized-third-party",
+          "label": "If you are a representative signing on behalf of the taxpayer, you must attach to Form 8822 a copy of your power of attorney. To do this, you can use Form 2848. The Internal Revenue Service will not complete an address change from an 'unauthorized' third party.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "comments-you-can-send-comments-from-www-irs-gov-formcomments-or-you-can-write-to-the-internal-revenue-service-tax-forms-and-publications-division-1111-constitution-ave-nw-ir-6526-washington-dc-20224-do-not-send-the-form-to-this-address-instead-see-where-to-file-earlier",
+          "label": "Comments. You can send comments from www.irs.gov/FormComments. Or you can write to the Internal Revenue Service, Tax Forms and Publications Division, 1111 Constitution Ave. NW, IR-6526, Washington, DC 20224. DO NOT SEND THE FORM TO THIS ADDRESS. Instead, see Where To File, earlier.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "title": "Signature",
+      "prompts": [
+        {
+          "id": "daytime-telephone-number-of-person-to-contact-optional",
+          "label": "Daytime telephone number of person to contact (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-signature",
+          "label": "Your signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-representative-executor-administrator-if-applicable",
+          "label": "Signature of representative, executor, administrator/if applicable",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "title",
+          "label": "Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "where-to-file",
+      "title": "Where To File",
+      "prompts": [
+        {
+          "id": "if-you-checked-the-box-on-line-2-send-form-8822-to",
+          "label": "If you checked the box on line 2, send Form 8822 to:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-did-not-check-the-box-on-line-2-send-form-8822-to-the-address-shown-here-that-applies-to-you",
+          "label": "If you did not check the box on line 2, send Form 8822 to the address shown here that applies to you:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-your-old-home-mailing-address-was-in",
+          "label": "IF your old home mailing address was in...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Alabama, Arkansas, Delaware, Georgia, Illinois, Indiana, Iowa, Kentucky, Maine, Massachusetts, Minnesota, Missouri, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, South Carolina, Tennessee, Vermont, Virginia, Wisconsin",
+              "Florida, Louisiana, Mississippi, Texas",
+              "Alaska, Arizona, California, Colorado, Connecticut, District of Columbia, Hawaii, Idaho, Kansas, Maryland, Michigan, Montana, Nebraska, Nevada, New Mexico, North Dakota, Ohio, Oregon, Pennsylvania, Rhode Island, South Dakota, Utah, Washington, West Virginia, Wyoming",
+              "A foreign country, American Samoa, or Puerto Rico (or are excluding income under Internal Revenue Code section 933), use an APO or FPO address, or file Form 2555, 2555-EZ, or 4563, or are a dual-status alien or non bona fide resident of Guam or the Virgin Islands",
+              "Guam: bona fide residents",
+              "Virgin Islands: bona fide residents"
+            ]
+          }
+        },
+        {
+          "id": "then-use-this-address",
+          "label": "THEN use this address...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

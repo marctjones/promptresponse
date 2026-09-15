@@ -1,0 +1,238 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b225p"
+  },
+  "sections": [
+    {
+      "id": "type-of-application",
+      "title": "TYPE OF APPLICATION",
+      "prompts": [
+        {
+          "id": "new-1st-issue",
+          "label": "NEW (1st issue)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "replacement",
+          "label": "REPLACEMENT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "renewal",
+          "label": "RENEWAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant-is-check-one",
+      "title": "APPLICANT IS (Check One)",
+      "prompts": [
+        {
+          "id": "guardian-of-blind-or-disabled-person",
+          "label": "GUARDIAN OF BLIND OR DISABLED PERSON",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "disabled",
+          "label": "DISABLED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identification-of-applicant-please-print",
+      "title": "IDENTIFICATION OF APPLICANT (Please Print)",
+      "prompts": [
+        {
+          "id": "name-of-person-who-is-blind-or-disabled-last-fir",
+          "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "guardian-or-organization",
+          "label": "GUARDIAN OR ORGANIZATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-required",
+          "label": "DATE OF BIRTH (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "ct-driver-license-id-card-number-required",
+          "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "daytime-telephone-number",
+          "label": "DAYTIME TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "address-no-and-street-city-or-town-state-zip-cod",
+          "label": "ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-address-no-and-street-city-or-town-state",
+          "label": "MAILING ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant-s-signature",
+      "title": "APPLICANT'S SIGNATURE",
+      "prompts": [
+        {
+          "id": "signature-of-applicant-parent-guardian-or-power-",
+          "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "certifier-s-name-please-print",
+      "title": "CERTIFIER'S NAME (Please print)",
+      "prompts": [
+        {
+          "id": "certifier-s-name-please-print",
+          "label": "CERTIFIER'S NAME (Please print)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one",
+          "label": "CHECK ONE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "PHYSICIAN ASSISTANT",
+              "BESB",
+              "USVA PSYCHIATRIST",
+              "PHYSICIAN",
+              "APRN",
+              "OPTOMETRIST",
+              "OPHTHALMOLOGIST"
+            ]
+          }
+        },
+        {
+          "id": "medical-license-number-required",
+          "label": "MEDICAL LICENSE NUMBER (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-licensing-state-required",
+          "label": "MEDICAL LICENSING STATE (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-address-no-and-street-city-or-town-state-",
+          "label": "OFFICE ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-telephone-number",
+          "label": "OFFICE TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "additional-certification-may-be-required",
+      "title": "ADDITIONAL CERTIFICATION MAY BE REQUIRED...",
+      "prompts": [
+        {
+          "id": "physician-physician-assistant-aprn-optometrist-o",
+          "label": "PHYSICIAN, PHYSICIAN ASSISTANT, APRN, OPTOMETRIST, OPHTHALMOLOGIST, USDVA PSYCHIATRIST, STATEMENT AND SIGNATURE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-physician-pa-aprn-optometrist-ophth",
+          "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

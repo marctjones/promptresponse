@@ -1,0 +1,113 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut Form CT-W4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "form-ct-w4-employee-s-withholding-certificate",
+      "title": "# Form CT-W4 ## Employee's Withholding Certificate",
+      "prompts": [
+        {
+          "id": "department-of-revenue-services-state-of-connecticut-rev-12-25",
+          "label": "Department of Revenue Services State of Connecticut (Rev. 12/25)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "effective-january-1-2026",
+          "label": "Effective January 1, 2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employee-instructions",
+      "title": "## Employee Instructions",
+      "prompts": [
+        {
+          "id": "check-if-you-are-claiming-the-msrra-exemption-and-enter-state-of-legal-residence-domicile",
+          "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "is-this-a-new-or-rehired-employee",
+          "label": "Is this a new or rehired employee?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "yes",
+          "label": "Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-date-hired-mm-dd-yyyy",
+          "label": "Enter date hired: __________ mm/dd/yyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check-your-withholding",
+      "title": "### Check Your Withholding",
+      "prompts": [
+        {
+          "id": "you-may-be-underwithheld-if-any-of-the-following-apply",
+          "label": "You may be underwithheld if any of the following apply:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "report-certain-employees-claiming-exemption-from-withholding-to-drs",
+      "title": "### Report Certain Employees Claiming Exemption From Withholding to DRS",
+      "prompts": [
+        {
+          "id": "new-hires-can-be-reported-by",
+          "label": "New hires can be reported by:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-copies-of-completed-forms-ct-w4-to",
+          "label": "* Mailing copies of completed Forms CT-W4 to:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

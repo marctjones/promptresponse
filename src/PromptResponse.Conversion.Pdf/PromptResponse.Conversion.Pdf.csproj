@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Deliberately kept out of PromptResponse.Rendering.Pdf and out of the apr
+      CLI while the pipeline is being built. It reads from Rendering.Pdf (source
+      detection, the widget oracle, the structured reference) but changes
+      nothing there, so an unfinished converter cannot regress `apr import`.
+      Folding it in is a decision to take once the phases work, not a side
+      effect of starting them.
+    -->
+    <ProjectReference Include="..\PromptResponse.Core\PromptResponse.Core.csproj" />
+    <ProjectReference Include="..\PromptResponse.Rendering.Pdf\PromptResponse.Rendering.Pdf.csproj" />
+  </ItemGroup>
+
+</Project>

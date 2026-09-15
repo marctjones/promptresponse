@@ -1,0 +1,31 @@
+{
+  "formId": "fed-w9",
+  "tier": "model-authored",
+  "provenance": "Labels transcribed by Claude from a 160 DPI render of page 1 of fed-w9.pdf, keyed to widget rectangles taken from the form's own AcroForm. Written because fed-w9 carries no /TU tooltips at all, so label recovery had no oracle on the form the W-9 gate is built around. NOT definitional and NOT human-verified: this is a model reading a page, which is the same kind of act being graded, so it is weaker evidence than fed-i9's author-written tooltips and must not be presented as equivalent.",
+  "independence": "Read from the rendered image, not from the converter's text extraction or from any pipeline output, so it is not the converter grading itself. The widget positions it is keyed to are Tier 1 -- the PDF states them.",
+  "labels": {
+    "topmostSubform[0].Page1[0].f1_01[0]": "Name of entity/individual",
+    "topmostSubform[0].Page1[0].f1_02[0]": "Business name/disregarded entity name, if different from above",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[0]": "Individual/sole proprietor",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[1]": "C corporation",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[2]": "S corporation",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[3]": "Partnership",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[4]": "Trust/estate",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[5]": "LLC",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].f1_03[0]": "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership)",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_1[6]": "Other (see instructions)",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].f1_04[0]": "Other (see instructions)",
+    "topmostSubform[0].Page1[0].Boxes3a-b_ReadOrder[0].c1_2[0]": "Check this box if you have any foreign partners, owners, or beneficiaries",
+    "topmostSubform[0].Page1[0].f1_05[0]": "Exempt payee code (if any)",
+    "topmostSubform[0].Page1[0].f1_06[0]": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+    "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_07[0]": "Address (number, street, and apt. or suite no.)",
+    "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_08[0]": "City, state, and ZIP code",
+    "topmostSubform[0].Page1[0].f1_09[0]": "Requester's name and address (optional)",
+    "topmostSubform[0].Page1[0].f1_10[0]": "List account number(s) here (optional)",
+    "topmostSubform[0].Page1[0].f1_11[0]": "Social security number",
+    "topmostSubform[0].Page1[0].f1_12[0]": "Social security number",
+    "topmostSubform[0].Page1[0].f1_13[0]": "Social security number",
+    "topmostSubform[0].Page1[0].f1_14[0]": "Employer identification number",
+    "topmostSubform[0].Page1[0].f1_15[0]": "Employer identification number"
+  }
+}

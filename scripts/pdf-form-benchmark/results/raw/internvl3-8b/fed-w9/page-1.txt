@@ -1,0 +1,162 @@
+```json
+{
+  "sections": [
+    {
+      "id": "page",
+      "title": "Request for Taxpayer Identification Number and Certification"
+    },
+    {
+      "id": "part-i",
+      "title": "Taxpayer Identification Number"
+    },
+    {
+      "id": "part-ii",
+      "title": "Certification"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Name of entity/individual",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Business name/disregarded entity name, if different from above",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Check the appropriate box for federal tax classification of the entity/individual",
+      "section_id": "page",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "Individual/sole proprietor",
+        "C corporation",
+        "S corporation",
+        "Partnership",
+        "Trust/estate",
+        "LLC",
+        "Other"
+      ]
+    },
+    {
+      "label": "Exempt payee code (if any)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (number, street, and apt. or suite no.)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City, state, and ZIP code",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "List account number(s) (optional)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Requester's name and address (optional)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Taxpayer Identification Number (TIN)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Under penalties of perjury, I certify that:",
+      "section_id": "part-ii",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "required": true
+    },
+    {
+      "label": "The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and",
+      "section_id": "part-ii",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "required": true
+    },
+    {
+      "label": "I am not subject to backup withholding because (a) I am exempt from backup withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am no longer subject to backup withholding; and",
+      "section_id": "part-ii",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "required": true
+    },
+    {
+      "label": "I am a U.S. citizen or other U.S. person (defined below); and",
+      "section_id": "part-ii",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "required": true
+    },
+    {
+      "label": "The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct.",
+      "section_id": "part-ii",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "required": true
+    }
+  ]
+}
+```

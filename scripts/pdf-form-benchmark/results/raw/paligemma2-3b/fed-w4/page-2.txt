@@ -1,0 +1,17 @@
+Page 2
+Form W-4 (2006)
+Nonresident alien: If you're a nonresident alien, see Notice to Nonresidents and Form W-4. You must file your income taxes before completing this form.
+General Instructions
+Section references are for the Internal Revenue Code unless otherwise specified in section 701(a)(3).
+Specific instructions
+Future Developments
+Step (6): Check your amended filing status. This will determine the standard deduction and tax rates used to compute your income taxes.
+The U.S. government is developing developments related to Form W-4, such as legislation enacted after it was published; go to section 701(a)(3).
+Step (2): Use this step if you: i) have more than one job at the same employer (see option (5); ii) are married and your spouse is a nonresident alien; or iii) do not know how much income you may earn. Option (6) most accurately calculates the additional tax you need to pay for each of your jobs in order to claim them as income taxes.
+Purpose of Form
+Consider this form if that your employer can withdraw the correct federal income tax from your pay, i.e. title 41 withheld; and consider it when claiming a deduction under section 301(a)(7), which is a penalty for paying too much or overpaying too little in taxes. If you have paid more than enough, you will generally be due the full amount of income tax on your pay (see option (8). For information about this form and how to file it, see section 301(a)(7).
+Step (3): Check if you are a nonresident alien; or ii) have half for each job to calculate withholding. The option is accurate because the amount of income tax withheld will be equal to your total income taxes on all jobs in this year and may be withheld, and this extra amount of tax withheld will be deducted from your pay (see section 301(a)(7).
+Exemption from withholding: You may claim exemption from paying any income tax under Section 804. Under certain conditions, you had no federal income tax liability in 2005 and did not have a social security number on that date; or ii) your spouse had no federal income tax liability in 2003 (i.e.) your total tax on all jobs is less than the amount of income tax withheld from this year, and you will be required to file a return because your income was below the threshold for claiming exemption under section 804; or iii) if you claim that you have no income tax liability in 2003 (i.e.) your total income tax on all jobs is less than the amount of income tax withheld from this year, and you will have no income tax withholding from your pay when claiming exemption under Section 804.
+Multiple Jobs: Complete Step 3 through step 4b or only complete steps 2 and 3 (see section 701(a)(6). If you do so, the total amount of income taxes on all jobs will be equal to the total income tax withheld from this year; and ii) Do not complete any other steps. You will need to file a return for your income tax withholding by March 30, 2007 (see section 804).
+Your privacy: Steps 2(a) and (b) ask for information regarding the data you have provided; step (c) asks about personal details such as name, birthdate, gender, marital status or any other identifying information listed in Step (d); and (e) is asking to give your spouse permission to use this information.
+When to use the estimator: Consider using the estimator at the beginning of the year for steps 1-3; step (4a) for step 4; and step (5c) for step 5.

@@ -1,0 +1,219 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-8822"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[0]",
+          "label": "topmostSubform[0].Page1[0].c1_1[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[0]",
+          "label": "topmostSubform[0].Page1[0].c1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[0]",
+          "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_1[0]",
+          "label": "\u25B6 Decedent\u2019s name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_2[0]",
+          "label": "\u25B6 Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_3[0]",
+          "label": "Your name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_4[0]",
+          "label": "Your social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_5[0]",
+          "label": "Spouse\u2019s name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_6[0]",
+          "label": "Spouse\u2019s social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_7[0]",
+          "label": "Your prior name(s).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "See instructions."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_8[0]",
+          "label": "Spouse\u2019s prior name(s).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "See instructions."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_9[0]",
+          "label": "Your old address (no., street, apt. no., city or town, state, and ZIP code).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_10[0]",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_11[0]",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_12[0]",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_13[0]",
+          "label": "topmostSubform[0].Page1[0].f1_13[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_14[0]",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_15[0]",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_16[0]",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_17[0]",
+          "label": "New address (no., street, apt. no., city or town, state, and ZIP code).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_18[0]",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_19[0]",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_20[0]",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_21[0]",
+          "label": "Daytime telephone number of person to contact (optional) \u25B6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_22[0]",
+          "label": "Signature of representative, executor, administrator/if applicable Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

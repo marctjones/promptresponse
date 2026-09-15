@@ -1,0 +1,226 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b58ind"
+  },
+  "sections": [
+    {
+      "id": "about-you",
+      "title": "About You",
+      "prompts": [
+        {
+          "id": "operator-license-number",
+          "label": "OPERATOR LICENSE/NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone",
+          "label": "TELEPHONE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "unit-t",
+          "label": "UNIT/T",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-residence",
+      "title": "Your Residence",
+      "prompts": [
+        {
+          "id": "your-residence",
+          "label": "Your Residence",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-mailing",
+      "title": "Your Mailing",
+      "prompts": [
+        {
+          "id": "your-mailing",
+          "label": "Your Mailing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "unit-t",
+          "label": "UNIT/T",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-email",
+      "title": "Your Email",
+      "prompts": [
+        {
+          "id": "your-email",
+          "label": "Your Email",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "renew",
+          "label": "RENEW",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vehicles-vessels",
+      "title": "Vehicles/Vessels",
+      "prompts": [
+        {
+          "id": "vehicles-vessels",
+          "label": "Vehicles/Vessels",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "stop",
+          "label": "STOP",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "plate-vessel-no",
+          "label": "PLATE/VESSEL NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-2",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "remove",
+          "label": "REMOVE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "title": "Signature",
+      "prompts": [
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "DEMOCRATIC",
+              "REPUBLICAN",
+              "OTHER"
+            ]
+          }
+        },
+        {
+          "id": "registration",
+          "label": "REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-party-at-this-time-an",
+          "label": "Do you wish to enroll in a party at this time and will be registered as UNAFFILIATED?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "declaration",
+          "label": "Declaration",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-for-voter-registration",
+          "label": "Signature for Voter Registration",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

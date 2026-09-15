@@ -1,0 +1,164 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Employee Instructions"
+    },
+    {
+      "id": "section_2",
+      "title": "Form CT-W Certificate"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Employee's Withholding Certificate",
+      "section_id": "section_1"
+    },
+    {
+      "n": 2,
+      "label": "Effective January 1, 2026",
+      "section_id": "section_1"
+    },
+    {
+      "n": 3,
+      "label": "State of Connecticut",
+      "section_id": "section_1"
+    },
+    {
+      "n": 4,
+      "label": "Form CT-W",
+      "section_id": "section_1"
+    },
+    {
+      "n": 5,
+      "label": "Print Form",
+      "section_id": "section_1"
+    },
+    {
+      "n": 6,
+      "label": "Employee's Withholding Certificate",
+      "section_id": "section_2"
+    },
+    {
+      "n": 7,
+      "label": "Effective January 1, 2026",
+      "section_id": "section_2"
+    },
+    {
+      "n": 8,
+      "label": "State of Connecticut",
+      "section_id": "section_2"
+    },
+    {
+      "n": 9,
+      "label": "Form CT-W",
+      "section_id": "section_2"
+    },
+    {
+      "n": 10,
+      "label": "Print Form",
+      "section_id": "section_2"
+    },
+    {
+      "n": 11,
+      "label": "Additional Code",
+      "section_id": "section_2"
+    },
+    {
+      "n": 12,
+      "label": "MSSRA Exempt",
+      "section_id": "section_2"
+    },
+    {
+      "n": 13,
+      "label": "Reduced Withholding Amount per Period",
+      "section_id": "section_2"
+    },
+    {
+      "n": 14,
+      "label": "First Name",
+      "section_id": "section_2"
+    },
+    {
+      "n": 15,
+      "label": "Last Name",
+      "section_id": "section_2"
+    },
+    {
+      "n": 16,
+      "label": "Social Security Number",
+      "section_id": "section_2"
+    },
+    {
+      "n": 17,
+      "label": "Mailing Address",
+      "section_id": "section_2"
+    },
+    {
+      "n": 18,
+      "label": "City",
+      "section_id": "section_2"
+    },
+    {
+      "n": 19,
+      "label": "State",
+      "section_id": "section_2"
+    },
+    {
+      "n": 20,
+      "label": "ZIP Code",
+      "section_id": "section_2"
+    },
+    {
+      "n": 21,
+      "label": "Declaration",
+      "section_id": "section_2"
+    },
+    {
+      "n": 22,
+      "label": "Date",
+      "section_id": "section_2"
+    },
+    {
+      "n": 23,
+      "label": "Employer's Name",
+      "section_id": "section_2"
+    },
+    {
+      "n": 24,
+      "label": "Employer's Address",
+      "section_id": "section_2"
+    },
+    {
+      "n": 25,
+      "label": "City",
+      "section_id": "section_2"
+    },
+    {
+      "n": 26,
+      "label": "State",
+      "section_id": "section_2"
+    },
+    {
+      "n": 27,
+      "label": "ZIP Code",
+      "section_id": "section_2"
+    },
+    {
+      "n": 28,
+      "label": "Contact Person",
+      "section_id": "section_2"
+    },
+    {
+      "n": 29,
+      "label": "Telephone Number",
+      "section_id": "section_2"
+    },
+    {
+      "n": 30,
+      "label": "Visit portal.ct.gov for more information.",
+      "section_id": "section_2"
+    }
+  ]
+}

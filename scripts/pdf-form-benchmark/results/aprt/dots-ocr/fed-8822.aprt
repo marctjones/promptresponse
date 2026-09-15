@@ -1,0 +1,14 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 8822 (Change of Address)"
+  },
+  "sections": [
+    {
+      "id": "future-developments",
+      "title": "## Future Developments",
+      "prompts": []
+    }
+  ]
+}

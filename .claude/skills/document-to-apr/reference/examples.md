@@ -24,12 +24,12 @@ Three patterns. Each shows the kind of source you'd see and the `.aprt` to emit.
 
 ```json
 {
-  "version": "1.0",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": {
     "title": "Volunteer Sign-Up",
     "description": "Help us staff the community fair.",
-    "templateId": "volunteer-sign-up",
+    "templateId": "tag:example.com,2026:volunteer-sign-up",
     "templateVersion": "1.0"
   },
   "sections": [
@@ -53,7 +53,7 @@ Three patterns. Each shows the kind of source you'd see and the `.aprt` to emit.
           "id": "tshirt-size",
           "label": "T-shirt size",
           "response": "",
-          "hints": { "expectedDataType": "text", "suggestedValues": ["S", "M", "L", "XL"] }
+          "hints": { "expectedDataType": "select", "suggestedValues": ["S", "M", "L", "XL"] }
         }
       ]
     },
@@ -65,7 +65,7 @@ Three patterns. Each shows the kind of source you'd see and the `.aprt` to emit.
           "id": "day",
           "label": "Which day can you help?",
           "response": "",
-          "hints": { "expectedDataType": "text", "suggestedValues": ["Saturday", "Sunday"] }
+          "hints": { "expectedDataType": "select", "suggestedValues": ["Saturday", "Sunday"] }
         },
         {
           "id": "notes",
@@ -81,7 +81,7 @@ Three patterns. Each shows the kind of source you'd see and the `.aprt` to emit.
 
 Notes:
 - The two visual groups became two sections, each with a `title`.
-- "T-shirt size" and "day" are option lists → `suggestedValues` (a dropdown), not
+- "T-shirt size" and "day" are option lists → `select` with `suggestedValues`, not
   several boolean fields, because the user picks one.
 - The printed "(we'll send a confirmation)" became `helpText`.
 - Every `response` is `""`; every id is unique and descriptive.
@@ -90,54 +90,57 @@ Notes:
 
 ## 2. A table / grid
 
-**Source:** a grid titled "Quarterly figures" with columns *Revenue*, *Expenses*
-and rows *Q1…Q4*.
-
-**APR (table section):**
+**Source:** a "Quarterly figures" grid — one row per quarter, columns *Revenue* and
+*Expenses*.
 
 ```json
 {
   "id": "quarterly",
   "title": "Quarterly figures",
-  "tableLayout": {
-    "columns": [
-      { "id": "revenue",  "label": "Revenue",  "type": "currency" },
-      { "id": "expenses", "label": "Expenses", "type": "currency" }
-    ],
-    "fixedRows": [
-      { "id": "q1", "label": "Q1" },
-      { "id": "q2", "label": "Q2" },
-      { "id": "q3", "label": "Q3" },
-      { "id": "q4", "label": "Q4" }
-    ]
-  },
+  "kind": "table",
   "sections": [
-    {
-      "id": "q1",
-      "title": "Q1",
-      "prompts": [
-        { "id": "q1.revenue",  "label": "Revenue",  "response": "", "hints": { "expectedDataType": "currency" } },
-        { "id": "q1.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } }
-      ]
-    }
-    // …repeat a child section for q2, q3, q4 (ids q2.revenue, q2.expenses, …)…
+    { "id": "q1", "title": "Q1", "prompts": [
+      { "id": "q1.revenue",  "label": "Revenue",  "response": "", "hints": { "expectedDataType": "currency" } },
+      { "id": "q1.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+    { "id": "q2", "title": "Q2", "prompts": [
+      { "id": "q2.revenue",  "label": "Revenue",  "response": "", "hints": { "expectedDataType": "currency" } },
+      { "id": "q2.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+    { "id": "q3", "title": "Q3", "prompts": [
+      { "id": "q3.revenue",  "label": "Revenue",  "response": "", "hints": { "expectedDataType": "currency" } },
+      { "id": "q3.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+    { "id": "q4", "title": "Q4", "prompts": [
+      { "id": "q4.revenue",  "label": "Revenue",  "response": "", "hints": { "expectedDataType": "currency" } },
+      { "id": "q4.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } } ] }
   ]
 }
 ```
 
-If instead the form lets the user add as many rows as they like (line items,
-expenses), drop `fixedRows` and the child sections, and use:
+Why:
+- `kind: "table"` is what makes it a table. Each quarter is a row — a child section
+  whose `title` names it.
+- The column headers *are* the prompt labels, "Revenue" and "Expenses", in the same
+  position in every row. There is no separate list of columns.
+
+If instead the form lets the filler add as many rows as they like (line items,
+expenses), write one row as the pattern and allow more:
 
 ```json
-"tableLayout": {
-  "columns": [
-    { "id": "item",  "label": "Item",  "type": "text" },
-    { "id": "qty",   "label": "Qty",   "type": "number" },
-    { "id": "price", "label": "Price", "type": "currency" }
-  ],
-  "dynamicRows": { "minRows": 1, "maxRows": 50, "rowLabel": "Item" }
+{
+  "id": "line_items",
+  "title": "Line items",
+  "kind": "table",
+  "canAddRows": true,
+  "maxRows": 50,
+  "sections": [
+    { "id": "item_1", "title": "Item 1", "prompts": [
+      { "id": "item_1.item",  "label": "Item",  "response": "" },
+      { "id": "item_1.qty",   "label": "Qty",   "response": "", "hints": { "expectedDataType": "number" } },
+      { "id": "item_1.price", "label": "Price", "response": "", "hints": { "expectedDataType": "currency" } } ] }
+  ]
 }
 ```
+
+A table always has at least one row; one with none is reported `EMPTY_TABLE`.
 
 ---
 

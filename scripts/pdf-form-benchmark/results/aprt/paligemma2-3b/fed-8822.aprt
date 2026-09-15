@@ -1,0 +1,223 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 8822 (Change of Address)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "omb-no-1545-1163",
+          "label": "OMB No.: 1545-1163",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "rev-february-2017-department-of-the-treasury",
+          "label": "(Rev. February 2017) Department of the Treasury",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "internal-revenue-service",
+          "label": "Internal Revenue Service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "part-iii-complete-this-part-to-change-your-homemailing-address-check-all-boxes-this-change-affects",
+          "label": "Part III Complete This Part to Change Your HomeMailing Address Check all boxes this change affects:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "gift-estate-or-generation-skiing-transfer-tax-returns-forms-706-709-etc",
+          "label": "Gift, estate, or generation-skiing transfer tax returns (Forms 706, 709, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "decedent-s-name",
+          "label": "Decedent's name:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-social-security-number",
+          "label": "Your social security number:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "3a-your-name-first-name-initial-and-last-name",
+          "label": "3a Your name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "3b-your-social-security-number",
+          "label": "3b Your social security number:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "4a-spouse-s-name-first-name-initial-and-last-name",
+          "label": "4a Spouse's name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "foreign-country-name",
+          "label": "Foreign country name:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code",
+          "label": "Foreign postal code:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county",
+          "label": "Foreign province/county:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-2",
+          "label": "Foreign country name:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-2",
+          "label": "Foreign postal code:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-3",
+          "label": "Foreign country name:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-2",
+          "label": "Foreign province/county:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-3",
+          "label": "Foreign postal code:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "part-ii-signature",
+          "label": "Part II Signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-representative-executive-administrator-if-applicable-date",
+          "label": "(Signature of representative, executive, administrator if applicable) Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "your-signature-spouse-s-signature",
+          "label": "Your signature, spouse's signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "call-no-1545-1163",
+          "label": "Call No.: 1545-1163",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "form-8329-rev-3-2021",
+          "label": "Form 8329 Rev. 3-2021",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

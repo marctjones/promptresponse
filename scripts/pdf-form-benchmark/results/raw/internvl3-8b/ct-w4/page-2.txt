@@ -1,0 +1,142 @@
+```json
+{
+  "sections": [
+    {
+      "id": "ct-w4-instructions",
+      "title": "Form CT-W4 Instructions"
+    },
+    {
+      "id": "employee-general-instructions",
+      "title": "Employee General Instructions"
+    },
+    {
+      "id": "armed-forces-personnel",
+      "title": "Armed Forces Personnel"
+    },
+    {
+      "id": "military-spouses-residency-relief-act",
+      "title": "Military Spouses Residency Relief Act (MSRRA)"
+    },
+    {
+      "id": "employer-instructions",
+      "title": "Employer Instructions"
+    },
+    {
+      "id": "report-certain-employees-withholding-to-drs",
+      "title": "Report Certain Employees Claiming Exemption From Withholding to DRS"
+    },
+    {
+      "id": "report-new-and-rehired-employees-to-the-department-of-labor",
+      "title": "Report New and Rehired Employees to the Department of Labor"
+    },
+    {
+      "id": "certain-married-individuals",
+      "title": "Certain Married Individuals"
+    },
+    {
+      "id": "nonresident-employees-working-partly-within-and-partly-outside-of-connecticut",
+      "title": "Nonresident Employees Working Partly Within and Partly Outside of Connecticut"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Gross income",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Filing Status",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Check Your Withholding",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "You have more than one job;",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "You qualify under Certain Married Individuals;",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "You have substantial nonwage income.",
+      "section_id": "ct-w4-instructions",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "For any employee who does not complete Form CT-W4, you are required to withhold at the highest marginal rate of 6.99% without allowance for exemption.",
+      "section_id": "employer-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of Revenue Services",
+      "section_id": "report-certain-employees-withholding-to-drs",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "www.ctdol.state.ct.us/newhires",
+      "section_id": "report-certain-employees-withholding-to-drs",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Faxing copies of completed Forms CT-W4 to 800-816-1108;",
+      "section_id": "report-certain-employees-withholding-to-drs",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Mailing copies of completed Forms CT-W4 to Connecticut Department of Labor Office of Research, CT-W4 200 Folly Brook Blvd Wethersfield CT 06109",
+      "section_id": "report-certain-employees-withholding-to-drs",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Using the Connecticut New Hire Reporting website at www.ctdol.state.ct.us/newhires;",
+      "section_id": "report-new-and-rehired-employees-to-the-department-of-labor",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Faxing copies of completed Forms CT-W4 to 800-816-1108;",
+      "section_id": "report-new-and-rehired-employees-to-the-department-of-labor",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Mailing copies of completed Forms CT-W4 to Connecticut Department of Labor Office of Research, CT-W4 200 Folly Brook Blvd Wethersfield CT 06109",
+      "section_id": "report-new-and-rehired-employees-to-the-department-of-labor",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

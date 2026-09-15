@@ -1,0 +1,378 @@
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Employee Information and Attestation"
+    },
+    {
+      "id": "section-2",
+      "title": "Supplemental Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Employee's Full Name",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Employee's Middle Initial (if any)",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Other Last Names (Used, if any)",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Address",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Date of Birth (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 6,
+      "label": "Social Security Number",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Employee's Email Address",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Employee's Telephone Number",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Are you a citizen of the United States or a lawful permanent resident? Check one of the following boxes to attest to your citizenship or immigration status. See instructions on page 2 and 3.",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 10,
+      "label": "False statements or documents. If you have made any false statements or used any false documents in this form, check the box and provide the information required on page 2 and 3 of the instructions.",
+      "section_id": "section-1",
+      "field_kind": "boolean",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 11,
+      "label": "A noncitizen of the United States (See instructions on page 2 and 3).",
+      "section_id": "section-1",
+      "field_kind": "boolean",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 12,
+      "label": "A lawful, temporary, or authorized resident (See instructions on page 2 and 3).",
+      "section_id": "section-1",
+      "field_kind": "boolean",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 13,
+      "label": "An alien, including a foreign passport number and country of issuance.",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Signature of Employee or Translator Assisted in Completing Section 1, that person MUST sign the certification on page 3.",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Today's Date (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 16,
+      "label": "Employer's Business or Organization Name",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "Employer's Business or Organization Address, City, Town, ZIP Code",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Employer's Name (if different from the authorized representative)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 27,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 30,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 31,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 32,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 33,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 34,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 35,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 36,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 37,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 38,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 40,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 41,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 42,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 43,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 44,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 45,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 46,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 47,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 48,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 49,
+      "label": "Document Title (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 50,
+      "label": "Issuing Authority (if any)",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 51,
+      "label": "Employer's Business or Organization Name",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    },
+    {
+      "n": 52,
+      "label": "Business for Reverification or Rehire, Complete Supplemental Reverification and Rehire on Page 4.",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_Data_type": "text"
+    }
+  ]
+}

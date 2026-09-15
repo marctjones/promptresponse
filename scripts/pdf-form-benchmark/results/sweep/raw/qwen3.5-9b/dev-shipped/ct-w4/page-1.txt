@@ -1,0 +1,193 @@
+```json
+{
+  "sections": [
+    {
+      "id": "employee-instructions",
+      "title": "Employee Instructions"
+    },
+    {
+      "id": "employee-section",
+      "title": "Employees: See Employee General Instructions on Page 2. Sign and return Form CT-W4 to your employer. Keep a copy for your records."
+    },
+    {
+      "id": "employee-personal-info",
+      "title": "First name MI Last name Social Security Number"
+    },
+    {
+      "id": "employee-address",
+      "title": "Home address (number and street, apartment number, suite number, PO Box)"
+    },
+    {
+      "id": "employee-city-state-zip",
+      "title": "City/town State ZIP code"
+    },
+    {
+      "id": "declaration",
+      "title": "Declaration: I declare under penalty of law that I have examined this certificate and, to the best of my knowledge and belief, it is true, complete, and correct. I understand the penalty for reporting false information is a fine of not more than $5,000, imprisonment for not more than five years, or both."
+    },
+    {
+      "id": "employee-signature-section",
+      "title": "Employee's signature Date"
+    },
+    {
+      "id": "employer-section",
+      "title": "Employers: See Employer Instructions, on Page 2."
+    },
+    {
+      "id": "employer-employment-status",
+      "title": "Is this a new or rehire employee? Enter date hired:"
+    },
+    {
+      "id": "employer-business-info",
+      "title": "Employer's business name Federal Employer Identification Number"
+    },
+    {
+      "id": "employer-business-address",
+      "title": "Employer's business address"
+    },
+    {
+      "id": "employer-city-state-zip",
+      "title": "City/town State ZIP code"
+    },
+    {
+      "id": "employer-contact-info",
+      "title": "Contact person Telephone number"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Withholding Code: Enter Withholding Code letter chosen from above.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Additional withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 3,
+      "label": "Reduced withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 4,
+      "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Social Security Number",
+      "section_id": "employee-personal-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "First name",
+      "section_id": "employee-personal-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Home address (number and street, apartment number, suite number, PO Box)",
+      "section_id": "employee-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "City/town State ZIP code",
+      "section_id": "employee-city-state-zip",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Date",
+      "section_id": "employee-signature-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 11,
+      "label": "Enter date hired:",
+      "section_id": "employer-employment-status",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 12,
+      "label": "Is this a new or rehire employee?",
+      "section_id": "employer-employment-status",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 13,
+      "label": "Is this a new or rehire employee?",
+      "section_id": "employer-employment-status",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 14,
+      "label": "Employer's business name",
+      "section_id": "employer-business-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Federal Employer Identification Number",
+      "section_id": "employer-business-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Employer's business address",
+      "section_id": "employer-business-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "City/town State ZIP code",
+      "section_id": "employer-city-state-zip",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Contact person",
+      "section_id": "employer-contact-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Telephone number",
+      "section_id": "employer-contact-info",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    }
+  ]
+}
+```

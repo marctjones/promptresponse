@@ -1,0 +1,17 @@
+{
+  "sections": [
+    {
+      "id": "married-filing-jointly-or-qualifying-surviving-spouse",
+      "title": "Married Filing Jointly or Qualifying Surviving Spouse"
+    },
+    {
+      "id": "single-or-married-filing-separately",
+      "title": "Single or Married Filing Separately"
+    },
+    {
+      "id": "head-of-household",
+      "title": "Head of Household"
+    }
+  ],
+  "fields": []
+}

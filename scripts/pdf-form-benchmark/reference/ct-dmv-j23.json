@@ -1,0 +1,2572 @@
+{
+  "formId": "ct-dmv-j23",
+  "pageCount": 2,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 2,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "declarationOrder": 0,
+      "name": "CheckBox1",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 698,
+        "right": 36,
+        "top": 707
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "declarationOrder": 1,
+      "name": "CheckBox2",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 677,
+        "right": 36,
+        "top": 686
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "declarationOrder": 2,
+      "name": "CheckBox3",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 654,
+        "right": 36,
+        "top": 663
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "declarationOrder": 42,
+      "name": "CheckBox12",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 61,
+        "bottom": 634,
+        "right": 70,
+        "top": 643
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "declarationOrder": 43,
+      "name": "CheckBox13",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 100,
+        "bottom": 633,
+        "right": 109,
+        "top": 642
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "declarationOrder": 3,
+      "name": "CheckBox4",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 597,
+        "right": 36,
+        "top": 606
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "declarationOrder": 4,
+      "name": "CheckBox5",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 568,
+        "right": 36,
+        "top": 577
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "declarationOrder": 7,
+      "name": "CheckBox9",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 438,
+        "bottom": 554,
+        "right": 447,
+        "top": 563
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "declarationOrder": 5,
+      "name": "CheckBox6",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 539,
+        "right": 36,
+        "top": 548
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "declarationOrder": 6,
+      "name": "CheckBox7",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 504,
+        "right": 36,
+        "top": 513
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "declarationOrder": 10,
+      "name": "FillText1",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 435,
+        "bottom": 476,
+        "right": 585,
+        "top": 489
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "declarationOrder": 8,
+      "name": "CheckBox8",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 474,
+        "right": 36,
+        "top": 483
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "declarationOrder": 9,
+      "name": "CheckBox10",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 448,
+        "right": 36,
+        "top": 457
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "declarationOrder": 11,
+      "name": "FillText2",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 435,
+        "bottom": 440,
+        "right": 584,
+        "top": 453
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "declarationOrder": 12,
+      "name": "FillText4",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 439,
+        "bottom": 361,
+        "right": 506,
+        "top": 374
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "declarationOrder": 32,
+      "name": "FillText24",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 459,
+        "bottom": 224,
+        "right": 486,
+        "top": 309
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "declarationOrder": 33,
+      "name": "FillText25",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 486,
+        "bottom": 224,
+        "right": 531,
+        "top": 309
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "declarationOrder": 34,
+      "name": "FillText26",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 531,
+        "bottom": 224,
+        "right": 584,
+        "top": 309
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "declarationOrder": 13,
+      "name": "FillText5",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 289,
+        "right": 331,
+        "top": 302
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 19,
+      "declarationOrder": 14,
+      "name": "FillText6",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 336,
+        "bottom": 288,
+        "right": 455,
+        "top": 302
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 20,
+      "declarationOrder": 15,
+      "name": "FillText7",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 267,
+        "right": 363,
+        "top": 281
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 21,
+      "declarationOrder": 16,
+      "name": "FillText8",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 368,
+        "bottom": 267,
+        "right": 456,
+        "top": 281
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 22,
+      "declarationOrder": 17,
+      "name": "FillText9",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 246,
+        "right": 456,
+        "top": 259
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 23,
+      "declarationOrder": 18,
+      "name": "FillText10",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 224,
+        "right": 456,
+        "top": 237
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 24,
+      "declarationOrder": 35,
+      "name": "FillText27",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 459,
+        "bottom": 181,
+        "right": 486,
+        "top": 224
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 25,
+      "declarationOrder": 36,
+      "name": "FillText28",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 486,
+        "bottom": 181,
+        "right": 531,
+        "top": 224
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 26,
+      "declarationOrder": 37,
+      "name": "FillText29",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 531,
+        "bottom": 181,
+        "right": 584,
+        "top": 224
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 27,
+      "declarationOrder": 19,
+      "name": "FillText11",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 83,
+        "bottom": 203,
+        "right": 455,
+        "top": 216
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 28,
+      "declarationOrder": 22,
+      "name": "FillText14",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 255,
+        "bottom": 181,
+        "right": 357,
+        "top": 195
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 29,
+      "declarationOrder": 23,
+      "name": "FillText15",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 362,
+        "bottom": 181,
+        "right": 457,
+        "top": 195
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 30,
+      "declarationOrder": 20,
+      "name": "FillText12",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 83,
+        "bottom": 181,
+        "right": 178,
+        "top": 194
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 31,
+      "declarationOrder": 21,
+      "name": "FillText13",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 183,
+        "bottom": 181,
+        "right": 250,
+        "top": 194
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 32,
+      "declarationOrder": 38,
+      "name": "FillText30",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 459,
+        "bottom": 160,
+        "right": 486,
+        "top": 181
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 33,
+      "declarationOrder": 39,
+      "name": "FillText31",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 486,
+        "bottom": 160,
+        "right": 531,
+        "top": 181
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 34,
+      "declarationOrder": 40,
+      "name": "FillText32",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 531,
+        "bottom": 160,
+        "right": 584,
+        "top": 181
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 35,
+      "declarationOrder": 24,
+      "name": "FillText16",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 159,
+        "right": 455,
+        "top": 173
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 36,
+      "declarationOrder": 41,
+      "name": "FillText33",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 531,
+        "bottom": 137,
+        "right": 584,
+        "top": 159
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 37,
+      "declarationOrder": 25,
+      "name": "FillText17",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 90,
+        "right": 249,
+        "top": 103
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 38,
+      "declarationOrder": 26,
+      "name": "FillText18",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 254,
+        "bottom": 90,
+        "right": 358,
+        "top": 103
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 39,
+      "declarationOrder": 27,
+      "name": "FillText19",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 68,
+        "right": 357,
+        "top": 81
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 40,
+      "declarationOrder": 28,
+      "name": "FillText20",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 46,
+        "right": 357,
+        "top": 59
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 41,
+      "declarationOrder": 29,
+      "name": "FillText21",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 84,
+        "bottom": 24,
+        "right": 213,
+        "top": 38
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 42,
+      "declarationOrder": 30,
+      "name": "FillText22",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 216,
+        "bottom": 24,
+        "right": 282,
+        "top": 38
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 43,
+      "declarationOrder": 31,
+      "name": "FillText23",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 287,
+        "bottom": 24,
+        "right": 356,
+        "top": 38
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "STATE OF CONNECTICUT",
+      "rect": {
+        "left": 257.16,
+        "bottom": 768.14,
+        "right": 356.72,
+        "top": 776.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "COPY RECORDS REQUEST",
+      "rect": {
+        "left": 19.38,
+        "bottom": 761.9,
+        "right": 151.62,
+        "top": 771.9
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "DEPARTMENT OF MOTOR VEHICLES",
+      "rect": {
+        "left": 217.49,
+        "bottom": 758.13,
+        "right": 396.39,
+        "top": 768.13
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "J-23 REV. 3-2021",
+      "rect": {
+        "left": 19.38,
+        "bottom": 753.9,
+        "right": 82.96,
+        "top": 761.9
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "TELEPHONE NUMBER: 1-800-842-8222",
+      "rect": {
+        "left": 232.47,
+        "bottom": 748.14,
+        "right": 381.4,
+        "top": 756.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "DMV VALIDATION",
+      "rect": {
+        "left": 472.94,
+        "bottom": 740.3,
+        "right": 544.05,
+        "top": 748.3
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "On The Web At ct.gov/dmv",
+      "rect": {
+        "left": 258.92,
+        "bottom": 738.14,
+        "right": 354.96,
+        "top": 746.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "LICENSE RECORDS, CHECK (",
+      "rect": {
+        "left": 66.74,
+        "bottom": 725.48,
+        "right": 195.74,
+        "top": 734.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": ")",
+      "rect": {
+        "left": 205.75,
+        "bottom": 725.48,
+        "right": 208.75,
+        "top": 734.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "UNIT",
+      "rect": {
+        "left": 319.21,
+        "bottom": 725.06,
+        "right": 335.54,
+        "top": 732.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "RECORDS",
+      "rect": {
+        "left": 374,
+        "bottom": 725.06,
+        "right": 409,
+        "top": 732.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "FILL IN",
+      "rect": {
+        "left": 266.76,
+        "bottom": 724.31,
+        "right": 290.48,
+        "top": 731.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "REQUEST(S) BELOW",
+      "rect": {
+        "left": 92,
+        "bottom": 715.16,
+        "right": 183.5,
+        "top": 724.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "SECTION(S) PRICE AVAILABLE",
+      "rect": {
+        "left": 256.46,
+        "bottom": 716.28,
+        "right": 411.52,
+        "top": 724.03
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "Driver License File Information (Printout of license class,",
+      "rect": {
+        "left": 41.5,
+        "bottom": 703.78,
+        "right": 250.01,
+        "top": 711.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "1",
+      "rect": {
+        "left": 275.85,
+        "bottom": 698.35,
+        "right": 281.41,
+        "top": 708.35
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 698.35,
+        "right": 342.66,
+        "top": 708.35
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "Current Information",
+      "rect": {
+        "left": 361.35,
+        "bottom": 699.45,
+        "right": 421.65,
+        "top": 706.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "endorsements, restrictions, original issue date and status.)",
+      "rect": {
+        "left": 41.5,
+        "bottom": 694.61,
+        "right": 248.25,
+        "top": 702.61
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "Driver License Application (Copy of most current",
+      "rect": {
+        "left": 41.5,
+        "bottom": 681.48,
+        "right": 221.55,
+        "top": 689.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "1",
+      "rect": {
+        "left": 275.85,
+        "bottom": 676.75,
+        "right": 281.41,
+        "top": 686.75
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "$20.00",
+      "rect": {
+        "left": 311.71,
+        "bottom": 676.75,
+        "right": 342.29,
+        "top": 686.75
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "Current Information",
+      "rect": {
+        "left": 361.35,
+        "bottom": 677.85,
+        "right": 421.65,
+        "top": 684.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "document). This is NOT a duplicate license",
+      "rect": {
+        "left": 41.5,
+        "bottom": 673.48,
+        "right": 203.79,
+        "top": 681.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "Driving History (List of violations and sanctions - certified)",
+      "rect": {
+        "left": 41.5,
+        "bottom": 655.36,
+        "right": 250.01,
+        "top": 663.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "Current plus any other",
+      "rect": {
+        "left": 356.87,
+        "bottom": 652.36,
+        "right": 426.12,
+        "top": 659.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "1",
+      "rect": {
+        "left": 275.85,
+        "bottom": 645.01,
+        "right": 281.41,
+        "top": 655.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 645,
+        "right": 342.66,
+        "top": 655
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "convictions as",
+      "rect": {
+        "left": 369.52,
+        "bottom": 646.36,
+        "right": 413.48,
+        "top": 653.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "mandated by law",
+      "rect": {
+        "left": 365.04,
+        "bottom": 640.36,
+        "right": 417.95,
+        "top": 647.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "Reg CDL",
+      "rect": {
+        "left": 42.23,
+        "bottom": 634.88,
+        "right": 98,
+        "top": 643.25
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "REGISTRATION RECORDS",
+      "rect": {
+        "left": 82.49,
+        "bottom": 616.66,
+        "right": 198,
+        "top": 625.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "Registration File Information (Copy of current",
+      "rect": {
+        "left": 41.51,
+        "bottom": 600.01,
+        "right": 209.99,
+        "top": 608.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "2 \u0026 (or 3)",
+      "rect": {
+        "left": 254.17,
+        "bottom": 594.69,
+        "right": 297.51,
+        "top": 604.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 594.69,
+        "right": 342.66,
+        "top": 604.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "Current Information",
+      "rect": {
+        "left": 361.35,
+        "bottom": 595.78,
+        "right": 421.65,
+        "top": 602.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "computer record)",
+      "rect": {
+        "left": 41.51,
+        "bottom": 590.83,
+        "right": 102.41,
+        "top": 598.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "* If the registration is lost and you need",
+      "rect": {
+        "left": 436.29,
+        "bottom": 588.53,
+        "right": 586.1,
+        "top": 596.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "a replacement you must complete form",
+      "rect": {
+        "left": 436.29,
+        "bottom": 580.53,
+        "right": 585.21,
+        "top": 588.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "B-341.",
+      "rect": {
+        "left": 436.29,
+        "bottom": 572.53,
+        "right": 460.29,
+        "top": 580.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "Registration Certificate (Copy of most current",
+      "rect": {
+        "left": 41.51,
+        "bottom": 571.21,
+        "right": 208.66,
+        "top": 579.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "2 \u0026 3",
+      "rect": {
+        "left": 266.68,
+        "bottom": 565.89,
+        "right": 290.58,
+        "top": 575.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 565.89,
+        "right": 342.66,
+        "top": 575.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "Current Year",
+      "rect": {
+        "left": 371.47,
+        "bottom": 566.99,
+        "right": 411.54,
+        "top": 573.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "document). * This is NOT a duplicate registration*",
+      "rect": {
+        "left": 41.51,
+        "bottom": 562.03,
+        "right": 229.12,
+        "top": 570.03
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "Certified copy of uncertified items",
+      "rect": {
+        "left": 452.82,
+        "bottom": 560.41,
+        "right": 582.18,
+        "top": 568.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "(Add $20.00 to unit price per item)",
+      "rect": {
+        "left": 454.81,
+        "bottom": 551.23,
+        "right": 575.75,
+        "top": 559.23
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "Registration Return Plate Receipt (Copy of current",
+      "rect": {
+        "left": 41.51,
+        "bottom": 542.41,
+        "right": 228.22,
+        "top": 550.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "DMV USE ONLY - ID CHECK",
+      "rect": {
+        "left": 434.99,
+        "bottom": 541.31,
+        "right": 515,
+        "top": 547.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "2 \u0026 3",
+      "rect": {
+        "left": 266.3,
+        "bottom": 537.09,
+        "right": 290.2,
+        "top": 547.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 537.09,
+        "right": 342.66,
+        "top": 547.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "Current Information",
+      "rect": {
+        "left": 361.35,
+        "bottom": 538.19,
+        "right": 421.65,
+        "top": 545.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "computer record)",
+      "rect": {
+        "left": 41.51,
+        "bottom": 533.23,
+        "right": 102.41,
+        "top": 541.23
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "Current Year or date",
+      "rect": {
+        "left": 359.59,
+        "bottom": 509.8,
+        "right": 423.4,
+        "top": 516.8
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "2 \u0026 3",
+      "rect": {
+        "left": 266.68,
+        "bottom": 504.69,
+        "right": 290.58,
+        "top": 514.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 504.69,
+        "right": 342.66,
+        "top": 514.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "Insurance Information Only",
+      "rect": {
+        "left": 41.51,
+        "bottom": 505.42,
+        "right": 145.53,
+        "top": 513.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "ATTORNEY\u0027S JURIS #",
+      "rect": {
+        "left": 434.99,
+        "bottom": 505.31,
+        "right": 497.77,
+        "top": 511.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "specified",
+      "rect": {
+        "left": 377.69,
+        "bottom": 501.77,
+        "right": 405.31,
+        "top": 508.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "4",
+      "rect": {
+        "left": 275.85,
+        "bottom": 475.89,
+        "right": 281.41,
+        "top": 485.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "$20.00",
+      "rect": {
+        "left": 312.08,
+        "bottom": 475.89,
+        "right": 342.66,
+        "top": 485.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "Miscellaneous Request",
+      "rect": {
+        "left": 41.51,
+        "bottom": 476.62,
+        "right": 129.98,
+        "top": 484.62
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "ATTORNEY NAME OR CASE NAME AND COURT",
+      "rect": {
+        "left": 434.99,
+        "bottom": 469.31,
+        "right": 573.32,
+        "top": 475.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "LOCATION",
+      "rect": {
+        "left": 434.99,
+        "bottom": 462.43,
+        "right": 466.32,
+        "top": 468.43
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Multiple Requests?",
+      "rect": {
+        "left": 41.5,
+        "bottom": 450.17,
+        "right": 114.84,
+        "top": 458.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Instructions: Please complete one J-23 form and attach a separate sheet with required information for",
+      "rect": {
+        "left": 41.5,
+        "bottom": 440.36,
+        "right": 407.87,
+        "top": 448.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "Private investigators license must be shown",
+      "rect": {
+        "left": 434.99,
+        "bottom": 432.37,
+        "right": 570.77,
+        "top": 439.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "each request.",
+      "rect": {
+        "left": 41.5,
+        "bottom": 431.18,
+        "right": 89.97,
+        "top": 439.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "and recorded, along with a second form of",
+      "rect": {
+        "left": 434.99,
+        "bottom": 424.34,
+        "right": 565.73,
+        "top": 431.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "ID.",
+      "rect": {
+        "left": 434.99,
+        "bottom": 416.31,
+        "right": 443.94,
+        "top": 423.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "TO: Department of Motor Vehicles, Copy Records Unit, 60 State Street, Wethersfield, CT 06161-0503",
+      "rect": {
+        "left": 28,
+        "bottom": 408.22,
+        "right": 390.37,
+        "top": 416.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "LIST BELOW THE INFORMATION NECESSARY FOR EACH REQUEST. DMV REQUIRES TWO IDENTIFYING CHARACTERISTICS FOUND ON A RECORD",
+      "rect": {
+        "left": 84.66,
+        "bottom": 394.6,
+        "right": 583.28,
+        "top": 401.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "REQUEST",
+      "rect": {
+        "left": 29.83,
+        "bottom": 384.42,
+        "right": 78.17,
+        "top": 394.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "TO ENSURE THE RELEASE OF THE PROPER RECORD OR THE REQUEST MAY NOT BE FILLED.",
+      "rect": {
+        "left": 84.66,
+        "bottom": 386.57,
+        "right": 404,
+        "top": 393.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "SECTION",
+      "rect": {
+        "left": 31.78,
+        "bottom": 372.96,
+        "right": 76.23,
+        "top": 382.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "CODE NO.",
+      "rect": {
+        "left": 442.15,
+        "bottom": 375.71,
+        "right": 471.82,
+        "top": 381.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "APPLICANT, READ INSTRUCTIONS AND SPECIFY CODE 1, 2, 3, 4, 5, 6, 7, 8, 9 OR 10",
+      "rect": {
+        "left": 85.16,
+        "bottom": 368.73,
+        "right": 404.8,
+        "top": 376.73
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "I declare under the penalties of false statement as set forth in Section 53a-157b of the Connecticut General Statutes that I will",
+      "rect": {
+        "left": 100,
+        "bottom": 348.01,
+        "right": 575.25,
+        "top": 356.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "DECLARATION",
+      "rect": {
+        "left": 29.39,
+        "bottom": 343.42,
+        "right": 87.61,
+        "top": 351.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "use the information obtained only for a purpose stated on the reverse of this form.",
+      "rect": {
+        "left": 100,
+        "bottom": 338.83,
+        "right": 412.95,
+        "top": 346.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "UNIT",
+      "rect": {
+        "left": 498,
+        "bottom": 323.02,
+        "right": 519,
+        "top": 332.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "SIGNATURE OF APPLICANT",
+      "rect": {
+        "left": 28,
+        "bottom": 325.31,
+        "right": 109.33,
+        "top": 331.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "PRINTED NAME OF APPLICANT",
+      "rect": {
+        "left": 209.78,
+        "bottom": 325.31,
+        "right": 301.45,
+        "top": 331.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "DATE SIGNED",
+      "rect": {
+        "left": 371.78,
+        "bottom": 325.31,
+        "right": 412.78,
+        "top": 331.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "QTY.",
+      "rect": {
+        "left": 462,
+        "bottom": 317.85,
+        "right": 483.01,
+        "top": 326.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "AMOUNT",
+      "rect": {
+        "left": 538.25,
+        "bottom": 317.85,
+        "right": 577.75,
+        "top": 326.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "X",
+      "rect": {
+        "left": 32.67,
+        "bottom": 313.42,
+        "right": 39.34,
+        "top": 323.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "PRICE",
+      "rect": {
+        "left": 494.75,
+        "bottom": 312.69,
+        "right": 522.25,
+        "top": 321.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": "DRIVER\u0027S NAME (Last, First, Middle Initial)",
+      "rect": {
+        "left": 83.79,
+        "bottom": 303.71,
+        "right": 199.9,
+        "top": 309.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": "DRIVER\u0027S LICENSE NUMBER",
+      "rect": {
+        "left": 335.78,
+        "bottom": 303.71,
+        "right": 419.55,
+        "top": 309.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": "SECTION",
+      "rect": {
+        "left": 34,
+        "bottom": 290.62,
+        "right": 74,
+        "top": 299.62
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "1",
+      "rect": {
+        "left": 51.5,
+        "bottom": 280.29,
+        "right": 56.5,
+        "top": 289.29
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "DRIVER\u0027S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "rect": {
+        "left": 83.79,
+        "bottom": 282.11,
+        "right": 281.27,
+        "top": 288.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": "DRIVER\u0027S DATE OF BIRTH",
+      "rect": {
+        "left": 368.71,
+        "bottom": 282.11,
+        "right": 444.81,
+        "top": 288.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": "OWNER\u0027S NAME (Last, First, Middle Initial)",
+      "rect": {
+        "left": 83.78,
+        "bottom": 260.51,
+        "right": 200.23,
+        "top": 266.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "SECTION",
+      "rect": {
+        "left": 34,
+        "bottom": 247.42,
+        "right": 74,
+        "top": 256.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "2",
+      "rect": {
+        "left": 51.5,
+        "bottom": 237.09,
+        "right": 56.5,
+        "top": 246.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": "OWNER\u0027S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "rect": {
+        "left": 83.78,
+        "bottom": 238.91,
+        "right": 281.6,
+        "top": 244.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": "VEHICLE IDENTIFICATION NUMBER",
+      "rect": {
+        "left": 83.78,
+        "bottom": 217.31,
+        "right": 187.45,
+        "top": 223.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": "SECTION",
+      "rect": {
+        "left": 34,
+        "bottom": 204.22,
+        "right": 74,
+        "top": 213.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": "3",
+      "rect": {
+        "left": 51.5,
+        "bottom": 193.89,
+        "right": 56.5,
+        "top": 202.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": "VEHICLE MAKE",
+      "rect": {
+        "left": 83.78,
+        "bottom": 195.71,
+        "right": 129.12,
+        "top": 201.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": "VEHICLE YEAR",
+      "rect": {
+        "left": 182.78,
+        "bottom": 195.71,
+        "right": 227.12,
+        "top": 201.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "REGISTRATION PLATE NUMBER",
+      "rect": {
+        "left": 254.78,
+        "bottom": 195.71,
+        "right": 349.45,
+        "top": 201.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "AS OF (Date)",
+      "rect": {
+        "left": 362.78,
+        "bottom": 195.71,
+        "right": 399.46,
+        "top": 201.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "SECTION",
+      "rect": {
+        "left": 34,
+        "bottom": 171.82,
+        "right": 74,
+        "top": 180.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "MISCELLANEOUS REQUEST (Please Specify)",
+      "rect": {
+        "left": 83.78,
+        "bottom": 174.11,
+        "right": 211.81,
+        "top": 180.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 107,
+      "text": "4",
+      "rect": {
+        "left": 51.5,
+        "bottom": 161.49,
+        "right": 56.5,
+        "top": 170.49
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "TOTALAPPLICANT:",
+      "rect": {
+        "left": 82,
+        "bottom": 143.96,
+        "right": 515,
+        "top": 157.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 109,
+      "text": "Print or Type Your Name and Mailing Address Below.",
+      "rect": {
+        "left": 141.5,
+        "bottom": 148.77,
+        "right": 354.57,
+        "top": 157.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 110,
+      "text": "If using a P.O. Box, STREET ADDRESS MUST ALSO BE INCLUDED.",
+      "rect": {
+        "left": 82,
+        "bottom": 138.45,
+        "right": 366.06,
+        "top": 147.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 111,
+      "text": "DMV",
+      "rect": {
+        "left": 425.39,
+        "bottom": 123.76,
+        "right": 447.61,
+        "top": 133.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 112,
+      "text": "CUSTOMER NUMBER",
+      "rect": {
+        "left": 84.16,
+        "bottom": 125.68,
+        "right": 146.49,
+        "top": 131.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 113,
+      "text": "AMOUNT",
+      "rect": {
+        "left": 468.67,
+        "bottom": 118.45,
+        "right": 521.33,
+        "top": 130.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 114,
+      "text": "USE",
+      "rect": {
+        "left": 426.22,
+        "bottom": 112.29,
+        "right": 446.78,
+        "top": 122.29
+      }
+    },
+    {
+      "page": 1,
+      "order": 115,
+      "text": "RECEIVED",
+      "rect": {
+        "left": 464.34,
+        "bottom": 104.68,
+        "right": 525.68,
+        "top": 116.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 116,
+      "text": "ONLY",
+      "rect": {
+        "left": 422.61,
+        "bottom": 100.82,
+        "right": 450.39,
+        "top": 110.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 117,
+      "text": "OPERATOR\u0027S LICENSE NO. or FED. EMPLOYER ID NO.",
+      "rect": {
+        "left": 83.79,
+        "bottom": 104.13,
+        "right": 243.24,
+        "top": 110.13
+      }
+    },
+    {
+      "page": 1,
+      "order": 118,
+      "text": "TELEPHONE NO. (Required)",
+      "rect": {
+        "left": 255.68,
+        "bottom": 104.13,
+        "right": 334.69,
+        "top": 110.13
+      }
+    },
+    {
+      "page": 1,
+      "order": 119,
+      "text": "NAME",
+      "rect": {
+        "left": 83.79,
+        "bottom": 82.53,
+        "right": 101.45,
+        "top": 88.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 120,
+      "text": "IDENTIFICATION REQUIRED",
+      "rect": {
+        "left": 370.42,
+        "bottom": 71.69,
+        "right": 585.86,
+        "top": 85.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 121,
+      "text": "NUMBER AND STREET",
+      "rect": {
+        "left": 83.79,
+        "bottom": 60.93,
+        "right": 150.12,
+        "top": 66.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 122,
+      "text": "SEE REVERSE SIDE",
+      "rect": {
+        "left": 403.5,
+        "bottom": 51.99,
+        "right": 552.81,
+        "top": 65.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 123,
+      "text": "CITY OR TOWN",
+      "rect": {
+        "left": 83.79,
+        "bottom": 39.33,
+        "right": 128.12,
+        "top": 45.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 124,
+      "text": "STATE",
+      "rect": {
+        "left": 217,
+        "bottom": 39.33,
+        "right": 236.67,
+        "top": 45.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 125,
+      "text": "ZIP CODE",
+      "rect": {
+        "left": 289,
+        "bottom": 39.33,
+        "right": 317.34,
+        "top": 45.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 126,
+      "text": "*IDENTIFICATION REQUIREMENTS - Identification is required by law which must contain a photo.",
+      "rect": {
+        "left": 28,
+        "bottom": 719.02,
+        "right": 584.09,
+        "top": 731.02
+      }
+    },
+    {
+      "page": 2,
+      "order": 127,
+      "text": "The requester must provide a copy of his/her current photo identification, driver\u0027s license, or passport or the request may not",
+      "rect": {
+        "left": 28,
+        "bottom": 707.13,
+        "right": 576.26,
+        "top": 717.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "be processed.",
+      "rect": {
+        "left": 28,
+        "bottom": 695.66,
+        "right": 90.81,
+        "top": 705.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO",
+      "rect": {
+        "left": 127.48,
+        "bottom": 663.33,
+        "right": 484.5,
+        "top": 677.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "OBTAIN RECORD INFORMATION ON OTHERS",
+      "rect": {
+        "left": 152,
+        "bottom": 647.27,
+        "right": 460,
+        "top": 661.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+      "rect": {
+        "left": 28,
+        "bottom": 614.81,
+        "right": 557.57,
+        "top": 626.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "I hereby request the Department of Motor Vehicles to disclose personal information from its records. As permitted by section",
+      "rect": {
+        "left": 28,
+        "bottom": 589.15,
+        "right": 579.33,
+        "top": 599.15
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "14-10 of the Connecticut General Statutes, the information will be used only for one or more of the following purposes:",
+      "rect": {
+        "left": 28,
+        "bottom": 577.68,
+        "right": 549.92,
+        "top": 587.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "By any federal, state or local government agency in carrying out its functions or any individual or entity acting on behalf of any such",
+      "rect": {
+        "left": 46,
+        "bottom": 545.63,
+        "right": 566.75,
+        "top": 554.63
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "1.",
+      "rect": {
+        "left": 28,
+        "bottom": 545.62,
+        "right": 35.5,
+        "top": 554.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "agency. (Official letterhead or business card and photo ID must be included - government exempt from fees.)",
+      "rect": {
+        "left": 46,
+        "bottom": 535.3,
+        "right": 481.69,
+        "top": 544.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "2.",
+      "rect": {
+        "left": 28,
+        "bottom": 514.65,
+        "right": 35.5,
+        "top": 523.65
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "In connection with matters of motor vehicle or driver safety and theft, motor vehicle emissions, motor vehicle product alterations, recalls",
+      "rect": {
+        "left": 46,
+        "bottom": 514.65,
+        "right": 583.2,
+        "top": 523.65
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "or advisories, performance monitoring of motor vehicles and dealers by motor vehicle manufacturers, motor vehicle market research",
+      "rect": {
+        "left": 46,
+        "bottom": 504.33,
+        "right": 571.18,
+        "top": 513.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "activities including survey research, motor vehicle product and service communications and removal of nonowner records from the",
+      "rect": {
+        "left": 46,
+        "bottom": 494.01,
+        "right": 564.18,
+        "top": 503.01
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "original owner records of motor vehicle manufacturers to implement the provisions of the Federal Automobile Information Disclosure",
+      "rect": {
+        "left": 46,
+        "bottom": 483.68,
+        "right": 570.19,
+        "top": 492.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "Act, 15 USC 1231 et seq., the Clean Air Act, 42 USC 7401 et seq., and 49 USC Chapters 301, 305, and 321 to 331, inclusive, as",
+      "rect": {
+        "left": 46,
+        "bottom": 473.36,
+        "right": 558.28,
+        "top": 482.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "amended from time to time, and any provisions of the general statutes enacted to attain compliance with said federal provisions.",
+      "rect": {
+        "left": 46,
+        "bottom": 463.03,
+        "right": 554.73,
+        "top": 472.03
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "3.",
+      "rect": {
+        "left": 28,
+        "bottom": 442.39,
+        "right": 35.5,
+        "top": 451.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "In the normal course of business by the requesting party, but only to confirm the accuracy of personal information submitted by the",
+      "rect": {
+        "left": 46,
+        "bottom": 442.39,
+        "right": 564.74,
+        "top": 451.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "individual to the requesting party. (Full name and address of individual required)",
+      "rect": {
+        "left": 46,
+        "bottom": 432.06,
+        "right": 366.14,
+        "top": 441.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "4.",
+      "rect": {
+        "left": 28,
+        "bottom": 411.42,
+        "right": 35.5,
+        "top": 420.42
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "In connection with any civil, criminal, administrative or arbitral proceeding in any court or government agency or before any",
+      "rect": {
+        "left": 46,
+        "bottom": 411.42,
+        "right": 533.19,
+        "top": 420.42
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "self-regulatory body, including the service of process, an investigation in anticipation of litigation by an attorney-at-law or any individual",
+      "rect": {
+        "left": 46,
+        "bottom": 401.09,
+        "right": 580.23,
+        "top": 410.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "acting on behalf of an attorney-at-law and the execution or enforcement of judgments and orders, or pursuant to an order of any court",
+      "rect": {
+        "left": 46,
+        "bottom": 390.77,
+        "right": 576.28,
+        "top": 399.77
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "provided the requesting party is a party in interest to such proceeding.",
+      "rect": {
+        "left": 46,
+        "bottom": 380.44,
+        "right": 324.13,
+        "top": 389.44
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "(Attorney Name or Case Name and Court Location- REQUIRED)",
+      "rect": {
+        "left": 46,
+        "bottom": 370.12,
+        "right": 305.07,
+        "top": 379.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "5.",
+      "rect": {
+        "left": 28,
+        "bottom": 349.47,
+        "right": 35.5,
+        "top": 358.47
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "In connection with matters of motor vehicle or driver safety and theft, motor vehicle emissions, motor vehicle product alterations, recalls",
+      "rect": {
+        "left": 46,
+        "bottom": 349.47,
+        "right": 583.2,
+        "top": 358.47
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "or advisories, performance monitoring of motor vehicles and motor vehicle parts and dealers, producing statistical reports and removal",
+      "rect": {
+        "left": 46,
+        "bottom": 339.15,
+        "right": 579.7,
+        "top": 348.15
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "of nonowner records from the original owner records of motor vehicle manufacturers, provided the personal information is not",
+      "rect": {
+        "left": 46,
+        "bottom": 328.83,
+        "right": 543.19,
+        "top": 337.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "published, disclosed or used to contact individuals.",
+      "rect": {
+        "left": 46,
+        "bottom": 318.5,
+        "right": 248.09,
+        "top": 327.5
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "6.",
+      "rect": {
+        "left": 28,
+        "bottom": 297.85,
+        "right": 35.5,
+        "top": 306.85
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "By any insurer or insurance support organization or by a self-insured entity or its agents, employees or contractors, in connection with",
+      "rect": {
+        "left": 46,
+        "bottom": 297.85,
+        "right": 576.72,
+        "top": 306.85
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "the investigation of claims arising under insurance policies, anti-fraud activities, rating or underwriting.",
+      "rect": {
+        "left": 46,
+        "bottom": 287.53,
+        "right": 449.65,
+        "top": 296.53
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "7.",
+      "rect": {
+        "left": 28,
+        "bottom": 266.88,
+        "right": 35.5,
+        "top": 275.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "In providing any notice required by law to owners or lienholders named in the certificate of title of towed, abandoned or impounded",
+      "rect": {
+        "left": 46,
+        "bottom": 266.88,
+        "right": 563.75,
+        "top": 275.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "motor vehicles [or to owners named in the registration record in the case of any vehicle for which no title has been issued].",
+      "rect": {
+        "left": 46,
+        "bottom": 256.56,
+        "right": 532.21,
+        "top": 265.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "8.",
+      "rect": {
+        "left": 28,
+        "bottom": 235.91,
+        "right": 35.5,
+        "top": 244.91
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "By an employer or its agent or insurer to obtain or verify information relating to a holder of a passenger endorsement or commercial",
+      "rect": {
+        "left": 46,
+        "bottom": 235.91,
+        "right": 567.71,
+        "top": 244.91
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "driver\u0027s license required under 49 USC Chapter 313, and Connecticut General Statutes sections 14-44 to 14-44m, inclusive, as",
+      "rect": {
+        "left": 46,
+        "bottom": 225.59,
+        "right": 550.44,
+        "top": 234.59
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "amended.",
+      "rect": {
+        "left": 46,
+        "bottom": 215.26,
+        "right": 86.02,
+        "top": 224.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "9.",
+      "rect": {
+        "left": 28,
+        "bottom": 194.62,
+        "right": 35.5,
+        "top": 203.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "I have obtained and am presenting evidence of consent to disclosure by the subject(s) of the record.",
+      "rect": {
+        "left": 46,
+        "bottom": 194.62,
+        "right": 444.2,
+        "top": 203.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO",
+      "rect": {
+        "left": 127.48,
+        "bottom": 161.28,
+        "right": 484.5,
+        "top": 175.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "OBTAIN THEIR OWN RECORD INFORMATION",
+      "rect": {
+        "left": 153.57,
+        "bottom": 145.22,
+        "right": 458.45,
+        "top": 159.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "Specify the code below in the space on the front of this form in the REQUEST SECTION and complete",
+      "rect": {
+        "left": 27.99,
+        "bottom": 120.35,
+        "right": 572.23,
+        "top": 132.35
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "the form including applicant signature. The identification requirements apply when requesting a copy of",
+      "rect": {
+        "left": 27.99,
+        "bottom": 106.58,
+        "right": 575.13,
+        "top": 118.58
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "your own DMV record.",
+      "rect": {
+        "left": 27.99,
+        "bottom": 92.81,
+        "right": 147.35,
+        "top": 104.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "Vehicles.10. This record request is submitted for the purpose of obtaining my record on file at the Department of Motor",
+      "rect": {
+        "left": 28,
+        "bottom": 68.31,
+        "right": 542.1,
+        "top": 78.05
+      }
+    }
+  ]
+}

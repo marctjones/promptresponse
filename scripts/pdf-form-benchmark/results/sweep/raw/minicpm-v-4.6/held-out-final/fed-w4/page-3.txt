@@ -1,0 +1,1 @@
+{'sections': [], 'fields': [{'n': '1', 'label': '$1', 'section_id': 'step2', 'field_kind': 'currency', 'group': 'optional: a name shared by every numbered field that is really ONE question split into several boxes'}]}

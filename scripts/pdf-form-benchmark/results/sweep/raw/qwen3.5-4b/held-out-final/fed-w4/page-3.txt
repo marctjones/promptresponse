@@ -1,0 +1,68 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-2b-multiple-jobs-worksheet",
+      "title": "Step 2(b) - Multiple Jobs Worksheet (Keep for your records.)"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Two jobs. If you have two jobs or you're married filing jointly and you and your spouse each have one job, find the amount from the appropriate table on page 5. Using the \"Higher Paying Job\" row and the \"Lower Paying Job\" column, find the value at the intersection of the two household salaries and enter that value on line 1. Then, skip to line 3.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "Three jobs. If you and/or your spouse have three jobs at the same time, complete lines 2a, 2b, and 2c below. Otherwise, skip to line 3.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 2a,
+      "label": "Three jobs. If you and/or your spouse have three jobs at the same time, complete lines 2a, 2b, and 2c below. Otherwise, skip to line 3.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 2b,
+      "label": "Three jobs. If you and/or your spouse have three jobs at the same time, complete lines 2a, 2b, and 2c below. Otherwise, skip to line 3.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 2c,
+      "label": "Three jobs. If you and/or your spouse have three jobs at the same time, complete lines 2a, 2b, and 2c below. Otherwise, skip to line 3.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Enter the number of pay periods per year for the highest paying job. For example, if that job pays weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc.",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this amount here and in Step 4(c) of Form W-4 for the highest paying job (plus any other additional amount you want withheld)",
+      "section_id": "step-2b-multiple-jobs-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    }
+  ]
+}
+```

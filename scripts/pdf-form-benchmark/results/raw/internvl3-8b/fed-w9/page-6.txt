@@ -1,0 +1,254 @@
+```json
+{
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form W-9"
+    },
+    {
+      "id": "privacy-act-notice",
+      "title": "Privacy Act Notice"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Rev. 3-2024",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Page 6",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Victims of identity theft",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Taxpayer Advocate Service (TAS) assistance",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "877-777-4778 or TTY/TDD",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Phishing",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IRS",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Treasurer Inspector General for Tax Administration (TIGTA)",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "spam@uce.gov",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "www.ftc.gov/complaint",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "www.irs.gov/IdentityTheft",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Identity Theft",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "www.irs.gov",
+      "section_id": "form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Section 6109",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "correct TIN",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "file information returns",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IRS",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "mortgage interest",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "debt",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "contributions",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IRA",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Archer MSA",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "HSA",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Routine uses",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of Justice",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "District of Columbia",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "U.S. commonwealths",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "countries",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "TIN",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "tax return",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "section 3406",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "taxable interest",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "dividends",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Certain penalties",
+      "section_id": "privacy-act-notice",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

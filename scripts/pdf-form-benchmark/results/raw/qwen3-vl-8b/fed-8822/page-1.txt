@@ -1,0 +1,231 @@
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Complete This Part To Change Your Home Mailing Address"
+    },
+    {
+      "id": "part-ii",
+      "title": "Signature"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Check all boxes this change affects:",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "1",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "2",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "► Decedent’s name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "► Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3a Your name (first name, initial, and last name)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "3b Your social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "4a Spouse’s name (first name, initial, and last name)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4b Spouse’s social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5a Your prior name(s). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5b Spouse’s prior name(s). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "6a Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "6b Spouse’s old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "7 New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Daytime telephone number of person to contact (optional)",
+      "section_id": "part-ii",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "Your signature",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Signature of representative, executor, administrator/if applicable",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": false
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Title",
+      "section_id": "part-ii",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If joint return, spouse’s signature",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": false
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    }
+  ]
+}

@@ -25,8 +25,14 @@ public partial class WorkflowTests
         var bytes = File.ReadAllBytes(pdfPath);
         var text = System.Text.Encoding.Latin1.GetString(bytes);
         text.Should().StartWith("%PDF", "and the file must actually be a PDF");
-        text.Should().Contain("/AcroForm", "a fillable export carries a form");
-        text.Should().Contain("/Widget", "with fields somebody can type into");
+        // Assert on the parsed form, not a byte-grep for "/AcroForm" and "/Widget":
+        // those keys move into a compressed object stream depending on how the
+        // engine saves, and a test that cannot see them then fails against correct
+        // output. What matters is that a reader finds fields it can focus and fill.
+        using var opened = Excise.Core.Document.PdfDocument.Open(bytes);
+        var form = opened.GetAcroForm();
+        form.Should().NotBeNull("a fillable export carries a form");
+        form!.Fields.Should().NotBeEmpty("with fields somebody can type into");
         bytes.Length.Should().BeGreaterThan(1000, "a form with two fields is not an empty page");
     }
 

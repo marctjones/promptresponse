@@ -1,0 +1,242 @@
+{
+  "sections": [
+    {
+      "id": "deductions-worksheet",
+      "title": "Step 4(b)–Deductions Worksheet (Keep for your records.)"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "Qualified overtime compensation. If your total income is less than $150,000 ($300,000 if married filing jointly), enter an estimate of your qualified overtime compensation up to $12,500 ($25,000 if married filing jointly) of the \"and-a-half\" portion of time-and-a-half compensation",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Qualified passenger vehicle loan interest. If your total income is less than $100,000 ($200,000 if married filing jointly), enter an estimate of your qualified passenger vehicle loan interest up to $10,000",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "Seniors age 65 or older. If your total income is less than $75,000 ($150,000 if married filing jointly):",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "Enter $6,000 if you are age 65 or older before the end of the year",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security number valid for employment",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "Add lines 3a and 3b. Enter the result here",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "Medical and dental expenses. Enter expenses in excess of 7.5% (0.075) of your total income",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "State and local taxes. If your total income is less than $505,000 ($252,500 if married filing separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "Home mortgage interest. If your home acquisition debt is less than $750,000 ($375,000 if married filing separately), enter your home mortgage interest expense (including mortgage insurance premiums)",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "Gifts to charities. Enter contributions in excess of 0.5% (0.005) of your total income",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "Other itemized deductions. Enter the amount for other itemized deductions",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 15,
+      "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 16,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "Enter your total income",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "Subtract line 4 from line 8a. If line 4 is greater than line 8a, enter -0- here and on line 10. Skip line 9",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "Enter: $768,700 if you're married filing jointly or a qualifying surviving spouse",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 20,
+      "label": "Enter: $640,600 if you're single or head of household",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 21,
+      "label": "Enter: $384,350 if you're married filing separately",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 22,
+      "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94) and enter the result here",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "Standard deduction. Enter: $32,200 if you're married filing jointly or a qualifying surviving spouse",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 24,
+      "label": "Standard deduction. Enter: $24,150 if you're head of household",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 25,
+      "label": "Standard deduction. Enter: $16,100 if you're single or married filing separately",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 26,
+      "label": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000 ($2,000 if married filing jointly)",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 27,
+      "label": "Add lines 11 and 12. Enter the result here",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 28,
+      "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    },
+    {
+      "n": 29,
+      "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+      "section_id": "deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": null
+    }
+  ]
+}

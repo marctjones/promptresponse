@@ -1,0 +1,8187 @@
+{
+  "formId": "fed-w4",
+  "pageCount": 5,
+  "pages": [
+    {
+      "number": 1,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 2,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 3,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 4,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 5,
+      "width": 611.98,
+      "height": 791.97
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "declarationOrder": 0,
+      "name": "topmostSubform[0].Page1[0].Step1a[0].f1_01[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 94.6,
+        "bottom": 683.97,
+        "right": 272.85,
+        "top": 697.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "declarationOrder": 1,
+      "name": "topmostSubform[0].Page1[0].Step1a[0].f1_02[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 274.6,
+        "bottom": 683.97,
+        "right": 474.45,
+        "top": 697.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "declarationOrder": 4,
+      "name": "topmostSubform[0].Page1[0].f1_05[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 476.2,
+        "bottom": 683.97,
+        "right": 576,
+        "top": 697.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "declarationOrder": 2,
+      "name": "topmostSubform[0].Page1[0].Step1a[0].f1_03[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 94.6,
+        "bottom": 659.97,
+        "right": 474.45,
+        "top": 673.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "declarationOrder": 3,
+      "name": "topmostSubform[0].Page1[0].Step1a[0].f1_04[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 94.6,
+        "bottom": 635.97,
+        "right": 474.45,
+        "top": 649.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "declarationOrder": 5,
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 115.2,
+        "bottom": 625.97,
+        "right": 123.2,
+        "top": 633.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "declarationOrder": 6,
+      "name": "topmostSubform[0].Page1[0].c1_1[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 115.2,
+        "bottom": 613.97,
+        "right": 123.2,
+        "top": 621.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "declarationOrder": 7,
+      "name": "topmostSubform[0].Page1[0].c1_1[2]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 115.2,
+        "bottom": 602.22,
+        "right": 123.2,
+        "top": 610.22
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "declarationOrder": 8,
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 564,
+        "bottom": 379.97,
+        "right": 572,
+        "top": 387.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "declarationOrder": 9,
+      "name": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_06[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 417.6,
+        "bottom": 299.97,
+        "right": 481.65,
+        "top": 311.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "declarationOrder": 10,
+      "name": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_07[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 417.6,
+        "bottom": 287.97,
+        "right": 481.65,
+        "top": 299.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "declarationOrder": 11,
+      "name": "topmostSubform[0].Page1[0].f1_08[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 511.2,
+        "bottom": 263.97,
+        "right": 576,
+        "top": 275.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "declarationOrder": 12,
+      "name": "topmostSubform[0].Page1[0].f1_09[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 511.2,
+        "bottom": 227.97,
+        "right": 576,
+        "top": 239.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "declarationOrder": 13,
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 511.2,
+        "bottom": 191.97,
+        "right": 576,
+        "top": 203.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "declarationOrder": 14,
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 511.2,
+        "bottom": 173.97,
+        "right": 576,
+        "top": 185.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "declarationOrder": 15,
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 564,
+        "bottom": 129.47,
+        "right": 572,
+        "top": 137.47
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "declarationOrder": 16,
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 94.6,
+        "bottom": 35.97,
+        "right": 388.05,
+        "top": 65.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "declarationOrder": 17,
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 389.8,
+        "bottom": 35.97,
+        "right": 467.25,
+        "top": 47.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "declarationOrder": 18,
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 469,
+        "bottom": 35.97,
+        "right": 576,
+        "top": 47.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 19,
+      "declarationOrder": 19,
+      "name": "topmostSubform[0].Page3[0].f3_01[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 511.2,
+        "bottom": 587.97,
+        "right": 576,
+        "top": 599.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 20,
+      "declarationOrder": 20,
+      "name": "topmostSubform[0].Page3[0].f3_02[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 511.2,
+        "bottom": 497.97,
+        "right": 576,
+        "top": 509.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 21,
+      "declarationOrder": 21,
+      "name": "topmostSubform[0].Page3[0].f3_03[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 511.2,
+        "bottom": 437.97,
+        "right": 576,
+        "top": 449.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 22,
+      "declarationOrder": 22,
+      "name": "topmostSubform[0].Page3[0].f3_04[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 511.2,
+        "bottom": 413.97,
+        "right": 576,
+        "top": 425.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 23,
+      "declarationOrder": 23,
+      "name": "topmostSubform[0].Page3[0].f3_05[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 504,
+        "bottom": 377.97,
+        "right": 576,
+        "top": 389.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 24,
+      "declarationOrder": 24,
+      "name": "topmostSubform[0].Page3[0].f3_06[0]",
+      "type": "Text",
+      "page": 3,
+      "rect": {
+        "left": 511.2,
+        "bottom": 329.97,
+        "right": 576,
+        "top": 341.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 25,
+      "declarationOrder": 25,
+      "name": "topmostSubform[0].Page4[0].f4_01[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 659.97,
+        "right": 576,
+        "top": 671.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 26,
+      "declarationOrder": 26,
+      "name": "topmostSubform[0].Page4[0].f4_02[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 623.97,
+        "right": 576,
+        "top": 635.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 27,
+      "declarationOrder": 27,
+      "name": "topmostSubform[0].Page4[0].f4_03[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 599.97,
+        "right": 576,
+        "top": 611.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 28,
+      "declarationOrder": 28,
+      "name": "topmostSubform[0].Page4[0].f4_04[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 587.97,
+        "right": 576,
+        "top": 599.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 29,
+      "declarationOrder": 29,
+      "name": "topmostSubform[0].Page4[0].f4_05[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 563.97,
+        "right": 576,
+        "top": 575.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 30,
+      "declarationOrder": 30,
+      "name": "topmostSubform[0].Page4[0].f4_06[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 539.97,
+        "right": 576,
+        "top": 551.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 31,
+      "declarationOrder": 31,
+      "name": "topmostSubform[0].Page4[0].f4_07[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 527.97,
+        "right": 576,
+        "top": 539.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 32,
+      "declarationOrder": 32,
+      "name": "topmostSubform[0].Page4[0].f4_08[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 491.97,
+        "right": 576,
+        "top": 503.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 33,
+      "declarationOrder": 33,
+      "name": "topmostSubform[0].Page4[0].f4_09[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 455.97,
+        "right": 576,
+        "top": 467.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 34,
+      "declarationOrder": 34,
+      "name": "topmostSubform[0].Page4[0].f4_10[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 431.97,
+        "right": 576,
+        "top": 443.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 35,
+      "declarationOrder": 35,
+      "name": "topmostSubform[0].Page4[0].f4_11[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 395.97,
+        "right": 576,
+        "top": 407.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 36,
+      "declarationOrder": 36,
+      "name": "topmostSubform[0].Page4[0].f4_12[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 383.97,
+        "right": 576,
+        "top": 395.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 37,
+      "declarationOrder": 37,
+      "name": "topmostSubform[0].Page4[0].f4_13[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 371.97,
+        "right": 576,
+        "top": 383.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 38,
+      "declarationOrder": 38,
+      "name": "topmostSubform[0].Page4[0].f4_14[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 359.97,
+        "right": 576,
+        "top": 371.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 39,
+      "declarationOrder": 39,
+      "name": "topmostSubform[0].Page4[0].f4_15[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 335.97,
+        "right": 576,
+        "top": 347.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 40,
+      "declarationOrder": 40,
+      "name": "topmostSubform[0].Page4[0].f4_16[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 323.97,
+        "right": 576,
+        "top": 335.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 41,
+      "declarationOrder": 41,
+      "name": "topmostSubform[0].Page4[0].f4_17[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 299.97,
+        "right": 576,
+        "top": 311.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 42,
+      "declarationOrder": 42,
+      "name": "topmostSubform[0].Page4[0].f4_18[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 263.97,
+        "right": 576,
+        "top": 275.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 43,
+      "declarationOrder": 43,
+      "name": "topmostSubform[0].Page4[0].f4_19[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 227.97,
+        "right": 576,
+        "top": 239.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 44,
+      "declarationOrder": 44,
+      "name": "topmostSubform[0].Page4[0].f4_20[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 191.97,
+        "right": 576,
+        "top": 203.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 45,
+      "declarationOrder": 45,
+      "name": "topmostSubform[0].Page4[0].f4_21[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 179.97,
+        "right": 576,
+        "top": 191.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 46,
+      "declarationOrder": 46,
+      "name": "topmostSubform[0].Page4[0].f4_22[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 155.97,
+        "right": 576,
+        "top": 167.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 47,
+      "declarationOrder": 47,
+      "name": "topmostSubform[0].Page4[0].f4_23[0]",
+      "type": "Text",
+      "page": 4,
+      "rect": {
+        "left": 511.2,
+        "bottom": 143.97,
+        "right": 576,
+        "top": 155.97
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "Form W-4",
+      "rect": {
+        "left": 36,
+        "bottom": 738.83,
+        "right": 96.21,
+        "top": 762.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Employee\u2019s Withholding Certificate",
+      "rect": {
+        "left": 195.68,
+        "bottom": 746.21,
+        "right": 416.32,
+        "top": 760.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "OMB No. 1545-0074",
+      "rect": {
+        "left": 503.91,
+        "bottom": 747.91,
+        "right": 568.89,
+        "top": 754.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay.",
+      "rect": {
+        "left": 121.73,
+        "bottom": 733.99,
+        "right": 490.27,
+        "top": 741.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "2026",
+      "rect": {
+        "left": 510.4,
+        "bottom": 719.69,
+        "right": 562.4,
+        "top": 739.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "Give Form W-4 to your employer.",
+      "rect": {
+        "left": 243.19,
+        "bottom": 722.99,
+        "right": 368.81,
+        "top": 730.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "Department of the Treasury",
+      "rect": {
+        "left": 36,
+        "bottom": 719.62,
+        "right": 113.31,
+        "top": 726.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "Your withholding is subject to review by the IRS.",
+      "rect": {
+        "left": 213.86,
+        "bottom": 711.99,
+        "right": 398.14,
+        "top": 719.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "Internal Revenue Service",
+      "rect": {
+        "left": 36,
+        "bottom": 711.82,
+        "right": 105.94,
+        "top": 718.32
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "(a) First name and middle initial",
+      "rect": {
+        "left": 97.6,
+        "bottom": 700.97,
+        "right": 199.39,
+        "top": 707.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "Last name",
+      "rect": {
+        "left": 277.6,
+        "bottom": 700.97,
+        "right": 310.28,
+        "top": 707.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "(b) Social security number",
+      "rect": {
+        "left": 479.2,
+        "bottom": 700.97,
+        "right": 570.05,
+        "top": 707.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "Step 1:",
+      "rect": {
+        "left": 36,
+        "bottom": 695.66,
+        "right": 68.98,
+        "top": 705.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "Enter",
+      "rect": {
+        "left": 36,
+        "bottom": 680.83,
+        "right": 60.79,
+        "top": 690.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "Address",
+      "rect": {
+        "left": 97.6,
+        "bottom": 676.97,
+        "right": 123.53,
+        "top": 683.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "Does your name match the",
+      "rect": {
+        "left": 479.2,
+        "bottom": 676.47,
+        "right": 569.16,
+        "top": 683.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "Personal",
+      "rect": {
+        "left": 36,
+        "bottom": 669.33,
+        "right": 76.77,
+        "top": 679.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "name on your social security",
+      "rect": {
+        "left": 479.2,
+        "bottom": 668.97,
+        "right": 574.98,
+        "top": 675.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "card? If not, to ensure you get",
+      "rect": {
+        "left": 479.2,
+        "bottom": 661.48,
+        "right": 574.5,
+        "top": 668.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "Information",
+      "rect": {
+        "left": 36,
+        "bottom": 657.83,
+        "right": 89.5,
+        "top": 667.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "credit for your earnings,",
+      "rect": {
+        "left": 479.2,
+        "bottom": 653.98,
+        "right": 553.61,
+        "top": 660.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "City or town, state, and ZIP code",
+      "rect": {
+        "left": 97.6,
+        "bottom": 652.97,
+        "right": 200.79,
+        "top": 659.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "contact SSA at 800-772-1213",
+      "rect": {
+        "left": 479.2,
+        "bottom": 646.48,
+        "right": 572.57,
+        "top": 653.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "or go to www.ssa.gov.",
+      "rect": {
+        "left": 479.2,
+        "bottom": 638.99,
+        "right": 549.19,
+        "top": 645.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "Single or Married filing separately",
+      "rect": {
+        "left": 126,
+        "bottom": 626.97,
+        "right": 237.56,
+        "top": 633.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "(c)",
+      "rect": {
+        "left": 96.6,
+        "bottom": 626.85,
+        "right": 104.76,
+        "top": 633.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "Married filing jointly or Qualifying surviving spouse",
+      "rect": {
+        "left": 126,
+        "bottom": 614.97,
+        "right": 293.82,
+        "top": 621.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "Head of household (Check only if you\u2019re unmarried and pay more than half the costs of keeping up a home for yourself and a qualifying individual.)",
+      "rect": {
+        "left": 126.05,
+        "bottom": 603.47,
+        "right": 576.23,
+        "top": 610.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "Caution: To claim certain credits or deductions on your tax return, you (and/or your spouse if married filing jointly) are required to have a social security",
+      "rect": {
+        "left": 96.6,
+        "bottom": 591.37,
+        "right": 569.02,
+        "top": 598.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "number valid for employment. See page 2 for more information.",
+      "rect": {
+        "left": 96.6,
+        "bottom": 582.97,
+        "right": 295.12,
+        "top": 589.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "TIP: Consider using the estimator at www.irs.gov/W4App to determine the most accurate withholding for the rest of the year if you:",
+      "rect": {
+        "left": 36,
+        "bottom": 566.86,
+        "right": 561.91,
+        "top": 575.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "are completing this form after the beginning of the year; expect to work only part of the year; or have changes during the year in your",
+      "rect": {
+        "left": 36,
+        "bottom": 556.06,
+        "right": 568.76,
+        "top": 565.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "marital status, number of jobs for you (and/or your spouse if married filing jointly), dependents, other income (not from jobs),",
+      "rect": {
+        "left": 36,
+        "bottom": 545.26,
+        "right": 533.44,
+        "top": 554.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "deductions, or credits. Have your most recent pay stub(s) from this year available when using the estimator. At the beginning of next",
+      "rect": {
+        "left": 36,
+        "bottom": 534.46,
+        "right": 566.6,
+        "top": 543.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "year, use the estimator again to recheck your withholding.",
+      "rect": {
+        "left": 36,
+        "bottom": 523.66,
+        "right": 268.7,
+        "top": 532.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "Complete Steps 2\u20134 ONLY if they apply to you; otherwise, skip to Step 5. See page 2 for more information on each step, who can",
+      "rect": {
+        "left": 36,
+        "bottom": 508.87,
+        "right": 572.55,
+        "top": 517.87
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "claim exemption from withholding, and when to use the estimator at www.irs.gov/W4App.",
+      "rect": {
+        "left": 36,
+        "bottom": 498.07,
+        "right": 396.73,
+        "top": 507.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "Step 2:",
+      "rect": {
+        "left": 36,
+        "bottom": 479.66,
+        "right": 68.98,
+        "top": 489.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse",
+      "rect": {
+        "left": 122.4,
+        "bottom": 479.34,
+        "right": 558.84,
+        "top": 488.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "also works. The correct amount of withholding depends on income earned from all of these jobs.",
+      "rect": {
+        "left": 122.4,
+        "bottom": 468.54,
+        "right": 510.63,
+        "top": 477.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "Multiple Jobs",
+      "rect": {
+        "left": 36,
+        "bottom": 464.83,
+        "right": 100.04,
+        "top": 474.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "or Spouse",
+      "rect": {
+        "left": 36,
+        "bottom": 453.33,
+        "right": 84.53,
+        "top": 463.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "Do only one of the following.",
+      "rect": {
+        "left": 122.4,
+        "bottom": 453.54,
+        "right": 239.23,
+        "top": 462.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "Works",
+      "rect": {
+        "left": 36,
+        "bottom": 441.83,
+        "right": 66.55,
+        "top": 451.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "(a) Use the estimator at www.irs.gov/W4App for the most accurate withholding for this step (and Steps 3\u20134). If",
+      "rect": {
+        "left": 122.4,
+        "bottom": 440.34,
+        "right": 566.03,
+        "top": 449.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "you or your spouse have self-employment income, use this option; or",
+      "rect": {
+        "left": 136.8,
+        "bottom": 429.54,
+        "right": 415.88,
+        "top": 438.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "(b) Use the Multiple Jobs Worksheet on page 3 and enter the result in Step 4(c) below; or",
+      "rect": {
+        "left": 122.4,
+        "bottom": 415.54,
+        "right": 481.87,
+        "top": 424.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "(c) If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This",
+      "rect": {
+        "left": 122.4,
+        "bottom": 402.14,
+        "right": 556.56,
+        "top": 411.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "option is generally more accurate than Step 2(b) if pay at the lower paying job is more than half of the pay at",
+      "rect": {
+        "left": 136.8,
+        "bottom": 391.34,
+        "right": 570.21,
+        "top": 400.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "the higher paying job. Otherwise, Step 2(b) is more accurate .",
+      "rect": {
+        "left": 136.8,
+        "bottom": 380.54,
+        "right": 386.5,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": ".",
+      "rect": {
+        "left": 396,
+        "bottom": 380.54,
+        "right": 398.5,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": ".",
+      "rect": {
+        "left": 408,
+        "bottom": 380.54,
+        "right": 410.5,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 380.54,
+        "right": 422.5,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": ".",
+      "rect": {
+        "left": 431.99,
+        "bottom": 380.54,
+        "right": 434.49,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": ".",
+      "rect": {
+        "left": 443.99,
+        "bottom": 380.54,
+        "right": 446.49,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": ".",
+      "rect": {
+        "left": 455.98,
+        "bottom": 380.54,
+        "right": 458.49,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": ".",
+      "rect": {
+        "left": 467.98,
+        "bottom": 380.54,
+        "right": 470.48,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": ".",
+      "rect": {
+        "left": 479.98,
+        "bottom": 380.54,
+        "right": 482.48,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": ".",
+      "rect": {
+        "left": 491.98,
+        "bottom": 380.54,
+        "right": 494.48,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": ".",
+      "rect": {
+        "left": 503.97,
+        "bottom": 380.54,
+        "right": 506.48,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": ".",
+      "rect": {
+        "left": 515.97,
+        "bottom": 380.54,
+        "right": 518.47,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": ".",
+      "rect": {
+        "left": 527.97,
+        "bottom": 380.54,
+        "right": 530.47,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": ".",
+      "rect": {
+        "left": 539.96,
+        "bottom": 380.54,
+        "right": 542.47,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": ".",
+      "rect": {
+        "left": 551.96,
+        "bottom": 380.54,
+        "right": 554.46,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Complete Steps 3\u20134(b) on Form W-4 for only ONE of these jobs. Leave those steps blank for the other jobs. (Your withholding will",
+      "rect": {
+        "left": 36,
+        "bottom": 365.37,
+        "right": 569.85,
+        "top": 374.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "be most accurate if you complete Steps 3\u20134(b) on the Form W-4 for the highest paying job.)",
+      "rect": {
+        "left": 36,
+        "bottom": 354.57,
+        "right": 403.77,
+        "top": 363.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "If your total income will be $200,000 or less ($400,000 or less if",
+      "rect": {
+        "left": 122.4,
+        "bottom": 338.34,
+        "right": 381.56,
+        "top": 347.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "Step 3:",
+      "rect": {
+        "left": 36,
+        "bottom": 335.66,
+        "right": 68.98,
+        "top": 345.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "married filing jointly):",
+      "rect": {
+        "left": 122.36,
+        "bottom": 327.54,
+        "right": 205.19,
+        "top": 336.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "Claim",
+      "rect": {
+        "left": 36,
+        "bottom": 320.83,
+        "right": 63.37,
+        "top": 330.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "(a) Multiply the number of qualifying children under age 17 by",
+      "rect": {
+        "left": 122.36,
+        "bottom": 313.84,
+        "right": 381.58,
+        "top": 322.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "Dependent",
+      "rect": {
+        "left": 36,
+        "bottom": 309.33,
+        "right": 88.23,
+        "top": 319.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "$2,200 . . . . . . . . . . . . . . . . . . 3(a) $",
+      "rect": {
+        "left": 136.78,
+        "bottom": 302.54,
+        "right": 416.5,
+        "top": 312.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "and Other",
+      "rect": {
+        "left": 36,
+        "bottom": 297.83,
+        "right": 83.42,
+        "top": 307.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "(b) Multiply the number of other dependents by $500",
+      "rect": {
+        "left": 122.4,
+        "bottom": 290.54,
+        "right": 336.04,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": ".",
+      "rect": {
+        "left": 348,
+        "bottom": 290.54,
+        "right": 350.53,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": ".",
+      "rect": {
+        "left": 360,
+        "bottom": 290.54,
+        "right": 362.53,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": ".",
+      "rect": {
+        "left": 372,
+        "bottom": 290.54,
+        "right": 374.53,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "3(b) $",
+      "rect": {
+        "left": 391.68,
+        "bottom": 290.54,
+        "right": 416.5,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "Credits",
+      "rect": {
+        "left": 36,
+        "bottom": 286.33,
+        "right": 70.62,
+        "top": 296.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits. Enter the",
+      "rect": {
+        "left": 122.4,
+        "bottom": 277.84,
+        "right": 475.24,
+        "top": 286.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "total here . . . . . . . . . . . . . . . . . . . . . . . . . . 3 $",
+      "rect": {
+        "left": 122.44,
+        "bottom": 266.54,
+        "right": 510.1,
+        "top": 276.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "Step 4:",
+      "rect": {
+        "left": 36,
+        "bottom": 251.83,
+        "right": 68.98,
+        "top": 261.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "(a) Other income (not from jobs). If you want tax withheld for other income you",
+      "rect": {
+        "left": 122.4,
+        "bottom": 252.64,
+        "right": 475.19,
+        "top": 261.64
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "expect this year that won\u2019t have withholding, enter the amount of other income here.",
+      "rect": {
+        "left": 136.79,
+        "bottom": 241.84,
+        "right": 475.18,
+        "top": 250.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "Other",
+      "rect": {
+        "left": 36,
+        "bottom": 236.83,
+        "right": 62.86,
+        "top": 246.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "This may include interest, dividends, and retirement income",
+      "rect": {
+        "left": 136.79,
+        "bottom": 231.04,
+        "right": 375.6,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": ".",
+      "rect": {
+        "left": 384,
+        "bottom": 231.04,
+        "right": 386.49,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": ".",
+      "rect": {
+        "left": 396,
+        "bottom": 231.04,
+        "right": 398.49,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": ".",
+      "rect": {
+        "left": 408,
+        "bottom": 231.04,
+        "right": 410.5,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": ".",
+      "rect": {
+        "left": 420,
+        "bottom": 231.04,
+        "right": 422.5,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": ".",
+      "rect": {
+        "left": 432.01,
+        "bottom": 231.04,
+        "right": 434.5,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": ".",
+      "rect": {
+        "left": 444.01,
+        "bottom": 231.04,
+        "right": 446.51,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": ".",
+      "rect": {
+        "left": 456.01,
+        "bottom": 231.04,
+        "right": 458.51,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": ".",
+      "rect": {
+        "left": 468.02,
+        "bottom": 231.04,
+        "right": 470.51,
+        "top": 240.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "4(a) $",
+      "rect": {
+        "left": 485.45,
+        "bottom": 230.54,
+        "right": 510.1,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "Adjustments",
+      "rect": {
+        "left": 36,
+        "bottom": 225.33,
+        "right": 96.18,
+        "top": 235.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": "(b) Deductions. Use the Deductions Worksheet on page 4 to determine the amount of",
+      "rect": {
+        "left": 122.4,
+        "bottom": 216.14,
+        "right": 475.19,
+        "top": 225.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": "deductions you may claim, which will reduce your withholding. (If you skip this line,",
+      "rect": {
+        "left": 136.79,
+        "bottom": 205.34,
+        "right": 475.21,
+        "top": 214.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": "your withholding will be based on the standard deduction.) Enter the result here",
+      "rect": {
+        "left": 136.81,
+        "bottom": 194.54,
+        "right": 444.06,
+        "top": 203.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": ".",
+      "rect": {
+        "left": 456,
+        "bottom": 194.54,
+        "right": 458.41,
+        "top": 203.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": ".",
+      "rect": {
+        "left": 468,
+        "bottom": 194.54,
+        "right": 470.41,
+        "top": 203.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": "4(b) $",
+      "rect": {
+        "left": 485.28,
+        "bottom": 194.54,
+        "right": 510.1,
+        "top": 203.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "(c) Extra withholding. Enter any additional tax you want withheld each pay period .",
+      "rect": {
+        "left": 122.4,
+        "bottom": 177.54,
+        "right": 458.51,
+        "top": 186.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": ".",
+      "rect": {
+        "left": 468,
+        "bottom": 177.54,
+        "right": 470.5,
+        "top": 186.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "4(c) $",
+      "rect": {
+        "left": 485.45,
+        "bottom": 176.54,
+        "right": 510.1,
+        "top": 186.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "Exempt from",
+      "rect": {
+        "left": 36,
+        "bottom": 140.54,
+        "right": 78.46,
+        "top": 149.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 107,
+      "text": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for",
+      "rect": {
+        "left": 100.8,
+        "bottom": 140.04,
+        "right": 554.98,
+        "top": 149.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "withholding",
+      "rect": {
+        "left": 36,
+        "bottom": 130.54,
+        "right": 74.5,
+        "top": 139.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 109,
+      "text": "2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+      "rect": {
+        "left": 100.77,
+        "bottom": 130.3,
+        "right": 542.88,
+        "top": 139.3
+      }
+    },
+    {
+      "page": 1,
+      "order": 110,
+      "text": ".",
+      "rect": {
+        "left": 551.97,
+        "bottom": 130.3,
+        "right": 554.47,
+        "top": 139.3
+      }
+    },
+    {
+      "page": 1,
+      "order": 111,
+      "text": "Under penalties of perjury, I declare that this certificate, to the best of my knowledge and belief, is true, correct, and complete.",
+      "rect": {
+        "left": 97.6,
+        "bottom": 116.26,
+        "right": 548.64,
+        "top": 124.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 112,
+      "text": "Step 5:",
+      "rect": {
+        "left": 36,
+        "bottom": 113.66,
+        "right": 68.98,
+        "top": 123.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 113,
+      "text": "Sign",
+      "rect": {
+        "left": 36,
+        "bottom": 98.83,
+        "right": 57.11,
+        "top": 108.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 114,
+      "text": "Here",
+      "rect": {
+        "left": 36,
+        "bottom": 87.33,
+        "right": 58.78,
+        "top": 97.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 115,
+      "text": "Date",
+      "rect": {
+        "left": 462.8,
+        "bottom": 81.76,
+        "right": 480.73,
+        "top": 89.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 116,
+      "text": "Employee\u2019s signature (This form is not valid unless you sign it.)",
+      "rect": {
+        "left": 102.8,
+        "bottom": 81.69,
+        "right": 331.7,
+        "top": 89.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 117,
+      "text": "Employer\u2019s name and address",
+      "rect": {
+        "left": 97.6,
+        "bottom": 68.26,
+        "right": 206.38,
+        "top": 76.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 118,
+      "text": "First date of",
+      "rect": {
+        "left": 394.8,
+        "bottom": 68.26,
+        "right": 437.62,
+        "top": 76.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 119,
+      "text": "Employer identification",
+      "rect": {
+        "left": 474,
+        "bottom": 68.26,
+        "right": 555.64,
+        "top": 76.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 120,
+      "text": "Employers",
+      "rect": {
+        "left": 36,
+        "bottom": 65.83,
+        "right": 86.53,
+        "top": 75.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 121,
+      "text": "employment",
+      "rect": {
+        "left": 394.8,
+        "bottom": 59.26,
+        "right": 439.12,
+        "top": 67.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 122,
+      "text": "number (EIN)",
+      "rect": {
+        "left": 474,
+        "bottom": 59.26,
+        "right": 520.53,
+        "top": 67.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 123,
+      "text": "Only",
+      "rect": {
+        "left": 36,
+        "bottom": 54.33,
+        "right": 57.48,
+        "top": 64.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 124,
+      "text": "Form W-4 (2026) Created 12/8/25",
+      "rect": {
+        "left": 464.48,
+        "bottom": 26.33,
+        "right": 576,
+        "top": 36.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 125,
+      "text": "For Privacy Act and Paperwork Reduction Act Notice, see page 4.",
+      "rect": {
+        "left": 36,
+        "bottom": 26.26,
+        "right": 285.94,
+        "top": 34.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 126,
+      "text": "Cat. No. 10220Q",
+      "rect": {
+        "left": 348.07,
+        "bottom": 26.47,
+        "right": 400.73,
+        "top": 33.47
+      }
+    },
+    {
+      "page": 2,
+      "order": 127,
+      "text": "Page 2",
+      "rect": {
+        "left": 552.42,
+        "bottom": 747.83,
+        "right": 576,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "Form W-4 (2026)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 88.52,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "General Instructions",
+      "rect": {
+        "left": 36,
+        "bottom": 723.97,
+        "right": 171.56,
+        "top": 737.97
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "Nonresident alien. If you\u2019re a nonresident alien, see Notice",
+      "rect": {
+        "left": 316.8,
+        "bottom": 727.65,
+        "right": 555.97,
+        "top": 736.65
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "1392, Supplemental Form W-4 Instructions for Nonresident",
+      "rect": {
+        "left": 316.8,
+        "bottom": 717.91,
+        "right": 554.54,
+        "top": 726.91
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "Section references are to the Internal Revenue Code unless",
+      "rect": {
+        "left": 36,
+        "bottom": 708.54,
+        "right": 274.86,
+        "top": 717.54
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "Aliens, before completing this form.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 708.16,
+        "right": 459.5,
+        "top": 717.16
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "otherwise noted.",
+      "rect": {
+        "left": 36,
+        "bottom": 698.8,
+        "right": 103.17,
+        "top": 707.8
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "Specific Instructions",
+      "rect": {
+        "left": 316.8,
+        "bottom": 686.72,
+        "right": 453.9,
+        "top": 700.72
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "Future Developments",
+      "rect": {
+        "left": 36,
+        "bottom": 680.9,
+        "right": 158.68,
+        "top": 692.9
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "Step 1(c). Check your anticipated filing status. This will",
+      "rect": {
+        "left": 316.8,
+        "bottom": 670.94,
+        "right": 550.28,
+        "top": 680.44
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "For the latest information about developments related to Form",
+      "rect": {
+        "left": 36,
+        "bottom": 667.04,
+        "right": 285.89,
+        "top": 676.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "determine the standard deduction and tax rates used to",
+      "rect": {
+        "left": 316.8,
+        "bottom": 660.69,
+        "right": 553.49,
+        "top": 670.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "W-4, such as legislation enacted after it was published, go to",
+      "rect": {
+        "left": 36,
+        "bottom": 657.3,
+        "right": 281.2,
+        "top": 666.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "compute your withholding.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 650.44,
+        "right": 429.94,
+        "top": 659.94
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "www.irs.gov/FormW4.",
+      "rect": {
+        "left": 36,
+        "bottom": 647.55,
+        "right": 125.32,
+        "top": 656.55
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "Step 2. Use this step if you (1) have more than one job at the",
+      "rect": {
+        "left": 316.8,
+        "bottom": 636.54,
+        "right": 561.04,
+        "top": 645.54
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "Purpose of Form",
+      "rect": {
+        "left": 36,
+        "bottom": 629.65,
+        "right": 131.77,
+        "top": 641.65
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "same time, or (2) are married filing jointly and you and your",
+      "rect": {
+        "left": 316.8,
+        "bottom": 626.8,
+        "right": 552.19,
+        "top": 635.8
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "spouse both work. Submit a separate Form W-4 for each job.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 617.05,
+        "right": 563.36,
+        "top": 626.05
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "Complete Form W-4 so that your employer can withhold the",
+      "rect": {
+        "left": 36,
+        "bottom": 615.79,
+        "right": 277.23,
+        "top": 624.79
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "correct federal income tax from your pay. If too little is withheld,",
+      "rect": {
+        "left": 36,
+        "bottom": 606.05,
+        "right": 292.19,
+        "top": 615.05
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "Option (a) most accurately calculates the additional tax you",
+      "rect": {
+        "left": 326.3,
+        "bottom": 603.3,
+        "right": 565.18,
+        "top": 612.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "you will generally owe tax when you file your tax return and may",
+      "rect": {
+        "left": 36,
+        "bottom": 596.3,
+        "right": 292.5,
+        "top": 605.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "need to have withheld, while option (b) does so with a little less",
+      "rect": {
+        "left": 316.8,
+        "bottom": 593.55,
+        "right": 570.65,
+        "top": 602.55
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "owe a penalty. If too much is withheld, you will generally be due",
+      "rect": {
+        "left": 36,
+        "bottom": 586.55,
+        "right": 292.02,
+        "top": 595.55
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "accuracy.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 583.8,
+        "right": 355.97,
+        "top": 592.8
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "a refund. Complete a new Form W-4 when changes to your",
+      "rect": {
+        "left": 36,
+        "bottom": 576.81,
+        "right": 274.21,
+        "top": 585.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "Instead, if you (and your spouse) have a total of only two jobs,",
+      "rect": {
+        "left": 326.3,
+        "bottom": 570.05,
+        "right": 575.17,
+        "top": 579.05
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "personal or financial situation would change the entries on the",
+      "rect": {
+        "left": 36,
+        "bottom": 567.06,
+        "right": 285.2,
+        "top": 576.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "you may check the box in option (c). The box must also be",
+      "rect": {
+        "left": 316.8,
+        "bottom": 560.3,
+        "right": 552.87,
+        "top": 569.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "form. For more information on withholding and when you must",
+      "rect": {
+        "left": 36,
+        "bottom": 557.31,
+        "right": 286.89,
+        "top": 566.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "checked on the Form W-4 for the other job. If the box is",
+      "rect": {
+        "left": 316.8,
+        "bottom": 550.56,
+        "right": 540.52,
+        "top": 559.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "furnish a new Form W-4, see Pub. 505, Tax Withholding and",
+      "rect": {
+        "left": 36,
+        "bottom": 547.56,
+        "right": 278.06,
+        "top": 556.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "checked, the standard deduction and tax brackets will be cut in",
+      "rect": {
+        "left": 316.8,
+        "bottom": 540.81,
+        "right": 572.36,
+        "top": 549.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "Estimated Tax.",
+      "rect": {
+        "left": 36,
+        "bottom": 537.82,
+        "right": 96.01,
+        "top": 546.82
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "half for each job to calculate withholding. This option is accurate",
+      "rect": {
+        "left": 316.8,
+        "bottom": 531.06,
+        "right": 575.66,
+        "top": 540.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "Exemption from withholding. You may claim exemption from",
+      "rect": {
+        "left": 36,
+        "bottom": 524.07,
+        "right": 287.14,
+        "top": 533.07
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "for jobs with similar pay; otherwise, more tax than necessary",
+      "rect": {
+        "left": 316.8,
+        "bottom": 521.32,
+        "right": 559.98,
+        "top": 530.32
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "withholding for 2026 if you meet both of the following",
+      "rect": {
+        "left": 36,
+        "bottom": 514.32,
+        "right": 250.03,
+        "top": 523.32
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "may be withheld, and this extra amount of tax withheld will be",
+      "rect": {
+        "left": 316.8,
+        "bottom": 511.57,
+        "right": 565,
+        "top": 520.57
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "conditions: you had no federal income tax liability in 2025 and",
+      "rect": {
+        "left": 36,
+        "bottom": 504.57,
+        "right": 285.23,
+        "top": 513.57
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "larger the greater the difference in pay is between the two jobs.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 501.82,
+        "right": 570.65,
+        "top": 510.82
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "you expect to have no federal income tax liability in 2026. You",
+      "rect": {
+        "left": 36,
+        "bottom": 494.82,
+        "right": 285.22,
+        "top": 503.82
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "\u25B2! one Form W-4. Withholding will be most accurate if you",
+      "rect": {
+        "left": 317.56,
+        "bottom": 477.61,
+        "right": 569.33,
+        "top": 499.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "Multiple jobs. Complete Steps 3 through 4(b) on only",
+      "rect": {
+        "left": 346.8,
+        "bottom": 488.04,
+        "right": 561.99,
+        "top": 497.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "had no federal income tax liability in 2025 if (1) your total tax on",
+      "rect": {
+        "left": 36,
+        "bottom": 485.08,
+        "right": 289.88,
+        "top": 494.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "line 24 on your 2025 Form 1040 or 1040-SR is zero (or less than",
+      "rect": {
+        "left": 36,
+        "bottom": 475.33,
+        "right": 292.73,
+        "top": 484.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "do this on the Form W-4 for the highest paying job.",
+      "rect": {
+        "left": 346.8,
+        "bottom": 468.55,
+        "right": 551.34,
+        "top": 477.55
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "CAUTION",
+      "rect": {
+        "left": 318.01,
+        "bottom": 472.5,
+        "right": 339.59,
+        "top": 477
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "the sum of lines 27a, 28, 29, and 30), or (2) you were not",
+      "rect": {
+        "left": 36,
+        "bottom": 465.58,
+        "right": 261.91,
+        "top": 474.58
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "required to file a return because your income was below the",
+      "rect": {
+        "left": 36,
+        "bottom": 455.84,
+        "right": 276.69,
+        "top": 464.84
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "Step 3. This step provides instructions for determining the",
+      "rect": {
+        "left": 316.8,
+        "bottom": 454.8,
+        "right": 550.7,
+        "top": 463.8
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "filing threshold for your correct filing status. If you claim",
+      "rect": {
+        "left": 36,
+        "bottom": 446.09,
+        "right": 258.85,
+        "top": 455.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "amount of the child tax credit and the credit for other dependents",
+      "rect": {
+        "left": 316.8,
+        "bottom": 445.05,
+        "right": 575.78,
+        "top": 454.05
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "exemption, you will have no income tax withheld from your",
+      "rect": {
+        "left": 36,
+        "bottom": 436.34,
+        "right": 272.03,
+        "top": 445.34
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "that you may be able to claim when you file your tax return. To",
+      "rect": {
+        "left": 316.81,
+        "bottom": 435.3,
+        "right": 567.36,
+        "top": 444.3
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "paycheck and may owe taxes and penalties when you file your",
+      "rect": {
+        "left": 36,
+        "bottom": 426.6,
+        "right": 287.37,
+        "top": 435.6
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "qualify for the child tax credit, the child must be under age 17 as",
+      "rect": {
+        "left": 316.81,
+        "bottom": 425.56,
+        "right": 575.38,
+        "top": 434.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "2026 tax return. To claim exemption from withholding, certify",
+      "rect": {
+        "left": 36,
+        "bottom": 416.85,
+        "right": 280.55,
+        "top": 425.85
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "of December 31, must be your dependent who generally lives",
+      "rect": {
+        "left": 316.81,
+        "bottom": 415.81,
+        "right": 563.54,
+        "top": 424.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "that you meet both of the conditions by checking the box in the",
+      "rect": {
+        "left": 36,
+        "bottom": 407.1,
+        "right": 290.75,
+        "top": 416.1
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "with you for more than half the year, and must have the required",
+      "rect": {
+        "left": 316.81,
+        "bottom": 406.06,
+        "right": 574.55,
+        "top": 415.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "Exempt from withholding section. Then, complete Steps 1(a),",
+      "rect": {
+        "left": 36,
+        "bottom": 397.35,
+        "right": 280.88,
+        "top": 406.35
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "social security number. You (and/or your spouse if married filing",
+      "rect": {
+        "left": 316.81,
+        "bottom": 396.31,
+        "right": 573.35,
+        "top": 405.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "1(b), and 5. Do not complete any other steps. You will need to",
+      "rect": {
+        "left": 36,
+        "bottom": 387.61,
+        "right": 284.73,
+        "top": 396.61
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "jointly) must have the required social security number to claim",
+      "rect": {
+        "left": 316.81,
+        "bottom": 386.57,
+        "right": 565.37,
+        "top": 395.57
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "submit a new Form W-4 by February 16, 2027.",
+      "rect": {
+        "left": 36,
+        "bottom": 377.86,
+        "right": 223.24,
+        "top": 386.86
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "certain credits. You may be able to claim a credit for other",
+      "rect": {
+        "left": 316.81,
+        "bottom": 376.82,
+        "right": 550.35,
+        "top": 385.82
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "dependents for whom a child tax credit can\u2019t be claimed, such",
+      "rect": {
+        "left": 316.81,
+        "bottom": 367.07,
+        "right": 567.88,
+        "top": 376.07
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "Your privacy. Steps 2(c) and 4(a) ask for information regarding",
+      "rect": {
+        "left": 36,
+        "bottom": 364.11,
+        "right": 288.38,
+        "top": 373.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "as an older child or a qualifying relative. For additional eligibility",
+      "rect": {
+        "left": 316.81,
+        "bottom": 357.33,
+        "right": 570.66,
+        "top": 366.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "income you received from sources other than the job associated",
+      "rect": {
+        "left": 36,
+        "bottom": 354.36,
+        "right": 294.55,
+        "top": 363.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "requirements for these credits, see Pub. 501, Dependents,",
+      "rect": {
+        "left": 316.81,
+        "bottom": 347.58,
+        "right": 551.55,
+        "top": 356.58
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "with this Form W-4. If you have concerns with providing the",
+      "rect": {
+        "left": 36,
+        "bottom": 344.61,
+        "right": 275.2,
+        "top": 353.61
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "Standard Deduction, and Filing Information. You can also",
+      "rect": {
+        "left": 316.81,
+        "bottom": 337.83,
+        "right": 547.03,
+        "top": 346.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "information asked for in Step 2(c), you may choose Step 2(b) as",
+      "rect": {
+        "left": 36,
+        "bottom": 334.87,
+        "right": 291.06,
+        "top": 343.87
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "include other tax credits for which you are eligible in this step,",
+      "rect": {
+        "left": 316.81,
+        "bottom": 328.09,
+        "right": 570.16,
+        "top": 337.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "an alternative; if you have concerns with providing the",
+      "rect": {
+        "left": 36,
+        "bottom": 325.12,
+        "right": 252.36,
+        "top": 334.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "such as the foreign tax credit and the education tax credits. To",
+      "rect": {
+        "left": 316.81,
+        "bottom": 318.34,
+        "right": 568.86,
+        "top": 327.34
+      }
+    },
+    {
+      "page": 2,
+      "order": 207,
+      "text": "information asked for in Step 4(a), you may enter an additional",
+      "rect": {
+        "left": 36,
+        "bottom": 315.37,
+        "right": 285.56,
+        "top": 324.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 208,
+      "text": "do so, add an estimate of the amount for the year to your credits",
+      "rect": {
+        "left": 316.81,
+        "bottom": 308.59,
+        "right": 575.81,
+        "top": 317.59
+      }
+    },
+    {
+      "page": 2,
+      "order": 209,
+      "text": "amount you want withheld per pay period in Step 4(c) as an",
+      "rect": {
+        "left": 36,
+        "bottom": 305.63,
+        "right": 275.05,
+        "top": 314.63
+      }
+    },
+    {
+      "page": 2,
+      "order": 210,
+      "text": "for dependents and enter the total amount in Step 3. Including",
+      "rect": {
+        "left": 316.81,
+        "bottom": 298.84,
+        "right": 567.07,
+        "top": 307.84
+      }
+    },
+    {
+      "page": 2,
+      "order": 211,
+      "text": "alternative.",
+      "rect": {
+        "left": 36,
+        "bottom": 295.88,
+        "right": 80,
+        "top": 304.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 212,
+      "text": "these credits will increase your paycheck and reduce the amount",
+      "rect": {
+        "left": 316.81,
+        "bottom": 289.1,
+        "right": 575.8,
+        "top": 298.1
+      }
+    },
+    {
+      "page": 2,
+      "order": 213,
+      "text": "When to use the estimator. Consider using the estimator at",
+      "rect": {
+        "left": 36,
+        "bottom": 282.13,
+        "right": 280.03,
+        "top": 291.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 214,
+      "text": "of any refund you may receive when you file your tax return.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 279.35,
+        "right": 556.84,
+        "top": 288.35
+      }
+    },
+    {
+      "page": 2,
+      "order": 215,
+      "text": "www.irs.gov/W4App if you:",
+      "rect": {
+        "left": 36,
+        "bottom": 272.38,
+        "right": 145.33,
+        "top": 281.38
+      }
+    },
+    {
+      "page": 2,
+      "order": 216,
+      "text": "Step 4.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 265.6,
+        "right": 346.49,
+        "top": 274.6
+      }
+    },
+    {
+      "page": 2,
+      "order": 217,
+      "text": "1. Are submitting this form after the beginning of the year;",
+      "rect": {
+        "left": 36,
+        "bottom": 258.63,
+        "right": 267.89,
+        "top": 267.63
+      }
+    },
+    {
+      "page": 2,
+      "order": 218,
+      "text": "Step 4(a). Enter in this step the total of your other estimated",
+      "rect": {
+        "left": 326.32,
+        "bottom": 251.85,
+        "right": 568.03,
+        "top": 260.85
+      }
+    },
+    {
+      "page": 2,
+      "order": 219,
+      "text": "2. Expect to work only part of the year;",
+      "rect": {
+        "left": 36,
+        "bottom": 244.88,
+        "right": 192.02,
+        "top": 253.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 220,
+      "text": "income for the year, if any. You shouldn\u2019t include income from",
+      "rect": {
+        "left": 316.81,
+        "bottom": 242.1,
+        "right": 566.38,
+        "top": 251.1
+      }
+    },
+    {
+      "page": 2,
+      "order": 221,
+      "text": "any jobs or self-employment. If you complete Step 4(a), you",
+      "rect": {
+        "left": 316.81,
+        "bottom": 232.35,
+        "right": 556.37,
+        "top": 241.35
+      }
+    },
+    {
+      "page": 2,
+      "order": 222,
+      "text": "3. Have changes during the year in your marital status, number",
+      "rect": {
+        "left": 36,
+        "bottom": 231.12,
+        "right": 288.41,
+        "top": 240.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 223,
+      "text": "likely won\u2019t have to make estimated tax payments for that",
+      "rect": {
+        "left": 316.81,
+        "bottom": 222.61,
+        "right": 548.71,
+        "top": 231.61
+      }
+    },
+    {
+      "page": 2,
+      "order": 224,
+      "text": "of jobs for you (and/or your spouse if married filing jointly), or",
+      "rect": {
+        "left": 36,
+        "bottom": 221.38,
+        "right": 280.18,
+        "top": 230.38
+      }
+    },
+    {
+      "page": 2,
+      "order": 225,
+      "text": "income. If you prefer to pay estimated tax rather than having tax",
+      "rect": {
+        "left": 316.81,
+        "bottom": 212.86,
+        "right": 574.37,
+        "top": 221.86
+      }
+    },
+    {
+      "page": 2,
+      "order": 226,
+      "text": "number of dependents, or changes in your deductions or",
+      "rect": {
+        "left": 36,
+        "bottom": 211.63,
+        "right": 265.07,
+        "top": 220.63
+      }
+    },
+    {
+      "page": 2,
+      "order": 227,
+      "text": "on other income withheld from your paycheck, see Form",
+      "rect": {
+        "left": 316.81,
+        "bottom": 203.11,
+        "right": 543.86,
+        "top": 212.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 228,
+      "text": "credits;",
+      "rect": {
+        "left": 36,
+        "bottom": 201.88,
+        "right": 65.83,
+        "top": 210.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 229,
+      "text": "1040-ES, Estimated Tax for Individuals.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 193.36,
+        "right": 475.35,
+        "top": 202.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 230,
+      "text": "4. Receive dividends, capital gains, social security, bonuses, or",
+      "rect": {
+        "left": 36,
+        "bottom": 188.13,
+        "right": 289.87,
+        "top": 197.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 231,
+      "text": "Step 4(b). Enter in this step the amount from the Deductions",
+      "rect": {
+        "left": 326.32,
+        "bottom": 179.61,
+        "right": 569.72,
+        "top": 188.61
+      }
+    },
+    {
+      "page": 2,
+      "order": 232,
+      "text": "business income, or are subject to the Additional Medicare Tax",
+      "rect": {
+        "left": 36,
+        "bottom": 178.38,
+        "right": 289.55,
+        "top": 187.38
+      }
+    },
+    {
+      "page": 2,
+      "order": 233,
+      "text": "Worksheet, line 15, if you expect to claim deductions other than",
+      "rect": {
+        "left": 316.81,
+        "bottom": 169.87,
+        "right": 573.21,
+        "top": 178.87
+      }
+    },
+    {
+      "page": 2,
+      "order": 234,
+      "text": "or Net Investment Income Tax; or",
+      "rect": {
+        "left": 36,
+        "bottom": 168.64,
+        "right": 170.36,
+        "top": 177.64
+      }
+    },
+    {
+      "page": 2,
+      "order": 235,
+      "text": "the basic standard deduction on your 2026 tax return and want",
+      "rect": {
+        "left": 316.81,
+        "bottom": 160.12,
+        "right": 570.55,
+        "top": 169.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 236,
+      "text": "5. Prefer the most accurate withholding for multiple job",
+      "rect": {
+        "left": 36,
+        "bottom": 154.88,
+        "right": 256.87,
+        "top": 163.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 237,
+      "text": "to reduce your withholding to account for these deductions.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 150.37,
+        "right": 557.36,
+        "top": 159.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 238,
+      "text": "situations.",
+      "rect": {
+        "left": 36,
+        "bottom": 145.14,
+        "right": 77.18,
+        "top": 154.14
+      }
+    },
+    {
+      "page": 2,
+      "order": 239,
+      "text": "This includes both itemized deductions and other deductions",
+      "rect": {
+        "left": 316.81,
+        "bottom": 140.62,
+        "right": 562.38,
+        "top": 149.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 240,
+      "text": "TIP: Have your most recent pay stub(s) from this year available",
+      "rect": {
+        "left": 36,
+        "bottom": 131.39,
+        "right": 288.2,
+        "top": 140.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 241,
+      "text": "such as for qualified tips, overtime compensation, and",
+      "rect": {
+        "left": 316.81,
+        "bottom": 130.88,
+        "right": 534.7,
+        "top": 139.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 242,
+      "text": "when using the estimator to account for federal income tax that",
+      "rect": {
+        "left": 36,
+        "bottom": 121.64,
+        "right": 290.88,
+        "top": 130.64
+      }
+    },
+    {
+      "page": 2,
+      "order": 243,
+      "text": "passenger vehicle loan interest; student loan interest; IRAs; and",
+      "rect": {
+        "left": 316.81,
+        "bottom": 121.13,
+        "right": 572.36,
+        "top": 130.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 244,
+      "text": "has already been withheld this year. At the beginning of next",
+      "rect": {
+        "left": 36,
+        "bottom": 111.89,
+        "right": 278.54,
+        "top": 120.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 245,
+      "text": "seniors. You (and/or your spouse if married filing jointly) must",
+      "rect": {
+        "left": 316.81,
+        "bottom": 111.38,
+        "right": 562.51,
+        "top": 120.38
+      }
+    },
+    {
+      "page": 2,
+      "order": 246,
+      "text": "year, use the estimator again to recheck your withholding.",
+      "rect": {
+        "left": 36,
+        "bottom": 102.14,
+        "right": 268.7,
+        "top": 111.14
+      }
+    },
+    {
+      "page": 2,
+      "order": 247,
+      "text": "have the required social security number to claim certain",
+      "rect": {
+        "left": 316.81,
+        "bottom": 101.64,
+        "right": 544.36,
+        "top": 110.64
+      }
+    },
+    {
+      "page": 2,
+      "order": 248,
+      "text": "deductions. For additional eligibility requirements, see Pub. 501.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 91.89,
+        "right": 574.71,
+        "top": 100.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 249,
+      "text": "Self-employment. Generally, you will owe both income and",
+      "rect": {
+        "left": 36,
+        "bottom": 88.39,
+        "right": 276.8,
+        "top": 97.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 250,
+      "text": "self-employment taxes on any self-employment income you",
+      "rect": {
+        "left": 36,
+        "bottom": 78.65,
+        "right": 276.07,
+        "top": 87.65
+      }
+    },
+    {
+      "page": 2,
+      "order": 251,
+      "text": "Step 4(c). Enter in this step any additional tax you want",
+      "rect": {
+        "left": 326.32,
+        "bottom": 78.14,
+        "right": 549.18,
+        "top": 87.14
+      }
+    },
+    {
+      "page": 2,
+      "order": 252,
+      "text": "receive separate from the wages you receive as an employee. If",
+      "rect": {
+        "left": 36,
+        "bottom": 68.9,
+        "right": 291.52,
+        "top": 77.9
+      }
+    },
+    {
+      "page": 2,
+      "order": 253,
+      "text": "withheld from your pay each pay period, including any amounts",
+      "rect": {
+        "left": 316.81,
+        "bottom": 68.39,
+        "right": 575.86,
+        "top": 77.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 254,
+      "text": "you want to pay these taxes through withholding from your",
+      "rect": {
+        "left": 36,
+        "bottom": 59.15,
+        "right": 272.7,
+        "top": 68.15
+      }
+    },
+    {
+      "page": 2,
+      "order": 255,
+      "text": "from the Multiple Jobs Worksheet, line 4. Entering an amount",
+      "rect": {
+        "left": 316.81,
+        "bottom": 58.64,
+        "right": 562.73,
+        "top": 67.64
+      }
+    },
+    {
+      "page": 2,
+      "order": 256,
+      "text": "wages, use the estimator at www.irs.gov/W4App to figure the",
+      "rect": {
+        "left": 36,
+        "bottom": 49.4,
+        "right": 282.85,
+        "top": 58.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 257,
+      "text": "here will reduce your paycheck and will either increase your",
+      "rect": {
+        "left": 316.81,
+        "bottom": 48.9,
+        "right": 556.15,
+        "top": 57.9
+      }
+    },
+    {
+      "page": 2,
+      "order": 258,
+      "text": "amount to have withheld.",
+      "rect": {
+        "left": 36,
+        "bottom": 39.66,
+        "right": 137.53,
+        "top": 48.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 259,
+      "text": "refund or reduce any amount of tax that you owe when you file",
+      "rect": {
+        "left": 316.81,
+        "bottom": 39.15,
+        "right": 568.52,
+        "top": 48.15
+      }
+    },
+    {
+      "page": 2,
+      "order": 260,
+      "text": "your tax return.",
+      "rect": {
+        "left": 316.81,
+        "bottom": 29.4,
+        "right": 377.99,
+        "top": 38.4
+      }
+    },
+    {
+      "page": 3,
+      "order": 261,
+      "text": "Page 3",
+      "rect": {
+        "left": 552.42,
+        "bottom": 747.83,
+        "right": 576,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 3,
+      "order": 262,
+      "text": "Form W-4 (2026)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 88.52,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 3,
+      "order": 263,
+      "text": "Step 2(b)\u2014Multiple Jobs Worksheet (Keep for your records.)",
+      "rect": {
+        "left": 165.46,
+        "bottom": 728.74,
+        "right": 446.54,
+        "top": 738.74
+      }
+    },
+    {
+      "page": 3,
+      "order": 264,
+      "text": "If you choose the option in Step 2(b) on Form W-4, complete this worksheet (which calculates the total extra tax for all jobs) on only",
+      "rect": {
+        "left": 36,
+        "bottom": 702.14,
+        "right": 564.56,
+        "top": 711.14
+      }
+    },
+    {
+      "page": 3,
+      "order": 265,
+      "text": "ONE Form W-4. Withholding will be most accurate if you complete the worksheet and enter the result on the Form W-4 for the highest",
+      "rect": {
+        "left": 36,
+        "bottom": 691.34,
+        "right": 574.62,
+        "top": 700.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 266,
+      "text": "paying job. To be accurate, submit a new Form W-4 for all other jobs if you have not updated your withholding since 2019.",
+      "rect": {
+        "left": 36,
+        "bottom": 680.54,
+        "right": 527.78,
+        "top": 689.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 267,
+      "text": "Note: If more than one job has annual wages of more than $120,000 or there are more than three jobs, see Pub. 505 for additional",
+      "rect": {
+        "left": 36,
+        "bottom": 661.34,
+        "right": 558.48,
+        "top": 670.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 268,
+      "text": "tables; or, you can use the online withholding estimator at www.irs.gov/W4App.",
+      "rect": {
+        "left": 36,
+        "bottom": 650.54,
+        "right": 355.54,
+        "top": 659.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 269,
+      "text": "1",
+      "rect": {
+        "left": 45.4,
+        "bottom": 622.95,
+        "right": 50.4,
+        "top": 631.95
+      }
+    },
+    {
+      "page": 3,
+      "order": 270,
+      "text": "Two jobs. If you have two jobs or you\u2019re married filing jointly and you and your spouse each have one",
+      "rect": {
+        "left": 64.8,
+        "bottom": 622.95,
+        "right": 475.22,
+        "top": 631.95
+      }
+    },
+    {
+      "page": 3,
+      "order": 271,
+      "text": "job, find the amount from the appropriate table on page 5. Using the \u201CHigher Paying Job\u201D row and the",
+      "rect": {
+        "left": 64.82,
+        "bottom": 612.15,
+        "right": 475.21,
+        "top": 621.15
+      }
+    },
+    {
+      "page": 3,
+      "order": 272,
+      "text": "\u201CLower Paying Job\u201D column, find the value at the intersection of the two household salaries and enter",
+      "rect": {
+        "left": 64.81,
+        "bottom": 601.35,
+        "right": 475.15,
+        "top": 610.35
+      }
+    },
+    {
+      "page": 3,
+      "order": 273,
+      "text": "that value on line 1. Then, skip to line 3 .",
+      "rect": {
+        "left": 64.75,
+        "bottom": 590.55,
+        "right": 230.44,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 274,
+      "text": ".",
+      "rect": {
+        "left": 239.94,
+        "bottom": 590.55,
+        "right": 242.44,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 275,
+      "text": ".",
+      "rect": {
+        "left": 251.94,
+        "bottom": 590.55,
+        "right": 254.44,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 276,
+      "text": ".",
+      "rect": {
+        "left": 263.93,
+        "bottom": 590.55,
+        "right": 266.44,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 277,
+      "text": ".",
+      "rect": {
+        "left": 275.93,
+        "bottom": 590.55,
+        "right": 278.43,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 278,
+      "text": ".",
+      "rect": {
+        "left": 287.93,
+        "bottom": 590.55,
+        "right": 290.43,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 279,
+      "text": ".",
+      "rect": {
+        "left": 299.93,
+        "bottom": 590.55,
+        "right": 302.43,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 280,
+      "text": ".",
+      "rect": {
+        "left": 311.92,
+        "bottom": 590.55,
+        "right": 314.42,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 281,
+      "text": ".",
+      "rect": {
+        "left": 323.92,
+        "bottom": 590.55,
+        "right": 326.42,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 282,
+      "text": ".",
+      "rect": {
+        "left": 335.92,
+        "bottom": 590.55,
+        "right": 338.42,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 283,
+      "text": ".",
+      "rect": {
+        "left": 347.91,
+        "bottom": 590.55,
+        "right": 350.42,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 284,
+      "text": ".",
+      "rect": {
+        "left": 359.91,
+        "bottom": 590.55,
+        "right": 362.41,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 285,
+      "text": ".",
+      "rect": {
+        "left": 371.91,
+        "bottom": 590.55,
+        "right": 374.41,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 286,
+      "text": ".",
+      "rect": {
+        "left": 383.9,
+        "bottom": 590.55,
+        "right": 386.41,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 287,
+      "text": ".",
+      "rect": {
+        "left": 395.9,
+        "bottom": 590.55,
+        "right": 398.4,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 288,
+      "text": ".",
+      "rect": {
+        "left": 407.9,
+        "bottom": 590.55,
+        "right": 410.4,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 289,
+      "text": ".",
+      "rect": {
+        "left": 419.9,
+        "bottom": 590.55,
+        "right": 422.4,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 290,
+      "text": ".",
+      "rect": {
+        "left": 431.89,
+        "bottom": 590.55,
+        "right": 434.39,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 291,
+      "text": ".",
+      "rect": {
+        "left": 443.89,
+        "bottom": 590.55,
+        "right": 446.39,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 292,
+      "text": ".",
+      "rect": {
+        "left": 455.89,
+        "bottom": 590.55,
+        "right": 458.39,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 293,
+      "text": ".",
+      "rect": {
+        "left": 467.88,
+        "bottom": 590.55,
+        "right": 470.39,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 294,
+      "text": "1",
+      "rect": {
+        "left": 490.58,
+        "bottom": 590.55,
+        "right": 495.59,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 3,
+      "order": 295,
+      "text": "$",
+      "rect": {
+        "left": 505.1,
+        "bottom": 590.54,
+        "right": 510.1,
+        "top": 599.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 296,
+      "text": "2",
+      "rect": {
+        "left": 45.4,
+        "bottom": 565.34,
+        "right": 50.4,
+        "top": 574.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 297,
+      "text": "Three jobs. If you and/or your spouse have three jobs at the same time, complete lines 2a, 2b, and",
+      "rect": {
+        "left": 64.8,
+        "bottom": 565.34,
+        "right": 475.24,
+        "top": 574.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 298,
+      "text": "2c below. Otherwise, skip to line 3.",
+      "rect": {
+        "left": 64.84,
+        "bottom": 554.54,
+        "right": 205.35,
+        "top": 563.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 299,
+      "text": "a Find the amount from the appropriate table on page 5 using the annual wages from the highest",
+      "rect": {
+        "left": 64.84,
+        "bottom": 532.94,
+        "right": 475.2,
+        "top": 541.94
+      }
+    },
+    {
+      "page": 3,
+      "order": 300,
+      "text": "paying job in the \u201CHigher Paying Job\u201D row and the annual wages for your next highest paying job",
+      "rect": {
+        "left": 79.2,
+        "bottom": 522.14,
+        "right": 475.24,
+        "top": 531.14
+      }
+    },
+    {
+      "page": 3,
+      "order": 301,
+      "text": "in the \u201CLower Paying Job\u201D column. Find the value at the intersection of the two household salaries",
+      "rect": {
+        "left": 79.24,
+        "bottom": 511.34,
+        "right": 475.21,
+        "top": 520.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 302,
+      "text": "and enter that value on line 2a . . . . . . . . . . . . . . . . . . . . . . . 2a $",
+      "rect": {
+        "left": 79.21,
+        "bottom": 500.54,
+        "right": 510.1,
+        "top": 509.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 303,
+      "text": "b",
+      "rect": {
+        "left": 64.8,
+        "bottom": 472.94,
+        "right": 70.3,
+        "top": 481.94
+      }
+    },
+    {
+      "page": 3,
+      "order": 304,
+      "text": "Add the annual wages of the two highest paying jobs from line 2a together and use the total as the",
+      "rect": {
+        "left": 79.2,
+        "bottom": 472.94,
+        "right": 475.22,
+        "top": 481.94
+      }
+    },
+    {
+      "page": 3,
+      "order": 305,
+      "text": "wages in the \u201CHigher Paying Job\u201D row and use the annual wages for your third job in the \u201CLower",
+      "rect": {
+        "left": 79.23,
+        "bottom": 462.14,
+        "right": 475.17,
+        "top": 471.14
+      }
+    },
+    {
+      "page": 3,
+      "order": 306,
+      "text": "Paying Job\u201D column to find the amount from the appropriate table on page 5 and enter this amount",
+      "rect": {
+        "left": 79.17,
+        "bottom": 451.34,
+        "right": 475.15,
+        "top": 460.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 307,
+      "text": "on line 2b . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2b $",
+      "rect": {
+        "left": 79.15,
+        "bottom": 440.54,
+        "right": 510.1,
+        "top": 449.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 308,
+      "text": "c",
+      "rect": {
+        "left": 64.8,
+        "bottom": 416.54,
+        "right": 69.97,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 309,
+      "text": "Add the amounts from lines 2a and 2b and enter the result on line 2c .",
+      "rect": {
+        "left": 79.2,
+        "bottom": 416.54,
+        "right": 362.5,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 310,
+      "text": ".",
+      "rect": {
+        "left": 372,
+        "bottom": 416.54,
+        "right": 374.5,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 311,
+      "text": ".",
+      "rect": {
+        "left": 383.99,
+        "bottom": 416.54,
+        "right": 386.5,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 312,
+      "text": ".",
+      "rect": {
+        "left": 395.99,
+        "bottom": 416.54,
+        "right": 398.49,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 313,
+      "text": ".",
+      "rect": {
+        "left": 407.99,
+        "bottom": 416.54,
+        "right": 410.49,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 314,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 416.54,
+        "right": 422.49,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 315,
+      "text": ".",
+      "rect": {
+        "left": 431.98,
+        "bottom": 416.54,
+        "right": 434.48,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 316,
+      "text": ".",
+      "rect": {
+        "left": 443.98,
+        "bottom": 416.54,
+        "right": 446.48,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 317,
+      "text": ".",
+      "rect": {
+        "left": 455.98,
+        "bottom": 416.54,
+        "right": 458.48,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 318,
+      "text": ".",
+      "rect": {
+        "left": 467.97,
+        "bottom": 416.54,
+        "right": 470.48,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 319,
+      "text": "2c $",
+      "rect": {
+        "left": 488.09,
+        "bottom": 416.54,
+        "right": 510.1,
+        "top": 425.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 320,
+      "text": "3",
+      "rect": {
+        "left": 45.4,
+        "bottom": 391.34,
+        "right": 50.4,
+        "top": 400.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 321,
+      "text": "Enter the number of pay periods per year for the highest paying job. For example, if that job pays",
+      "rect": {
+        "left": 64.8,
+        "bottom": 391.34,
+        "right": 475.26,
+        "top": 400.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 322,
+      "text": "weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc.",
+      "rect": {
+        "left": 64.86,
+        "bottom": 380.54,
+        "right": 409.77,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 323,
+      "text": ".",
+      "rect": {
+        "left": 420.07,
+        "bottom": 380.54,
+        "right": 422.57,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 324,
+      "text": ".",
+      "rect": {
+        "left": 432.06,
+        "bottom": 380.54,
+        "right": 434.57,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 325,
+      "text": ".",
+      "rect": {
+        "left": 444.06,
+        "bottom": 380.54,
+        "right": 446.56,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 326,
+      "text": ".",
+      "rect": {
+        "left": 456.06,
+        "bottom": 380.54,
+        "right": 458.56,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 327,
+      "text": ".",
+      "rect": {
+        "left": 468.05,
+        "bottom": 380.54,
+        "right": 470.56,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 328,
+      "text": "3",
+      "rect": {
+        "left": 490.75,
+        "bottom": 380.54,
+        "right": 495.76,
+        "top": 389.54
+      }
+    },
+    {
+      "page": 3,
+      "order": 329,
+      "text": "4",
+      "rect": {
+        "left": 45.4,
+        "bottom": 354.14,
+        "right": 50.4,
+        "top": 363.14
+      }
+    },
+    {
+      "page": 3,
+      "order": 330,
+      "text": "Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this",
+      "rect": {
+        "left": 64.8,
+        "bottom": 354.14,
+        "right": 475.13,
+        "top": 363.14
+      }
+    },
+    {
+      "page": 3,
+      "order": 331,
+      "text": "amount here and in Step 4(c) of Form W-4 for the highest paying job (plus any other additional",
+      "rect": {
+        "left": 64.73,
+        "bottom": 343.34,
+        "right": 475.08,
+        "top": 352.34
+      }
+    },
+    {
+      "page": 3,
+      "order": 332,
+      "text": "amount you want withheld) . . . . . . . . . . . . . . . . . . . . . . . . . 4 $",
+      "rect": {
+        "left": 64.68,
+        "bottom": 332.54,
+        "right": 510.1,
+        "top": 342.05
+      }
+    },
+    {
+      "page": 4,
+      "order": 333,
+      "text": "Page 4",
+      "rect": {
+        "left": 552.42,
+        "bottom": 747.83,
+        "right": 576,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 4,
+      "order": 334,
+      "text": "Form W-4 (2026)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 88.52,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 4,
+      "order": 335,
+      "text": "Step 4(b)\u2014Deductions Worksheet (Keep for your records.)",
+      "rect": {
+        "left": 170.26,
+        "bottom": 728.74,
+        "right": 441.74,
+        "top": 738.74
+      }
+    },
+    {
+      "page": 4,
+      "order": 336,
+      "text": "See the Instructions for Schedule 1-A (Form 1040) for more information about whether you qualify for the deductions on lines 1a, 1b,",
+      "rect": {
+        "left": 36,
+        "bottom": 709.84,
+        "right": 567.62,
+        "top": 718.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 337,
+      "text": "1c, 3a, and 3b.",
+      "rect": {
+        "left": 36,
+        "bottom": 699.04,
+        "right": 96.2,
+        "top": 708.04
+      }
+    },
+    {
+      "page": 4,
+      "order": 338,
+      "text": "1",
+      "rect": {
+        "left": 45.4,
+        "bottom": 686.54,
+        "right": 50.4,
+        "top": 695.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 339,
+      "text": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 686.54,
+        "right": 426.71,
+        "top": 695.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 340,
+      "text": "a Qualified tips. If your total income is less than $150,000 ($300,000 if married filing jointly), enter",
+      "rect": {
+        "left": 64.8,
+        "bottom": 673.34,
+        "right": 475.16,
+        "top": 682.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 341,
+      "text": "an estimate of your qualified tips up to $25,000 .",
+      "rect": {
+        "left": 79.16,
+        "bottom": 662.54,
+        "right": 278.47,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 342,
+      "text": ".",
+      "rect": {
+        "left": 287.96,
+        "bottom": 662.54,
+        "right": 290.47,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 343,
+      "text": ".",
+      "rect": {
+        "left": 299.96,
+        "bottom": 662.54,
+        "right": 302.46,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 344,
+      "text": ".",
+      "rect": {
+        "left": 311.96,
+        "bottom": 662.54,
+        "right": 314.46,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 345,
+      "text": ".",
+      "rect": {
+        "left": 323.96,
+        "bottom": 662.54,
+        "right": 326.46,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 346,
+      "text": ".",
+      "rect": {
+        "left": 335.95,
+        "bottom": 662.54,
+        "right": 338.45,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 347,
+      "text": ".",
+      "rect": {
+        "left": 347.95,
+        "bottom": 662.54,
+        "right": 350.45,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 348,
+      "text": ".",
+      "rect": {
+        "left": 359.95,
+        "bottom": 662.54,
+        "right": 362.45,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 349,
+      "text": ".",
+      "rect": {
+        "left": 371.94,
+        "bottom": 662.54,
+        "right": 374.45,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 350,
+      "text": ".",
+      "rect": {
+        "left": 383.94,
+        "bottom": 662.54,
+        "right": 386.44,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 351,
+      "text": ".",
+      "rect": {
+        "left": 395.94,
+        "bottom": 662.54,
+        "right": 398.44,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 352,
+      "text": ".",
+      "rect": {
+        "left": 407.93,
+        "bottom": 662.54,
+        "right": 410.44,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 353,
+      "text": ".",
+      "rect": {
+        "left": 419.93,
+        "bottom": 662.54,
+        "right": 422.43,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 354,
+      "text": ".",
+      "rect": {
+        "left": 431.93,
+        "bottom": 662.54,
+        "right": 434.43,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 355,
+      "text": ".",
+      "rect": {
+        "left": 443.93,
+        "bottom": 662.54,
+        "right": 446.43,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 356,
+      "text": ".",
+      "rect": {
+        "left": 455.92,
+        "bottom": 662.54,
+        "right": 458.42,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 357,
+      "text": ".",
+      "rect": {
+        "left": 467.92,
+        "bottom": 662.54,
+        "right": 470.42,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 358,
+      "text": "1a $",
+      "rect": {
+        "left": 488.03,
+        "bottom": 662.54,
+        "right": 510.1,
+        "top": 671.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 359,
+      "text": "b",
+      "rect": {
+        "left": 64.8,
+        "bottom": 649.14,
+        "right": 70.3,
+        "top": 658.14
+      }
+    },
+    {
+      "page": 4,
+      "order": 360,
+      "text": "Qualified overtime compensation. If your total income is less than $150,000 ($300,000 if married",
+      "rect": {
+        "left": 79.2,
+        "bottom": 649.14,
+        "right": 475.24,
+        "top": 658.14
+      }
+    },
+    {
+      "page": 4,
+      "order": 361,
+      "text": "filing jointly), enter an estimate of your qualified overtime compensation up to $12,500 ($25,000 if",
+      "rect": {
+        "left": 79.24,
+        "bottom": 638.34,
+        "right": 475.2,
+        "top": 647.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 362,
+      "text": "married filing jointly) of the \u201Cand-a-half\u201D portion of time-and-a-half compensation .",
+      "rect": {
+        "left": 79.2,
+        "bottom": 627.54,
+        "right": 410.5,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 363,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 627.54,
+        "right": 422.5,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 364,
+      "text": ".",
+      "rect": {
+        "left": 431.99,
+        "bottom": 627.54,
+        "right": 434.49,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 365,
+      "text": ".",
+      "rect": {
+        "left": 443.99,
+        "bottom": 627.54,
+        "right": 446.49,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 366,
+      "text": ".",
+      "rect": {
+        "left": 455.99,
+        "bottom": 627.54,
+        "right": 458.49,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 367,
+      "text": ".",
+      "rect": {
+        "left": 467.98,
+        "bottom": 627.54,
+        "right": 470.48,
+        "top": 636.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 368,
+      "text": "1b $",
+      "rect": {
+        "left": 487.94,
+        "bottom": 626.54,
+        "right": 510.1,
+        "top": 635.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 369,
+      "text": "c Qualified passenger vehicle loan interest. If your total income is less than $100,000 ($200,000 if",
+      "rect": {
+        "left": 64.8,
+        "bottom": 613.84,
+        "right": 475.16,
+        "top": 622.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 370,
+      "text": "married filing jointly), enter an estimate of your qualified passenger vehicle loan interest up to $10,000",
+      "rect": {
+        "left": 79.16,
+        "bottom": 603.04,
+        "right": 475.07,
+        "top": 612.04
+      }
+    },
+    {
+      "page": 4,
+      "order": 371,
+      "text": "1c $",
+      "rect": {
+        "left": 488.08,
+        "bottom": 602.54,
+        "right": 510.1,
+        "top": 611.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 372,
+      "text": "2",
+      "rect": {
+        "left": 45.4,
+        "bottom": 590.55,
+        "right": 50.4,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 373,
+      "text": "Add lines 1a, 1b, and 1c. Enter the result here .",
+      "rect": {
+        "left": 64.8,
+        "bottom": 590.55,
+        "right": 254.5,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 374,
+      "text": ".",
+      "rect": {
+        "left": 264,
+        "bottom": 590.55,
+        "right": 266.5,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 375,
+      "text": ".",
+      "rect": {
+        "left": 275.99,
+        "bottom": 590.55,
+        "right": 278.5,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 376,
+      "text": ".",
+      "rect": {
+        "left": 287.99,
+        "bottom": 590.55,
+        "right": 290.49,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 377,
+      "text": ".",
+      "rect": {
+        "left": 299.99,
+        "bottom": 590.55,
+        "right": 302.49,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 378,
+      "text": ".",
+      "rect": {
+        "left": 311.99,
+        "bottom": 590.55,
+        "right": 314.49,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 379,
+      "text": ".",
+      "rect": {
+        "left": 323.98,
+        "bottom": 590.55,
+        "right": 326.48,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 380,
+      "text": ".",
+      "rect": {
+        "left": 335.98,
+        "bottom": 590.55,
+        "right": 338.48,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 381,
+      "text": ".",
+      "rect": {
+        "left": 347.98,
+        "bottom": 590.55,
+        "right": 350.48,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 382,
+      "text": ".",
+      "rect": {
+        "left": 359.97,
+        "bottom": 590.55,
+        "right": 362.48,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 383,
+      "text": ".",
+      "rect": {
+        "left": 371.97,
+        "bottom": 590.55,
+        "right": 374.47,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 384,
+      "text": ".",
+      "rect": {
+        "left": 383.97,
+        "bottom": 590.55,
+        "right": 386.47,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 385,
+      "text": ".",
+      "rect": {
+        "left": 395.96,
+        "bottom": 590.55,
+        "right": 398.47,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 386,
+      "text": ".",
+      "rect": {
+        "left": 407.96,
+        "bottom": 590.55,
+        "right": 410.46,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 387,
+      "text": ".",
+      "rect": {
+        "left": 419.96,
+        "bottom": 590.55,
+        "right": 422.46,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 388,
+      "text": ".",
+      "rect": {
+        "left": 431.96,
+        "bottom": 590.55,
+        "right": 434.46,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 389,
+      "text": ".",
+      "rect": {
+        "left": 443.95,
+        "bottom": 590.55,
+        "right": 446.45,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 390,
+      "text": ".",
+      "rect": {
+        "left": 455.95,
+        "bottom": 590.55,
+        "right": 458.45,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 391,
+      "text": ".",
+      "rect": {
+        "left": 467.95,
+        "bottom": 590.55,
+        "right": 470.45,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 392,
+      "text": "2",
+      "rect": {
+        "left": 490.64,
+        "bottom": 590.55,
+        "right": 495.65,
+        "top": 599.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 393,
+      "text": "$",
+      "rect": {
+        "left": 505.1,
+        "bottom": 590.54,
+        "right": 510.1,
+        "top": 599.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 394,
+      "text": "3",
+      "rect": {
+        "left": 45.4,
+        "bottom": 578.54,
+        "right": 50.4,
+        "top": 587.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 395,
+      "text": "Seniors age 65 or older. If your total income is less than $75,000 ($150,000 if married filing jointly):",
+      "rect": {
+        "left": 64.8,
+        "bottom": 578.54,
+        "right": 463.89,
+        "top": 587.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 396,
+      "text": "a",
+      "rect": {
+        "left": 64.8,
+        "bottom": 566.54,
+        "right": 69.97,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 397,
+      "text": "Enter $6,000 if you are age 65 or older before the end of the year",
+      "rect": {
+        "left": 79.2,
+        "bottom": 566.54,
+        "right": 339.59,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 398,
+      "text": ".",
+      "rect": {
+        "left": 348,
+        "bottom": 566.54,
+        "right": 350.51,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 399,
+      "text": ".",
+      "rect": {
+        "left": 360,
+        "bottom": 566.54,
+        "right": 362.5,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 400,
+      "text": ".",
+      "rect": {
+        "left": 372,
+        "bottom": 566.54,
+        "right": 374.5,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 401,
+      "text": ".",
+      "rect": {
+        "left": 383.99,
+        "bottom": 566.54,
+        "right": 386.5,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 402,
+      "text": ".",
+      "rect": {
+        "left": 395.99,
+        "bottom": 566.54,
+        "right": 398.49,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 403,
+      "text": ".",
+      "rect": {
+        "left": 407.99,
+        "bottom": 566.54,
+        "right": 410.49,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 404,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 566.54,
+        "right": 422.49,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 405,
+      "text": ".",
+      "rect": {
+        "left": 431.98,
+        "bottom": 566.54,
+        "right": 434.48,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 406,
+      "text": ".",
+      "rect": {
+        "left": 443.98,
+        "bottom": 566.54,
+        "right": 446.48,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 407,
+      "text": ".",
+      "rect": {
+        "left": 455.98,
+        "bottom": 566.54,
+        "right": 458.48,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 408,
+      "text": ".",
+      "rect": {
+        "left": 467.97,
+        "bottom": 566.54,
+        "right": 470.48,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 409,
+      "text": "3a $",
+      "rect": {
+        "left": 488.09,
+        "bottom": 566.54,
+        "right": 510.1,
+        "top": 575.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 410,
+      "text": "b",
+      "rect": {
+        "left": 64.8,
+        "bottom": 553.84,
+        "right": 70.3,
+        "top": 562.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 411,
+      "text": "Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security",
+      "rect": {
+        "left": 79.2,
+        "bottom": 553.84,
+        "right": 475.16,
+        "top": 562.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 412,
+      "text": "number valid for employment . . . . . . . . . . . . . . . . . . . . . . . 3b $",
+      "rect": {
+        "left": 79.16,
+        "bottom": 542.54,
+        "right": 510.1,
+        "top": 552.04
+      }
+    },
+    {
+      "page": 4,
+      "order": 413,
+      "text": "4",
+      "rect": {
+        "left": 45.4,
+        "bottom": 530.55,
+        "right": 50.4,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 414,
+      "text": "Add lines 3a and 3b. Enter the result here",
+      "rect": {
+        "left": 64.8,
+        "bottom": 530.55,
+        "right": 231.18,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 415,
+      "text": ".",
+      "rect": {
+        "left": 240,
+        "bottom": 530.55,
+        "right": 242.5,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 416,
+      "text": ".",
+      "rect": {
+        "left": 252,
+        "bottom": 530.55,
+        "right": 254.5,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 417,
+      "text": ".",
+      "rect": {
+        "left": 264,
+        "bottom": 530.55,
+        "right": 266.5,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 418,
+      "text": ".",
+      "rect": {
+        "left": 275.99,
+        "bottom": 530.55,
+        "right": 278.5,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 419,
+      "text": ".",
+      "rect": {
+        "left": 287.99,
+        "bottom": 530.55,
+        "right": 290.49,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 420,
+      "text": ".",
+      "rect": {
+        "left": 299.99,
+        "bottom": 530.55,
+        "right": 302.49,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 421,
+      "text": ".",
+      "rect": {
+        "left": 311.99,
+        "bottom": 530.55,
+        "right": 314.49,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 422,
+      "text": ".",
+      "rect": {
+        "left": 323.98,
+        "bottom": 530.55,
+        "right": 326.48,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 423,
+      "text": ".",
+      "rect": {
+        "left": 335.98,
+        "bottom": 530.55,
+        "right": 338.48,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 424,
+      "text": ".",
+      "rect": {
+        "left": 347.98,
+        "bottom": 530.55,
+        "right": 350.48,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 425,
+      "text": ".",
+      "rect": {
+        "left": 359.97,
+        "bottom": 530.55,
+        "right": 362.48,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 426,
+      "text": ".",
+      "rect": {
+        "left": 371.97,
+        "bottom": 530.55,
+        "right": 374.47,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 427,
+      "text": ".",
+      "rect": {
+        "left": 383.97,
+        "bottom": 530.55,
+        "right": 386.47,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 428,
+      "text": ".",
+      "rect": {
+        "left": 395.96,
+        "bottom": 530.55,
+        "right": 398.47,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 429,
+      "text": ".",
+      "rect": {
+        "left": 407.96,
+        "bottom": 530.55,
+        "right": 410.46,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 430,
+      "text": ".",
+      "rect": {
+        "left": 419.96,
+        "bottom": 530.55,
+        "right": 422.46,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 431,
+      "text": ".",
+      "rect": {
+        "left": 431.96,
+        "bottom": 530.55,
+        "right": 434.46,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 432,
+      "text": ".",
+      "rect": {
+        "left": 443.95,
+        "bottom": 530.55,
+        "right": 446.45,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 433,
+      "text": ".",
+      "rect": {
+        "left": 455.95,
+        "bottom": 530.55,
+        "right": 458.45,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 434,
+      "text": ".",
+      "rect": {
+        "left": 467.95,
+        "bottom": 530.55,
+        "right": 470.45,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 435,
+      "text": "4",
+      "rect": {
+        "left": 490.64,
+        "bottom": 530.55,
+        "right": 495.65,
+        "top": 539.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 436,
+      "text": "$",
+      "rect": {
+        "left": 505.1,
+        "bottom": 530.54,
+        "right": 510.1,
+        "top": 539.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 437,
+      "text": "5",
+      "rect": {
+        "left": 45.4,
+        "bottom": 517.14,
+        "right": 50.4,
+        "top": 526.14
+      }
+    },
+    {
+      "page": 4,
+      "order": 438,
+      "text": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses,",
+      "rect": {
+        "left": 64.8,
+        "bottom": 517.14,
+        "right": 475.22,
+        "top": 526.14
+      }
+    },
+    {
+      "page": 4,
+      "order": 439,
+      "text": "alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for",
+      "rect": {
+        "left": 64.82,
+        "bottom": 506.34,
+        "right": 475.16,
+        "top": 515.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 440,
+      "text": "more information . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 $",
+      "rect": {
+        "left": 64.76,
+        "bottom": 494.54,
+        "right": 510.1,
+        "top": 504.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 441,
+      "text": "6",
+      "rect": {
+        "left": 45.4,
+        "bottom": 481.84,
+        "right": 50.4,
+        "top": 490.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 442,
+      "text": "Itemized deductions. Enter an estimate of your 2026 itemized deductions from Schedule A (Form",
+      "rect": {
+        "left": 64.8,
+        "bottom": 481.84,
+        "right": 475.23,
+        "top": 490.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 443,
+      "text": "1040). Such deductions may include qualifying:",
+      "rect": {
+        "left": 64.83,
+        "bottom": 471.04,
+        "right": 254.73,
+        "top": 480.04
+      }
+    },
+    {
+      "page": 4,
+      "order": 444,
+      "text": "a",
+      "rect": {
+        "left": 64.83,
+        "bottom": 458.54,
+        "right": 69.99,
+        "top": 467.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 445,
+      "text": "Medical and dental expenses. Enter expenses in excess of 7.5% (0.075) of your total income",
+      "rect": {
+        "left": 79.23,
+        "bottom": 458.54,
+        "right": 458.08,
+        "top": 467.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 446,
+      "text": ".",
+      "rect": {
+        "left": 468.03,
+        "bottom": 458.54,
+        "right": 470.53,
+        "top": 467.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 447,
+      "text": "6a $",
+      "rect": {
+        "left": 488.14,
+        "bottom": 458.54,
+        "right": 510.1,
+        "top": 467.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 448,
+      "text": "b State and local taxes. If your total income is less than $505,000 ($252,500 if married filing",
+      "rect": {
+        "left": 64.8,
+        "bottom": 445.34,
+        "right": 475.18,
+        "top": 454.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 449,
+      "text": "separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+      "rect": {
+        "left": 79.18,
+        "bottom": 434.54,
+        "right": 457.77,
+        "top": 443.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 450,
+      "text": ".",
+      "rect": {
+        "left": 467.98,
+        "bottom": 434.54,
+        "right": 470.48,
+        "top": 443.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 451,
+      "text": "6b $",
+      "rect": {
+        "left": 487.94,
+        "bottom": 434.54,
+        "right": 510.1,
+        "top": 443.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 452,
+      "text": "c Home mortgage interest. If your home acquisition debt is less than $750,000 ($375,000 if",
+      "rect": {
+        "left": 64.8,
+        "bottom": 421.14,
+        "right": 475.22,
+        "top": 430.14
+      }
+    },
+    {
+      "page": 4,
+      "order": 453,
+      "text": "married filing separately), enter your home mortgage interest expense (including mortgage",
+      "rect": {
+        "left": 79.22,
+        "bottom": 410.34,
+        "right": 475.25,
+        "top": 419.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 454,
+      "text": "insurance premiums) . . . . . . . . . . . . . . . . . . . . . . . . . . 6c $",
+      "rect": {
+        "left": 79.25,
+        "bottom": 398.54,
+        "right": 510.1,
+        "top": 408.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 455,
+      "text": "d",
+      "rect": {
+        "left": 64.8,
+        "bottom": 386.54,
+        "right": 70.3,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 456,
+      "text": "Gifts to charities. Enter contributions in excess of 0.5% (0.005) of your total income",
+      "rect": {
+        "left": 79.2,
+        "bottom": 386.54,
+        "right": 418.23,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 457,
+      "text": ".",
+      "rect": {
+        "left": 432,
+        "bottom": 386.54,
+        "right": 434.5,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 458,
+      "text": ".",
+      "rect": {
+        "left": 444,
+        "bottom": 386.54,
+        "right": 446.5,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 459,
+      "text": ".",
+      "rect": {
+        "left": 455.99,
+        "bottom": 386.54,
+        "right": 458.5,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 460,
+      "text": ".",
+      "rect": {
+        "left": 467.99,
+        "bottom": 386.54,
+        "right": 470.49,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 461,
+      "text": "6d $",
+      "rect": {
+        "left": 487.94,
+        "bottom": 386.54,
+        "right": 510.1,
+        "top": 395.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 462,
+      "text": "e",
+      "rect": {
+        "left": 64.8,
+        "bottom": 374.55,
+        "right": 69.97,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 463,
+      "text": "Other itemized deductions. Enter the amount for other itemized deductions",
+      "rect": {
+        "left": 79.2,
+        "bottom": 374.55,
+        "right": 387.39,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 464,
+      "text": ".",
+      "rect": {
+        "left": 396,
+        "bottom": 374.55,
+        "right": 398.5,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 465,
+      "text": ".",
+      "rect": {
+        "left": 408,
+        "bottom": 374.55,
+        "right": 410.5,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 466,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 374.55,
+        "right": 422.5,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 467,
+      "text": ".",
+      "rect": {
+        "left": 431.99,
+        "bottom": 374.55,
+        "right": 434.49,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 468,
+      "text": ".",
+      "rect": {
+        "left": 443.99,
+        "bottom": 374.55,
+        "right": 446.49,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 469,
+      "text": ".",
+      "rect": {
+        "left": 455.99,
+        "bottom": 374.55,
+        "right": 458.49,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 470,
+      "text": ".",
+      "rect": {
+        "left": 467.98,
+        "bottom": 374.55,
+        "right": 470.48,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 471,
+      "text": "6e $",
+      "rect": {
+        "left": 488.1,
+        "bottom": 374.54,
+        "right": 510.1,
+        "top": 383.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 472,
+      "text": "7",
+      "rect": {
+        "left": 45.4,
+        "bottom": 362.54,
+        "right": 50.4,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 473,
+      "text": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+      "rect": {
+        "left": 64.8,
+        "bottom": 362.54,
+        "right": 278.71,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 474,
+      "text": ".",
+      "rect": {
+        "left": 288,
+        "bottom": 362.54,
+        "right": 290.5,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 475,
+      "text": ".",
+      "rect": {
+        "left": 300,
+        "bottom": 362.54,
+        "right": 302.5,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 476,
+      "text": ".",
+      "rect": {
+        "left": 311.99,
+        "bottom": 362.54,
+        "right": 314.5,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 477,
+      "text": ".",
+      "rect": {
+        "left": 323.99,
+        "bottom": 362.54,
+        "right": 326.49,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 478,
+      "text": ".",
+      "rect": {
+        "left": 335.99,
+        "bottom": 362.54,
+        "right": 338.49,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 479,
+      "text": ".",
+      "rect": {
+        "left": 347.99,
+        "bottom": 362.54,
+        "right": 350.49,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 480,
+      "text": ".",
+      "rect": {
+        "left": 359.98,
+        "bottom": 362.54,
+        "right": 362.48,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 481,
+      "text": ".",
+      "rect": {
+        "left": 371.98,
+        "bottom": 362.54,
+        "right": 374.48,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 482,
+      "text": ".",
+      "rect": {
+        "left": 383.98,
+        "bottom": 362.54,
+        "right": 386.48,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 483,
+      "text": ".",
+      "rect": {
+        "left": 395.97,
+        "bottom": 362.54,
+        "right": 398.48,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 484,
+      "text": ".",
+      "rect": {
+        "left": 407.97,
+        "bottom": 362.54,
+        "right": 410.47,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 485,
+      "text": ".",
+      "rect": {
+        "left": 419.97,
+        "bottom": 362.54,
+        "right": 422.47,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 486,
+      "text": ".",
+      "rect": {
+        "left": 431.96,
+        "bottom": 362.54,
+        "right": 434.47,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 487,
+      "text": ".",
+      "rect": {
+        "left": 443.96,
+        "bottom": 362.54,
+        "right": 446.46,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 488,
+      "text": ".",
+      "rect": {
+        "left": 455.96,
+        "bottom": 362.54,
+        "right": 458.46,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 489,
+      "text": ".",
+      "rect": {
+        "left": 467.96,
+        "bottom": 362.54,
+        "right": 470.46,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 490,
+      "text": "7",
+      "rect": {
+        "left": 490.65,
+        "bottom": 362.54,
+        "right": 495.66,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 491,
+      "text": "$",
+      "rect": {
+        "left": 505.1,
+        "bottom": 362.54,
+        "right": 510.1,
+        "top": 371.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 492,
+      "text": "8",
+      "rect": {
+        "left": 45.4,
+        "bottom": 350.54,
+        "right": 50.4,
+        "top": 359.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 493,
+      "text": "Limitation on itemized deductions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 350.54,
+        "right": 212.73,
+        "top": 359.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 494,
+      "text": "a Enter your total income . . . . . . . . . . . . . . . . . . . . . . . . . 8a $",
+      "rect": {
+        "left": 64.8,
+        "bottom": 338.54,
+        "right": 510.1,
+        "top": 347.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 495,
+      "text": "b",
+      "rect": {
+        "left": 64.8,
+        "bottom": 326.54,
+        "right": 70.3,
+        "top": 335.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 496,
+      "text": "Subtract line 4 from line 8a. If line 4 is greater than line 8a, enter -0- here and on line 10. Skip line 9",
+      "rect": {
+        "left": 79.2,
+        "bottom": 326.54,
+        "right": 475.02,
+        "top": 335.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 497,
+      "text": "8b $",
+      "rect": {
+        "left": 487.95,
+        "bottom": 326.54,
+        "right": 510.1,
+        "top": 335.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 498,
+      "text": "{",
+      "rect": {
+        "left": 97.06,
+        "bottom": 296.11,
+        "right": 104.54,
+        "top": 332.51
+      }
+    },
+    {
+      "page": 4,
+      "order": 499,
+      "text": "}",
+      "rect": {
+        "left": 406.66,
+        "bottom": 296.11,
+        "right": 414.14,
+        "top": 332.51
+      }
+    },
+    {
+      "page": 4,
+      "order": 500,
+      "text": "\u2022 $768,700 if you\u2019re married filing jointly or a qualifying surviving spouse",
+      "rect": {
+        "left": 108,
+        "bottom": 314.54,
+        "right": 396.72,
+        "top": 323.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 501,
+      "text": "9",
+      "rect": {
+        "left": 45.4,
+        "bottom": 302.55,
+        "right": 50.4,
+        "top": 311.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 502,
+      "text": "Enter:",
+      "rect": {
+        "left": 64.8,
+        "bottom": 302.55,
+        "right": 88.47,
+        "top": 311.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 503,
+      "text": "\u2022 $640,600 if you\u2019re single or head of household",
+      "rect": {
+        "left": 108,
+        "bottom": 302.55,
+        "right": 301.22,
+        "top": 311.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 504,
+      "text": ".",
+      "rect": {
+        "left": 420,
+        "bottom": 302.54,
+        "right": 422.5,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 505,
+      "text": ".",
+      "rect": {
+        "left": 432,
+        "bottom": 302.54,
+        "right": 434.5,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 506,
+      "text": ".",
+      "rect": {
+        "left": 443.99,
+        "bottom": 302.54,
+        "right": 446.5,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 507,
+      "text": ".",
+      "rect": {
+        "left": 455.99,
+        "bottom": 302.54,
+        "right": 458.49,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 508,
+      "text": ".",
+      "rect": {
+        "left": 467.99,
+        "bottom": 302.54,
+        "right": 470.49,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 509,
+      "text": "9",
+      "rect": {
+        "left": 490.69,
+        "bottom": 302.54,
+        "right": 495.69,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 510,
+      "text": "$",
+      "rect": {
+        "left": 505.1,
+        "bottom": 302.54,
+        "right": 510.1,
+        "top": 311.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 511,
+      "text": "\u2022 $384,350 if you\u2019re married filing separately",
+      "rect": {
+        "left": 108,
+        "bottom": 290.54,
+        "right": 285.71,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 512,
+      "text": "10",
+      "rect": {
+        "left": 40.39,
+        "bottom": 277.84,
+        "right": 50.4,
+        "top": 286.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 513,
+      "text": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94)",
+      "rect": {
+        "left": 64.8,
+        "bottom": 277.84,
+        "right": 475.26,
+        "top": 286.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 514,
+      "text": "and enter the result here . . . . . . . . . . . . . . . . . . . . . . . . . . 10 $",
+      "rect": {
+        "left": 64.86,
+        "bottom": 266.54,
+        "right": 510.1,
+        "top": 276.04
+      }
+    },
+    {
+      "page": 4,
+      "order": 515,
+      "text": "11",
+      "rect": {
+        "left": 40.39,
+        "bottom": 254.54,
+        "right": 50.4,
+        "top": 263.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 516,
+      "text": "Standard deduction.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 254.54,
+        "right": 151.97,
+        "top": 263.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 517,
+      "text": "{",
+      "rect": {
+        "left": 97.06,
+        "bottom": 224.11,
+        "right": 104.54,
+        "top": 260.51
+      }
+    },
+    {
+      "page": 4,
+      "order": 518,
+      "text": "}",
+      "rect": {
+        "left": 399.46,
+        "bottom": 224.11,
+        "right": 406.94,
+        "top": 260.51
+      }
+    },
+    {
+      "page": 4,
+      "order": 519,
+      "text": "\u2022 $32,200 if you\u2019re married filing jointly or a qualifying surviving spouse",
+      "rect": {
+        "left": 108,
+        "bottom": 242.54,
+        "right": 391.72,
+        "top": 251.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 520,
+      "text": "\u2022 $24,150 if you\u2019re head of household",
+      "rect": {
+        "left": 108,
+        "bottom": 230.55,
+        "right": 259.55,
+        "top": 239.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 521,
+      "text": "Enter:",
+      "rect": {
+        "left": 64.8,
+        "bottom": 230.54,
+        "right": 88.47,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 522,
+      "text": ".",
+      "rect": {
+        "left": 420,
+        "bottom": 230.54,
+        "right": 422.5,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 523,
+      "text": ".",
+      "rect": {
+        "left": 432,
+        "bottom": 230.54,
+        "right": 434.5,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 524,
+      "text": ".",
+      "rect": {
+        "left": 443.99,
+        "bottom": 230.54,
+        "right": 446.5,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 525,
+      "text": ".",
+      "rect": {
+        "left": 455.99,
+        "bottom": 230.54,
+        "right": 458.49,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 526,
+      "text": ".",
+      "rect": {
+        "left": 467.99,
+        "bottom": 230.54,
+        "right": 470.49,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 527,
+      "text": "11 $",
+      "rect": {
+        "left": 488.18,
+        "bottom": 230.54,
+        "right": 510.1,
+        "top": 239.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 528,
+      "text": "\u2022 $16,100 if you\u2019re single or married filing separately",
+      "rect": {
+        "left": 108,
+        "bottom": 218.54,
+        "right": 317.37,
+        "top": 227.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 529,
+      "text": "12",
+      "rect": {
+        "left": 40.39,
+        "bottom": 206.34,
+        "right": 50.4,
+        "top": 215.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 530,
+      "text": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000",
+      "rect": {
+        "left": 64.8,
+        "bottom": 206.34,
+        "right": 475.24,
+        "top": 215.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 531,
+      "text": "($2,000 if married filing jointly) . . . . . . . . . . . . . . . . . . . . . . . . 12 $",
+      "rect": {
+        "left": 64.84,
+        "bottom": 194.54,
+        "right": 510.1,
+        "top": 204.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 532,
+      "text": "13",
+      "rect": {
+        "left": 40.39,
+        "bottom": 182.54,
+        "right": 50.4,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 533,
+      "text": "Add lines 11 and 12. Enter the result here",
+      "rect": {
+        "left": 64.8,
+        "bottom": 182.54,
+        "right": 231.02,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 534,
+      "text": ".",
+      "rect": {
+        "left": 240,
+        "bottom": 182.54,
+        "right": 242.5,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 535,
+      "text": ".",
+      "rect": {
+        "left": 252,
+        "bottom": 182.54,
+        "right": 254.5,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 536,
+      "text": ".",
+      "rect": {
+        "left": 264,
+        "bottom": 182.54,
+        "right": 266.5,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 537,
+      "text": ".",
+      "rect": {
+        "left": 275.99,
+        "bottom": 182.54,
+        "right": 278.5,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 538,
+      "text": ".",
+      "rect": {
+        "left": 287.99,
+        "bottom": 182.54,
+        "right": 290.49,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 539,
+      "text": ".",
+      "rect": {
+        "left": 299.99,
+        "bottom": 182.54,
+        "right": 302.49,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 540,
+      "text": ".",
+      "rect": {
+        "left": 311.99,
+        "bottom": 182.54,
+        "right": 314.49,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 541,
+      "text": ".",
+      "rect": {
+        "left": 323.98,
+        "bottom": 182.54,
+        "right": 326.48,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 542,
+      "text": ".",
+      "rect": {
+        "left": 335.98,
+        "bottom": 182.54,
+        "right": 338.48,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 543,
+      "text": ".",
+      "rect": {
+        "left": 347.98,
+        "bottom": 182.54,
+        "right": 350.48,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 544,
+      "text": ".",
+      "rect": {
+        "left": 359.97,
+        "bottom": 182.54,
+        "right": 362.48,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 545,
+      "text": ".",
+      "rect": {
+        "left": 371.97,
+        "bottom": 182.54,
+        "right": 374.47,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 546,
+      "text": ".",
+      "rect": {
+        "left": 383.97,
+        "bottom": 182.54,
+        "right": 386.47,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 547,
+      "text": ".",
+      "rect": {
+        "left": 395.96,
+        "bottom": 182.54,
+        "right": 398.47,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 548,
+      "text": ".",
+      "rect": {
+        "left": 407.96,
+        "bottom": 182.54,
+        "right": 410.46,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 549,
+      "text": ".",
+      "rect": {
+        "left": 419.96,
+        "bottom": 182.54,
+        "right": 422.46,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 550,
+      "text": ".",
+      "rect": {
+        "left": 431.96,
+        "bottom": 182.54,
+        "right": 434.46,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 551,
+      "text": ".",
+      "rect": {
+        "left": 443.95,
+        "bottom": 182.54,
+        "right": 446.45,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 552,
+      "text": ".",
+      "rect": {
+        "left": 455.95,
+        "bottom": 182.54,
+        "right": 458.45,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 553,
+      "text": ".",
+      "rect": {
+        "left": 467.95,
+        "bottom": 182.54,
+        "right": 470.45,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 554,
+      "text": "13 $",
+      "rect": {
+        "left": 488.14,
+        "bottom": 182.54,
+        "right": 510.1,
+        "top": 191.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 555,
+      "text": "14",
+      "rect": {
+        "left": 40.39,
+        "bottom": 170.34,
+        "right": 50.4,
+        "top": 179.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 556,
+      "text": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is",
+      "rect": {
+        "left": 64.8,
+        "bottom": 170.34,
+        "right": 475.25,
+        "top": 179.34
+      }
+    },
+    {
+      "page": 4,
+      "order": 557,
+      "text": "greater than line 10, enter the amount from line 12",
+      "rect": {
+        "left": 64.85,
+        "bottom": 159.54,
+        "right": 265.91,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 558,
+      "text": ".",
+      "rect": {
+        "left": 276.05,
+        "bottom": 159.54,
+        "right": 278.55,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 559,
+      "text": ".",
+      "rect": {
+        "left": 288.05,
+        "bottom": 159.54,
+        "right": 290.55,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 560,
+      "text": ".",
+      "rect": {
+        "left": 300.04,
+        "bottom": 159.54,
+        "right": 302.54,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 561,
+      "text": ".",
+      "rect": {
+        "left": 312.04,
+        "bottom": 159.54,
+        "right": 314.54,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 562,
+      "text": ".",
+      "rect": {
+        "left": 324.04,
+        "bottom": 159.54,
+        "right": 326.54,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 563,
+      "text": ".",
+      "rect": {
+        "left": 336.03,
+        "bottom": 159.54,
+        "right": 338.54,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 564,
+      "text": ".",
+      "rect": {
+        "left": 348.03,
+        "bottom": 159.54,
+        "right": 350.53,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 565,
+      "text": ".",
+      "rect": {
+        "left": 360.03,
+        "bottom": 159.54,
+        "right": 362.53,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 566,
+      "text": ".",
+      "rect": {
+        "left": 372.02,
+        "bottom": 159.54,
+        "right": 374.53,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 567,
+      "text": ".",
+      "rect": {
+        "left": 384.02,
+        "bottom": 159.54,
+        "right": 386.52,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 568,
+      "text": ".",
+      "rect": {
+        "left": 396.02,
+        "bottom": 159.54,
+        "right": 398.52,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 569,
+      "text": ".",
+      "rect": {
+        "left": 408.02,
+        "bottom": 159.54,
+        "right": 410.52,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 570,
+      "text": ".",
+      "rect": {
+        "left": 420.01,
+        "bottom": 159.54,
+        "right": 422.51,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 571,
+      "text": ".",
+      "rect": {
+        "left": 432.01,
+        "bottom": 159.54,
+        "right": 434.51,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 572,
+      "text": ".",
+      "rect": {
+        "left": 444.01,
+        "bottom": 159.54,
+        "right": 446.51,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 573,
+      "text": ".",
+      "rect": {
+        "left": 456,
+        "bottom": 159.54,
+        "right": 458.51,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 574,
+      "text": ".",
+      "rect": {
+        "left": 468,
+        "bottom": 159.54,
+        "right": 470.5,
+        "top": 168.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 575,
+      "text": "14 $",
+      "rect": {
+        "left": 488.2,
+        "bottom": 158.54,
+        "right": 510.1,
+        "top": 167.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 576,
+      "text": "15",
+      "rect": {
+        "left": 40.39,
+        "bottom": 146.54,
+        "right": 50.4,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 577,
+      "text": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4 .",
+      "rect": {
+        "left": 64.8,
+        "bottom": 146.54,
+        "right": 374.5,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 578,
+      "text": ".",
+      "rect": {
+        "left": 383.99,
+        "bottom": 146.54,
+        "right": 386.5,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 579,
+      "text": ".",
+      "rect": {
+        "left": 395.99,
+        "bottom": 146.54,
+        "right": 398.49,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 580,
+      "text": ".",
+      "rect": {
+        "left": 407.99,
+        "bottom": 146.54,
+        "right": 410.49,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 581,
+      "text": ".",
+      "rect": {
+        "left": 419.99,
+        "bottom": 146.54,
+        "right": 422.49,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 582,
+      "text": ".",
+      "rect": {
+        "left": 431.98,
+        "bottom": 146.54,
+        "right": 434.48,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 583,
+      "text": ".",
+      "rect": {
+        "left": 443.98,
+        "bottom": 146.54,
+        "right": 446.48,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 584,
+      "text": ".",
+      "rect": {
+        "left": 455.98,
+        "bottom": 146.54,
+        "right": 458.48,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 585,
+      "text": ".",
+      "rect": {
+        "left": 467.97,
+        "bottom": 146.54,
+        "right": 470.48,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 586,
+      "text": "15 $",
+      "rect": {
+        "left": 488.17,
+        "bottom": 146.54,
+        "right": 510.1,
+        "top": 155.54
+      }
+    },
+    {
+      "page": 4,
+      "order": 587,
+      "text": "Privacy Act and Paperwork Reduction Act Notice. We ask for the information on",
+      "rect": {
+        "left": 36,
+        "bottom": 127.97,
+        "right": 287.41,
+        "top": 134.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 588,
+      "text": "You are not required to provide the information requested on a form that is",
+      "rect": {
+        "left": 323.8,
+        "bottom": 127.97,
+        "right": 556.93,
+        "top": 134.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 589,
+      "text": "this form to carry out the Internal Revenue laws of the United States. Internal Revenue",
+      "rect": {
+        "left": 35.99,
+        "bottom": 120.22,
+        "right": 295.12,
+        "top": 127.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 590,
+      "text": "subject to the Paperwork Reduction Act unless the form displays a valid OMB",
+      "rect": {
+        "left": 316.8,
+        "bottom": 120.22,
+        "right": 559.9,
+        "top": 127.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 591,
+      "text": "Code sections 3402(f)(2) and 6109 and their regulations require you to provide this",
+      "rect": {
+        "left": 35.97,
+        "bottom": 112.47,
+        "right": 283.88,
+        "top": 119.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 592,
+      "text": "control number. Books or records relating to a form or its instructions must be",
+      "rect": {
+        "left": 316.8,
+        "bottom": 112.47,
+        "right": 560.81,
+        "top": 119.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 593,
+      "text": "information; your employer uses it to determine your federal income tax withholding.",
+      "rect": {
+        "left": 35.96,
+        "bottom": 104.72,
+        "right": 290.07,
+        "top": 111.72
+      }
+    },
+    {
+      "page": 4,
+      "order": 594,
+      "text": "retained as long as their contents may become material in the administration of",
+      "rect": {
+        "left": 316.8,
+        "bottom": 104.72,
+        "right": 563.81,
+        "top": 111.72
+      }
+    },
+    {
+      "page": 4,
+      "order": 595,
+      "text": "Failure to provide a properly completed form will result in your being treated as a",
+      "rect": {
+        "left": 35.94,
+        "bottom": 96.97,
+        "right": 279.27,
+        "top": 103.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 596,
+      "text": "any Internal Revenue law. Generally, tax returns and return information are",
+      "rect": {
+        "left": 316.8,
+        "bottom": 96.97,
+        "right": 548.73,
+        "top": 103.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 597,
+      "text": "single person with no other entries on the form; providing fraudulent information may",
+      "rect": {
+        "left": 36,
+        "bottom": 89.22,
+        "right": 291.58,
+        "top": 96.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 598,
+      "text": "confidential, as required by Code section 6103.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 89.22,
+        "right": 464.61,
+        "top": 96.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 599,
+      "text": "subject you to penalties. Routine uses of this information include giving it to the",
+      "rect": {
+        "left": 35.98,
+        "bottom": 81.47,
+        "right": 275.29,
+        "top": 88.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 600,
+      "text": "The average time and expenses required to complete and file this form will vary",
+      "rect": {
+        "left": 323.8,
+        "bottom": 77.47,
+        "right": 571.56,
+        "top": 84.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 601,
+      "text": "Department of Justice for civil and criminal litigation; to cities, states, the District of",
+      "rect": {
+        "left": 35.97,
+        "bottom": 73.72,
+        "right": 285.3,
+        "top": 80.72
+      }
+    },
+    {
+      "page": 4,
+      "order": 602,
+      "text": "depending on individual circumstances. For estimated averages, see the",
+      "rect": {
+        "left": 316.8,
+        "bottom": 69.72,
+        "right": 543.19,
+        "top": 76.72
+      }
+    },
+    {
+      "page": 4,
+      "order": 603,
+      "text": "Columbia, and U.S. commonwealths and territories for use in administering their tax",
+      "rect": {
+        "left": 35.96,
+        "bottom": 65.97,
+        "right": 289.12,
+        "top": 72.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 604,
+      "text": "instructions for your income tax return.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 61.97,
+        "right": 437.89,
+        "top": 68.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 605,
+      "text": "laws; and to the Department of Health and Human Services for use in the National",
+      "rect": {
+        "left": 35.94,
+        "bottom": 58.22,
+        "right": 283.62,
+        "top": 65.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 606,
+      "text": "Directory of New Hires. We may also disclose this information to other countries",
+      "rect": {
+        "left": 35.99,
+        "bottom": 50.47,
+        "right": 277.41,
+        "top": 57.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 607,
+      "text": "If you have suggestions for making this form simpler, we would be happy to hear",
+      "rect": {
+        "left": 323.8,
+        "bottom": 50.22,
+        "right": 575.98,
+        "top": 57.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 608,
+      "text": "under a tax treaty, to federal and state agencies to enforce federal nontax criminal",
+      "rect": {
+        "left": 35.98,
+        "bottom": 42.72,
+        "right": 283.27,
+        "top": 49.72
+      }
+    },
+    {
+      "page": 4,
+      "order": 609,
+      "text": "from you. See the instructions for your income tax return.",
+      "rect": {
+        "left": 316.8,
+        "bottom": 42.47,
+        "right": 495.34,
+        "top": 49.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 610,
+      "text": "laws, or to federal law enforcement and intelligence agencies to combat terrorism.",
+      "rect": {
+        "left": 35.97,
+        "bottom": 34.97,
+        "right": 283.78,
+        "top": 41.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 611,
+      "text": "Page 5",
+      "rect": {
+        "left": 552.42,
+        "bottom": 747.83,
+        "right": 576,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 5,
+      "order": 612,
+      "text": "Form W-4 (2026)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 88.52,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 613,
+      "text": "Married Filing Jointly or Qualifying Surviving Spouse",
+      "rect": {
+        "left": 169.44,
+        "bottom": 728.52,
+        "right": 442.56,
+        "top": 739.52
+      }
+    },
+    {
+      "page": 5,
+      "order": 614,
+      "text": "Lower Paying Job Annual Taxable Wage \u0026 Salary",
+      "rect": {
+        "left": 242.92,
+        "bottom": 708.08,
+        "right": 441.08,
+        "top": 716.58
+      }
+    },
+    {
+      "page": 5,
+      "order": 615,
+      "text": "Higher Paying Job",
+      "rect": {
+        "left": 36,
+        "bottom": 706.35,
+        "right": 106.43,
+        "top": 714.85
+      }
+    },
+    {
+      "page": 5,
+      "order": 616,
+      "text": "Annual Taxable",
+      "rect": {
+        "left": 41.47,
+        "bottom": 696.15,
+        "right": 100.53,
+        "top": 704.65
+      }
+    },
+    {
+      "page": 5,
+      "order": 617,
+      "text": "$0 -",
+      "rect": {
+        "left": 120.38,
+        "bottom": 691.26,
+        "right": 134.62,
+        "top": 699.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 618,
+      "text": "$10,000 - $20,000 - $30,000 - $40,000 - $50,000 - $60,000 - $70,000 - $80,000 - $90,000 - $100,000 - $110,000 -",
+      "rect": {
+        "left": 149.38,
+        "bottom": 691.26,
+        "right": 574.95,
+        "top": 699.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 619,
+      "text": "Wage \u0026 Salary",
+      "rect": {
+        "left": 43.11,
+        "bottom": 685.95,
+        "right": 98.89,
+        "top": 694.45
+      }
+    },
+    {
+      "page": 5,
+      "order": 620,
+      "text": "9,999 19,999 29,999 39,999 49,999 59,999 69,999 79,999 89,999 99,999 109,999 120,000",
+      "rect": {
+        "left": 117.49,
+        "bottom": 682.26,
+        "right": 570.71,
+        "top": 690.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 621,
+      "text": "$0 - 9,999 $0 $0 $480 $850 $850 $1,020 $1,020 $1,020 $1,020 $1,020 $1,020 $1,020",
+      "rect": {
+        "left": 60.62,
+        "bottom": 668.76,
+        "right": 570,
+        "top": 676.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 622,
+      "text": "$10,000 - 19,999 0 480 1,480 1,850 2,050 2,220 2,220 2,220 2,220 2,220 2,220 2,620",
+      "rect": {
+        "left": 40.62,
+        "bottom": 656.76,
+        "right": 570,
+        "top": 664.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 623,
+      "text": "$20,000 - 29,999 480 1,480 2,480 3,050 3,250 3,420 3,420 3,420 3,420 3,420 3,820 4,820",
+      "rect": {
+        "left": 40.62,
+        "bottom": 644.76,
+        "right": 570,
+        "top": 652.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 624,
+      "text": "$30,000 - 39,999 850 1,850 3,050 3,620 3,820 3,990 3,990 3,990 3,990 4,390 5,390 6,390",
+      "rect": {
+        "left": 40.62,
+        "bottom": 632.76,
+        "right": 570,
+        "top": 640.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 625,
+      "text": "$40,000 - 49,999 850 2,050 3,250 3,820 4,020 4,190 4,190 4,190 4,590 5,590 6,590 7,590",
+      "rect": {
+        "left": 40.62,
+        "bottom": 620.76,
+        "right": 570,
+        "top": 628.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 626,
+      "text": "$50,000 - 59,999 1,020 2,220 3,420 3,990 4,190 4,360 4,360 4,760 5,760 6,760 7,760 8,760",
+      "rect": {
+        "left": 40.62,
+        "bottom": 608.76,
+        "right": 570,
+        "top": 616.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 627,
+      "text": "$60,000 - 69,999 1,020 2,220 3,420 3,990 4,190 4,360 4,760 5,760 6,760 7,760 8,760 9,760",
+      "rect": {
+        "left": 40.62,
+        "bottom": 596.76,
+        "right": 570,
+        "top": 604.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 628,
+      "text": "$70,000 - 79,999 1,020 2,220 3,420 3,990 4,190 4,760 5,760 6,760 7,760 8,760 9,760 10,760",
+      "rect": {
+        "left": 40.62,
+        "bottom": 584.76,
+        "right": 570,
+        "top": 592.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 629,
+      "text": "$80,000 - 99,999 1,020 2,220 3,420 4,240 5,440 6,610 7,610 8,610 9,610 10,610 11,610 12,610",
+      "rect": {
+        "left": 40.62,
+        "bottom": 572.76,
+        "right": 570,
+        "top": 580.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 630,
+      "text": "$100,000 - 149,999 1,870 4,070 6,270 7,840 9,040 10,210 11,210 12,210 13,210 14,210 15,360 16,560",
+      "rect": {
+        "left": 36.17,
+        "bottom": 560.76,
+        "right": 570,
+        "top": 568.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 631,
+      "text": "$150,000 - 239,999 1,870 4,100 6,500 8,270 9,670 11,040 12,240 13,440 14,640 15,840 17,040 18,240",
+      "rect": {
+        "left": 36.17,
+        "bottom": 548.76,
+        "right": 570,
+        "top": 556.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 632,
+      "text": "$240,000 - 319,999 2,040 4,440 6,840 8,610 10,010 11,380 12,580 13,780 14,980 16,180 17,380 18,580",
+      "rect": {
+        "left": 36.17,
+        "bottom": 536.77,
+        "right": 570,
+        "top": 544.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 633,
+      "text": "$320,000 - 364,999 2,040 4,440 6,840 8,610 10,010 11,380 12,580 13,860 15,860 17,860 19,860 21,860",
+      "rect": {
+        "left": 36.17,
+        "bottom": 524.77,
+        "right": 570,
+        "top": 532.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 634,
+      "text": "$365,000 - 524,999 2,720 5,920 9,390 12,260 14,760 17,230 19,530 21,830 24,130 26,430 28,730 31,030",
+      "rect": {
+        "left": 36.17,
+        "bottom": 512.77,
+        "right": 570,
+        "top": 520.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 635,
+      "text": "$525,000 and over 3,140 6,840 10,540 13,610 16,310 18,980 21,480 23,980 26,480 28,980 31,480 33,990",
+      "rect": {
+        "left": 36,
+        "bottom": 500.77,
+        "right": 570,
+        "top": 508.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 636,
+      "text": "Single or Married Filing Separately",
+      "rect": {
+        "left": 215.79,
+        "bottom": 482.52,
+        "right": 396.21,
+        "top": 493.52
+      }
+    },
+    {
+      "page": 5,
+      "order": 637,
+      "text": "Lower Paying Job Annual Taxable Wage \u0026 Salary",
+      "rect": {
+        "left": 242.92,
+        "bottom": 462.08,
+        "right": 441.08,
+        "top": 470.58
+      }
+    },
+    {
+      "page": 5,
+      "order": 638,
+      "text": "Higher Paying Job",
+      "rect": {
+        "left": 36,
+        "bottom": 460.35,
+        "right": 106.43,
+        "top": 468.85
+      }
+    },
+    {
+      "page": 5,
+      "order": 639,
+      "text": "Annual Taxable",
+      "rect": {
+        "left": 41.47,
+        "bottom": 450.15,
+        "right": 100.53,
+        "top": 458.65
+      }
+    },
+    {
+      "page": 5,
+      "order": 640,
+      "text": "$0 -",
+      "rect": {
+        "left": 120.38,
+        "bottom": 445.26,
+        "right": 134.62,
+        "top": 453.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 641,
+      "text": "$10,000 - $20,000 - $30,000 - $40,000 - $50,000 - $60,000 - $70,000 - $80,000 - $90,000 - $100,000 - $110,000 -",
+      "rect": {
+        "left": 149.38,
+        "bottom": 445.26,
+        "right": 573.64,
+        "top": 453.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 642,
+      "text": "Wage \u0026 Salary",
+      "rect": {
+        "left": 43.11,
+        "bottom": 439.95,
+        "right": 98.89,
+        "top": 448.45
+      }
+    },
+    {
+      "page": 5,
+      "order": 643,
+      "text": "9,999 19,999 29,999 39,999 49,999 59,999 69,999 79,999 89,999 99,999 109,999 120,000",
+      "rect": {
+        "left": 117.49,
+        "bottom": 436.26,
+        "right": 570.71,
+        "top": 444.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 644,
+      "text": "$0 - 9,999 $90 $850 $1,020 $1,020 $1,020 $1,070 $1,870 $1,870 $1,870 $1,870 $1,870 $1,970",
+      "rect": {
+        "left": 60.63,
+        "bottom": 422.76,
+        "right": 570,
+        "top": 430.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 645,
+      "text": "$10,000 - 19,999 850 1,780 1,980 1,980 2,030 3,030 3,830 3,830 3,830 3,830 3,930 4,130",
+      "rect": {
+        "left": 40.62,
+        "bottom": 410.76,
+        "right": 570,
+        "top": 418.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 646,
+      "text": "$20,000 - 29,999 1,020 1,980 2,180 2,230 3,230 4,230 5,030 5,030 5,030 5,130 5,330 5,530",
+      "rect": {
+        "left": 40.62,
+        "bottom": 398.76,
+        "right": 570,
+        "top": 406.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 647,
+      "text": "$30,000 - 39,999 1,020 1,980 2,230 3,230 4,230 5,230 6,030 6,030 6,130 6,330 6,530 6,730",
+      "rect": {
+        "left": 40.62,
+        "bottom": 386.76,
+        "right": 570,
+        "top": 394.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 648,
+      "text": "$40,000 - 59,999 1,020 2,880 4,080 5,080 6,080 7,080 7,950 8,150 8,350 8,550 8,750 8,950",
+      "rect": {
+        "left": 40.62,
+        "bottom": 374.76,
+        "right": 570,
+        "top": 382.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 649,
+      "text": "$60,000 - 79,999 1,870 3,830 5,030 6,030 7,100 8,300 9,300 9,500 9,700 9,900 10,100 10,300",
+      "rect": {
+        "left": 40.62,
+        "bottom": 362.76,
+        "right": 570,
+        "top": 370.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 650,
+      "text": "$80,000 - 99,999 1,870 3,830 5,100 6,300 7,500 8,700 9,700 9,900 10,100 10,300 10,500 10,700",
+      "rect": {
+        "left": 40.62,
+        "bottom": 350.26,
+        "right": 570,
+        "top": 358.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 651,
+      "text": "$100,000 - 124,999 2,030 4,190 5,590 6,790 7,990 9,190 10,190 10,390 10,590 10,940 11,940 12,940",
+      "rect": {
+        "left": 36.17,
+        "bottom": 338.76,
+        "right": 570,
+        "top": 346.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 652,
+      "text": "$125,000 - 149,999 2,040 4,200 5,600 6,800 8,000 9,200 10,200 10,950 11,950 12,950 13,950 14,950",
+      "rect": {
+        "left": 36.17,
+        "bottom": 326.76,
+        "right": 570,
+        "top": 334.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 653,
+      "text": "$150,000 - 174,999 2,040 4,200 5,600 6,800 8,150 10,150 11,950 12,950 13,950 14,950 16,170 17,470",
+      "rect": {
+        "left": 36.17,
+        "bottom": 314.76,
+        "right": 570,
+        "top": 322.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 654,
+      "text": "$175,000 - 199,999 2,040 4,200 6,150 8,150 10,150 12,150 13,950 15,020 16,320 17,620 18,920 20,220",
+      "rect": {
+        "left": 36.17,
+        "bottom": 302.77,
+        "right": 570,
+        "top": 310.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 655,
+      "text": "$200,000 - 249,999 2,720 5,680 7,880 10,140 12,440 14,740 16,840 18,140 19,440 20,740 22,040 23,340",
+      "rect": {
+        "left": 36.17,
+        "bottom": 290.77,
+        "right": 570,
+        "top": 298.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 656,
+      "text": "$250,000 - 449,999 2,970 6,230 8,730 11,030 13,330 15,630 17,730 19,030 20,330 21,630 22,930 24,240",
+      "rect": {
+        "left": 36.17,
+        "bottom": 278.77,
+        "right": 570,
+        "top": 286.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 657,
+      "text": "$450,000 and over 3,140 6,600 9,300 11,800 14,300 16,800 19,100 20,600 22,100 23,600 25,100 26,610",
+      "rect": {
+        "left": 36,
+        "bottom": 266.77,
+        "right": 570,
+        "top": 274.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 658,
+      "text": "Head of Household",
+      "rect": {
+        "left": 255.79,
+        "bottom": 247.86,
+        "right": 356.21,
+        "top": 258.86
+      }
+    },
+    {
+      "page": 5,
+      "order": 659,
+      "text": "Lower Paying Job Annual Taxable Wage \u0026 Salary",
+      "rect": {
+        "left": 242.92,
+        "bottom": 228.08,
+        "right": 441.08,
+        "top": 236.58
+      }
+    },
+    {
+      "page": 5,
+      "order": 660,
+      "text": "Higher Paying Job",
+      "rect": {
+        "left": 36,
+        "bottom": 226.35,
+        "right": 106.43,
+        "top": 234.85
+      }
+    },
+    {
+      "page": 5,
+      "order": 661,
+      "text": "Annual Taxable",
+      "rect": {
+        "left": 41.47,
+        "bottom": 216.15,
+        "right": 100.53,
+        "top": 224.65
+      }
+    },
+    {
+      "page": 5,
+      "order": 662,
+      "text": "$0 -",
+      "rect": {
+        "left": 120.38,
+        "bottom": 211.26,
+        "right": 134.62,
+        "top": 219.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 663,
+      "text": "$10,000 - $20,000 - $30,000 - $40,000 - $50,000 - $60,000 - $70,000 - $80,000 - $90,000 - $100,000 - $110,000 -",
+      "rect": {
+        "left": 149.38,
+        "bottom": 211.26,
+        "right": 573.64,
+        "top": 219.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 664,
+      "text": "Wage \u0026 Salary",
+      "rect": {
+        "left": 43.11,
+        "bottom": 205.95,
+        "right": 98.89,
+        "top": 214.45
+      }
+    },
+    {
+      "page": 5,
+      "order": 665,
+      "text": "9,999 19,999 29,999 39,999 49,999 59,999 69,999 79,999 89,999 99,999 109,999 120,000",
+      "rect": {
+        "left": 117.49,
+        "bottom": 202.26,
+        "right": 570.71,
+        "top": 210.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 666,
+      "text": "$0 - 9,999 $0 $280 $850 $950 $1,020 $1,020 $1,020 $1,020 $1,560 $1,870 $1,870 $1,870",
+      "rect": {
+        "left": 60.63,
+        "bottom": 188.76,
+        "right": 570,
+        "top": 196.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 667,
+      "text": "$10,000 - 19,999 280 1,280 1,950 2,150 2,220 2,220 2,220 2,760 3,760 4,070 4,070 4,210",
+      "rect": {
+        "left": 40.62,
+        "bottom": 176.76,
+        "right": 570,
+        "top": 184.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 668,
+      "text": "$20,000 - 29,999 850 1,950 2,720 2,920 2,980 2,980 3,520 4,520 5,520 5,830 5,980 6,180",
+      "rect": {
+        "left": 40.62,
+        "bottom": 164.76,
+        "right": 570,
+        "top": 172.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 669,
+      "text": "$30,000 - 39,999 950 2,150 2,920 3,120 3,180 3,720 4,720 5,720 6,720 7,180 7,380 7,580",
+      "rect": {
+        "left": 40.62,
+        "bottom": 152.76,
+        "right": 570,
+        "top": 160.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 670,
+      "text": "$40,000 - 59,999 1,020 2,220 2,980 3,570 4,640 5,640 6,640 7,750 8,950 9,460 9,660 9,860",
+      "rect": {
+        "left": 40.62,
+        "bottom": 140.76,
+        "right": 570,
+        "top": 148.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 671,
+      "text": "$60,000 - 79,999 1,020 2,610 4,370 5,570 6,640 7,750 8,950 10,150 11,350 11,860 12,060 12,260",
+      "rect": {
+        "left": 40.62,
+        "bottom": 128.76,
+        "right": 570,
+        "top": 136.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 672,
+      "text": "$80,000 - 99,999 1,870 4,070 5,830 7,150 8,410 9,610 10,810 12,010 13,210 13,720 13,920 14,120",
+      "rect": {
+        "left": 40.62,
+        "bottom": 116.76,
+        "right": 570,
+        "top": 124.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 673,
+      "text": "$100,000 - 124,999 1,870 4,270 6,230 7,630 8,900 10,100 11,300 12,500 13,700 14,210 14,720 15,720",
+      "rect": {
+        "left": 36.17,
+        "bottom": 104.76,
+        "right": 570,
+        "top": 112.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 674,
+      "text": "$125,000 - 149,999 2,040 4,440 6,400 7,800 9,070 10,270 11,470 12,670 14,580 15,890 16,890 17,890",
+      "rect": {
+        "left": 36.17,
+        "bottom": 92.76,
+        "right": 570,
+        "top": 100.76
+      }
+    },
+    {
+      "page": 5,
+      "order": 675,
+      "text": "$150,000 - 174,999 2,040 4,440 6,400 7,800 9,070 10,580 12,580 14,580 16,580 17,890 18,890 20,170",
+      "rect": {
+        "left": 36.17,
+        "bottom": 80.76,
+        "right": 570,
+        "top": 88.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 676,
+      "text": "$175,000 - 199,999 2,040 4,440 6,400 8,510 10,580 12,580 14,580 16,580 18,710 20,320 21,620 22,920",
+      "rect": {
+        "left": 36.17,
+        "bottom": 68.77,
+        "right": 570,
+        "top": 76.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 677,
+      "text": "$200,000 - 249,999 2,720 5,920 8,680 10,900 13,270 15,570 17,870 20,170 22,470 24,080 25,380 26,680",
+      "rect": {
+        "left": 36.17,
+        "bottom": 56.77,
+        "right": 570,
+        "top": 64.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 678,
+      "text": "$250,000 - 449,999 2,970 6,470 9,540 12,040 14,410 16,710 19,010 21,310 23,610 25,220 26,520 27,820",
+      "rect": {
+        "left": 36.17,
+        "bottom": 44.77,
+        "right": 570,
+        "top": 52.77
+      }
+    },
+    {
+      "page": 5,
+      "order": 679,
+      "text": "$450,000 and over 3,140 6,840 10,110 12,810 15,380 17,880 20,380 22,880 25,380 27,190 28,690 30,190",
+      "rect": {
+        "left": 36,
+        "bottom": 32.77,
+        "right": 570,
+        "top": 40.77
+      }
+    }
+  ]
+}

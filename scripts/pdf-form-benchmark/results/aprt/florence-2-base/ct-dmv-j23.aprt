@@ -1,0 +1,71 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "copy-records-request",
+          "label": "COPY RECORDS REQUEST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connectutt",
+          "label": "STATE OF CONNECTUTT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "copy-records-request-2",
+          "label": "COPY RECORDS REQUEST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-motor-vehicles",
+          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "special-instructions-for-those-who-wish-to",
+          "label": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "obtain-record-information-on-others",
+          "label": "OBTAIN RECORD INFORMATION ON OTHERS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "activity-of-a-court-location-required",
+          "label": "(ACTIVITY OF A Court Location-REQUIRED)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

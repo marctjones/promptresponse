@@ -1,0 +1,196 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-4b-deductions-worksheet",
+      "title": "Step 4(b)—Deductions Worksheet (Keep for your records.)"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "1a"
+    },
+    {
+      "n": 2,
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "1b"
+    },
+    {
+      "n": 3,
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "1c"
+    },
+    {
+      "n": 4,
+      "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "2"
+    },
+    {
+      "n": 5,
+      "label": "Seniors age 65 or older.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "3a"
+    },
+    {
+      "n": 6,
+      "label": "Seniors age 65 or older.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "3b"
+    },
+    {
+      "n": 7,
+      "label": "Add lines 3a and 3b. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "4"
+    },
+    {
+      "n": 8,
+      "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "5"
+    },
+    {
+      "n": 9,
+      "label": "Itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "6a"
+    },
+    {
+      "n": 10,
+      "label": "Itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "6b"
+    },
+    {
+      "n": 11,
+      "label": "Itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "6c"
+    },
+    {
+      "n": 12,
+      "label": "Itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "6d"
+    },
+    {
+      "n": 13,
+      "label": "Itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "6e"
+    },
+    {
+      "n": 14,
+      "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "7"
+    },
+    {
+      "n": 15,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "8a"
+    },
+    {
+      "n": 16,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "8b"
+    },
+    {
+      "n": 17,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "9"
+    },
+    {
+      "n": 18,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "10"
+    },
+    {
+      "n": 19,
+      "label": "Standard deduction.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "11"
+    },
+    {
+      "n": 20,
+      "label": "Cash gifts to charities.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "12"
+    },
+    {
+      "n": 21,
+      "label": "Add lines 11 and 12. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "13"
+    },
+    {
+      "n": 22,
+      "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "14"
+    },
+    {
+      "n": 23,
+      "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "15"
+    }
+  ]
+}
+```

@@ -1,0 +1,251 @@
+{
+ "form_id": "ct-dmv-b225p",
+ "form_name": "Connecticut DMV Form B-225P (Disabled Parking Placard, Renewable)",
+ "page_count": 1,
+ "sections": [
+  {
+   "id": "part-a-applicant",
+   "title": "Part A - Completed by Applicant"
+  },
+  {
+   "id": "part-b-physician",
+   "title": "Part B - Completed by Physician, APRN, Physician Assistant, Optometrist, Ophthalmologist, BESB or USDVA Psychiatrist"
+  }
+ ],
+ "fields": [
+  {
+   "id": "type-of-application",
+   "label": "TYPE OF APPLICATION",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "choice",
+   "choices": [
+    "NEW (1st issue)",
+    "REPLACEMENT",
+    "RENEWAL"
+   ]
+  },
+  {
+   "id": "applicant-is",
+   "label": "APPLICANT IS (Check One)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "choice",
+   "choices": [
+    "DISABLED",
+    "BLIND",
+    "GUARDIAN OF BLIND OR DISABLED PERSON",
+    "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+    "QUALIFYING VETERAN (See C below)"
+   ]
+  },
+  {
+   "id": "name-of-person-blind-or-disabled",
+   "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "guardian-or-organization",
+   "label": "GUARDIAN OR ORGANIZATION",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line",
+   "notes": "Conditional on 'APPLICANT IS' being Guardian or Organization; this is one of the few fields the PDF's underlying AcroForm actually names ('Guardian or Organization')."
+  },
+  {
+   "id": "date-of-birth",
+   "label": "DATE OF BIRTH (Required)",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "date_field"
+  },
+  {
+   "id": "ct-license-id-number",
+   "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "daytime-telephone-number",
+   "label": "DAYTIME TELEPHONE NUMBER",
+   "expected_data_type": "phone",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "address-street",
+   "label": "ADDRESS (No. and Street)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "address-city-town",
+   "label": "ADDRESS (City or Town)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "address-state",
+   "label": "ADDRESS (State)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "address-zip",
+   "label": "ADDRESS (Zip Code)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "mailing-address-street",
+   "label": "MAILING ADDRESS (No. and Street)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line",
+   "notes": "Only needed if different from the address above."
+  },
+  {
+   "id": "mailing-address-city-town",
+   "label": "MAILING ADDRESS (City or Town)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "mailing-address-state",
+   "label": "MAILING ADDRESS (State)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "mailing-address-zip",
+   "label": "MAILING ADDRESS (Zip Code)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "part-a-applicant",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "applicant-date-signed",
+   "label": "DATE SIGNED",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "part-a-applicant",
+   "field_kind": "date_field",
+   "notes": "Date next to the applicant/parent/guardian signature."
+  },
+  {
+   "id": "certifiers-name",
+   "label": "CERTIFIER'S NAME (Please print)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "certifier-type",
+   "label": "CHECK ONE",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "choice",
+   "choices": [
+    "PHYSICIAN ASSISTANT",
+    "BESB",
+    "USVA PSYCHIATRIST",
+    "PHYSICIAN",
+    "APRN",
+    "OPTOMETRIST",
+    "OPHTHALMOLOGIST"
+   ]
+  },
+  {
+   "id": "medical-license-number",
+   "label": "MEDICAL LICENSE NUMBER (Required)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "medical-licensing-state",
+   "label": "MEDICAL LICENSING STATE (Required)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "office-address-street",
+   "label": "OFFICE ADDRESS (No. and Street)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "office-address-city-town",
+   "label": "OFFICE ADDRESS (City or Town)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "office-address-state",
+   "label": "OFFICE ADDRESS (State)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "office-address-zip",
+   "label": "OFFICE ADDRESS (Zip Code)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "office-telephone-number",
+   "label": "OFFICE TELEPHONE NUMBER",
+   "expected_data_type": "phone",
+   "required": false,
+   "section_id": "part-b-physician",
+   "field_kind": "text_line",
+   "notes": "Unlike Medical License Number/State, this field is not annotated '(Required)' on the form."
+  },
+  {
+   "id": "physician-date-signed",
+   "label": "DATE SIGNED",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "part-b-physician",
+   "field_kind": "date_field",
+   "notes": "Date next to the certifying physician/practitioner's signature."
+  }
+ ]
+}

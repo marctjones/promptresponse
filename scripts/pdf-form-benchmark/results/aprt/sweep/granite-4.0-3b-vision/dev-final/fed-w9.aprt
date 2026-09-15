@@ -1,0 +1,242 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w9"
+  },
+  "sections": [
+    {
+      "id": "identity-requester",
+      "title": "Identity Requester",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "entity-name",
+          "label": "Entity name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identification-number-and-certification",
+      "title": "Identification Number and Certification",
+      "prompts": [
+        {
+          "id": "identification-number",
+          "label": "Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Individual/Sole Proprietorship",
+              "C Corporation",
+              "S Corporation",
+              "Partnership",
+              "Trust",
+              "Exempt Foreign Tax Account (EFTA)",
+              "What's New"
+            ]
+          }
+        },
+        {
+          "id": "exemption",
+          "label": "Exemption",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Exemptions (codes apply only to individuals)",
+              "Individual/Sole Proprietorship",
+              "C Corporation",
+              "S Corporation",
+              "Partnership",
+              "Trust",
+              "Exempt Foreign Tax Account (EFTA)",
+              "What's New"
+            ]
+          }
+        },
+        {
+          "id": "taxpayer-identification-number",
+          "label": "Taxpayer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Social Security Number (SSN)",
+              "Employer Identification Number (EIN)",
+              "Employer Identification Number (EIN)"
+            ]
+          }
+        },
+        {
+          "id": "employer-identification-number",
+          "label": "Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Social Security Number (SSN)",
+              "Employer Identification Number (EIN)",
+              "Employer Identification Number (EIN)"
+            ]
+          }
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "account-number",
+          "label": "Account Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "account-number-2",
+          "label": "Account Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-2",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-3",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-4",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-5",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-6",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-7",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-8",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-9",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-10",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-11",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-12",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-13",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-14",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-15",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

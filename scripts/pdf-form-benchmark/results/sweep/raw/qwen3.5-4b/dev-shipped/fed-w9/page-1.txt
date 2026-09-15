@@ -1,0 +1,224 @@
+```json
+{
+  "sections": [
+    {
+      "id": "form-header",
+      "title": "Request for Taxpayer Identification Number and Certification"
+    },
+    {
+      "id": "part-i",
+      "title": "Part I Taxpayer Identification Number (TIN)"
+    },
+    {
+      "id": "part-ii",
+      "title": "Part II Certification"
+    },
+    {
+      "id": "instructions",
+      "title": "General Instructions"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner's name on line 1, and enter the business/disregarded entity's name on line 2.)",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "Business name/disregarded entity name, if different from above.",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Individual/sole proprietor",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "C corporation",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "S corporation",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "Partnership",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "Trust/estate",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "Exempt payee code (if any)",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership)",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "Enter the appropriate code (C, S, or P) for the tax classification of the LLC, unless it is a disregarded entity. A disregarded entity should instead check the appropriate box for the tax classification of its owner.",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "Other (see instructions)",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "If on line 3a you checked \"Partnership\" or \"Trust/estate,\" or checked \"LLC\" and entered \"P\" as its tax classification, and you are providing this form to a partnership, trust, or estate in which you have an ownership interest, check this box if you have any foreign partners, owners, or beneficiaries. See instructions",
+      "section_id": "form-header",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 15,
+      "label": "Address (number, street, and apt. or suite no.). See instructions.",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 16,
+      "label": "Requester's name and address (optional)",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "City, state, and ZIP code",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "List account number(s) here (optional)",
+      "section_id": "form-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social-security-number"
+    },
+    {
+      "n": 20,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social-security-number"
+    },
+    {
+      "n": 21,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social-security-number"
+    },
+    {
+      "n": 22,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": "Sign Here",
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": "Date",
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    }
+  ]
+}
+```

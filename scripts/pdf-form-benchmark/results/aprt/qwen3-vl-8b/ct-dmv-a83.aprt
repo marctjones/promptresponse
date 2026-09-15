@@ -1,0 +1,235 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-83 (Special Power of Attorney)"
+  },
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS",
+      "prompts": [
+        {
+          "id": "instructions-the-form-below-may-be-used-as-a-special-power-of-attorney-to-authorize-according-to-connecticut-law-another-person-designated-by-you-to-make-to-complete-and-to-sign-on-your-behalf-an-application-for-a-motor-vehicle-registration-and-certificate-of-title-or-other-written-document-form-or-application-that-is-required-to-be-filed-with-the-commissioner-of-motor-vehicles-in-connection-with-any-other-transactions-involving-a-motor-vehicle-registration-or-title",
+          "label": "INSTRUCTIONS: The form below may be used as a special Power of Attorney to authorize, according to Connecticut law, another person designated by you to make, to complete and to sign on your behalf an application for a motor vehicle registration and certificate of title, or other written document, fo",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "please-note-the-following-carefully",
+          "label": "Please note the following carefully:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-this-form-must-be-completed-in-its-entirety-the-form-requires-your-signature-the-signature-of-two-witnesses-and-the-signature-of-an-officer-authorized-to-take-acknowledgments-a-notary-public-justice-of-the-peace-or-commissioner-of-the-superior-court",
+          "label": "1. This form must be completed in its entirety. The form requires your signature, the signature of two witnesses, and the signature of an officer authorized to take acknowledgments (a Notary Public, Justice of the Peace, or Commissioner of the Superior Court).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-the-special-power-of-attorney-does-not-authorize-your-agent-to-perform-transactions-related-to-your-motor-vehicle-operator-s-license-or-identification-card-or-other-transactions-with-the-commissioner-that-are-unrelated-to-a-motor-vehicle-registration-or-title",
+          "label": "2. The Special Power of Attorney does not authorize your agent to perform transactions related to your motor vehicle operator's license or identification card, or other transactions with the Commissioner that are unrelated to a motor vehicle registration or title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-this-special-power-of-attorney-bearing-original-signatures-must-be-shown-and-will-be-returned-to-you",
+          "label": "3. This Special Power of Attorney, bearing original signatures must be shown and will be returned to you.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-the-grantor-of-any-special-power-of-attorney-or-the-attorney-in-fact-may-make-application-to-any-court-of-probate-for-an-accounting-as-provided-in-subsection-b-of-section-45a-175-of-the-connecticut-general-statutes",
+          "label": "4. The grantor of any Special Power of Attorney or the attorney-in-fact may make application to any Court of Probate for an accounting, as provided in subsection (b) of section 45a-175 of the Connecticut General Statutes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-power-of-attorney-form-body",
+      "title": "Special Power of Attorney Form Body",
+      "prompts": [
+        {
+          "id": "know-all-persons-by-these-presents-which-are-intended-to-constitute-a-special-power-of-attorney-that-i",
+          "label": "KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-your-full-name-above",
+          "label": "(Print your full name above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-hereby-appoint",
+          "label": "do hereby appoint",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-full-name-of-your-agent-above",
+          "label": "(Print full name of your agent above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "to-act-in-my-name-place-and-stead-in-any-way-which-i-myself-could-do-as-if-i-were-personally-present-to-the-full-extent-permitted-by-law-to-act-as-an-agent-to-make-to-complete-and-to-execute-any-application-or-other-written-document-or-form-that-is-required-to-be-filed-with-the-commissioner-of-motor-vehicles-of-the-state-of-connecticut-pursuant-to-the-authority-that-is-granted-to-the-said-commissioner-by-any-provision-of-the-general-statutes-of-connecticut-or-the-regulations-of-connecticut-state-agencies-in-connection-with-the-registration-of-any-motor-vehicle-or-the-certificate-of-title-to-any-motor-vehicle-this-special-power-of-attorney-is-granted-and-is-valid-only-for-the-express-purposes-stated-herein-and-may-not-be-used-for-any-transaction-involving-any-other-person-or-party-who-is-not-named-herein",
+          "label": "to act in my name, place and stead in any way which I myself could do, as if I were personally present, to the full extent permitted by law to act as an agent, to make, to complete, and to execute any application or other written document or form that is required to be filed with the Commissioner of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-witness-whereof-i-have-hereunto-signed-my-name-below-on-this-day-of-20",
+          "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this ________ day of ______________, 20____.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "principal-l-s",
+          "label": "Principal: _______________________________ (L.S.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "sign-your-full-name-as-above",
+          "label": "(Sign your full name as above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "attested-and-subscribed-in-the-presence-of-the-principal-and-subsequent-to-the-principal-subscribing-same",
+          "label": "Attested and subscribed in the presence of the Principal and subsequent to the Principal subscribing same:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "witness-and-notary-section",
+      "title": "Witness and Notary Section",
+      "prompts": [
+        {
+          "id": "signature-of-witness",
+          "label": "(Signature of Witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness-2",
+          "label": "(Signature of Witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "county-of-ss",
+          "label": "COUNTY OF ) SS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "personally-appeared-signer-and-sealer-of-the-foregoing-power-of-attorney-who",
+          "label": "Personally appeared ________________________, signer and sealer of the foregoing Power of Attorney, who",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "full-name-of-principal",
+          "label": "(Full name of Principal)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "acknowledged-the-same-as-his-or-her-free-act-and-deed-before-me-this-day-of-20",
+          "label": "acknowledged the same as his or her free act and deed, before me, this ________ day of ______________, 20____.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "notary-public-justice-of-peace",
+          "label": "Notary Public/Justice of Peace",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "commissioner-of-the-superior-court",
+          "label": "Commissioner of the Superior Court",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires",
+          "label": "My commission expires: ______________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "seal-of-the-notary-public-or-justice-of-peace",
+          "label": "Seal of the Notary Public or Justice of Peace",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,417 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w4"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].Step1a[0].f1_01[0]",
+          "label": "Step 1: Enter",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Step1a[0].f1_02[0]",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Step1a[0].f1_03[0]",
+          "label": "Personal Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Step1a[0].f1_04[0]",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_05[0]",
+          "label": "(b) Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[0]",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[1]",
+          "label": "Married filing jointly or Qualifying surviving spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[2]",
+          "label": "topmostSubform[0].Page1[0].c1_1[2]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[0]",
+          "label": "topmostSubform[0].Page1[0].c1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_06[0]",
+          "label": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_07[0]",
+          "label": "topmostSubform[0].Page1[0].Step3_ReadOrder[0].f1_07[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_08[0]",
+          "label": "topmostSubform[0].Page1[0].f1_08[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_09[0]",
+          "label": "topmostSubform[0].Page1[0].f1_09[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_10[0]",
+          "label": "topmostSubform[0].Page1[0].f1_10[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_11[0]",
+          "label": "topmostSubform[0].Page1[0].f1_11[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[0]",
+          "label": "topmostSubform[0].Page1[0].c1_3[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_12[0]",
+          "label": "Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_13[0]",
+          "label": "employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_14[0]",
+          "label": "number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-3",
+      "title": "Page 3",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page3[0].f3_01[0]",
+          "label": "Two jobs.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "If you have two jobs or you\u2019re married filing jointly and you and your spouse each have one job, find the amount from the appropriate table on page 5. Using the \u201CHigher Paying Job\u201D row and the \u201CLower Paying Job\u201D column, find the value at the intersection of the two household salaries and enter that value on line 1. Then, skip to line 3 ."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page3[0].f3_02[0]",
+          "label": "topmostSubform[0].Page3[0].f3_02[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page3[0].f3_03[0]",
+          "label": "topmostSubform[0].Page3[0].f3_03[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page3[0].f3_04[0]",
+          "label": "topmostSubform[0].Page3[0].f3_04[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page3[0].f3_05[0]",
+          "label": "Enter the number of pay periods per year for the highest paying job.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "For example, if that job pays weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page3[0].f3_06[0]",
+          "label": "topmostSubform[0].Page3[0].f3_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-4",
+      "title": "Page 4",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page4[0].f4_01[0]",
+          "label": "an estimate of your qualified tips up to $25,000 . Qualified overtime compensation.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "If your total income is less than $150,000 ($300,000 if married"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_02[0]",
+          "label": "topmostSubform[0].Page4[0].f4_02[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_03[0]",
+          "label": "topmostSubform[0].Page4[0].f4_03[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_04[0]",
+          "label": "topmostSubform[0].Page4[0].f4_04[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_05[0]",
+          "label": "topmostSubform[0].Page4[0].f4_05[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_06[0]",
+          "label": "topmostSubform[0].Page4[0].f4_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_07[0]",
+          "label": "topmostSubform[0].Page4[0].f4_07[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_08[0]",
+          "label": "alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "See Pub. 505 for more information . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 $ Itemized deductions. Enter an estimate of your 2026 itemized deductions from Schedule A (Form 1040). Such deductions may include qualifying: a b State and local taxes. If your total income is less than $505,000 ($252,500 if married filing"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_09[0]",
+          "label": "Medical and dental expenses.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Enter expenses in excess of 7.5% (0.075) of your total income"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_10[0]",
+          "label": "separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_11[0]",
+          "label": "topmostSubform[0].Page4[0].f4_11[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_12[0]",
+          "label": "Gifts to charities.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Enter contributions in excess of 0.5% (0.005) of your total income Other itemized deductions. Enter the amount for other itemized deductions"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_13[0]",
+          "label": "topmostSubform[0].Page4[0].f4_13[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_14[0]",
+          "label": "topmostSubform[0].Page4[0].f4_14[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_15[0]",
+          "label": "topmostSubform[0].Page4[0].f4_15[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_16[0]",
+          "label": "topmostSubform[0].Page4[0].f4_16[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_17[0]",
+          "label": "topmostSubform[0].Page4[0].f4_17[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_18[0]",
+          "label": "topmostSubform[0].Page4[0].f4_18[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_19[0]",
+          "label": "topmostSubform[0].Page4[0].f4_19[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_20[0]",
+          "label": "topmostSubform[0].Page4[0].f4_20[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_21[0]",
+          "label": "topmostSubform[0].Page4[0].f4_21[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_22[0]",
+          "label": "topmostSubform[0].Page4[0].f4_22[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page4[0].f4_23[0]",
+          "label": "topmostSubform[0].Page4[0].f4_23[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "form_id": "ct-dmv-j23",
+  "form_name": "Connecticut DMV Form J23 (Copy Records Request)",
+  "page_count": 2,
+  "sections": [
+    {"id": "record-request", "title": "License Records / Registration Records Request(s)"},
+    {"id": "request-section", "title": "Request Section"},
+    {"id": "declaration", "title": "Declaration and Signature"},
+    {"id": "section1-driver-info", "title": "Section 1 - Driver Information"},
+    {"id": "section2-owner-info", "title": "Section 2 - Owner Information"},
+    {"id": "section3-vehicle-info", "title": "Section 3 - Vehicle Information"},
+    {"id": "section4-miscellaneous", "title": "Section 4 - Miscellaneous Request"},
+    {"id": "applicant-info", "title": "Applicant Name and Mailing Address"},
+    {"id": "attorney-info", "title": "Attorney / Case Information"}
+  ],
+  "fields": [
+    {"id": "driver-license-file-info", "label": "Driver License File Information", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "driver-license-application", "label": "Driver License Application", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "driving-history", "label": "Driving History (List of violations and sanctions - certified)", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "driving-history-type", "label": "Reg / CDL", "expected_data_type": "text", "required": false, "section_id": "record-request", "field_kind": "choice", "choices": ["Reg", "CDL"], "notes": "Sub-selection under Driving History; conditional on that box being checked."},
+    {"id": "registration-file-info", "label": "Registration File Information (Copy of current computer record)", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "registration-certificate", "label": "Registration Certificate (Copy of most current document). *This is NOT a duplicate registration*", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "registration-return-plate-receipt", "label": "Registration Return Plate Receipt (Copy of current computer record)", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "insurance-information-only", "label": "Insurance Information Only", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "miscellaneous-request-checkbox", "label": "Miscellaneous Request", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "certified-copy-uncertified-items", "label": "Certified copy of uncertified items (Add $20.00 to unit price per item)", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+    {"id": "multiple-requests-checkbox", "label": "Multiple Requests?", "expected_data_type": "boolean", "required": false, "section_id": "record-request", "field_kind": "checkbox"},
+
+    {"id": "code-no", "label": "APPLICANT, READ INSTRUCTIONS AND SPECIFY CODE 1, 2, 3, 4, 5, 6, 7, 8, 9 OR 10 -- CODE NO.", "expected_data_type": "text", "required": true, "section_id": "request-section", "field_kind": "text_line", "notes": "Refers to the numbered list of disclosure-purpose codes printed on the back (page 2) of the form."},
+
+    {"id": "signature-of-applicant", "label": "SIGNATURE OF APPLICANT", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "signature"},
+    {"id": "printed-name-of-applicant", "label": "PRINTED NAME OF APPLICANT", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line"},
+    {"id": "date-signed", "label": "DATE SIGNED", "expected_data_type": "date", "required": true, "section_id": "declaration", "field_kind": "date_field"},
+    {"id": "qty", "label": "QTY.", "expected_data_type": "number", "required": false, "section_id": "declaration", "field_kind": "text_line"},
+    {"id": "unit-price", "label": "UNIT PRICE", "expected_data_type": "currency", "required": false, "section_id": "declaration", "field_kind": "text_line"},
+    {"id": "amount", "label": "AMOUNT", "expected_data_type": "currency", "required": false, "section_id": "declaration", "field_kind": "text_line"},
+    {"id": "total", "label": "TOTAL", "expected_data_type": "currency", "required": false, "section_id": "declaration", "field_kind": "text_line"},
+
+    {"id": "driver-name", "label": "DRIVER'S NAME (Last, First, Middle Initial)", "expected_data_type": "text", "required": false, "section_id": "section1-driver-info", "field_kind": "text_line"},
+    {"id": "driver-license-number", "label": "DRIVER'S LICENSE NUMBER", "expected_data_type": "text", "required": false, "section_id": "section1-driver-info", "field_kind": "text_line"},
+    {"id": "driver-address", "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)", "expected_data_type": "text", "required": false, "section_id": "section1-driver-info", "field_kind": "text_line"},
+    {"id": "driver-dob", "label": "DRIVER'S DATE OF BIRTH", "expected_data_type": "date", "required": false, "section_id": "section1-driver-info", "field_kind": "date_field"},
+
+    {"id": "owner-name", "label": "OWNER'S NAME (Last, First, Middle Initial)", "expected_data_type": "text", "required": false, "section_id": "section2-owner-info", "field_kind": "text_line"},
+    {"id": "owner-address", "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)", "expected_data_type": "text", "required": false, "section_id": "section2-owner-info", "field_kind": "text_line"},
+
+    {"id": "vehicle-identification-number", "label": "VEHICLE IDENTIFICATION NUMBER", "expected_data_type": "text", "required": false, "section_id": "section3-vehicle-info", "field_kind": "text_line"},
+    {"id": "vehicle-make", "label": "VEHICLE MAKE", "expected_data_type": "text", "required": false, "section_id": "section3-vehicle-info", "field_kind": "text_line"},
+    {"id": "vehicle-year", "label": "VEHICLE YEAR", "expected_data_type": "text", "required": false, "section_id": "section3-vehicle-info", "field_kind": "text_line"},
+    {"id": "registration-plate-number", "label": "REGISTRATION PLATE NUMBER", "expected_data_type": "text", "required": false, "section_id": "section3-vehicle-info", "field_kind": "text_line"},
+    {"id": "as-of-date", "label": "AS OF (Date)", "expected_data_type": "date", "required": false, "section_id": "section3-vehicle-info", "field_kind": "date_field"},
+
+    {"id": "miscellaneous-request-specify", "label": "MISCELLANEOUS REQUEST (Please Specify)", "expected_data_type": "text", "required": false, "section_id": "section4-miscellaneous", "field_kind": "text_line"},
+
+    {"id": "customer-number", "label": "CUSTOMER NUMBER", "expected_data_type": "text", "required": false, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "operator-license-or-fein", "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.", "expected_data_type": "text", "required": false, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-telephone-no", "label": "TELEPHONE NO. (Required)", "expected_data_type": "phone", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-name", "label": "NAME", "expected_data_type": "text", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-number-and-street", "label": "NUMBER AND STREET", "expected_data_type": "text", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-city-or-town", "label": "CITY OR TOWN", "expected_data_type": "text", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-state", "label": "STATE", "expected_data_type": "text", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+    {"id": "applicant-zip-code", "label": "ZIP CODE", "expected_data_type": "text", "required": true, "section_id": "applicant-info", "field_kind": "text_line"},
+
+    {"id": "attorneys-juris-number", "label": "ATTORNEY'S JURIS #", "expected_data_type": "text", "required": false, "section_id": "attorney-info", "field_kind": "text_line", "notes": "Applicable/required only for disclosure code 4 (civil/criminal/administrative proceeding) per the reverse-side instructions."},
+    {"id": "attorney-name-or-case-name-court", "label": "ATTORNEY NAME OR CASE NAME AND COURT LOCATION", "expected_data_type": "text", "required": false, "section_id": "attorney-info", "field_kind": "text_line", "notes": "Applicable/required only for disclosure code 4."}
+  ]
+}

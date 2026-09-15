@@ -1,0 +1,142 @@
+<doctag><text><loc_15><loc_10><loc_38><loc_16>DMV</text>
+<text><loc_15><loc_16><loc_38><loc_22>USE</text>
+<text><loc_15><loc_22><loc_38><loc_28>ONLY</text>
+<text><loc_15><loc_28><loc_38><loc_34>RENEWABLE</text>
+<text><loc_38><loc_10><loc_51><loc_16>NEW</text>
+<text><loc_38><loc_16><loc_82><loc_22>RENEWABLE PART</text>
+<text><loc_82><loc_10><loc_98><loc_16>PERMIT</text>
+<text><loc_98><loc_10><loc_116><loc_16>NUMBER(S)</text>
+<text><loc_246><loc_10><loc_276><loc_16>PLATE NUMBER</text>
+<text><loc_246><loc_16><loc_276><loc_22>EXPIRES</text>
+<text><loc_332><loc_10><loc_478><loc_40>STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES OVER THE COUNTER SALES UNIT 60 STATE STREET, WETHERSFIELD CT 06161-5052 Telephone: (860) 263-5154 On the web at ct.gov/dmv</text>
+<text><loc_15><loc_28><loc_51><loc_34>RENEWABLE PART</text>
+<text><loc_15><loc_35><loc_478><loc_47>APPLICATION FOR A PERSON WHO IS BLIND OR HAS A DISABILITY B-225P Rev. 9-2024</text>
+<text><loc_15><loc_49><loc_66><loc_55>INSTRUCTIONS:</text>
+<text><loc_15><loc_54><loc_484><loc_72>PART A must be completed by applicant.  Applicant must have a Connecticut License or ID card.  If you are blind and hold a license, you may surrender it at a full service office of the DMV when this application is submitted.  A non-driver photo ID may be obtained in place of the license. For additional questions please call.</text>
+<text><loc_15><loc_77><loc_484><loc_96>PART B must be completed and signed by a physician, APRN, physician assistant or in the case of a veteran with PTSD, by a psychiatrist with the U.S. Department of Veterans Affairs. In the case of blindness, an optometrist, ophthalmologist or the Connecticut Board of Education and Services for the Blind may complete PART B or submit a copy of certificate of blindness. Stamped signatures are not permissible.</text>
+<text><loc_15><loc_101><loc_482><loc_114>The applicant must return this form by mail to the address above, online, or in person at any DMV branch office by appointment. There is no charge for a renewable permit.</text>
+<text><loc_15><loc_114><loc_303><loc_120>Before renewal of your permit, the driver's license or non-driver identification card must be renewed.</text>
+<text><loc_15><loc_123><loc_242><loc_129>PART A - COMPLETED BY APPLICANT</text>
+<text><loc_15><loc_130><loc_86><loc_135>TYPE OF APPLICATION</text>
+<checkbox_unselected><loc_93><loc_130><loc_154><loc_135>NEW (1st issue)</checkbox_unselected>
+<checkbox_unselected><loc_214><loc_130><loc_272><loc_135>REPLACEMENT</checkbox_unselected>
+<checkbox_unselected><loc_353><loc_130><loc_395><loc_135>RENEWAL</checkbox_unselected>
+<text><loc_15><loc_139><loc_86><loc_144>APPLICANT IS (Check One)</text>
+<checkbox_unselected><loc_15><loc_145><loc_80><loc_151>DISABLED</checkbox_unselected>
+<checkbox_unselected><loc_95><loc_145><loc_134><loc_151>BLIND</checkbox_unselected>
+<checkbox_unselected><loc_144><loc_145><loc_194><loc_151>DISABLED PERSON</checkbox_unselected>
+<checkbox_unselected><loc_212><loc_145><loc_301><loc_151>ORGANIZATION TRANSPORTING</checkbox_unselected>
+<checkbox_unselected><loc_355><loc_145><loc_410><loc_151>QUALIFYING VETERAN (See C</checkbox_unselected>
+<text><loc_15><loc_152><loc_50><loc_158>below)</text>
+<text><loc_15><loc_182><loc_74><loc_199>IDENTIFICATION OF APPLICANT</text>
+<text><loc_15><loc_199><loc_74><loc_205>(Please Print)</text>
+<text><loc_15><loc_218><loc_482><loc_231>I certify under penalty of false statement that I am blind, or a person who has a disability that limits or impairs the ability to walk, as described in Part B, or a veteran with PTSD and a disability defined in C below, or I am the parent or guardian of such person and certifying such condition on his or her behalf.  If a Power of Attorney is submitted, it must be attached to</text>
+<text><loc_15><loc_231><loc_60><loc_237>this application.</text>
+<text><loc_15><loc_241><loc_86><loc_247>APPLICANT'S</text>
+<text><loc_15><loc_249><loc_69><loc_255>SIGNATURE</text>
+<text><loc_15><loc_257><loc_482><loc_269>PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST If completed by USDVA psychiatrist, you are also certifying that the person is a veteran as defined in CGS section 27-103(a) and has one or more physical disabilities that limit or impair the ability to walk as defined in #B 1 through 6 of the criteria below.</text>
+<text><loc_15><loc_271><loc_482><loc_277>CRITERIA TO QUALIFY</text>
+<text><loc_15><loc_281><loc_482><loc_287>The applicant may obtain a placard if they meet one or more of the following conditions:</text>
+<unordered_list><list_item><loc_15><loc_287><loc_482><loc_293>A. The applicant is blind (Must be certified by an optometrist, ophthalmologist or by Board of Education and Services for the Blind- BESB); OR</list_item>
+<list_item><loc_15><loc_299><loc_463><loc_312>B.  The applicant has a disability that limits or impairs their ability to walk.  These conditions are defined in 23 CFR 1235.2 and are listed below (Must be certified by Physician, Physician Assistant or Advance Practice Registered Nurse- APRN):</list_item>
+<list_item><loc_15><loc_312><loc_236><loc_318>1. The applicant cannot walk two hundred feet without stopping to rest; or</list_item>
+<list_item><loc_15><loc_318><loc_236><loc_324>2. The applicant cannot walk without the use of, or assistance from, a brace, cane, crutch, another person, prosthetic device, wheelchair, or other device; or</list_item>
+<list_item><loc_15><loc_324><loc_236><loc_330>3. The applicant is restricted by lung disease to such an extent that the person's forced (respiratory) expiratory volume for one second, when measured by</list_item>
+<list_item><loc_15><loc_330><loc_340><loc_336>spirometry, is less than one liter, or the arterial oxygen tension is less than sixty mm/hg on room air at rest; or</list_item>
+<list_item><loc_15><loc_336><loc_240><loc_342>4. The applicant uses portable oxygen; or</list_item>
+<list_item><loc_15><loc_342><loc_451><loc_348>5. The applicant has a cardiac condition to the extent that the their functional limitations are classified in severity as Class III or Class IV according to</list_item>
+</unordered_list>
+<text><loc_15><loc_348><loc_240><loc_354>standards set by the American Heart Association; or</text>
+<unordered_list><list_item><loc_15><loc_354><loc_356><loc_360>6. The applicant is severely limited in the ability to walk due to an arthritic, neurological, or orthopedic condition; OR</list_item>
+<list_item><loc_15><loc_366><loc_460><loc_378>C.  The applicant is a veteran with PTSD and a disability that limits or impairs the ability to walk, as defined in # B1 through 6 above (PTSD and veteran status must be certified by a psychiatrist with the U.S. Department of Veterans Affairs-USDVA)</list_item>
+</unordered_list>
+<text><loc_15><loc_380><loc_92><loc_385>CERTIFIER'S NAME (Please print)</text>
+<text><loc_15><loc_397><loc_108><loc_403>MEDICAL LICENSE NUMBER (Required)</text>
+<text><loc_15><loc_415><loc_92><loc_420>OFFICE ADDRESS (No. and Street)</text>
+<text><loc_133><loc_415><loc_164><loc_420>(City or Town)</text>
+<text><loc_236><loc_415><loc_251><loc_420>(State)</text>
+<text><loc_349><loc_415><loc_420><loc_420>(Zip Code)</text>
+<text><loc_15><loc_432><loc_484><loc_443>ADDITIONAL CERTIFICATION MAY BE REQUIRED AT THE TIME OF THE ORIGINAL APPLICATION OR ANY TIME THEREAFTER IF THERE IS CAUSE TO BELIEVE THAT THE ABILITY TO WALK IS NOT SERIOUSLY AND PERMANENTLY IMPAIRED.</text>
+<text><loc_15><loc_445><loc_484><loc_470>PHYSICIAN, PHYSICIAN ASSISTANT, APRN, PHYSICIAN ASSISTANT that I know or believe is not true with the intent to mislead the Commissioner, I will be subject to prosecution under the above-cited laws. The applicant's condition is PERMANENT (Up to 8 years).</text>
+<text><loc_15><loc_473><loc_338><loc_479>SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_487>SIGNATURE</text>
+<text><loc_15><loc_481><loc_30><loc_

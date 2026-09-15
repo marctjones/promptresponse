@@ -1,0 +1,335 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b58ind"
+  },
+  "sections": [
+    {
+      "id": "about-you",
+      "title": "About You",
+      "prompts": [
+        {
+          "id": "name-last-first-middle",
+          "label": "NAME (Last, First, Middle)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "birth-date",
+          "label": "BIRTH DATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "operator-license-id-number",
+          "label": "OPERATOR LICENSE/ID NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-residence-address",
+      "title": "Your Residence Address",
+      "prompts": [
+        {
+          "id": "street-address",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-do-not-want-your-voting-addres",
+          "label": "Check here if you do NOT want your voting address automatically updated.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-mailing-address",
+      "title": "Your Mailing Address",
+      "prompts": [
+        {
+          "id": "street-address",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-4",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "zip-code-5",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "organ-and-tissue-donor-status",
+      "title": "Organ and Tissue Donor Status",
+      "prompts": [
+        {
+          "id": "i-consent-to-organ-and-tissue-donation",
+          "label": "I consent to organ and tissue donation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "i-no-longer-wish-to-be-in-the-donor-registry-and",
+          "label": "I no longer wish to be in the donor registry and wish to be in the donor registry",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-e-mail-address",
+      "title": "Your E-mail Address",
+      "prompts": [
+        {
+          "id": "e-mail",
+          "label": "E-MAIL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "check-here-to-remove-an-e-mail-address-already-o",
+          "label": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-vehicles-vessels",
+      "title": "Your Vehicles/Vessels",
+      "prompts": [
+        {
+          "id": "plate-vessel-no",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate-vessel-no-2",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate-vessel-no-3",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "voter-registration-application-section",
+      "title": "Voter Registration Application Section",
+      "prompts": [
+        {
+          "id": "are-you-a-citizen-of-the-united-states-of-americ",
+          "label": "Are you a citizen of the United States of America",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "are-you-a-citizen-of-the-united-states-of-americ-2",
+          "label": "Are you a citizen of the United States of America",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "will-you-be-at-least-18-years-of-age-on-or-befor",
+          "label": "Will you be at least 18 years of age on or before election day",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "will-you-be-at-least-18-years-of-age-on-or-befor-2",
+          "label": "Will you be at least 18 years of age on or before election day",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party-2",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "NAME OF PARTY"
+            ]
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party-3",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "DEMOCRAT"
+            ]
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party-4",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "REPUBLICAN"
+            ]
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party-5",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "OTHER"
+            ]
+          }
+        },
+        {
+          "id": "i-do-not-wish-to-enroll-in-a-party-at-this-time-",
+          "label": "I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

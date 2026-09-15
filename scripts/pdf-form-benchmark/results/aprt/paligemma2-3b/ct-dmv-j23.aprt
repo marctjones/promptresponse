@@ -1,0 +1,407 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "state-of-connecticut-department-of-motor-vehicles",
+          "label": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "copy-records-request-1-23-nov-2004",
+          "label": "COPY RECORDS REQUEST 1-23 NOV 2004",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "7-8-page-1-of-2",
+          "label": "(7/8) (Page 1 of 2)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv-validation",
+          "label": "DMV VALIDATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "records-checked-by-date-checked-by-2004-11-30",
+          "label": "RECORDS CHECKED BY: Date checked by: 2004/11/30",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "full-size-copy",
+          "label": "FULL SIZE COPY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-printed",
+          "label": "DATE PRINTED:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "LAST NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name",
+          "label": "FIRST NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-00-current-information",
+          "label": "$20.00 Current information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "no",
+          "label": "(No):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "current-information-yes",
+          "label": "Current Information (Yes):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-00-current-information-2",
+          "label": "$20.00 Current information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "current-information",
+          "label": "Current Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-2",
+          "label": "(No):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-00",
+          "label": "$20.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "20-00-current-information-3",
+          "label": "$20.00 Current information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "no-3",
+          "label": "(No):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-00-current-information-4",
+          "label": "$20.00 Current information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "no-4",
+          "label": "(No):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "current-year-or-date-birth",
+          "label": "Current Year or date Birth:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "registration-s-date",
+          "label": "REGISTRATION'S DATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "insurance-information-only",
+          "label": "Insurance Information Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-00-2",
+          "label": "$20.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "miscellaneous-request",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "petitioner-s-name-and-case-name-and-court-location",
+          "label": "PETITIONER'S NAME AND CASE NAME AND COURT LOCATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "multiple-requests",
+          "label": "Multiple Requests?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "code-no",
+          "label": "CODE NO.:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "requester-s-name-first-name-and-their-address",
+          "label": "REQUESTER'S NAME (First Name) and their Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "amount",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "second-name-if-applicable",
+          "label": "(Second Name, if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1",
+          "label": "SECTION 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "owner-s-date-of-birth",
+          "label": "Owner's Date of Birth:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "registration-are-number",
+          "label": "REGISTRATION/ARE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "03-04-78",
+          "label": "03-04-78",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "section-2",
+          "label": "SECTION 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "registration-are-number-2",
+          "label": "REGISTRATION/ARE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "06-09-75",
+          "label": "06-09-75",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "registration-are-number-3",
+          "label": "REGISTRATION/ARE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "01-04-78",
+          "label": "01-04-78",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "identification-of-owner-please-specify",
+          "label": "IDENTIFICATION OF OWNER (Please specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total",
+          "label": "TOTAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv-use-only-received",
+          "label": "DMV USE ONLY RECEIVED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-s-license-no-fed-employee-id-no-telephone-no-if-required",
+          "label": "OPERATOR'S LICENSE NO. FED. EMPLOYEE ID No. Telephone no. (if required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "amount-2",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "please-specify-in-the-space-below",
+          "label": "(Please specify in the space below.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "identification-required-see-reverse-side",
+          "label": "IDENTIFICATION REQUIRED SEE REVERSE SIDE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+```json
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES OVER THE COUNTER SALES UNIT"
+    },
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS:"
+    },
+    {
+      "id": "part_a",
+      "title": "PART A - COMPLETED BY APPLICANT"
+    },
+    {
+      "id": "type_of_application",
+      "title": "TYPE OF APPLICATION"
+    },
+    {
+      "id": "applicant_is",
+      "title": "APPLICANT IS (Check One)"
+    },
+    {
+      "id": "identification_of_applicant",
+      "title": "IDENTIFICATION OF APPLICANT (Please Print)"
+    },
+    {
+      "id": "certification_statement",
+      "title": "I certify under penalty of false statement..."
+    },
+    {
+      "id": "applicant_signature",
+      "title": "APPLICANT'S SIGNATURE"
+    },
+    {
+      "id": "part_b",
+      "title": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST"
+    },
+    {
+      "id": "criteria_to_qualify",
+      "title": "CRITERIA TO QUALIFY"
+    },
+    {
+      "id": "certifier_info",
+      "title": "CERTIFIER'S NAME (Please print)"
+    },
+    {
+      "id": "additional_certification",
+      "title": "ADDITIONAL CERTIFICATION MAY BE REQUIRED..."
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "NEW (1st issue)",
+      "section_id": "type_of_application",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 2,
+      "label": "REPLACEMENT",
+      "section_id": "type_of_application",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 3,
+      "label": "RENEWAL",
+      "section_id": "type_of_application",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 4,
+      "label": "GUARDIAN OF BLIND OR DISABLED PERSON",
+      "section_id": "applicant_is",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 5,
+      "label": "DISABLED",
+      "section_id": "applicant_is",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "applicant_is"
+    },
+    {
+      "n": 6,
+      "label": "BLIND",
+      "section_id": "applicant_is",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "applicant_is"
+    },
+    {
+      "n": 7,
+      "label": "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+      "section_id": "applicant_is",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "applicant_is"
+    },
+    {
+      "n": 8,
+      "label": "QUALIFYING VETERAN (See C below)",
+      "section_id": "applicant_is",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "applicant_is"
+    },
+    {
+      "n": 9,
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "GUARDIAN OR ORGANIZATION",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "DATE OF BIRTH (Required)",
+      "section_id": "identification_of_applicant",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 12,
+      "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "DAYTIME TELEPHONE NUMBER",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 14,
+      "label": "ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "MAILING ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "identification_of_applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+      "section_id": "applicant_signature",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "DATE SIGNED",
+      "section_id": "applicant_signature",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 18,
+      "label": "CERTIFIER'S NAME (Please print)",
+      "section_id": "certifier_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "CHECK ONE",
+      "section_id": "certifier_info",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "PHYSICIAN ASSISTANT",
+        "BESB",
+        "USVA PSYCHIATRIST",
+        "PHYSICIAN",
+        "APRN",
+        "OPTOMETRIST",
+        "OPHTHALMOLOGIST"
+      ]
+    },
+    {
+      "n": 20,
+      "label": "MEDICAL LICENSE NUMBER (Required)",
+      "section_id": "certifier_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "MEDICAL LICENSING STATE (Required)",
+      "section_id": "certifier_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "OFFICE ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "certifier_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "certifier_info",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 24,
+      "label": "PHYSICIAN, PHYSICIAN ASSISTANT, APRN, OPTOMETRIST, OPHTHALMOLOGIST, USDVA PSYCHIATRIST, STATEMENT AND SIGNATURE",
+      "section_id": "additional_certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+      "section_id": "additional_certification",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "DATE SIGNED",
+      "section_id": "additional_certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}
+```

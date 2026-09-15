@@ -1,0 +1,447 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "license-records-check-request-s-below",
+      "title": "LICENSE RECORDS, CHECK ( \u221a) REQUEST(S) BELOW",
+      "prompts": [
+        {
+          "id": "driver-license-file-information-printout-of-license-class-endorsements-restrictions-original-issue-date-and-status",
+          "label": "Driver License File Information (Printout of license class, endorsements, restrictions, original issue date and status.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-license-application-copy-of-most-current-document-this-is-not-a-duplicate-license",
+          "label": "Driver License Application (Copy of most current document). This is NOT a duplicate license",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driving-history-list-of-violations-and-sanctions-certified",
+          "label": "Driving History (List of violations and sanctions - certified)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "reg",
+          "label": "Reg",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "cdl",
+          "label": "CDL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "registration-records",
+      "title": "REGISTRATION RECORDS",
+      "prompts": [
+        {
+          "id": "registration-file-information-copy-of-current-computer-record",
+          "label": "Registration File Information (Copy of current computer record)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-certificate-copy-of-most-current-document-this-is-not-a-duplicate-registration",
+          "label": "Registration Certificate (Copy of most current document). * This is NOT a duplicate registration*",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-return-plate-receipt-copy-of-current-computer-record",
+          "label": "Registration Return Plate Receipt (Copy of current computer record)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "insurance-information-only",
+          "label": "Insurance Information Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "miscellaneous-request",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "multiple-requests",
+          "label": "Multiple Requests?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "request-section",
+      "title": "REQUEST SECTION",
+      "prompts": [
+        {
+          "id": "list-below-the-information-necessary-for-each-request-dmv-requires-two-identifying-characteristics-found-on-a-record-to-ensure-the-release-of-the-proper-record-or-the-request-may-not-be-filled",
+          "label": "LIST BELOW THE INFORMATION NECESSARY FOR EACH REQUEST. DMV REQUIRES TWO IDENTIFYING CHARACTERISTICS FOUND ON A RECORD TO ENSURE THE RELEASE OF THE PROPER RECORD OR THE REQUEST MAY NOT BE FILLED.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "applicant-read-instructions-and-specify-code-1-2-3-4-5-6-7-8-9-or-10",
+          "label": "APPLICANT, READ INSTRUCTIONS AND SPECIFY CODE 1, 2, 3, 4, 5, 6, 7, 8, 9 OR 10",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "suggestedValues": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "declaration",
+      "title": "DECLARATION",
+      "prompts": [
+        {
+          "id": "i-declare-under-the-penalties-of-false-statement-as-set-forth-in-section-53a-157b-of-the-connecticut-general-statutes-that-i-will-use-the-information-obtained-only-for-a-purpose-stated-on-the-reverse-of-this-form",
+          "label": "I declare under the penalties of false statement as set forth in Section 53a-157b of the Connecticut General Statutes that I will use the information obtained only for a purpose stated on the reverse of this form.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "signature-of-applicant",
+          "label": "SIGNATURE OF APPLICANT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "printed-name-of-applicant",
+          "label": "PRINTED NAME OF APPLICANT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant-print-or-type-your-name-and-mailing-address-below",
+      "title": "APPLICANT: Print or Type Your Name and Mailing Address Below.",
+      "prompts": [
+        {
+          "id": "driver-s-name-last-first-middle-initial",
+          "label": "DRIVER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-address-number-and-street-city-or-town-state-zip-code",
+          "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-date-of-birth",
+          "label": "DRIVER'S DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "owner-s-name-last-first-middle-initial",
+          "label": "OWNER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "owner-s-address-number-and-street-city-or-town-state-zip-code",
+          "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-make",
+          "label": "VEHICLE MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-year",
+          "label": "VEHICLE YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "registration-plate-number",
+          "label": "REGISTRATION PLATE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-of-date",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "miscellaneous-request-please-specify",
+          "label": "MISCELLANEOUS REQUEST (Please Specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "applicant-print-or-type-your-name-and-mailing-address-below",
+          "label": "APPLICANT: Print or Type Your Name and Mailing Address Below.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-using-a-p-o-box-street-address-must-also-be-included",
+          "label": "If using a P.O. Box, STREET ADDRESS MUST ALSO BE INCLUDED.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "customer-number",
+          "label": "CUSTOMER NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-s-license-no-or-fed-employer-id-no",
+          "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-no-required",
+          "label": "TELEPHONE NO. (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "number-and-street",
+          "label": "NUMBER AND STREET",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "CITY OR TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv-use-only-id-check",
+          "label": "DMV USE ONLY - ID CHECK",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "attorney-s-juris",
+          "label": "ATTORNEY'S JURIS #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "attorney-name-or-case-name-and-court-location",
+          "label": "ATTORNEY NAME OR CASE NAME AND COURT LOCATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "private-investigators-license-must-be-shown-and-recorded-along-with-a-second-form-of-id",
+          "label": "Private investigators license must be shown and recorded, along with a second form of ID.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total",
+          "label": "TOTAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "amount-received",
+          "label": "AMOUNT RECEIVED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-instructions-for-those-who-wish-to-obtain-record-information-on-others",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN RECORD INFORMATION ON OTHERS",
+      "prompts": [
+        {
+          "id": "specify-the-applicable-code-below-in-the-space-on-the-front-of-this-form-in-the-request-section",
+          "label": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-hereby-request-the-department-of-motor-vehicles-to-disclose-personal-information-from-its-records",
+          "label": "I hereby request the Department of Motor Vehicles to disclose personal information from its records.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-instructions-for-those-who-wish-to-obtain-their-own-record-information",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN THEIR OWN RECORD INFORMATION",
+      "prompts": [
+        {
+          "id": "specify-the-code-below-in-the-space-on-the-front-of-this-form-in-the-request-section-and-complete-the-form-including-applicant-signature",
+          "label": "Specify the code below in the space on the front of this form in the REQUEST SECTION and complete the form including applicant signature.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "this-record-request-is-submitted-for-the-purpose-of-obtaining-my-record-on-file-at-the-department-of-motor-vehicles",
+          "label": "This record request is submitted for the purpose of obtaining my record on file at the Department of Motor Vehicles.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+<doctag><picture><loc_29><loc_11><loc_69><loc_42></picture>
+<section_header_level_1><loc_162><loc_14><loc_338><loc_23>Employment Eligibility Verification</section_header_level_1>
+<section_header_level_1><loc_183><loc_25><loc_316><loc_32>Department of Homeland Security</section_header_level_1>
+<text><loc_173><loc_33><loc_327><loc_41>U.S. Citizenship and Immigration Services</text>
+<text><loc_29><loc_53><loc_469><loc_65>START HERE:  Employers must ensure the form instructions are available to employees when completing this form.  Employers are liable for failing to comply with the requirements for completing this form.  See below and the Instructions.</text>
+<text><loc_29><loc_67><loc_470><loc_86>ANTI-DISCRIMINATION NOTICE: All employees can choose which acceptable documentation to present for Form I-9.  Employers cannot ask employees for documentation to verify information in Section 1, or specify which acceptable documentation employees must present for Section 2 or Supplement B, Reverification and Rehire.  Treating employees differently based on their citizenship, immigration status, or national origin may be illegal.</text>
+<text><loc_29><loc_89><loc_464><loc_102>Section 1. Employee Information and Attestation: Employees must complete and sign Section 1 of Form I-9 no later than the first day of employment , but not before accepting a job offer.</text>
+<text><loc_29><loc_104><loc_103><loc_109>Last Name (Family Name)</text>
+<text><loc_166><loc_104><loc_232><loc_109>First Name (Given Name)</text>
+<text><loc_284><loc_104><loc_335><loc_109>Middle Initial (if any)</text>
+<text><loc_343><loc_104><loc_425><loc_109>Other Last Names Used (if any)</text>
+<text><loc_29><loc_121><loc_127><loc_126>Address (Street Number and Name)</text>
+<text><loc_235><loc_121><loc_283><loc_126>Apt. Number (if any)</text>
+<text><loc_235><loc_121><loc_283><loc_126>Apt. Number (if any)</text>
+<text><loc_29><loc_137><loc_104><loc_142>Date of Birth (mm/dd/yyyy)</text>
+<text><loc_123><loc_137><loc_197><loc_142>U.S. Social Security Number</text>
+<text><loc_216><loc_137><loc_284><loc_142>Employee's Email Address</text>
+<text><loc_373><loc_137><loc_454><loc_142>Employee's Telephone Number</text>
+<text><loc_29><loc_162><loc_142><loc_216>I am aware that federal law provides for imprisonment and/or fines for false statements, or the use of false documents, in connection with the completion of this form.  I attest, under penalty of perjury, that this information, including my selection of the box attesting to my citizenship or immigration status, is true and correct.</text>
+<text><loc_29><loc_220><loc_94><loc_225>Signature of Employee</text>
+<text><loc_235><loc_220><loc_280><loc_225>OR</text>
+<text><loc_29><loc_236><loc_458><loc_241>If a preparer and/or translator assisted you in completing Section 1, that person MUST complete the Preparer and/or Translator Certification on Page 3.</text>
+<text><loc_29><loc_244><loc_458><loc_266>Section 2. Employer Review and Verification: Employers or their authorized representative must complete and sign Section 2 within three business days after the employee's first day of employment, and must physically examine, or examine consistent with an alternative procedure authorized by the Secretary of DHS, documentation from List A OR a combination of documentation from List B and List C.  Enter any additional documentation in the Additional Information box; see Instructions.</text>
+<text><loc_150><loc_267><loc_170><loc_273>List A</text>
+<text><loc_272><loc_267><loc_292><loc_273>List B</text>
+<text><loc_336><loc_267><loc_350><loc_273>AND</text>
+<text><loc_403><loc_267><loc_421><loc_273>List C</text>
+<text><loc_29><loc_277><loc_78><loc_282>Document Title 1</text>
+<text><loc_29><loc_288><loc_81><loc_293>Issuing Authority</text>
+<text><loc_29><loc_299><loc_101><loc_304>Document Number (if any)</text>
+<text><loc_29><loc_310><loc_91><loc_315>Expiration Date (if any)</text>
+<text><loc_29><loc_321><loc_98><loc_326>Document Title 2 (if any)</text>
+<text><loc_29><loc_332><loc_81><loc_337>Issuing Authority</text>
+<text><loc_29><loc_343><loc_101><loc_348>Document Number (if any)</text>
+<text><loc_29><loc_354><loc_91><loc_359>Expiration Date (if any)</text>
+<text><loc_29><loc_365><loc_98><loc_370>Document Title 3 (if any)</text>
+<text><loc_29><loc_377><loc_81><loc_382>Issuing Authority</text>
+<text><loc_29><loc_388><loc_101><loc_393>Document Number (if any)</text>
+<text><loc_29><loc_399><loc_91><loc_404>Expiration Date (if any)</text>
+<text><loc_29><loc_410><loc_364><loc_426>Certification:  I attest, under penalty of perjury, that (1) I have examined the documentation presented by the above-named employee, (2) the above-listed documentation appears to be genuine and to relate to the employee named, and (3) to the best of my knowledge, the employee is authorized to work in the United States.</text>
+<text><loc_29><loc_431><loc_221><loc_436>Last Name, First Name and Title of Employer or Authorized Representative</text>
+<text><loc_235><loc_431><loc_373><loc_436>Signature of Employer or Authorized Representative</text>
+<text><loc_399><loc_431><loc_469><loc_436>Today's Date (mm/dd/yyyy)</text>
+<text><loc_29><loc_452><loc_142><loc_457>Employer's Business or Organization Name</text>
+<text><loc_201><loc_452><loc_398><loc_457>Employer's Business or Organization Address, City or Town, State, ZIP Code</text>
+<text><loc_29><loc_462><loc_142><loc_468>For reverification or rehire, complete</text>
+<text><loc_29><loc_473><loc_142><loc_480>Form I-9 Edition 01/20/25</text>
+<text><loc_29><loc_484><loc_114><loc_490>For reverification or rehire, complete</text>
+<text><loc_114><loc_484><loc_130><loc_490>Supplement</text>
+<text><loc_130><loc_484><loc_136><loc_490>B,</text>
+<text><loc_136><loc_484><loc_152><loc_490>Reverification</text>
+<text><loc_152><loc_484><loc_160><loc_490>and</text>
+<text><loc_160><loc_484><loc_169><loc_490>Rehire</text>
+<text><loc_169><loc_484><loc_177><loc_490>on</text>
+<text><loc_177><loc_484><loc_186><loc_490>Page</text>
+<text><loc_186><loc_484><loc_193><loc_490>4.</text>
+<text><loc_29><loc_471><loc_142><loc_477>For reverification or rehire, complete</text>
+<text><loc_142><loc_471><loc_146><loc_477>Supplement</text>
+<text><loc_146><loc_471><loc_152><loc_477>B,</text>
+<text><loc_152><loc_471><loc_160><loc_477>Reverification</text>
+<text><loc_160><loc_471><loc_169><loc_477>and</text>
+<text><loc_169><loc_471><loc_177><loc_477>Rehire</text>
+<text><loc_177><loc_471><loc_186><loc_477>on</text>
+<text><loc_186><loc_471><loc_193><loc_477>Page</text>
+<text><loc_193><loc_471><loc_197><loc_477>4.</text>
+<text><loc_29><loc_480><loc_114><loc_486>For reverification or rehire, complete</text>
+<text><loc_114><loc_480><loc_130><loc_486>Supplement</text>
+<text><loc_130><loc_480><loc_136><loc_486>B,</text>
+<text><loc_136><loc_480><loc_152><loc_486>Reverification</text>
+<text><loc_152><loc_480><loc_169><loc_486>and</text>
+<text><loc_169><loc_480><loc_177><loc_486>Rehire</text>
+<text><loc_177><loc_480><loc_186><loc_486>on</text>
+<text><loc_186><loc_480><loc_193><loc_486>Page</text>
+<text><loc_193><loc_480><loc_197><loc_486>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_160><loc_499>Reverification</text>
+<text><loc_160><loc_499><loc_169><loc_499>and</text>
+<text><loc_169><loc_499><loc_177><loc_499>Rehire</text>
+<text><loc_177><loc_499><loc_186><loc_499>on</text>
+<text><loc_186><loc_499><loc_193><loc_499>Page</text>
+<text><loc_193><loc_499><loc_197><loc_499>4.</text>
+<text><loc_29><loc_499><loc_142><loc_499>For reverification or rehire, complete</text>
+<text><loc_142><loc_499><loc_146><loc_499>Supplement</text>
+<text><loc_146><loc_499><loc_152><loc_499>B,</text>
+<text><loc_152><loc_499><loc_

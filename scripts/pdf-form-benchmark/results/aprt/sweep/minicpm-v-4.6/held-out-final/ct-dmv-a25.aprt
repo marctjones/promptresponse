@@ -1,0 +1,93 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a25"
+  },
+  "sections": [
+    {
+      "id": "department-of-motor-vehicles",
+      "title": "Department of Motor Vehicles",
+      "prompts": [
+        {
+          "id": "name-of-the-towed-vehicle",
+          "label": "Name of the towed vehicle",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "Telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "address"
+          }
+        },
+        {
+          "id": "vehicle-taken-into-custody-y",
+          "label": "Vehicle taken into custody Y",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "Year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "marker-plate-no",
+          "label": "Marker plate no.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "Make",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "Model",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "State of last registration",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

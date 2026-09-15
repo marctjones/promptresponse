@@ -1,0 +1,198 @@
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Taxpayer Identification Number (TIN)"
+    },
+    {
+      "id": "part-ii",
+      "title": "Certification"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner's name on line 1, and enter the business/disregarded entity's name on line 2.)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Business name/disregarded entity name, if different from above.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Individual/sole proprietor",
+        "C corporation",
+        "S corporation",
+        "Partnership",
+        "Trust/estate",
+        "LLC",
+        "Other (see instructions)"
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Exemptions (codes apply only to certain entities, not individuals; see instructions on page 3):",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Address (number, street, and apt. or suite no.). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "City, state, and ZIP code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "List account number(s) here (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Exempt payee code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership) . . .",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Other (see instructions)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Other (see instructions)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Applies to accounts maintained outside the United States.)",
+      "section_id": "part-i",
+      "field_kind": "boolean",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 15,
+      "label": "Address (number, street, and apt. or suite no.). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Requester's name and address (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "City, state, and ZIP code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "List account number(s) here (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 20,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 21,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 22,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 23,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 24,
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "signature"
+    },
+    {
+      "n": 25,
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}

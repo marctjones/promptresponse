@@ -1,0 +1,1 @@
+{"sections": [], "fields": [{"n": 1, "label": "do hereby appoint"}, {"n": 2, "label": "as my attorney-in-fact"}, {"n": 3, "label": "day of"}, {"n": 4, "label": "20"}, {"n": 5, "label": "5"}, {"n": 6, "label": "signer and sealer of the foregoing Power of Attorney"}, {"n": 7, "label": "day of"}, {"n": 8, "label": "20 9"}]}

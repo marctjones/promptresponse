@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "id": "identification_requirements",
+      "title": "IDENTIFICATION REQUIREMENTS"
+    },
+    {
+      "id": "special_instructions_others",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN RECORD INFORMATION ON OTHERS"
+    },
+    {
+      "id": "special_instructions_self",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN THEIR OWN RECORD INFORMATION"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+      "section_id": "special_instructions_others",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "I hereby request the Department of Motor Vehicles to disclose personal information from its records.",
+      "section_id": "special_instructions_others",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Specify the code below in the space on the front of this form in the REQUEST SECTION and complete the form including applicant signature.",
+      "section_id": "special_instructions_self",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "This record request is submitted for the purpose of obtaining my record on file at the Department of Motor Vehicles.",
+      "section_id": "special_instructions_self",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

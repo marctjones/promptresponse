@@ -1,0 +1,728 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-ss4"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].PgHeader[0].f1_1[0]",
+          "label": "EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_2[0]",
+          "label": "Internal Revenue Service 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_3[0]",
+          "label": "Trade name of business (if different from name on line 1)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_4[0]",
+          "label": "Executor, administrator, trustee, \u201Ccare of\u201D name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_5[0]",
+          "label": "Mailing address (room, apt., suite no. and street, or P.O. box) 5a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_6[0]",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_7[0]",
+          "label": "Street address (if different) (Don\u2019t enter a P.O. box.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_8[0]",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_9[0]",
+          "label": "County and state where principal business is located",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_10[0]",
+          "label": "Name of responsible party",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_11[0]",
+          "label": "7b SSN, ITIN, or EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[0]",
+          "label": "Yes No .",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[1]",
+          "label": "topmostSubform[0].Page1[0].c1_1[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_12[0]",
+          "label": "topmostSubform[0].Page1[0].f1_12[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[0]",
+          "label": "8b If 8a is \u201CYes,\u201D enter the number of LLC members . . . . . . . . Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[1]",
+          "label": "8b If 8a is \u201CYes,\u201D enter the number of LLC members . . . . . . . . No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[0]",
+          "label": "Sole proprietor (SSN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_13[0]",
+          "label": "Sole proprietor (SSN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[1]",
+          "label": "Estate (SSN of decedent)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_14[0]",
+          "label": "Estate (SSN of decedent)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[2]",
+          "label": "Partnership",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[3]",
+          "label": "Plan administrator (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_15[0]",
+          "label": "Plan administrator (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[4]",
+          "label": "Corporation (enter form number to be filed)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_16[0]",
+          "label": "Corporation (enter form number to be filed)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[5]",
+          "label": "Trust (TIN of grantor)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_17[0]",
+          "label": "Trust (TIN of grantor)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[6]",
+          "label": "Personal service corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[7]",
+          "label": "Military/National Guard",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[8]",
+          "label": "State/local government",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[9]",
+          "label": "Church or church-controlled organization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[10]",
+          "label": "Farmers\u2019 cooperative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[11]",
+          "label": "Federal government",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[12]",
+          "label": "Other nonprofit organization (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_18[0]",
+          "label": "Other nonprofit organization (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[13]",
+          "label": "REMIC",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[14]",
+          "label": "Indian tribal governments/enterprises",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[15]",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_19[0]",
+          "label": "Group Exemption Number (GEN) if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_20[0]",
+          "label": "Group Exemption Number (GEN) if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_21[0]",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_22[0]",
+          "label": "Foreign country",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[0]",
+          "label": "topmostSubform[0].Page1[0].c1_4[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_25[0]",
+          "label": "topmostSubform[0].Page1[0].f1_25[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_26[0]",
+          "label": "topmostSubform[0].Page1[0].f1_26[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[1]",
+          "label": "Changed type of organization (specify new type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_27[0]",
+          "label": "Changed type of organization (specify new type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[2]",
+          "label": "Purchased going business",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[3]",
+          "label": "Hired employees (Check the box and see line 13.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[4]",
+          "label": "Created a trust (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_28[0]",
+          "label": "Created a trust (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[5]",
+          "label": "Compliance with IRS withholding regulations",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[6]",
+          "label": "Created a pension plan (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_29[0]",
+          "label": "Created a pension plan (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[7]",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_4[8]",
+          "label": "Banking purpose (specify purpose)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_24[0]",
+          "label": "Banking purpose (specify purpose)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_30[0]",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_31[0]",
+          "label": "Date business started or acquired (month, day, year).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "See instructions."
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_32[0]",
+          "label": "Closing month of accounting year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_33[0]",
+          "label": "Agricultural Household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_34[0]",
+          "label": "Agricultural Household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_35[0]",
+          "label": "Other",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_5[0]",
+          "label": "topmostSubform[0].Page1[0].c1_5[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_36[0]",
+          "label": "topmostSubform[0].Page1[0].f1_36[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[0]",
+          "label": "Health care \u0026 social assistance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[1]",
+          "label": "Wholesale\u2014agent/broker",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[2]",
+          "label": "Construction",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[3]",
+          "label": "Rental \u0026 leasing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[4]",
+          "label": "Transportation \u0026 warehousing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[5]",
+          "label": "Accommodation \u0026 food service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[6]",
+          "label": "Wholesale\u2014other",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[7]",
+          "label": "Retail",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[8]",
+          "label": "Real estate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[9]",
+          "label": "Manufacturing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[10]",
+          "label": "Finance \u0026 insurance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_6[11]",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_37[0]",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_38[0]",
+          "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_7[0]",
+          "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN? If \u201CYes,\u201D write previous EIN here Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_7[1]",
+          "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN? If \u201CYes,\u201D write previous EIN here No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_39[0]",
+          "label": "topmostSubform[0].Page1[0].f1_39[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_40[0]",
+          "label": "Third Party Designee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_41[0]",
+          "label": "Designee\u2019s telephone number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_42[0]",
+          "label": "Address and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_43[0]",
+          "label": "Designee\u2019s fax number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_44[0]",
+          "label": "topmostSubform[0].Page1[0].f1_44[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_45[0]",
+          "label": "topmostSubform[0].Page1[0].f1_45[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_46[0]",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

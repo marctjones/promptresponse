@@ -1,0 +1,56 @@
+Clear Fields
+Print Form
+Department of Revenue Services
+Effective January 1,2026
+Form CT-W4 Employee's Withholding Certificate
+(Rev. 12/20)
+Employee Instructions:
+• Read the instructions on Page 2 before completing this form. • Sign in the filing status you expect to report on your Connecticut income tax return.
+Choose the statement that best describes your gross income. Enter the withholding code on Line 1 below.
+Married Filing Jointly
+Filing Status
+My expected annual gross income is less than or equal to $24,000 or I am claiming exemption under the Military Spouse Residency Act (MSPA). If you are married and claim a joint return of your spouse's gross income:
+E
+I am not required to report tax on my personal income and no withholding is necessary.
+Married Filing Single
+My expected annual gross income is greater than $12,000. I have significant savings income and wish to avoid having too little tax withheld.
+E
+A
+My spouse is employed at our expected combined annual salary of $36,000 or more (or a lesser amount if equal to $100,000). See Certain Married Individuals, Page 2. I am not required to report tax on my personal income and no withholding is necessary. My expected annual gross income is greater than $24,000.
+E
+A
+D
+I have significant savings income and wish to avoid having too little tax withheld.
+My spouse is employed at our expected combined annual salary of $36,000 or a lesser amount if equal to $100,000. See Certain Married Individuals, Page 2. I am not required to report tax on my personal income and no withholding is necessary. My expected annual gross income is greater than $10,000.
+D
+E
+I have significant savings income and wish to avoid having too little tax withheld.
+F
+D
+My spouse is married with substantial other income. I am a nonresident of Connecticut with substantial other income.
+D
+Qualifying Surviving Spouse
+Filing Status
+My expected annual gross income is less than or equal to $10,000 and I am claiming exemption under the MSPA (and my expected annual gross income is greater than $24,000). My expected annual gross income is greater than $36,000. The amount of tax withheld will not exceed a total of less than or equal to $100,000 and I am claiming exemption under the MSPA (and my expected annual gross income is greater than $10,000).
+E
+B
+C
+D
+I have significant savings income and wish to avoid having too little tax withheld.
+F
+D
+My spouse is married with substantial other income. I am a nonresident of Connecticut with substantial other income.
+D
+If you are claiming the Military Spouse Residency Retail (MSPA) exemption, see instructions on Page 2. Employees: See Employee General Instructions on Page 2. Sign and return Form CT-W4 to your employer. Keep it in copy for your records. If you have any questions about this form please contact us at:
+18006793500 (MSPA) or call the Connecticut Department of Revenue Services tollfree number on Page 2. Call the MSPA hotline, "Call Us" button on page 4.
+Date
+Yes
+No
+Enter data here:
+mm/day/year
+Employee's Business Name
+State
+ZIP Code
+Contact Person
+Telephone Number
+Visit us at portal.ct.gov/DRS for more information.

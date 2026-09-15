@@ -1,0 +1,219 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-8822",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/fed-8822",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].c1_1[0]",
+          "label": "c1_1[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_2[0]",
+          "label": "c1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].c1_3[0]",
+          "label": "c1_3[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_1[0]",
+          "label": "f1_1[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_2[0]",
+          "label": "f1_2[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_3[0]",
+          "label": "f1_3[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_4[0]",
+          "label": "f1_4[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_5[0]",
+          "label": "f1_5[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_6[0]",
+          "label": "f1_6[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_7[0]",
+          "label": "f1_7[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_8[0]",
+          "label": "f1_8[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_9[0]",
+          "label": "f1_9[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_10[0]",
+          "label": "f1_10[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_11[0]",
+          "label": "f1_11[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_12[0]",
+          "label": "f1_12[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_13[0]",
+          "label": "f1_13[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_14[0]",
+          "label": "f1_14[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_15[0]",
+          "label": "f1_15[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_16[0]",
+          "label": "f1_16[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_17[0]",
+          "label": "f1_17[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_18[0]",
+          "label": "f1_18[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_19[0]",
+          "label": "f1_19[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_20[0]",
+          "label": "f1_20[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_21[0]",
+          "label": "f1_21[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].f1_22[0]",
+          "label": "f1_22[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

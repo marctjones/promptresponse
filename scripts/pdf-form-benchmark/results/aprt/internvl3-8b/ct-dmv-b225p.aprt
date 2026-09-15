@@ -1,0 +1,268 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-225P (Disabled Parking Placard, Renewable)"
+  },
+  "sections": [
+    {
+      "id": "part-a-completed-by-applicant",
+      "title": "Part A - Completed by Applicant",
+      "prompts": [
+        {
+          "id": "type-of-application",
+          "label": "Type of Application",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "New (1st issue)",
+              "Replacement",
+              "Renewal"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is",
+          "label": "Applicant is",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Guardian of Blind or Disabled Person",
+              "Disabled",
+              "Blind",
+              "Disabled Person",
+              "Qualifying Veteran (See C below)"
+            ]
+          }
+        },
+        {
+          "id": "name-of-person-who-is-blind-or-disabled",
+          "label": "Name of Person Who is Blind or Disabled",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-required",
+          "label": "Date of Birth (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "ct-driver-license-id-card-number-required",
+          "label": "CT Driver License/ID Card Number (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-address",
+          "label": "Mailing Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-certify-under-penalty-of-false-statement",
+          "label": "I certify under penalty of false statement",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "applicant-s-signature",
+          "label": "Applicant's Signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-applicant-parent-guardian-or-power-of-attorney",
+          "label": "Signature of Applicant/Parent/Guardian (or Power of Attorney)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-signed-2",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "criteria-to-qualify",
+      "title": "Criteria to Qualify",
+      "prompts": [
+        {
+          "id": "criteria-to-qualify",
+          "label": "Criteria to Qualify",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "additional-certification-may-be-required-at-the-time-of-the-original-application-or-any-time-thereafter-if-there-is-cause-to-believe-that-the-ability-to-walk-is-not-seriously-and-permanently-impaired",
+      "title": "Additional Certification May Be Required at the Time of the Original Application or Any Time Thereafter If There Is Cause to Believe That the Ability",
+      "prompts": [
+        {
+          "id": "medical-license-number-required",
+          "label": "Medical License Number (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-address",
+          "label": "Office Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-telephone-number",
+          "label": "Office Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "physician-physician-assistant-aprn-optometrist-ophthalmologist-usfda-psychiatric",
+          "label": "Physician, Physician Assistant, APRN, Optometrist, Ophthalmologist, USFDA Psychiatric",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Physician Assistant",
+              "BESB",
+              "USFDA Psychiatric"
+            ]
+          }
+        },
+        {
+          "id": "signature-of-physician-pa-aprn-optometrist-ophthalmologist-or-usfda-psychiatric",
+          "label": "Signature of Physician, PA, APRN, Optometrist, Ophthalmologist, or USFDA Psychiatric",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-signed-3",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

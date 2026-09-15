@@ -1,0 +1,79 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "special-instructions-for-those-who-wish-to-obtain-record-information-on-others",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN RECORD INFORMATION ON OTHERS",
+      "prompts": [
+        {
+          "id": "copy-records-request",
+          "label": "COPY RECORDS REQUEST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "j-23-rev-3-2021",
+          "label": "J-23 REV. 3-2021",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-motor-vehicles",
+          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number-1-800-842-8222",
+          "label": "TELEPHONE NUMBER: 1-800-842-8222",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "on-the-web-at-ct-gov-dmv",
+          "label": "On The Web At ct.gov/dmv",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv-validation",
+          "label": "DMV VALIDATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "identification-required-see-reverse-side",
+          "label": "IDENTIFICATION REQUIRED SEE REVERSE SIDE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

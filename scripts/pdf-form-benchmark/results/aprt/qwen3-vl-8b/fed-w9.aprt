@@ -1,0 +1,457 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "entity-information",
+      "title": "Entity Information",
+      "prompts": [
+        {
+          "id": "name-of-entity-individual",
+          "label": "Name of entity/individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "business-name-disregarded-entity-name-if-different-from-above",
+          "label": "Business name/disregarded entity name, if different from above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax-classification",
+      "title": "Tax Classification",
+      "prompts": [
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classification-of-the-entity-individual-whose-name-is-entered-on-line-1",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Individual/sole proprietor",
+              "C corporation",
+              "S corporation",
+              "Partnership",
+              "Trust/estate",
+              "LLC",
+              "Other (see instructions)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "exemptions",
+      "title": "Exemptions",
+      "prompts": [
+        {
+          "id": "exempt-payee-code-if-any",
+          "label": "Exempt payee code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemption-from-foreign-account-tax-compliance-act-fatca-reporting-code-if-any",
+          "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "address-and-account-info",
+      "title": "Address and Account Info",
+      "prompts": [
+        {
+          "id": "address-number-street-and-apt-or-suite-no",
+          "label": "Address (number, street, and apt. or suite no.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code",
+          "label": "City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-account-number-s-here-optional",
+          "label": "List account number(s) here (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-i-taxpayer-identification-number-tin",
+      "title": "Part I Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "employer-identification-number",
+          "label": "Employer identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification",
+      "title": "Part II Certification",
+      "prompts": [
+        {
+          "id": "signature-of-u-s-person",
+          "label": "Signature of U.S. person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions",
+      "prompts": [
+        {
+          "id": "line-1",
+          "label": "Line 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-2",
+          "label": "Line 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-3a",
+          "label": "Line 3a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Corporation",
+              "Individual/sole proprietor",
+              "Limited liability company and enter the appropriate tax classification: P = Partnership, C = C corporation, or S = S corporation",
+              "Partnership",
+              "Trust/estate"
+            ]
+          }
+        },
+        {
+          "id": "line-3b",
+          "label": "Line 3b",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "line-4-exemptions",
+          "label": "Line 4 Exemptions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-5",
+      "title": "Line 5",
+      "prompts": [
+        {
+          "id": "enter-your-address-number-street-and-apartment-or-suite-number",
+          "label": "Enter your address (number, street, and apartment or suite number).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-6",
+      "title": "Line 6",
+      "prompts": [
+        {
+          "id": "enter-your-city-state-and-zip-code",
+          "label": "Enter your city, state, and ZIP code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-i-taxpayer-identification-number-tin-2",
+      "title": "Part I. Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "enter-your-tin-in-the-appropriate-box",
+          "label": "Enter your TIN in the appropriate box.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification-2",
+      "title": "Part II. Certification",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account-2",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "give-name-and-ein-of",
+          "label": "Give name and EIN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-interest-dividend-and-barter-exchange-accounts-opened-before-1984-and-broker-accounts-considered-active-during-1983",
+          "label": "1. Interest, dividend, and barter exchange accounts opened before 1984 and broker accounts considered active during 1983.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-interest-dividend-broker-and-barter-exchange-accounts-opened-after-1983-and-broker-accounts-considered-inactive-during-1983",
+          "label": "2. Interest, dividend, broker, and barter exchange accounts opened after 1983 and broker accounts considered inactive during 1983.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-real-estate-transactions",
+          "label": "3. Real estate transactions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-other-payments",
+          "label": "4. Other payments.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-mortgage-interest-paid-by-you-acquisition-or-abandonment-of-secured-property-cancellation-of-debt-qualified-tuition-program-payments-under-section-529-able-accounts-under-section-529a-ira-coverdell-esa-archer-msa-or-hsa-contributions-or-distributions-and-pension-distributions",
+          "label": "5. Mortgage interest paid by you, acquisition or abandonment of secured property, cancellation of debt, qualified tuition program payments (under section 529), ABLE accounts (under section 529A), IRA, Coverdell ESA, Archer MSA or HSA contributions or distributions, and pension distributions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "8-disregarded-entity-not-owned-by-an-individual",
+          "label": "8. Disregarded entity not owned by an individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "9-a-valid-trust-estate-or-pension-trust",
+          "label": "9. A valid trust, estate, or pension trust",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "10-corporation-or-llc-electing-corporate-status-on-form-8832-or-form-2553",
+          "label": "10. Corporation or LLC electing corporate status on Form 8832 or Form 2553",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "11-association-club-religious-charitable-educational-or-other-tax-exempt-organization",
+          "label": "11. Association, club, religious, charitable, educational, or other tax-exempt organization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "12-partnership-or-multi-member-llc",
+          "label": "12. Partnership or multi-member LLC",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "13-a-broker-or-registered-nominee",
+          "label": "13. A broker or registered nominee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "14-account-with-the-department-of-agriculture-in-the-name-of-a-public-entity-such-as-a-state-or-local-government-school-district-or-prison-that-receives-agricultural-program-payments",
+          "label": "14. Account with the Department of Agriculture in the name of a public entity (such as a state or local government, school district, or prison) that receives agricultural program payments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "15-grantor-trust-filing-form-1041-or-under-the-optional-filing-method-2-requiring-form-1099-see-regulations-section-1-671-4-b-2-i-b",
+          "label": "15. Grantor trust filing Form 1041 or under the Optional Filing Method 2, requiring Form 1099 (see Regulations section 1.671-4(b)(2)(i)(B))**",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "give-name-and-ssn-of",
+          "label": "Give name and SSN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-individual",
+          "label": "1. Individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-two-or-more-individuals-joint-account-other-than-an-account-maintained-by-an-ffi",
+          "label": "2. Two or more individuals (joint account) other than an account maintained by an FFI",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-two-or-more-u-s-persons-joint-account-maintained-by-an-ffi",
+          "label": "3. Two or more U.S. persons (joint account maintained by an FFI)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-custodial-account-of-a-minor-uniform-gift-to-minors-act",
+          "label": "4. Custodial account of a minor (Uniform Gift to Minors Act)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-a-the-usual-revocable-savings-trust-grantor-is-also-trustee",
+          "label": "5. a. The usual revocable savings trust (grantor is also trustee)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-b-so-called-trust-account-that-is-not-a-legal-or-valid-trust-under-state-law",
+          "label": "5. b. So-called trust account that is not a legal or valid trust under state law",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "6-sole-proprietorship-or-disregarded-entity-owned-by-an-individual",
+          "label": "6. Sole proprietorship or disregarded entity owned by an individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "7-grantor-trust-filing-under-optional-filing-method-1-see-regulations-section-1-671-4-b-2-i-a",
+          "label": "7. Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(i)(A))**",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

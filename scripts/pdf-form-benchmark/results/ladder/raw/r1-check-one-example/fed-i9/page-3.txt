@@ -1,0 +1,306 @@
+{
+  "sections": [
+    {
+      "id": "preparer-translator-certification",
+      "title": "Preparer and/or Translator Certification for Section 1"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "employee-name"
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "employee-name"
+    },
+    {
+      "n": 3,
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "employee-name"
+    },
+    {
+      "n": 4,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": "preparer-signature-1"
+    },
+    {
+      "n": 5,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "preparer-date-1"
+    },
+    {
+      "n": 6,
+      "label": "Last Name (Family Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-1"
+    },
+    {
+      "n": 7,
+      "label": "First Name (Given Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-1"
+    },
+    {
+      "n": 8,
+      "label": "Middle Initial (if any)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-1"
+    },
+    {
+      "n": 9,
+      "label": "Address (Street Number and Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-1"
+    },
+    {
+      "n": 10,
+      "label": "City or Town",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-1"
+    },
+    {
+      "n": 11,
+      "label": "State",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-1"
+    },
+    {
+      "n": 12,
+      "label": "ZIP Code",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-1"
+    },
+    {
+      "n": 13,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": "preparer-signature-2"
+    },
+    {
+      "n": 14,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "preparer-date-2"
+    },
+    {
+      "n": 15,
+      "label": "Last Name (Family Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-2"
+    },
+    {
+      "n": 16,
+      "label": "Middle Initial (if any)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-2"
+    },
+    {
+      "n": 17,
+      "label": "Address (Street Number and Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-2"
+    },
+    {
+      "n": 18,
+      "label": "City or Town",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-2"
+    },
+    {
+      "n": 19,
+      "label": "State",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-2"
+    },
+    {
+      "n": 20,
+      "label": "ZIP Code",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-2"
+    },
+    {
+      "n": 21,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": "preparer-signature-3"
+    },
+    {
+      "n": 22,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "preparer-date-3"
+    },
+    {
+      "n": 23,
+      "label": "Last Name (Family Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-3"
+    },
+    {
+      "n": 24,
+      "label": "First Name (Given Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-3"
+    },
+    {
+      "n": 25,
+      "label": "Middle Initial (if any)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-3"
+    },
+    {
+      "n": 26,
+      "label": "ZIP Code",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-3"
+    },
+    {
+      "n": 27,
+      "label": "Address (Street Number and Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-3"
+    },
+    {
+      "n": 28,
+      "label": "City or Town",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-3"
+    },
+    {
+      "n": 29,
+      "label": "State",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-3"
+    },
+    {
+      "n": 30,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": "preparer-signature-4"
+    },
+    {
+      "n": 31,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "preparer-date-4"
+    },
+    {
+      "n": 32,
+      "label": "Last Name (Family Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-4"
+    },
+    {
+      "n": 33,
+      "label": "First Name (Given Name)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-4"
+    },
+    {
+      "n": 34,
+      "label": "Middle Initial (if any)",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-name-4"
+    },
+    {
+      "n": 35,
+      "label": "State",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-4"
+    },
+    {
+      "n": 36,
+      "label": "City or Town",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-4"
+    },
+    {
+      "n": 37,
+      "label": "ZIP Code",
+      "section_id": "preparer-translator-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "preparer-address-4"
+    }
+  ]
+}

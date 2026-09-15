@@ -1,0 +1,494 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "first-name-and-middle-initial",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-state-and-zip-code",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "single-or-married-filing-separately",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "married-filing-jointly-or-qualifying-surviving-spouse",
+          "label": "Married filing jointly or Qualifying surviving spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "head-of-household",
+          "label": "Head of household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "use-the-estimator-at-www-irs-gov-w4app-for-the-most-accurate-withholding-for-this-step-and-steps-3-4-if-you-or-your-spouse-have-self-employment-income-use-this-option-or",
+          "label": "Use the estimator at www.irs.gov/W4App for the most accurate withholding for this step (and Steps 3\u20134). If you or your spouse have self-employment income, use this option; or",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Use the estimator at www.irs.gov/W4App for the most accurate withholding for this step (and Steps 3\u20134). If you or your spouse have self-employment income, use this option; or",
+              "Use the Multiple Jobs Worksheet on page 3 and enter the result in Step 4(c) below; or",
+              "If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is generally more accurate than Step 2(b) if pay at the lower paying job is more than half of the pay at the higher paying job. Otherwise, Step 2(b) is more accurate"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits",
+      "prompts": [
+        {
+          "id": "multiply-the-number-of-qualifying-children-under-age-17-by-2-200",
+          "label": "Multiply the number of qualifying children under age 17 by $2,200",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-other-dependents-by-500",
+          "label": "Multiply the number of other dependents by $500",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-income-not-from-jobs-if-you-want-tax-withheld-for-other-income-you-expect-this-year-that-won-t-have-withholding-enter-the-amount-of-other-income-here-this-may-include-interest-dividends-and-retirement-income",
+          "label": "Other income (not from jobs). If you want tax withheld for other income you expect this year that won't have withholding, enter the amount of other income here. This may include interest, dividends, and retirement income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "deductions-use-the-deductions-worksheet-on-page-4-to-determine-the-amount-of-deductions-you-may-claim-which-will-reduce-your-withholding-if-you-skip-this-line-your-withholding-will-be-based-on-the-standard-deduction-enter-the-result-here",
+          "label": "Deductions. Use the Deductions Worksheet on page 4 to determine the amount of deductions you may claim, which will reduce your withholding. (If you skip this line, your withholding will be based on the standard deduction.) Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "extra-withholding-enter-any-additional-tax-you-want-withheld-each-pay-period",
+          "label": "Extra withholding. Enter any additional tax you want withheld each pay period",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "i-claim-exemption-from-withholding-for-2026-and-i-certify-that-i-meet-both-of-the-conditions-for-exemption-for-2026-see-exemption-from-withholding-on-page-2-i-understand-i-will-need-to-submit-a-new-form-w-4-for-2027",
+          "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "employee-s-signature-this-form-is-not-valid-unless-you-sign-it",
+          "label": "Employee\u2019s signature (This form is not valid unless you sign it.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only",
+      "prompts": [
+        {
+          "id": "employer-s-name-and-address",
+          "label": "Employer\u2019s name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-date-of-employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-identification-number-ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-b-multiple-jobs-worksheet",
+      "title": "Step 2(b) \u2014 Multiple Jobs Worksheet",
+      "prompts": [
+        {
+          "id": "1",
+          "label": "1 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "2a",
+          "label": "2a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "2b",
+          "label": "2b $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "2c",
+          "label": "2c $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "3",
+          "label": "3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "4",
+          "label": "4 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-b-deductions-worksheet",
+      "title": "Step 4(b) \u2014 Deductions Worksheet",
+      "prompts": [
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensation-and-passenger-vehicle-loan-interest",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "a-qualified-tips-if-your-total-income-is-less-than-150-000-300-000-if-married-filing-jointly-enter-an-estimate-of-your-qualified-tips-up-to-25-000",
+          "label": "a Qualified tips. If your total income is less than $150,000 ($300,000 if married filing jointly), enter an estimate of your qualified tips up to $25,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "b-qualified-overtime-compensation-if-your-total-income-is-less-than-150-000-300-000-if-married-filing-jointly-enter-an-estimate-of-your-qualified-overtime-compensation-up-to-12-500-25-000-if-married-filing-jointly-of-the-and-a-half-portion-of-time-and-a-half-compensation",
+          "label": "b Qualified overtime compensation. If your total income is less than $150,000 ($300,000 if married filing jointly), enter an estimate of your qualified overtime compensation up to $12,500 ($25,000 if married filing jointly) of the \u201cand-a-half\u201d portion of time-and-a-half compensation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "c-qualified-passenger-vehicle-loan-interest-if-your-total-income-is-less-than-100-000-200-000-if-married-filing-jointly-enter-an-estimate-of-your-qualified-passenger-vehicle-loan-interest-up-to-10-000",
+          "label": "c Qualified passenger vehicle loan interest. If your total income is less than $100,000 ($200,000 if married filing jointly), enter an estimate of your qualified passenger vehicle loan interest up to $10,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-lines-1a-1b-and-1c-enter-the-result-here",
+          "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "seniors-age-65-or-older-if-your-total-income-is-less-than-75-000-150-000-if-married-filing-jointly",
+          "label": "Seniors age 65 or older. If your total income is less than $75,000 ($150,000 if married filing jointly):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "a-enter-6-000-if-you-are-age-65-or-older-before-the-end-of-the-year",
+          "label": "a Enter $6,000 if you are age 65 or older before the end of the year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "b-enter-6-000-if-your-spouse-is-age-65-or-older-before-the-end-of-the-year-and-has-a-social-security-number-valid-for-employment",
+          "label": "b Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security number valid for employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-lines-3a-and-3b-enter-the-result-here",
+          "label": "Add lines 3a and 3b. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter-an-estimate-of-your-student-loan-interest-deductible-ira-contributions-educator-expenses-alimony-paid-and-certain-other-adjustments-from-schedule-1-form-1040-part-ii-see-pub-505-for-more-information",
+          "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "itemized-deductions-enter-an-estimate-of-your-2026-itemized-deductions-from-schedule-a-form-1040-such-deductions-may-include-qualifying",
+          "label": "Itemized deductions. Enter an estimate of your 2026 itemized deductions from Schedule A (Form 1040). Such deductions may include qualifying:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "a-medical-and-dental-expenses-enter-expenses-in-excess-of-7-5-0-075-of-your-total-income",
+          "label": "a Medical and dental expenses. Enter expenses in excess of 7.5% (0.075) of your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "b-state-and-local-taxes-if-your-total-income-is-less-than-505-000-252-500-if-married-filing-separately-enter-state-and-local-taxes-paid-up-to-40-400-20-200-if-married-filing-separately",
+          "label": "b State and local taxes. If your total income is less than $505,000 ($252,500 if married filing separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "c-home-mortgage-interest-if-your-home-acquisition-debt-is-less-than-750-000-375-000-if-married-filing-separately-enter-your-home-mortgage-interest-expense-including-mortgage-insurance-premiums",
+          "label": "c Home mortgage interest. If your home acquisition debt is less than $750,000 ($375,000 if married filing separately), enter your home mortgage interest expense (including mortgage insurance premiums)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "d-gifts-to-charities-enter-contributions-in-excess-of-0-5-0-005-of-your-total-income",
+          "label": "d Gifts to charities. Enter contributions in excess of 0.5% (0.005) of your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "e-other-itemized-deductions-enter-the-amount-for-other-itemized-deductions",
+          "label": "e Other itemized deductions. Enter the amount for other itemized deductions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-lines-6a-6b-6c-6d-and-6e-enter-the-result-here",
+          "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "a-enter-your-total-income",
+          "label": "a Enter your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "b-subtract-line-4-from-line-8a-if-line-4-is-greater-than-line-8a-enter-0-here-and-on-line-10-skip-line-9",
+          "label": "b Subtract line 4 from line 8a. If line 4 is greater than line 8a, enter -0- here and on line 10. Skip line 9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter",
+          "label": "Enter:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "if-line-9-is-greater-than-line-8b-enter-the-amount-from-line-7-otherwise-multiply-line-7-by-94-0-94-and-enter-the-result-here",
+          "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94) and enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "standard-deduction",
+          "label": "Standard deduction.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter-2",
+          "label": "Enter:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "cash-gifts-to-charities-if-you-take-the-standard-deduction-enter-cash-contributions-up-to-1-000-2-000-if-married-filing-jointly",
+          "label": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000 ($2,000 if married filing jointly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-lines-11-and-12-enter-the-result-here",
+          "label": "Add lines 11 and 12. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "if-line-10-is-greater-than-line-13-subtract-line-11-from-line-10-and-enter-the-result-here-if-line-13-is-greater-than-line-10-enter-the-amount-from-line-12",
+          "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-lines-2-4-5-and-14-enter-the-result-here-and-in-step-4-b-of-form-w-4",
+          "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

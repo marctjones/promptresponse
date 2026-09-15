@@ -1,0 +1,368 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-j23"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "prompts": [
+        {
+          "id": "CheckBox1",
+          "label": "endorsements, restrictions, original issue date and status.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox2",
+          "label": "Driver License Application (Copy of most current",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox3",
+          "label": "CheckBox3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox4",
+          "label": "Registration File Information (Copy of current computer record)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox5",
+          "label": "Registration Certificate (Copy of most current",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox6",
+          "label": "Registration Return Plate Receipt (Copy of current",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox7",
+          "label": "Insurance Information Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox9",
+          "label": "Certified copy of uncertified items",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox8",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox10",
+          "label": "CheckBox10",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "FillText1",
+          "label": "ATTORNEY\u0027S JURIS #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText2",
+          "label": "ATTORNEY NAME OR CASE NAME AND COURT LOCATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText4",
+          "label": "CODE NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText5",
+          "label": "DRIVER\u0027S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText6",
+          "label": "DRIVER\u0027S LICENSE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText7",
+          "label": "DRIVER\u0027S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText8",
+          "label": "DRIVER\u0027S DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText9",
+          "label": "OWNER\u0027S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText10",
+          "label": "OWNER\u0027S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText11",
+          "label": "SECTION 3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText12",
+          "label": "VEHICLE MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText13",
+          "label": "VEHICLE YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText14",
+          "label": "REGISTRATION PLATE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText15",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText16",
+          "label": "MISCELLANEOUS REQUEST (Please Specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText17",
+          "label": "OPERATOR\u0027S LICENSE NO. or FED.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "EMPLOYER ID NO."
+          }
+        },
+        {
+          "id": "FillText18",
+          "label": "TELEPHONE NO. (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText19",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText20",
+          "label": "NUMBER AND STREET",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText21",
+          "label": "CITY OR TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText22",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText23",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText24",
+          "label": "DRIVER\u0027S DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText25",
+          "label": "PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText26",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText27",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText28",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText29",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText30",
+          "label": "FillText30",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText31",
+          "label": "FillText31",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText32",
+          "label": "FillText32",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText33",
+          "label": "TOTALAPPLICANT:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "CheckBox12",
+          "label": "CheckBox12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox13",
+          "label": "CheckBox13",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

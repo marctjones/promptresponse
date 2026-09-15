@@ -1,0 +1,18 @@
+Form 35-4 (Rev. 12-2009)
+Page 2
+Do I Need an EIN?
+File Form 35-8 if the applicant only doesn't want to file taxes and is required to report estate income on Form 356; or File Form 35-9 if you are a corporation that will use tax returns from Forms 1034A, 1035a or 1035b.
+If the applicant started a new business: doesn't currently have (or expect to have) EIN
+THEN...
+complete lines 1-2; 4a-d; b6-c (if applicable); 9a; complete line 7; and if applicable, 8a; complete lines 3-5; 4b-e; 7a-h; Rs.
+and/or will hire employees; doesn't have an EIN
+doesn't already have an EIN
+needs an EIN for banking purposes only needs to report estate income on Form 356; or needs an EIN for reporting purposes only
+complete lines 1-2; 4a-d; b6-c (if applicable); and 10-18. complete lines 7a-h; Rs. B6-C; and if applicable, 9a; complete lines 3-5; 4b-e; 7a-h;
+needs an EIN for reporting purposes on its corporate changed (for example, you incorporate a new corporation in the state of California) needs an EIN to report estate income on Form 356; or needs an EIN for reporting purposes only
+complete lines 1-2; 4a-d; b6-c (if applicable); and 10-18. complete lines 7a-h; Rs. B6-C; and if applicable, 9a; complete lines 3-5; 4b-e; 7a-h;
+needs an EIN for reporting purposes on its corporate changed (for example, you incorporate a new corporation in the state of California) needs an EIN to report estate income on Form 356; or needs an EIN for reporting purposes only
+created a person plan as a plan administrator; is not managing any assets with trust regulations relating to estates administered by estate administrators; is administrating an estate (or will be doing so in the future)
+needs an EIN for reporting purposes
+complete lines 1-2; 4a-d; b6-c (if applicable); and 10-18. complete lines 7a-h; Rs. B6-C; and if applicable, 9a; complete lines 3-5; 4b-e; 7a-h;
+is a corporation: needs an EIN for reporting purposes under its tax law (or is required to file Form 1035A or 1035B)

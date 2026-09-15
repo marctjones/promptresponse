@@ -1,0 +1,96 @@
+```json
+{
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS"
+    },
+    {
+      "id": "appointment",
+      "title": "KNOW ALL PERSONS BY THESE PRESENTS"
+    },
+    {
+      "id": "date",
+      "title": "IN WITNESS WHEREOF"
+    },
+    {
+      "id": "acknowledgment",
+      "title": "STATE OF CONNECTICUT"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Print your full name above",
+      "section_id": "appointment",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "Print full name of your agent above",
+      "section_id": "appointment",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "day of",
+      "section_id": "date",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "date"
+    },
+    {
+      "n": 4,
+      "label": "day of",
+      "section_id": "date",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "date"
+    },
+    {
+      "n": 5,
+      "label": "20",
+      "section_id": "date",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "date"
+    },
+    {
+      "n": 6,
+      "label": "Full name of Principal",
+      "section_id": "acknowledgment",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "day of",
+      "section_id": "acknowledgment",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "acknowledgment_date"
+    },
+    {
+      "n": 8,
+      "label": "day of",
+      "section_id": "acknowledgment",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "acknowledgment_date"
+    },
+    {
+      "n": 9,
+      "label": "20",
+      "section_id": "acknowledgment",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "acknowledgment_date"
+    }
+  ]
+}
+```

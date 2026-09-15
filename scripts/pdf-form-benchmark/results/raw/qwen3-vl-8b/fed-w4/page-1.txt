@@ -1,0 +1,170 @@
+{
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information"
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works"
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits"
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments"
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here"
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only"
+    }
+  ],
+  "fields": [
+    {
+      "label": "First name and middle initial",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Last name",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Social security number",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Address",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or town, state, and ZIP code",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Single or Married filing separately",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Married filing jointly or Qualifying surviving spouse",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Head of household",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "3(a) $",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "3(b) $",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "3 $",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "4(a) $",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "4(b) $",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "4(c) $",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+      "section_id": "step-5-sign-here",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Employee’s signature (This form is not valid unless you sign it.)",
+      "section_id": "step-5-sign-here",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "step-5-sign-here",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Employer’s name and address",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First date of employment",
+      "section_id": "employers-only",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Employer identification number (EIN)",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

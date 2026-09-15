@@ -1,0 +1,200 @@
+{
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS"
+    },
+    {
+      "id": "form_body",
+      "title": "Special Power of Attorney Form Body"
+    },
+    {
+      "id": "witness_section",
+      "title": "Witness and Notary Section"
+    }
+  ],
+  "fields": [
+    {
+      "label": "INSTRUCTIONS: The form below may be used as a special Power of Attorney to authorize, according to Connecticut law, another person designated by you to make, to complete and to sign on your behalf an application for a motor vehicle registration and certificate of title, or other written document, form or application that is required to be filed with the Commissioner of Motor Vehicles in connection with any other transactions involving a motor vehicle registration or title.",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Please note the following carefully:",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. This form must be completed in its entirety. The form requires your signature, the signature of two witnesses, and the signature of an officer authorized to take acknowledgments (a Notary Public, Justice of the Peace, or Commissioner of the Superior Court).",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. The Special Power of Attorney does not authorize your agent to perform transactions related to your motor vehicle operator's license or identification card, or other transactions with the Commissioner that are unrelated to a motor vehicle registration or title.",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. This Special Power of Attorney, bearing original signatures must be shown and will be returned to you.",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4. The grantor of any Special Power of Attorney or the attorney-in-fact may make application to any Court of Probate for an accounting, as provided in subsection (b) of section 45a-175 of the Connecticut General Statutes.",
+      "section_id": "instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I,",
+      "section_id": "form_body",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "(Print your full name above)",
+      "section_id": "form_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "do hereby appoint",
+      "section_id": "form_body",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "(Print full name of your agent above)",
+      "section_id": "form_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "to act in my name, place and stead in any way which I myself could do, as if I were personally present, to the full extent permitted by law to act as an agent, to make, to complete, and to execute any application or other written document or form that is required to be filed with the Commissioner of Motor Vehicles of the State of Connecticut, pursuant to the authority that is granted to the said Commissioner by any provision of the General Statutes of Connecticut or the regulations of Connecticut State Agencies, in connection with the registration of any motor vehicle or the certificate of title to any motor vehicle. This Special Power of Attorney is granted and is valid only for the express purposes stated herein, and may not be used for any transaction involving any other person or party who is not named herein.",
+      "section_id": "form_body",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this ________ day of ______________, 20____.",
+      "section_id": "form_body",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Principal: _______________________________ (L.S.)",
+      "section_id": "form_body",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(Sign your full name as above)",
+      "section_id": "form_body",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Attested and subscribed in the presence of the Principal and subsequent to the Principal subscribing same:",
+      "section_id": "form_body",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "(Signature of Witness)",
+      "section_id": "witness_section",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(Signature of Witness)",
+      "section_id": "witness_section",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE OF CONNECTICUT)",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "COUNTY OF ) SS:",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Personally appeared ________________________, signer and sealer of the foregoing Power of Attorney, who",
+      "section_id": "witness_section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(Full name of Principal)",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "acknowledged the same as his or her free act and deed, before me, this ________ day of ______________, 20____.",
+      "section_id": "witness_section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Notary Public/Justice of Peace",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Commissioner of the Superior Court",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "My commission expires: ______________",
+      "section_id": "witness_section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Seal of the Notary Public or Justice of Peace",
+      "section_id": "witness_section",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}

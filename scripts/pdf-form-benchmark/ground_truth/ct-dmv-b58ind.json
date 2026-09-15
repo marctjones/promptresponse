@@ -1,0 +1,70 @@
+{
+  "form_id": "ct-dmv-b58ind",
+  "form_name": "Connecticut DMV Form B-58 (Change of Address, Individual)",
+  "page_count": 1,
+  "sections": [
+    {"id": "about-you", "title": "1. About You"},
+    {"id": "residence-address", "title": "2. Your Residence Address"},
+    {"id": "mailing-address", "title": "3. Your Mailing Address"},
+    {"id": "donor-status", "title": "4. Organ and Tissue Donor Status"},
+    {"id": "email-address", "title": "5. Your E-mail Address"},
+    {"id": "vehicles-vessels", "title": "6. Your Vehicles/Vessels"},
+    {"id": "signature", "title": "Signature"},
+    {"id": "voter-registration", "title": "7. Voter Registration Application Section"}
+  ],
+  "fields": [
+    {"id": "name", "label": "NAME (Last, First, Middle)", "expected_data_type": "text", "required": true, "section_id": "about-you", "field_kind": "text_line"},
+    {"id": "birth-date", "label": "BIRTH DATE", "expected_data_type": "date", "required": true, "section_id": "about-you", "field_kind": "date_field"},
+    {"id": "operator-license-id-number", "label": "OPERATOR LICENSE/ID NUMBER", "expected_data_type": "text", "required": true, "section_id": "about-you", "field_kind": "text_line"},
+    {"id": "telephone-number", "label": "TELEPHONE NUMBER", "expected_data_type": "phone", "required": false, "section_id": "about-you", "field_kind": "text_line"},
+
+    {"id": "residence-street-address", "label": "STREET ADDRESS", "expected_data_type": "text", "required": true, "section_id": "residence-address", "field_kind": "text_line"},
+    {"id": "residence-unit-apt", "label": "UNIT/APT. #", "expected_data_type": "text", "required": false, "section_id": "residence-address", "field_kind": "text_line"},
+    {"id": "residence-city", "label": "CITY", "expected_data_type": "text", "required": true, "section_id": "residence-address", "field_kind": "text_line"},
+    {"id": "residence-state", "label": "STATE", "expected_data_type": "text", "required": true, "section_id": "residence-address", "field_kind": "text_line", "notes": "Form pre-prints 'CT' since this must be a Connecticut address."},
+    {"id": "residence-zip-code", "label": "ZIP CODE", "expected_data_type": "text", "required": true, "section_id": "residence-address", "field_kind": "text_line", "notes": "Form pre-prints the '06' Connecticut ZIP prefix."},
+    {"id": "voting-address-opt-out", "label": "Check here if you do NOT want your voting address automatically updated.", "expected_data_type": "boolean", "required": false, "section_id": "residence-address", "field_kind": "checkbox"},
+
+    {"id": "mailing-street-address", "label": "STREET ADDRESS", "expected_data_type": "text", "required": false, "section_id": "mailing-address", "field_kind": "text_line", "notes": "Only needed if different from residence address."},
+    {"id": "mailing-unit-apt", "label": "UNIT/APT. #", "expected_data_type": "text", "required": false, "section_id": "mailing-address", "field_kind": "text_line"},
+    {"id": "mailing-city", "label": "CITY", "expected_data_type": "text", "required": false, "section_id": "mailing-address", "field_kind": "text_line"},
+    {"id": "mailing-state", "label": "STATE", "expected_data_type": "text", "required": false, "section_id": "mailing-address", "field_kind": "text_line"},
+    {"id": "mailing-zip-code", "label": "ZIP CODE", "expected_data_type": "text", "required": false, "section_id": "mailing-address", "field_kind": "text_line"},
+
+    {
+      "id": "donor-status-choice",
+      "label": "I consent to organ and tissue donation and wish to be in the donor registry / I no longer wish to be in the donor registry",
+      "expected_data_type": "text",
+      "required": false,
+      "section_id": "donor-status",
+      "field_kind": "choice",
+      "choices": ["I consent to organ and tissue donation and wish to be in the donor registry", "I no longer wish to be in the donor registry"]
+    },
+
+    {"id": "email", "label": "E-MAIL", "expected_data_type": "email", "required": false, "section_id": "email-address", "field_kind": "text_line"},
+    {"id": "remove-email-checkbox", "label": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.", "expected_data_type": "boolean", "required": false, "section_id": "email-address", "field_kind": "checkbox"},
+
+    {"id": "signature-required", "label": "SIGNATURE REQUIRED", "expected_data_type": "text", "required": true, "section_id": "signature", "field_kind": "signature"},
+    {"id": "signature-date", "label": "DATE", "expected_data_type": "date", "required": true, "section_id": "signature", "field_kind": "date_field"},
+
+    {"id": "us-citizen", "label": "Are you a citizen of the United States of America?", "expected_data_type": "boolean", "required": false, "section_id": "voter-registration", "field_kind": "choice", "choices": ["YES", "NO"], "notes": "Whole Voter Registration section is optional; only completed if applying to register/change party."},
+    {"id": "age-18-by-election-day", "label": "Will you be at least 18 years of age on or before election day?", "expected_data_type": "boolean", "required": false, "section_id": "voter-registration", "field_kind": "choice", "choices": ["YES", "NO"]},
+    {"id": "enroll-in-party", "label": "Do you wish to enroll in a political party?", "expected_data_type": "boolean", "required": false, "section_id": "voter-registration", "field_kind": "choice", "choices": ["YES", "NO"], "notes": "Leaving this blank defaults to UNAFFILIATED per the form's own instruction."},
+    {"id": "party-name", "label": "NAME OF PARTY: DEMOCRATIC REPUBLICAN OTHER:", "expected_data_type": "text", "required": false, "section_id": "voter-registration", "field_kind": "choice", "choices": ["DEMOCRATIC", "REPUBLICAN", "OTHER"], "notes": "Conditional on 'YES' to enrolling in a party."},
+    {"id": "other-party-name", "label": "OTHER:", "expected_data_type": "text", "required": false, "section_id": "voter-registration", "field_kind": "text_line", "notes": "Write-in blank next to the 'OTHER' party option; conditional."},
+    {"id": "voter-signature", "label": "SIGNATURE FOR VOTER REGISTRATION ONLY", "expected_data_type": "text", "required": null, "section_id": "voter-registration", "field_kind": "signature", "notes": "Form states 'Voter registrations without signatures will not be processed' -- required only if this optional section is being completed."},
+    {"id": "voter-date-signed", "label": "DATE SIGNED", "expected_data_type": "date", "required": null, "section_id": "voter-registration", "field_kind": "date_field"}
+  ],
+  "tables": [
+    {
+      "id": "vehicles-vessels-table",
+      "section_id": "vehicles-vessels",
+      "row_count_visible": 3,
+      "columns": [
+        {"id": "plate-vessel-no", "label": "PLATE/VESSEL NO:", "expected_data_type": "text"},
+        {"id": "address", "label": "ADDRESS", "expected_data_type": "text"}
+      ],
+      "notes": "Only for vehicles/vessels garaged somewhere other than the new residence address; form allows listing additional ones on a separate attached sheet."
+    }
+  ]
+}

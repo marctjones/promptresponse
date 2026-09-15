@@ -1,0 +1,24 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Step 2 - Multiple Jobs Worksheet"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "If you have two jobs or you're married filing jointly and you and your spouse each have one job, find the amount from the appropriate table on page 5 using the highest paying job row and the highest value on line 1. Skip to line 2.",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "If you have three jobs or you're married filing jointly and you and your spouse each have three jobs, complete lines 2, b, and c.",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}

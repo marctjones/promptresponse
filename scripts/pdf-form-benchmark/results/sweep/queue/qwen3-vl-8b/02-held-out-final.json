@@ -1,0 +1,14 @@
+{
+ "run": "held-out-final",
+ "prompt": "final",
+ "forms": [
+  "ct-dmv-a25",
+  "ct-dmv-a83",
+  "ct-dmv-b225p",
+  "ct-dmv-b58ind",
+  "ct-dmv-j23",
+  "fed-ss4",
+  "fed-w4"
+ ],
+ "mode": "split"
+}

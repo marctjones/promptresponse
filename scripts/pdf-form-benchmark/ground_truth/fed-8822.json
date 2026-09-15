@@ -1,0 +1,43 @@
+{
+  "form_id": "fed-8822",
+  "form_name": "IRS Form 8822 (Change of Address)",
+  "page_count": 2,
+  "sections": [
+    {"id": "part1", "title": "Part I: Complete This Part To Change Your Home Mailing Address"},
+    {"id": "part2", "title": "Part II: Signature"}
+  ],
+  "fields": [
+    {"id": "affects-individual-returns", "label": "1 Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)", "expected_data_type": "boolean", "required": false, "section_id": "part1", "field_kind": "checkbox", "notes": "Form says 'Check all boxes this change affects' -- multi-select, not mutually exclusive with line 2, so modeled as an independent checkbox rather than a choice group."},
+    {"id": "separate-residence", "label": "If your last return was a joint return and you are now establishing a residence separate from the spouse with whom you filed that return, check here", "expected_data_type": "boolean", "required": false, "section_id": "part1", "field_kind": "checkbox", "notes": "Sub-item of line 1; conditional."},
+    {"id": "affects-gift-estate-returns", "label": "2 Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)", "expected_data_type": "boolean", "required": false, "section_id": "part1", "field_kind": "checkbox"},
+    {"id": "decedent-name", "label": "Decedent's name", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "For Forms 706 and 706-NA; conditional on line 2 being checked."},
+    {"id": "decedent-ssn", "label": "Social security number", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Decedent's SSN, conditional on line 2 being checked."},
+    {"id": "your-name", "label": "3a Your name (first name, initial, and last name)", "expected_data_type": "text", "required": true, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "your-ssn", "label": "3b Your social security number", "expected_data_type": "text", "required": true, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "spouse-name", "label": "4a Spouse's name (first name, initial, and last name)", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "spouse-ssn", "label": "4b Spouse's social security number", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "your-prior-names", "label": "5a Your prior name(s). See instructions.", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "spouse-prior-names", "label": "5b Spouse's prior name(s). See instructions.", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "your-old-address", "label": "6a Your old address (no., street, apt. no., city or town, state, and ZIP code).", "expected_data_type": "text", "required": true, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "your-old-address-foreign-country", "label": "Foreign country name", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6a."},
+    {"id": "your-old-address-foreign-province", "label": "Foreign province/county", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6a."},
+    {"id": "your-old-address-foreign-postal", "label": "Foreign postal code", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6a."},
+    {"id": "spouse-old-address", "label": "6b Spouse's old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code).", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "spouse-old-address-foreign-country", "label": "Foreign country name", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6b."},
+    {"id": "spouse-old-address-foreign-province", "label": "Foreign province/county", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6b."},
+    {"id": "spouse-old-address-foreign-postal", "label": "Foreign postal code", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 6b."},
+    {"id": "new-address", "label": "7 New address (no., street, apt. no., city or town, state, and ZIP code).", "expected_data_type": "text", "required": true, "section_id": "part1", "field_kind": "text_line"},
+    {"id": "new-address-foreign-country", "label": "Foreign country name", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 7."},
+    {"id": "new-address-foreign-province", "label": "Foreign province/county", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 7."},
+    {"id": "new-address-foreign-postal", "label": "Foreign postal code", "expected_data_type": "text", "required": false, "section_id": "part1", "field_kind": "text_line", "notes": "Foreign-address supplement to line 7."},
+
+    {"id": "daytime-phone", "label": "Daytime telephone number of person to contact (optional)", "expected_data_type": "phone", "required": false, "section_id": "part2", "field_kind": "text_line"},
+    {"id": "your-signature", "label": "Your signature", "expected_data_type": "text", "required": true, "section_id": "part2", "field_kind": "signature"},
+    {"id": "your-signature-date", "label": "Date", "expected_data_type": "date", "required": true, "section_id": "part2", "field_kind": "date_field", "notes": "Date next to 'Your signature'."},
+    {"id": "representative-signature", "label": "Signature of representative, executor, administrator/if applicable", "expected_data_type": "text", "required": false, "section_id": "part2", "field_kind": "signature"},
+    {"id": "representative-signature-date", "label": "Date", "expected_data_type": "date", "required": false, "section_id": "part2", "field_kind": "date_field", "notes": "Date next to the representative/executor/administrator signature."},
+    {"id": "spouse-signature", "label": "If joint return, spouse's signature", "expected_data_type": "text", "required": false, "section_id": "part2", "field_kind": "signature", "notes": "Required only if last return was joint and the separate-residence box on line 1 is not checked; modeled as not-required since conditional."},
+    {"id": "spouse-signature-date", "label": "Date", "expected_data_type": "date", "required": false, "section_id": "part2", "field_kind": "date_field", "notes": "Date next to spouse's signature."},
+    {"id": "representative-title", "label": "Title", "expected_data_type": "text", "required": false, "section_id": "part2", "field_kind": "text_line", "notes": "Title of the signing representative/executor/administrator, if applicable."}
+  ]
+}

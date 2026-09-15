@@ -1,0 +1,279 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form SS-4 (Application for Employer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "omb-no-1545-0003",
+          "label": "OMB No: 1545-0003",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-identification-number-application-see-instructions-for-form-60",
+          "label": "employer identification number application (see instructions for Form 60)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "rev-december-2009",
+          "label": "(Rev. December 2009)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "internal-revenue-service",
+          "label": "Internal Revenue Service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-the-interior",
+          "label": "Department of the Interior",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-3508a-employer-identification-number-application",
+          "label": "Form 3508A - Employer Identification Number Application",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "executive-administrator-trustees-name-of-name",
+          "label": "Executive administrator, trustees, name of name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trade-name-of-business-if-different-from-name-on-line-1",
+          "label": "Trade name of business (if different from name on line 1)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "8a-if-this-application-for-a-limited-liability-company-llc",
+          "label": "8a If this application for a limited liability company LLC:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "no",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "yes",
+          "label": "Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-2",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-3",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trust-rn-or-grant",
+          "label": "Trust (RN or grant)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-4",
+          "label": "No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-yes-type-one-body",
+          "label": "(if yes; type one body):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "10-start-new-business-specify-one-body",
+          "label": "10 Start new business (specify one body)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "banking-purposes-specify-purpose-changed-type-of-organization-specify-new-type",
+          "label": "Banking purposes (specify purpose) Changed type of organization (specify new type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "other-specify-type",
+          "label": "Other (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "closing-months-of-accounting-year",
+          "label": "Closing months of accounting year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other",
+          "label": "Other",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "agricultural",
+          "label": "Agricultural",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "households",
+          "label": "Households",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-specify-type-2",
+          "label": "(other specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "form-35-4-rev-12-2009",
+          "label": "Form 35-4 (Rev. 12-2009)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-i-need-an-ein",
+          "label": "Do I Need an EIN?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "and-or-will-hire-employees-doesn-t-have-an-ein",
+          "label": "and/or will hire employees; doesn't have an EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "doesn-t-already-have-an-ein",
+          "label": "doesn't already have an EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "needs-an-ein-for-reporting-purposes",
+          "label": "needs an EIN for reporting purposes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

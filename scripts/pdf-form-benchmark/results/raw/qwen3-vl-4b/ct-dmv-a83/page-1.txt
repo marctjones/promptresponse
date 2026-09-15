@@ -1,0 +1,85 @@
+{
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "main_body",
+      "title": "Main Body"
+    },
+    {
+      "id": "witness_section",
+      "title": "Witness Section"
+    },
+    {
+      "id": "notary_section",
+      "title": "Notary Section"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Print your full name above",
+      "section_id": "main_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Print full name of your agent above",
+      "section_id": "main_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "day of",
+      "section_id": "main_body",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Principal:",
+      "section_id": "main_body",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Witness",
+      "section_id": "witness_section",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Witness",
+      "section_id": "witness_section",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Full name of Principal",
+      "section_id": "notary_section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "day of",
+      "section_id": "notary_section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "My commission expires:",
+      "section_id": "notary_section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

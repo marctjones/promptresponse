@@ -1,0 +1,197 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w9"
+  },
+  "sections": [
+    {
+      "id": "part-i-taxpayer-identification-number-tin",
+      "title": "Part I Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "name-of-entity-individual-an-entry-is-required-f",
+          "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner\u2019s name on line 1, and enter the business/disregarded entity\u2019s name on line 2.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "business-name-disregarded-entity-name-if-differe",
+          "label": "Business name/disregarded entity name, if different from above.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-2",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-3",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-4",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-5",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-6",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "exempt-payee-code-if-any",
+          "label": "Exempt payee code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-7",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "other-see-instructions",
+          "label": "Other (see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemption-from-foreign-account-tax-compliance-ac",
+          "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-8",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classi-9",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "address-number-street-and-apt-or-suite-no-see-in",
+          "label": "Address (number, street, and apt. or suite no.). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "requester-s-name-and-address-optional",
+          "label": "Requester\u2019s name and address (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code",
+          "label": "City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-account-number-s-here-optional",
+          "label": "List account number(s) here (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-identification-number",
+          "label": "Employer identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification",
+      "title": "Part II Certification",
+      "prompts": [
+        {
+          "id": "sign-here",
+          "label": "Sign Here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

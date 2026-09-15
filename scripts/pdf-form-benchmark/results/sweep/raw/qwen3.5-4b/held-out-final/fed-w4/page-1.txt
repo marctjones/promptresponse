@@ -1,0 +1,184 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-1",
+      "title": "Step 1: Enter Personal Information"
+    },
+    {
+      "id": "step-2",
+      "title": "Step 2: Multiple Jobs or Spouse Works"
+    },
+    {
+      "id": "step-3",
+      "title": "Step 3: Claim Dependent and Other Credits"
+    },
+    {
+      "id": "step-4",
+      "title": "Step 4: Other Adjustments"
+    },
+    {
+      "id": "step-5",
+      "title": "Step 5: Sign Here"
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "First name and middle initial",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Last name",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Social security number",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "ssn"
+    },
+    {
+      "n": 4,
+      "label": "Address",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "City or town, state, and ZIP code",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Single or Married filing separately",
+      "section_id": "step-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Single",
+        "Married filing separately"
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Married filing jointly or Qualifying surviving spouse",
+      "section_id": "step-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Married filing jointly",
+        "Qualifying surviving spouse"
+      ]
+    },
+    {
+      "n": 8,
+      "label": "Head of household",
+      "section_id": "step-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Head of household"
+      ]
+    },
+    {
+      "n": 9,
+      "label": "If there are only two jobs total, you may check this box",
+      "section_id": "step-2",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Yes"
+      ]
+    },
+    {
+      "n": 10,
+      "label": "Multiply the number of qualifying children under age 17 by $2,200",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 11,
+      "label": "Multiply the number of other dependents by $500",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 12,
+      "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 13,
+      "label": "Other income (not from jobs)",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 14,
+      "label": "Deductions",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 15,
+      "label": "Extra withholding",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 16,
+      "label": "I claim exemption from withholding for 2026",
+      "section_id": "step-5",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "choices": [
+        "Yes"
+      ]
+    },
+    {
+      "n": 17,
+      "label": "Employer's name and address",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "First date of employment",
+      "section_id": "employers-only",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 19,
+      "label": "Employer identification number (EIN)",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "ein"
+    }
+  ]
+}
+```

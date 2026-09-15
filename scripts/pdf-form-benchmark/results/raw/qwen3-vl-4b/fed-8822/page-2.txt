@@ -1,0 +1,85 @@
+{
+  "sections": [
+    {
+      "id": "future-developments",
+      "title": "Future Developments"
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "Purpose of Form"
+    },
+    {
+      "id": "prior-name",
+      "title": "Prior Name(s)"
+    },
+    {
+      "id": "addresses",
+      "title": "Addresses"
+    },
+    {
+      "id": "signature",
+      "title": "Signature"
+    },
+    {
+      "id": "where-to-file",
+      "title": "Where To File"
+    },
+    {
+      "id": "privacy-act",
+      "title": "Privacy Act and Paperwork Reduction Act Notice"
+    }
+  ],
+  "fields": [
+    {
+      "label": "If you checked the box on line 2, send Form 8822 to: Department of the Treasury, Internal Revenue Service Center, Kansas City, MO 64999-0023.",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you did not check the box on line 2, send Form 8822 to the address shown here applies to you:",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IF your old home mailing address was in ...",
+      "section_id": "where-to-file",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": false,
+      "choices": [
+        "Alabama, Arkansas, Delaware, Georgia, Illinois, Indiana, Iowa, Kentucky, Maine, Massachusetts, Minnesota, Missouri, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, South Carolina, Tennessee, Vermont, Virginia, Wisconsin",
+        "Florida, Louisiana, Mississippi, Texas",
+        "Alaska, Arizona, California, Colorado, Connecticut, District of Columbia, Hawaii, Idaho, Kansas, Maryland, Michigan, Montana, Nebraska, Nevada, New Mexico, North Dakota, Ohio, Oregon, Pennsylvania, Rhode Island, South Dakota, Utah, Washington, West Virginia",
+        "A foreign country, American Samoa, or Puerto Rico (or are excluding income under Internal Revenue Code section 933), or use an APO or FPO address, or file Form 2555, 2555-EZ, or 4563, or are a dual-status alien or non bona fide resident of Guam or the Virgin Islands.",
+        "Guam: bona fide residents",
+        "Virgin Islands: bona fide residents"
+      ]
+    },
+    {
+      "label": "THEN use this address ...",
+      "section_id": "where-to-file",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": false,
+      "choices": [
+        "Department of the Treasury Internal Revenue Service Kansas City, MO 64999-0023",
+        "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+        "Department of the Treasury Internal Revenue Service Ogden, UT 84201-0023",
+        "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+        "Department of Revenue and Taxation Government of Guam P.O. Box 23607 GMF, GU 96921",
+        "V.I. Bureau of Internal Revenue 6115 Estate Smith Bay, Suite 225 St. Thomas, VI 00802"
+      ]
+    },
+    {
+      "label": "Signature",
+      "section_id": "signature",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

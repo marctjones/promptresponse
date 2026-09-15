@@ -1,0 +1,336 @@
+```json
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Supplement B, Reverification and Rehire (formerly Section 3)"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "employer_info",
+      "title": "Employer Information"
+    },
+    {
+      "id": "additional_info",
+      "title": "Additional Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "Last Name (Family Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "First Name (Given Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "Middle Initial",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "Document Title",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "Document Number (if any)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "employer_info",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 15,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "employer_info",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 16,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "Last Name (Family Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "First Name (Given Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "Middle Initial",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 20,
+      "label": "Document Title",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 21,
+      "label": "Document Number (if any)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 22,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 24,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 25,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 26,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "employer_info",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 27,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "employer_info",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 28,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 29,
+      "label": "Last Name (Family Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 30,
+      "label": "First Name (Given Name)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 31,
+      "label": "Middle Initial",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 32,
+      "label": "Document Title",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 33,
+      "label": "Document Number (if any)",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 34,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 35,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 36,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_info",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 37,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 38,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "employer_info",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 39,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "employer_info",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    }
+  ]
+}
+```

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>convert-pdf</AssemblyName>
+    <RootNamespace>PromptResponse.Conversion.Pdf.Tool</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PromptResponse.Conversion.Pdf\PromptResponse.Conversion.Pdf.csproj" />
+  </ItemGroup>
+
+</Project>

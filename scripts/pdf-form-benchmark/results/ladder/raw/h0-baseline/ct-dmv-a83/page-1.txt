@@ -1,0 +1,94 @@
+{
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "main_body",
+      "title": "Main Body"
+    },
+    {
+      "id": "witness_section",
+      "title": "Witness Section"
+    },
+    {
+      "id": "notary_section",
+      "title": "Notary Section"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Print your full name above",
+      "section_id": "main_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 2,
+      "label": "Print full name of your agent above",
+      "section_id": "main_body",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 3,
+      "label": "day",
+      "section_id": "main_body",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    },
+    {
+      "n": 4,
+      "label": "month",
+      "section_id": "main_body",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    },
+    {
+      "n": 5,
+      "label": "year",
+      "section_id": "main_body",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    },
+    {
+      "n": 6,
+      "label": "Full name of Principal",
+      "section_id": "notary_section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 7,
+      "label": "day",
+      "section_id": "notary_section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    },
+    {
+      "n": 8,
+      "label": "month",
+      "section_id": "notary_section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    },
+    {
+      "n": 9,
+      "label": "year",
+      "section_id": "notary_section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "none"
+    }
+  ]
+}

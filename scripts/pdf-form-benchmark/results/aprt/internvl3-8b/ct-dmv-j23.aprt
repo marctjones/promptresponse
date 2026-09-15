@@ -1,0 +1,429 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form J23 (Copy Records Request)"
+  },
+  "sections": [
+    {
+      "id": "license-records-check-request-s-below",
+      "title": "License Records, Check Request(s) Below",
+      "prompts": [
+        {
+          "id": "license-records-check-request-s-below",
+          "label": "License Records, Check Request(s) Below",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-license-information",
+          "label": "Driver License Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-license-application",
+          "label": "Driver License Application",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driving-history",
+          "label": "Driving History",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "reg",
+          "label": "REG",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "cdl",
+          "label": "CDL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-s-name-last-first-middle-initial",
+          "label": "DRIVER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-license-number",
+          "label": "DRIVER'S LICENSE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-address-number-and-street-city-or-town-state-zip-code",
+          "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-date-of-birth",
+          "label": "DRIVER'S DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "owner-s-name-last-first-middle-initial",
+          "label": "OWNER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "owner-s-address-number-and-street-city-or-town-state-zip-code",
+          "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-make",
+          "label": "VEHICLE MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-year",
+          "label": "VEHICLE YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "registration-plate-number",
+          "label": "REGISTRATION PLATE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-of-date",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "miscellaneous-request-please-specify",
+          "label": "MISCELLANEOUS REQUEST (Please Specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "customer-number",
+          "label": "CUSTOMER NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-s-license-no-or-fed-employer-id-no",
+          "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-no-required",
+          "label": "TELEPHONE NO. (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "number-and-street",
+          "label": "NUMBER AND STREET",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "CITY OR TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "total",
+          "label": "TOTAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "dmv-use-only",
+          "label": "DMV USE ONLY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "amount-received",
+          "label": "AMOUNT RECEIVED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "registration-records",
+      "title": "Registration Records",
+      "prompts": [
+        {
+          "id": "registration-records",
+          "label": "REGISTRATION RECORDS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-file-information",
+          "label": "Registration File Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-certificate",
+          "label": "Registration Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-return-plate-receipt",
+          "label": "Registration Return Plate Receipt",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "insurance-information-only",
+          "label": "Insurance Information Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "miscellaneous-request",
+      "title": "Miscellaneous Request",
+      "prompts": [
+        {
+          "id": "miscellaneous-request",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "multiple-requests",
+          "label": "Multiple Requests?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "attorney-s-juris",
+          "label": "ATTORNEY'S JURIS #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qty",
+          "label": "QTY.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "unit-price",
+          "label": "UNIT PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "amount",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant",
+      "title": "Applicant",
+      "prompts": [
+        {
+          "id": "declaration",
+          "label": "DECLARATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "signature-of-applicant",
+          "label": "SIGNATURE OF APPLICANT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "printed-name-of-applicant",
+          "label": "PRINTED NAME OF APPLICANT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-instructions-for-those-who-wish-to-obtain-record-information",
+      "title": "Special Instructions for Those Who Wish to Obtain Record Information",
+      "prompts": [
+        {
+          "id": "specify-the-applicable-code-below-in-the-space-on-the-front-of-this-form-in-the-request-section",
+          "label": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-hereby-request-the-department-of-motor-vehicles-to-disclose-personal-information-from-its-records",
+          "label": "I hereby request the Department of Motor Vehicles to disclose personal information from its records.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "full-name-and-address-of-individual-required-attorney-name-or-case-name-and-court-location-required",
+          "label": "Full name and address of individual required (Attorney Name or Case Name and Court Location - REQUIRED)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-instructions-for-those-who-wish-to-obtain-their-own-record-information",
+      "title": "Special Instructions for Those Who Wish to Obtain Their Own Record Information",
+      "prompts": [
+        {
+          "id": "specify-the-code-below-in-the-space-on-the-front-of-this-form-in-the-request-section-and-complete-the-form-including-applicant-signature-the-identification-requirements-apply-when-requesting-a-copy-of-your-own-dmv-record",
+          "label": "Specify the code below in the space on the front of this form in the REQUEST SECTION and complete the form including applicant signature. The identification requirements apply when requesting a copy of your own DMV record.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

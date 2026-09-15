@@ -1,0 +1,121 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-4b-deductions-worksheet",
+      "title": "Step 4(b) — Deductions Worksheet (Keep for your records.)"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 3,
+      "label": "Seniors age 65 or older. If your total income is less than $75,000 ($150,000 if married filing jointly):",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Add lines 3a and 3b. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 5,
+      "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 6,
+      "label": "Itemized deductions. Enter an estimate of your 2026 itemized deductions from Schedule A (Form 1040). Such deductions may include qualifying:",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 8,
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Enter:",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "choice",
+      "choices": [
+        "$768,700 if you're married filing jointly or a qualifying surviving spouse",
+        "$640,600 if you're single or head of household",
+        "$384,350 if you're married filing separately"
+      ]
+    },
+    {
+      "n": 10,
+      "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94) and enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 11,
+      "label": "Standard deduction.",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000 ($2,000 if married filing jointly)",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 13,
+      "label": "Add lines 11 and 12. Enter the result here",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 14,
+      "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 15,
+      "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    }
+  ]
+}
+```

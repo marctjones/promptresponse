@@ -1,0 +1,119 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 8822 (Change of Address)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "change-of-address",
+          "label": "Change of Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "femruary-2012",
+          "label": "Femruary 2012",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-february-2012",
+          "label": "(For February 2012)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-february-2012-2",
+          "label": "(For February 2012)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "omb-no-1545-1183",
+          "label": "(OMB No. 1545-1183",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "international-revenue-service",
+          "label": "(International Revenue Service)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-82-2-2-2-2-2",
+          "label": "From 82/2 (2) (2) (2) (2))",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "future-developments",
+          "label": "Future Developments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "privacy-act-and-paperwork-reduction-act",
+          "label": "Privacy Act and Paperwork Reduction Act",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "information-about-development-affecting",
+          "label": "Information about development affecting",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "where-to-file",
+          "label": "Where To File",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "nite-we-ask-for-your-right-on-the",
+          "label": "Nite: We ask for your right on the",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-united-states-the-right-on-the",
+          "label": "The United States, the right on the",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

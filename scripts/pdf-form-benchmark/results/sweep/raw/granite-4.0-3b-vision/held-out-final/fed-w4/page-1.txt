@@ -1,0 +1,147 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Personal Information"
+    },
+    {
+      "id": "section_2",
+      "title": "Employer's Information"
+    },
+    {
+      "id": "section_3",
+      "title": "Dependents and Other Credits"
+    },
+    {
+      "id": "section_4",
+      "title": "Other Adjustments"
+    },
+    {
+      "id": "section_5",
+      "title": "Employer's Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "First name",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Middle initial",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Last name",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Social security number",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Date of birth",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_ data_type": "date"
+    },
+    {
+      "n": 6,
+      "label": "Marital status",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_ data_type": "text",
+      "choices": ["Single", "Married"]
+    },
+    {
+      "n": 7,
+      "label": "Marrying filing status",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_ data_type": "text",
+      "choices": ["Single", "Married", "Head of household"]
+    },
+    {
+      "n": 8,
+      "label": "Number of qualifying children under age 17",
+      "section_id": "section_1",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 9,
+      "label": "Total income for the year",
+      "section_id": "section_1",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 10,
+      "label": "Number of dependents and other credits",
+      "section_id": "section_3",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 11,
+      "label": "Total amount from Steps 3A and 3B",
+      "section_id": "section_3",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 12,
+      "label": "Amount from other income",
+      "section_id": "section_3",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 13,
+      "label": "Other adjustments",
+      "section_id": "section_4",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 14,
+      "label": "Standard deduction amount",
+      "section_id": "section_4",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 15,
+      "label": "Withholding amount",
+      "section_id": "section_4",
+      "field_kind": "number",
+      "expected_ data_type": "number"
+    },
+    {
+      "n": 16,
+      "label": "Employer's name",
+      "section_id": "section_5",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "Employer's identification number (EIN)",
+      "section_id": "section_5",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    }
+  ]
+}

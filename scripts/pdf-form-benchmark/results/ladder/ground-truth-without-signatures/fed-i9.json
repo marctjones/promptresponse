@@ -1,0 +1,531 @@
+{
+ "form_id": "fed-i9",
+ "form_name": "USCIS Form I-9 (Employment Eligibility Verification)",
+ "page_count": 4,
+ "sections": [
+  {
+   "id": "section1",
+   "title": "Section 1. Employee Information and Attestation"
+  },
+  {
+   "id": "section2",
+   "title": "Section 2. Employer Review and Verification"
+  },
+  {
+   "id": "supplement-a",
+   "title": "Supplement A, Preparer and/or Translator Certification for Section 1"
+  },
+  {
+   "id": "supplement-b",
+   "title": "Supplement B, Reverification and Rehire"
+  }
+ ],
+ "fields": [
+  {
+   "id": "s1-last-name",
+   "label": "Last Name (Family Name)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-first-name",
+   "label": "First Name (Given Name)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-middle-initial",
+   "label": "Middle Initial (if any)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-other-last-names",
+   "label": "Other Last Names Used (if any)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-address",
+   "label": "Address (Street Number and Name)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-apt-number",
+   "label": "Apt. Number (if any)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-city",
+   "label": "City or Town",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-state",
+   "label": "State",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-zip",
+   "label": "ZIP Code",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-dob",
+   "label": "Date of Birth (mm/dd/yyyy)",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "date_field"
+  },
+  {
+   "id": "s1-ssn",
+   "label": "U.S. Social Security Number",
+   "expected_data_type": "text",
+   "required": null,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "Not explicitly marked required on the form face; official instructions make this voluntary unless the employer participates in E-Verify."
+  },
+  {
+   "id": "s1-email",
+   "label": "Employee's Email Address",
+   "expected_data_type": "email",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-phone",
+   "label": "Employee's Telephone Number",
+   "expected_data_type": "phone",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s1-citizenship-status",
+   "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "choice",
+   "choices": [
+    "A citizen of the United States",
+    "A noncitizen national of the United States",
+    "A lawful permanent resident",
+    "An alien authorized to work until (exp. date, if any)"
+   ]
+  },
+  {
+   "id": "s1-lpr-number",
+   "label": "A lawful permanent resident (Enter USCIS or A-Number.)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "Write-in blank attached to citizenship-status choice 3; conditional on that box being checked."
+  },
+  {
+   "id": "s1-alien-work-until-date",
+   "label": "An alien authorized to work until (exp. date, if any)",
+   "expected_data_type": "date",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "date_field",
+   "notes": "Write-in blank attached to citizenship-status choice 4; conditional."
+  },
+  {
+   "id": "s1-alien-uscis-a-number",
+   "label": "USCIS A-Number",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "One of three alternative identifiers required if citizenship-status choice 4 is checked."
+  },
+  {
+   "id": "s1-alien-i94-admission-number",
+   "label": "Form I-94 Admission Number",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "Alternative to USCIS A-Number, conditional on choice 4."
+  },
+  {
+   "id": "s1-alien-foreign-passport-number",
+   "label": "Foreign Passport Number",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "Alternative to USCIS A-Number/I-94 number, conditional on choice 4; paired with country of issuance below."
+  },
+  {
+   "id": "s1-alien-foreign-passport-country",
+   "label": "Country of Issuance",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section1",
+   "field_kind": "text_line",
+   "notes": "Paired with Foreign Passport Number, conditional on choice 4."
+  },
+  {
+   "id": "s1-todays-date",
+   "label": "Today's Date (mm/dd/yyyy)",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "section1",
+   "field_kind": "date_field",
+   "notes": "Date next to the employee's Section 1 signature."
+  },
+  {
+   "id": "s2-list-b-document-title",
+   "label": "Document Title 1 (List B)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line",
+   "notes": "Employee presents List A OR (List B AND List C); List B has a single document slot."
+  },
+  {
+   "id": "s2-list-b-issuing-authority",
+   "label": "Issuing Authority (List B)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-list-b-document-number",
+   "label": "Document Number (if any) (List B)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-list-b-expiration-date",
+   "label": "Expiration Date (if any) (List B)",
+   "expected_data_type": "date",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "date_field"
+  },
+  {
+   "id": "s2-list-c-document-title",
+   "label": "Document Title 1 (List C)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line",
+   "notes": "List C has a single document slot, used together with List B."
+  },
+  {
+   "id": "s2-list-c-issuing-authority",
+   "label": "Issuing Authority (List C)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-list-c-document-number",
+   "label": "Document Number (if any) (List C)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-list-c-expiration-date",
+   "label": "Expiration Date (if any) (List C)",
+   "expected_data_type": "date",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "date_field"
+  },
+  {
+   "id": "s2-additional-information",
+   "label": "Additional Information",
+   "expected_data_type": "multiline",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "multiline"
+  },
+  {
+   "id": "s2-alternative-procedure-checkbox",
+   "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+   "expected_data_type": "boolean",
+   "required": false,
+   "section_id": "section2",
+   "field_kind": "checkbox"
+  },
+  {
+   "id": "s2-first-day-employment",
+   "label": "First Day of Employment (mm/dd/yyyy)",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "section2",
+   "field_kind": "date_field"
+  },
+  {
+   "id": "s2-employer-rep-name-title",
+   "label": "Last Name, First Name and Title of Employer or Authorized Representative",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-employer-todays-date",
+   "label": "Today's Date (mm/dd/yyyy)",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "section2",
+   "field_kind": "date_field",
+   "notes": "Date next to the Section 2 employer signature."
+  },
+  {
+   "id": "s2-employer-business-name",
+   "label": "Employer's Business or Organization Name",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "s2-employer-business-address",
+   "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "section2",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "sa-last-name",
+   "label": "Last Name (Family Name) from Section 1.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "supplement-a",
+   "field_kind": "text_line",
+   "notes": "Header identifying the employee, copied from Section 1; applies once per Supplement A page."
+  },
+  {
+   "id": "sa-first-name",
+   "label": "First Name (Given Name) from Section 1.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "supplement-a",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "sa-middle-initial",
+   "label": "Middle initial (if any) from Section 1.",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "supplement-a",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "sb-last-name",
+   "label": "Last Name (Family Name) from Section 1.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "supplement-b",
+   "field_kind": "text_line",
+   "notes": "Header identifying the employee, copied from Section 1; applies once per Supplement B page."
+  },
+  {
+   "id": "sb-first-name",
+   "label": "First Name (Given Name) from Section 1.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "supplement-b",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "sb-middle-initial",
+   "label": "Middle initial (if any) from Section 1.",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "supplement-b",
+   "field_kind": "text_line"
+  }
+ ],
+ "tables": [
+  {
+   "id": "s2-list-a-documents",
+   "section_id": "section2",
+   "row_count_visible": 3,
+   "columns": [
+    {
+     "id": "document-title",
+     "label": "Document Title (List A)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "issuing-authority",
+     "label": "Issuing Authority",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "document-number",
+     "label": "Document Number (if any)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "expiration-date",
+     "label": "Expiration Date (if any)",
+     "expected_data_type": "date"
+    }
+   ],
+   "notes": "List A allows up to three alternative documents (Document Title 1/2/3 on the form); modeled as a 3-row repeating table rather than 12 flattened fields."
+  },
+  {
+   "id": "supplement-a-certifications",
+   "section_id": "supplement-a",
+   "row_count_visible": 4,
+   "columns": [
+    {
+     "id": "signature",
+     "label": "Signature of Preparer or Translator",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "date",
+     "label": "Date (mm/dd/yyyy)",
+     "expected_data_type": "date"
+    },
+    {
+     "id": "last-name",
+     "label": "Last Name (Family Name)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "first-name",
+     "label": "First Name (Given Name)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "middle-initial",
+     "label": "Middle Initial (if any)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "address",
+     "label": "Address (Street Number and Name)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "city",
+     "label": "City or Town",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "state",
+     "label": "State",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "zip",
+     "label": "ZIP Code",
+     "expected_data_type": "text"
+    }
+   ],
+   "notes": "Page 3 repeats an identical preparer/translator certification block 4 times (each with its own attestation sentence); modeled as one repeating table."
+  },
+  {
+   "id": "supplement-b-reverifications",
+   "section_id": "supplement-b",
+   "row_count_visible": 3,
+   "columns": [
+    {
+     "id": "date-of-rehire",
+     "label": "Date of Rehire (if applicable)",
+     "expected_data_type": "date"
+    },
+    {
+     "id": "new-last-name",
+     "label": "New Name -- Last Name (Family Name)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "new-first-name",
+     "label": "New Name -- First Name (Given Name)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "new-middle-initial",
+     "label": "New Name -- Middle Initial",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "document-title",
+     "label": "Document Title",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "document-number",
+     "label": "Document Number (if any)",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "expiration-date",
+     "label": "Expiration Date (if any) (mm/dd/yyyy)",
+     "expected_data_type": "date"
+    },
+    {
+     "id": "employer-rep-name",
+     "label": "Name of Employer or Authorized Representative",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "employer-signature",
+     "label": "Signature of Employer or Authorized Representative",
+     "expected_data_type": "text"
+    },
+    {
+     "id": "todays-date",
+     "label": "Today's Date (mm/dd/yyyy)",
+     "expected_data_type": "date"
+    },
+    {
+     "id": "additional-information",
+     "label": "Additional Information (Initial and date each notation.)",
+     "expected_data_type": "multiline"
+    },
+    {
+     "id": "alternative-procedure-checkbox",
+     "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+     "expected_data_type": "boolean"
+    }
+   ],
+   "notes": "Page 4 repeats an identical reverification/rehire block 3 times; modeled as one repeating table rather than 36 flattened fields."
+  }
+ ]
+}

@@ -4,9 +4,9 @@
     "net10.0": {
       "Excise.Core": {
         "type": "Direct",
-        "requested": "[3.8.0, )",
-        "resolved": "3.8.0",
-        "contentHash": "U9gQtIXlOfsH+hEhYi+P+bjGCESxwVzIxK8Z+mkXtaW9x/vQBfTuHtgtGUpvCxktmNki9085IUG75JLnzDOaiA==",
+        "requested": "[3.9.4, )",
+        "resolved": "3.9.4",
+        "contentHash": "beGN9t5+8p8KA18oWpbjY2DDL2pthYznfJCt9R9MZCAnsQKtDKOwUYkGT9HZA/jRTtEL6jzHwrjKHfyQkcrPYQ==",
         "dependencies": {
           "CSJ2K": "3.0.0"
         }

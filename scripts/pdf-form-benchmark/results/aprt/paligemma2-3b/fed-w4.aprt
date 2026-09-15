@@ -1,0 +1,439 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "employee-s-withholding-certificate",
+          "label": "Employee's Withholding Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "w-4",
+          "label": "W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "omb-no-1545-0274",
+          "label": "OMB No. 1545-0274",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "department-of-the-treasury",
+          "label": "Department of the Treasury",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "Year:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-social-security-number",
+          "label": "Your social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "step-1",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "368-first-name-or-middle-initial",
+          "label": "368 (First name or middle initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "enter-personal-information",
+          "label": "Enter Personal Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code",
+          "label": "(City, state, and ZIP code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or town:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "(State)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-single-is-married-filing-separately",
+          "label": "a Single is Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "single-and-notmarried-filing-separately",
+          "label": "Single and NotMarried Filing Separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-2",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-jobs-or-spouse-works",
+          "label": "New Jobs or Spouse Works",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-only-one-of-the-following",
+          "label": "Do only one of the following:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-3-if-your-total-income-will-be-20-000-or-less-10-000-or-less",
+          "label": "Step 3: If your total income will be $20,000 or less ($10,000 or less!)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "step-4-other-income",
+          "label": "Step 4: Other Income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-5-total-income",
+          "label": "Step 5: Total Income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-income-only",
+          "label": "Other Income Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-employee-s-name-and-address",
+          "label": "Date Employee's name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employees-only",
+          "label": "Employees only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-signature-this-form-is-not-valid-unless-you-sign-it",
+          "label": "Employee's signature (This form is not valid unless you sign it.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "call-no-702639",
+          "label": "Call No. 702639",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "form-w-4-2006",
+          "label": "Form W-4 (2006)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "general-instructions",
+          "label": "General Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "specific-instructions",
+          "label": "Specific instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "future-developments",
+          "label": "Future Developments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "purpose-of-form",
+          "label": "Purpose of Form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-4-2016",
+          "label": "Form W-4 (2016)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-2b-multiple-jobs-worksheet-keep-for-your-records",
+          "label": "Step 2B)-Multiple Jobs Worksheet (Keep for your records.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-4-2016-2",
+          "label": "Form W-4 (2016)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "16",
+          "label": "$ 16 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "16-2",
+          "label": "$ 16 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "36",
+          "label": "$ 36 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "36-2",
+          "label": "36 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "36-3",
+          "label": "36 $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "form-w-4-2006-2",
+          "label": "Form W-4 (2006)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "married-filing-jointly-or-qualifying-surviving-spouse",
+          "label": "Married Filing Jointly or Qualifying Surviving Spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "higher-paying-job-annual-taxable-wage-salary",
+          "label": "Higher Paying Job: Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "lower-paying-job-annual-taxable-wage-salary",
+          "label": "Lower Paying Job: Annual Taxable Wage &Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "10-000-150-000-90-000-170-000-80-000-160-000-70-000-120-000-60-000-140-000",
+          "label": "$10,000-$150,000 $90,000-$170,000 $80,000-$160,000 $70,000-$120,000 $60,000-$140,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "50-000-90-000-30-000-80-000-20-000-70-000-10-000-150-000-60-000-140-000",
+          "label": "$50,000-$90,000 $30,000-$80,000 $20,000-$70,000 $10,000-$150,000 $60,000-$140,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "90-000-100-000-80-000-120-000-70-000-130-000-60-000-150-000-40-000-90-000",
+          "label": "$90,000-$100,000 $80,000-$120,000 $70,000-$130,000 $60,000-$150,000 $40,000-$90,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "10-000-180-000-20-000-300-000-10-000-160-000-70-000-180-000-90-000-150-000",
+          "label": "$10,000-$180,000 $20,000-$300,000 $10,000-$160,000 $70,000-$180,000 $90,000-$150,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "40-000-90-000-30-000-200-000-60-000-70-000-80-000-100-000-50-000-100-000",
+          "label": "$40,000-$90,000 $30,000-$200,000 $60,000-$70,000 $80,000-$100,000 $50,000-$100,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "90-000-100-000-30-000-200-000-60-000-70-000-80-000-100-000-50-000-90-000",
+          "label": "$90,000-$100,000 $30,000-$200,000 $60,000-$70,000 $80,000-$100,000 $50,000-$90,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "40-000-90-000-30-000-200-000-60-000-70-000-80-000-100-000-50-000-90-000",
+          "label": "$40,000-$90,000 $30,000-$200,000 $60,000-$70,000 $80,000-$100,000 $50,000-$90,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "40-000-90-000-30-000-200-000-60-000-70-000-80-000-100-000",
+          "label": "$40,000-$90,000 $30,000-$200,000 $60,000-$70,000 $80,000-$100,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

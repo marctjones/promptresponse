@@ -1,0 +1,1337 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "request-for-taxpayer-identification-number-and-certification",
+      "title": "Request for Taxpayer Identification Number and Certification",
+      "prompts": [
+        {
+          "id": "name-of-entity-individual",
+          "label": "Name of entity/individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "business-name-disregarded-entity-name-if-different-from-above",
+          "label": "Business name/disregarded entity name, if different from above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classification-of-the-entity-individual",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Individual/sole proprietor",
+              "C corporation",
+              "S corporation",
+              "Partnership",
+              "Trust/estate",
+              "LLC",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "exempt-payee-code-if-any",
+          "label": "Exempt payee code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemption-from-foreign-account-tax-compliance-act-fatca-reporting-code-if-any",
+          "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-number-street-and-apt-or-suite-no",
+          "label": "Address (number, street, and apt. or suite no.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code",
+          "label": "City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-account-number-s-optional",
+          "label": "List account number(s) (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "requester-s-name-and-address-optional",
+          "label": "Requester's name and address (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "taxpayer-identification-number",
+      "title": "Taxpayer Identification Number",
+      "prompts": [
+        {
+          "id": "taxpayer-identification-number-tin",
+          "label": "Taxpayer Identification Number (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-identification-number",
+          "label": "Employer identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "certification",
+      "title": "Certification",
+      "prompts": [
+        {
+          "id": "signature-of-u-s-person",
+          "label": "Signature of U.S. person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "under-penalties-of-perjury-i-certify-that",
+          "label": "Under penalties of perjury, I certify that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "the-number-shown-on-this-form-is-my-correct-taxpayer-identification-number-or-i-am-waiting-for-a-number-to-be-issued-to-me-and",
+          "label": "The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-am-not-subject-to-backup-withholding-because-a-i-am-exempt-from-backup-withholding-b-i-have-not-been-notified-by-the-internal-revenue-service-irs-that-i-am-subject-to-backup-withholding-as-a-result-of-a-failure-to-report-all-interest-or-dividends-or-c-the-irs-has-notified-me-that-i-am-no-longer-subject-to-backup-withholding-and",
+          "label": "I am not subject to backup withholding because (a) I am exempt from backup withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am no",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-am-a-u-s-citizen-or-other-u-s-person-defined-below-and",
+          "label": "I am a U.S. citizen or other U.S. person (defined below); and",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "the-fatca-code-s-entered-on-this-form-if-any-indicating-that-i-am-exempt-from-fatca-reporting-is-correct",
+          "label": "The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page",
+      "title": "Page",
+      "prompts": [
+        {
+          "id": "form-w-9-rev-3-2024",
+          "label": "Form W-9 (Rev. 3-2024)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "must-obtain-your-correct-taxpayer-identification-number-tin-which-may-be-your-social-security-number-ssn-individual-taxpayer-identification-number-itin-adoption-taxpayer-identification-number-atin-or-employer-identification-number-ein-to-report-on-an-information-return-examples-of-information-returns-include-but-are-not-limited-to-the-following",
+          "label": "must obtain your correct taxpayer identification number (TIN), which may be your social security number (SSN), individual taxpayer identification number (ITIN), adoption taxpayer identification number (ATIN), or employer identification number (EIN), to report on an information return. Examples of in",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-int-interest-earned-or-paid",
+          "label": "Form 1099-INT (interest earned or paid).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-div-dividends-including-those-from-stocks-or-mutual-funds",
+          "label": "Form 1099-DIV (dividends, including those from stocks or mutual funds).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-misc-various-types-of-income-prizes-awards-or-gross-proceeds",
+          "label": "Form 1099-MISC (various types of income, prizes, awards, or gross proceeds).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-nec-nonemployee-compensation",
+          "label": "Form 1099-NEC (nonemployee compensation).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-b-stock-or-mutual-fund-sales-and-certain-other-transactions-by-brokers",
+          "label": "Form 1099-B (stock or mutual fund sales and certain other transactions by brokers).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-s-proceeds-from-real-estate-transactions",
+          "label": "Form 1099-S (proceeds from real estate transactions).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-k-merchant-card-and-third-party-network-transactions",
+          "label": "Form 1099-K (merchant card and third-party network transactions).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1098-home-mortgage-interest-1098-e-student-loan-interest-and-1098-t-tuition",
+          "label": "Form 1098 (home mortgage interest), 1098-E (student loan interest), and 1098-T (tuition).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-c-canceled-debt",
+          "label": "Form 1099-C (canceled debt).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-1099-a-acquisition-or-abandonment-of-secured-property",
+          "label": "Form 1099-A (acquisition or abandonment of secured property).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "use-form-w-9-only-if-you-are-a-u-s-person-including-a-resident-alien-to-provide-your-correct-tin",
+          "label": "Use Form W-9 only if you are a U.S. person (including a resident alien), to provide your correct TIN.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "caution-if-you-don-t-return-form-w-9-to-the-requester-with-a-tin-you-might-be-subject-to-backup-withholding-see-what-is-backup-withholding-later",
+          "label": "Caution: If you don\u2019t return Form W-9 to the requester with a TIN, you might be subject to backup withholding. See What is backup withholding, later.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "by-signing-the-filled-out-form-you",
+          "label": "By signing the filled-out form, you:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-certify-that-the-tin-you-are-giving-is-correct-or-you-are-waiting-for-a-number-to-be-issued",
+          "label": "1. Certify that the TIN you are giving is correct (or you are waiting for a number to be issued);",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-certify-that-you-are-not-subject-to-backup-withholding-or",
+          "label": "2. Certify that you are not subject to backup withholding; or",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-claim-exemption-from-backup-withholding-if-you-are-a-u-s-exempt-payee-and",
+          "label": "3. Claim exemption from backup withholding if you are a U.S. exempt payee; and",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-certify-to-your-non-foreign-status-for-purposes-of-withholding-under-chapter-3-or-4-of-the-code-if-applicable-and",
+          "label": "4. Certify to your non-foreign status for purposes of withholding under chapter 3 or 4 of the Code (if applicable); and",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-certify-that-fatca-codes-s-entered-on-this-form-if-any-indicating-that-you-are-exempt-from-the-fatca-reporting-is-correct-see-what-is-fatca-reporting-later-for-further-information",
+          "label": "5. Certify that FATCA codes(s) entered on this form (if any) indicating that you are exempt from the FATCA reporting is correct. See What Is FATCA Reporting, later, for further information.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "note-if-you-are-a-u-s-person-and-a-requester-gives-you-a-form-other-than-form-w-9-to-request-your-tin-you-must-use-the-requester-s-form-if-it-is-substantially-similar-to-this-form-w-9",
+          "label": "Note: If you are a U.S. person and a requester gives you a form other than Form W-9 to request your TIN, you must use the requester\u2019s form if it is substantially similar to this Form W-9.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "definition-of-a-u-s-person-for-federal-tax-purposes-you-are",
+          "label": "Definition of a U.S. person. For federal tax purposes, you are:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "an-individual-who-is-a-u-s-citizen-or-u-s-resident-alien",
+          "label": "\u2022 An individual who is a U.S. citizen or U.S. resident alien;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-partnership-corporation-company-or-association-created-or-organized-in-the-united-states-or-under-the-laws-of-the-united-states",
+          "label": "\u2022 A partnership, corporation, company, or association created or organized in the United States or under the laws of the United States;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "an-estate-other-than-a-foreign-estate-or",
+          "label": "\u2022 An estate (other than a foreign estate); or",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-domestic-trust-as-defined-in-regulations-section-301-7701-7",
+          "label": "\u2022 A domestic trust (as defined in Regulations section 301.7701-7).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "establishing-u-s-status-for-purposes-of-chapter-3-and-chapter-4-withholding-payments-made-to-foreign-persons-including-certain-payments-made-to-foreign-corporations-partnerships-trusts-estates-and-individuals-may-be-subject-to-withholding-under-chapter-3-or-chapter-4-of-the-code-sections-1441-1447-under-those-rules-if-a-form-w-9-or-other-certification-of-non-foreign-status-has-not-been-received-a-withholding-agent-transferee-or-partnership-payer-generally-applies-presumption-rules-that-may-require-the-payer-to-withhold-applicable-tax-from-the-recipient-owner-transferor-or-partner-payee-see-pub-515-withholding-of-tax-on-nonresident-aliens-and-foreign-entities",
+          "label": "Establishing U.S. status for purposes of chapter 3 and chapter 4 withholding. Payments made to foreign persons, including certain payments made to foreign corporations, partnerships, trusts, estates, and individuals, may be subject to withholding under chapter 3 or chapter 4 of the Code (sections 14",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-following-persons-must-provide-form-w-9-to-the-payor-for-purposes-of-establishing-its-non-foreign-status",
+          "label": "The following persons must provide Form W-9 to the payor for purposes of establishing its non-foreign status.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-the-case-of-a-disregarded-entity-with-a-u-s-owner-the-u-s-owner-of-the-disregarded-entity-and-not-the-disregarded-entity",
+          "label": "\u2022 In the case of a disregarded entity with a U.S. owner, the U.S. owner of the disregarded entity and not the disregarded entity.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-the-case-of-a-grantor-trust-with-a-u-s-grantor-or-other-u-s-owner-generally-the-u-s-grantor-or-other-u-s-owner-of-the-grantor-trust-and-not-the-grantor-trust",
+          "label": "\u2022 In the case of a grantor trust with a U.S. grantor or other U.S. owner, generally, the U.S. grantor or other U.S. owner of the grantor trust and not the grantor trust.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-the-case-of-a-u-s-trust-other-than-a-grantor-trust-the-u-s-trust-and-not-the-beneficiaries-of-the-trust",
+          "label": "\u2022 In the case of a U.S. trust (other than a grantor trust), the U.S. trust and not the beneficiaries of the trust.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "see-pub-515-for-more-information-on-providing-a-form-w-9-or-a-certification-of-non-foreign-status-to-avoid-withholding",
+          "label": "See Pub. 515 for more information on providing a Form W-9 or a certification of non-foreign status to avoid withholding.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-person-if-you-are-a-foreign-person-or-the-u-s-branch-of-a-foreign-bank-that-has-elected-to-be-treated-as-a-u-s-person-under-regulations-section-1-1441-1-b-2-iv-or-other-applicable-section-for-chapter-3-or-4-purposes-do-not-use-form-w-9-instead-use-the-appropriate-form-w-8-or-form-8233-see-pub-515",
+          "label": "Foreign person. If you are a foreign person or the U.S. branch of a foreign bank that has elected to be treated as a U.S. person (under Regulations section 1.1441-1(b)(2)(iv) or other applicable section for chapter 3 or 4 purposes), do not use Form W-9. Instead, use the appropriate Form W-8 or Form ",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "nonresident-alien-who-becomes-a-resident-alien-generally-only-a-nonresident-alien-individual-may-use-the-terms-of-a-tax-treaty-to-reduce-or-eliminate-u-s-tax-on-certain-types-of-income-however-most-tax-treaties-contain-a-provision-known-as-a-saving-clause-exceptions-specified-in-the-saving-clause-may-permit-an-exemption-from-tax-to-continue-for-certain-types-of-income-even-after-the-payee-has-otherwise-become-a-u-s-resident-alien-for-tax-purposes",
+          "label": "Nonresident alien who becomes a resident alien. Generally, only a nonresident alien individual may use the terms of a tax treaty to reduce or eliminate U.S. tax on certain types of income. However, most tax treaties contain a provision known as a saving clause. Exceptions specified in the saving cla",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-are-a-u-s-resident-alien-who-is-relying-on-an-exception-contained-in-the-saving-clause-of-a-tax-treaty-to-claim-an-exemption-from-u-s-tax-on-certain-types-of-income-you-must-attach-a-statement-to-form-w-9-that-specifies-the-following-five-items",
+          "label": "If you are a U.S. resident alien who is relying on an exception contained in the saving clause of a tax treaty to claim an exemption from U.S. tax on certain types of income, you must attach a statement to Form W-9 that specifies the following five items.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-the-treaty-country-generally-this-must-be-the-same-treaty-under-which-you-claimed-exemption-from-tax-as-a-nonresident-alien",
+          "label": "1. The treaty country. Generally, this must be the same treaty under which you claimed exemption from tax as a nonresident alien.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-the-treaty-article-addressing-the-income",
+          "label": "2. The treaty article addressing the income.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-the-article-number-or-location-in-the-tax-treaty-that-contains-the-saving-clause-and-its-exceptions",
+          "label": "3. The article number (or location) in the tax treaty that contains the saving clause and its exceptions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-the-type-and-amount-of-income-that-qualifies-for-the-exemption-from-tax",
+          "label": "4. The type and amount of income that qualifies for the exemption from tax.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-sufficient-facts-to-justify-the-exemption-from-tax-under-the-terms-of-the-treaty-article",
+          "label": "5. Sufficient facts to justify the exemption from tax under the terms of the treaty article.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "example-article-20-of-the-u-s-china-income-tax-treaty-allows-an-exemption-from-tax-for-scholarship-income-received-by-a-chinese-student-temporarily-present-in-the-united-states-under-u-s-law-this-student-will-become-a-resident-alien-for-tax-purposes-if-their-stay-in-the-united-states-exceeds-5-calendar-years-however-paragraph-2-of-the-first-protocol-to-the-u-s-china-treaty-dated-april-30-1984-allows-the-student-to-continue-to-apply-even-after-the-chinese-provisions-of-article-20-to-become-a-resident-alien-of-the-united-states-a-chinese-student-who-qualifies-for-this-exception-under-paragraph-2-of-the-first-protocol-and-is-relying-on-this-exception-to-claim-an-exemption-from-tax-on-their-scholarship-or-fellowship-income-would-attach-to-form-w-9-a-statement-that-includes-the-information-described-above-to-support-that-exemption",
+          "label": "Example. Article 20 of the U.S.-China income tax treaty allows an exemption from tax for scholarship income received by a Chinese student temporarily present in the United States. Under U.S. law, this student will become a resident alien for tax purposes if their stay in the United States exceeds 5 ",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "backup-withholding",
+          "label": "Backup Withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "what-is-backup-withholding-persons-making-certain-payments-to-you-must-under-certain-conditions-withhold-and-pay-to-the-irs-24-of-such-payments-this-is-called-backup-withholding-payments-that-may-be-subject-to-backup-withholding-include-but-are-not-limited-to-interest-dividends-broker-and-barter-exchange-transactions-rents-royalties-nonemployee-pay-payments-made-in-settlement-of-payment-card-and-third-party-network-transactions-and-certain-payments-from-fish-and-boat-operators-real-estate-transactions-are-not-subject-to-backup-withholding",
+          "label": "What is backup withholding? Persons making certain payments to you must under certain conditions withhold and pay to the IRS 24% of such payments. This is called \u201cbackup withholding.\u201d Payments that may be subject to backup withholding include, but are not limited to, interest, dividends, broker and ",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "payments-you-receive-will-be-subject-to-backup-withholding-if",
+          "label": "Payments you receive will be subject to backup withholding if:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-do-not-furnish-your-tin-to-the-requester",
+          "label": "1. You do not furnish your TIN to the requester;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-you-do-not-certify-your-tin-when-required-see-the-instructions-for-part-ii-for-details",
+          "label": "2. You do not certify your TIN when required (see the instructions for Part II for details);",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-the-irs-tells-the-requester-that-you-furnished-an-incorrect-tin",
+          "label": "3. The IRS tells the requester that you furnished an incorrect TIN;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-the-irs-tells-you-that-you-are-subject-to-backup-withholding-because-you-did-not-report-all-your-interest-and-dividends-on-your-tax-return-for-reportable-interest-and-dividends-only-or",
+          "label": "4. The IRS tells you that you are subject to backup withholding because you did not report all your interest and dividends on your tax return (for reportable interest and dividends only); or",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-you-do-not-certify-to-the-requester-that-you-are-not-subject-to-backup-withholding-as-described-in-item-4-under-by-signing-the-filled-out-form-above-for-reportable-interest-and-dividends-accounts-opened-after-1983-only",
+          "label": "5. You do not certify to the requester that you are not subject to backup withholding, as described in item 4 under \u201cBy signing the filled-out form\u201d above (for reportable interest and dividends accounts opened after 1983 only).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-3",
+      "title": "Page 3",
+      "prompts": [
+        {
+          "id": "certain-payees-and-payments-are-exempt-from-backup-withholding",
+          "label": "Certain payees and payments are exempt from backup withholding.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "see-also-establishing-u-s-status-for-purposes-of-chapter-3-and-chapter-4-withholding-earlier",
+          "label": "See also Establishing U.S. status for purposes of chapter 3 and chapter 4 withholding, earlier.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "what-is-fatca-reporting",
+      "title": "What Is FATCA Reporting?",
+      "prompts": [
+        {
+          "id": "what-is-fatca-reporting",
+          "label": "What Is FATCA Reporting?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-foreign-account-tax-compliance-act-fatca-requires-a-participating-foreign-financial-institution-to-report-all-u-s-account-holders-that-are-specified-u-s-persons-certain-payees-are-exempt-from-fatca-reporting-see-exemption-from-fatca-reporting-code-later-and-the-instructions-for-the-requester-of-form-w-9-for-more-information",
+          "label": "The Foreign Account Tax Compliance Act (FATCA) requires a participating foreign financial institution to report all U.S. account holders that are specified U.S. persons. Certain payees are exempt from FATCA reporting. See Exemption from FATCA reporting code, later, and the Instructions for the Reque",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "updating-your-information",
+      "title": "Updating Your Information",
+      "prompts": [
+        {
+          "id": "updating-your-information",
+          "label": "Updating Your Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "you-must-provide-updated-information-to-any-person-to-whom-you-claimed-to-be-an-exempt-payee-if-you-are-no-longer-an-exempt-payee-and-anticipate-receiving-reportable-payments-in-the-future",
+          "label": "You must provide updated information to any person to whom you claimed to be an exempt payee if you are no longer an exempt payee and anticipate receiving reportable payments in the future.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "updating-your-information-2",
+          "label": "Updating Your Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "penalties",
+      "title": "Penalties",
+      "prompts": [
+        {
+          "id": "penalties",
+          "label": "Penalties",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "failure-to-furnish-tin-if-you-fail-to-furnish-your-correct-tin-to-a-requester-you-are-subject-to-a-penalty-of-50-for-each-such-failure-unless-your-failure-is-due-to-reasonable-cause-and-not-to-willful-neglect",
+          "label": "Failure to furnish TIN. If you fail to furnish your correct TIN to a requester, you are subject to a penalty of $50 for each such failure unless your failure is due to reasonable cause and not to willful neglect.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "civil-penalty-for-false-information-with-respect-to-withholding-if-you-make-a-false-statement-with-no-reasonable-basis-that-results-in-no-backup-withholding-you-are-subject-to-a-500-penalty",
+          "label": "Civil penalty for false information with respect to withholding. If you make a false statement with no reasonable basis that results in no backup withholding, you are subject to a $500 penalty.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "criminal-penalty-for-falsifying-information-willfully-falsifying-certifications-or-affirmations-may-subject-you-to-criminal-penalties-including-fines-and-or-imprisonment",
+          "label": "Criminal penalty for falsifying information. Willfully falsifying certifications or affirmations may subject you to criminal penalties including fines and/or imprisonment.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "misuse-of-tins-if-the-requester-discloses-or-uses-tins-in-violation-of-federal-law-the-requester-may-be-subject-to-civil-and-criminal-penalties",
+          "label": "Misuse of TINs. If the requester discloses or uses TINs in violation of federal law, the requester may be subject to civil and criminal penalties.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions",
+      "prompts": [
+        {
+          "id": "line-1",
+          "label": "Line 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "you-must-enter-one-of-the-following-on-this-line-do-not-leave-this-line-blank-the-name-should-match-the-name-on-your-tax-return",
+          "label": "You must enter one of the following on this line; do not leave this line blank. The name should match the name on your tax return.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-this-form-w-9-is-for-a-joint-account-other-than-an-account-maintained-by-a-foreign-financial-institution-ffi-list-first-and-then-maintain-the-name-of-the-person-or-entity-whose-number-you-entered-in-part-i-of-form-w-9-to-ffi-to-document-a-joint-account-each-holder-of-the-account-that-is-a-u-s-person-must-provide-a-form-w-9",
+          "label": "If this Form W-9 is for a joint account (other than an account maintained by a foreign financial institution (FFI)), list first, and then maintain the name of the person or entity whose number you entered in Part I of Form W-9 to FFI to document a joint account, each holder of the account that is a ",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-i-taxpayer-identification-number-tin",
+      "title": "Part I. Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "enter-your-tin-in-the-appropriate-box",
+          "label": "Enter your TIN in the appropriate box.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "note-you-may-wish-to-consult-with-the-financial-institution-requesting-this-form-to-determine-whether-the-fatca-code-and-or-exempt-payee-code-should-be-completed",
+          "label": "Note: You may wish to consult with the financial institution requesting this form to determine whether the FATCA code and/or exempt payee code should be completed.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-5",
+          "label": "Line 5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-your-address-number-street-and-apartment-or-suite-number",
+          "label": "Enter your address (number, street, and apartment or suite number).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "this-is-where-the-requestor-of-this-form-w-9-will-mail-your-information-returns-if-this-address-differs-from-the-one-the-requestor-already-has-on-file-enter-new-at-the-top-of-the-file-if-a-new-address-is-provided-there-is-still-a-chance-the-old-address-will-be-used-until-the-payer-changes-your-address-in-their-records",
+          "label": "This is where the requestor of this Form W-9 will mail your information returns. If this address differs from the one the requestor already has on file, enter 'NEW' at the top of the file. If a new address is provided, there is still a chance the old address will be used until the payer changes your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-6",
+          "label": "Line 6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-your-city-state-and-zip-code",
+          "label": "Enter your city, state, and ZIP code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification",
+      "title": "Part II. Certification",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Individual",
+              "Two or more individuals (joint account) other than an account maintained by an FFI",
+              "Two or more U.S. persons (joint account maintained by an FFI)",
+              "Custodial account of a minor (Uniform Gift to Minors Act)",
+              "a. The usual revocable savings trust (grantor is also trustee)",
+              "b. So-called trust account that is not a legal or valid trust under state law",
+              "Sole proprietorship or disregarded entity owned by an individual",
+              "Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(O)(A))",
+              "8. Disregarded entity not owned by an individual",
+              "9. A valid trust, estate, or pension trust",
+              "10. Corporation or LLC electing corporate status on Form 8832 or Form 2553",
+              "11. Association, club, religious, charitable, educational, or other tax-exempt organization",
+              "12. Partnership or multi-member LLC",
+              "13. A broker or registered nominee",
+              "14. Account with the Department of Agriculture in the name of a public entity (such as a state or local government, school district, or prison that receives agricultural program payments)",
+              "15. Grantor trust filing Form 1041 or under the Optional Filing Method 2, requiring Form 1099 (see Regulations section 1.671-4(b)(2)(O)(A)(**))"
+            ]
+          }
+        },
+        {
+          "id": "give-name-and-ein-of",
+          "label": "Give name and EIN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-first-and-circle-the-name-of-the-person-whose-number-you-furnish",
+          "label": "List first and circle the name of the person whose number you furnish.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "If only one person on a joint account has an SSN, that person's number must be furnished."
+            ]
+          }
+        },
+        {
+          "id": "circle-the-minor-s-name-and-furnish-the-minor-s-ssn",
+          "label": "Circle the minor's name and furnish the minor's SSN.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "You DBA must show your individual name on line 1, and enter your business name, if any, on line 2. You may use either your SSN or EIN (if you have one), but the IRS encourages you to use your SSN."
+            ]
+          }
+        },
+        {
+          "id": "list-first-and-circle-the-name-of-the-trust-estate-or-pension-trust",
+          "label": "List first and circle the name of the trust, estate, or pension trust.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Do not furnish the TIN of the personal representative or trustee unless the legal entity itself is not designated in the account title."
+            ]
+          }
+        },
+        {
+          "id": "note-the-grantor-must-also-provide-a-form-w-9-to-the-trustee-of-the-trust",
+          "label": "Note: The grantor must also provide a Form W-9 to the trustee of the trust.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-more-information-on-optional-filing-methods-for-grantor-trusts-see-the-instructions-for-form-1041",
+          "label": "** For more information on optional filing methods for grantor trusts, see the Instructions for Form 1041.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "note-if-no-name-is-circled-and-when-more-than-one-name-is-listed-the-number-will-be-considered-to-be-that-of-the-first-name-listed",
+          "label": "Note: If no name is circled and when more than one name is listed, the number will be considered to be that of the first name listed.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account-2",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "1. Individual",
+              "2. Two or more individuals (joint account) other than an account maintained by an FFI",
+              "3. Two or more U.S. persons (joint account maintained by an FFI)",
+              "4. Custodial account of a minor (Uniform Gift to Minors Act)",
+              "a. The usual revocable savings trust (grantor is also trustee)",
+              "b. So-called trust account that is not a legal or valid trust under state law",
+              "6. Sole proprietorship or disregarded entity owned by an individual",
+              "7. Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(O)(A))"
+            ]
+          }
+        },
+        {
+          "id": "give-name-and-ssn-of",
+          "label": "Give name and SSN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-individual",
+          "label": "The individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-actual-owner-of-the-account-or-if-combined-funds-the-first-individual-on-the-account",
+          "label": "The actual owner of the account or, if combined funds, the first individual on the account",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "each-holder-of-the-account",
+          "label": "Each holder of the account",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-minor",
+          "label": "The minor",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-grantor-trustee",
+          "label": "The grantor-trustee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-actual-owner",
+          "label": "The actual owner",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-owner",
+          "label": "The owner",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "secure-your-tax-records-from-identity-theft",
+      "title": "Secure Your Tax Records From Identity Theft",
+      "prompts": [
+        {
+          "id": "identity-theft-occurs-when-someone-uses-your-personal-information-such-as-your-name-ssn-or-other-identifying-information-without-your-permission-to-commit-fraud-or-other-crimes-an-identity-thief-may-use-your-ssn-to-get-a-job-or-file-a-tax-return-using-your-ssn-to-receive-a-refund",
+          "label": "Identity theft occurs when someone uses your personal information, such as your name, SSN, or other identifying information, without your permission to commit fraud or other crimes. An identity thief may use your SSN to get a job or file a tax return using your SSN to receive a refund.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "to-reduce-your-risk",
+          "label": "To reduce your risk:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "protect-your-ssn",
+          "label": "Protect your SSN,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ensure-your-employer-is-protecting-your-ssn",
+          "label": "Ensure your employer is protecting your SSN,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "be-careful-when-choosing-a-tax-return-preparer",
+          "label": "Be careful when choosing a tax return preparer.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-your-tax-records-are-affected-by-identity-theft-and-you-receive-a-notice-from-the-irs-respond-right-away-to-the-name-and-phone-number-printed-on-the-irs-notice-or-letter",
+          "label": "If your tax records are affected by identity theft and you receive a notice from the IRS, respond right away to the name and phone number printed on the IRS notice or letter.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-your-tax-records-are-not-currently-affected-by-identity-theft-but-you-think-you-are-at-risk-due-to-a-lost-or-stolen-purse-or-wallet-questionable-credit-card-activity-or-a-questionable-credit-report-contact-the-irs-identity-theft-hotline-at-800-908-4490-or-submit-form-14039",
+          "label": "If your tax records are not currently affected by identity theft but you think you are at risk due to a lost or stolen purse or wallet, questionable credit card activity, or a questionable credit report, contact the IRS Identity Theft Hotline at 800-908-4490 or submit Form 14039.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-more-information-see-pub-5027-identity-theft-information-for-taxpayers",
+          "label": "For more information, see Pub. 5027, Identity Theft Information for Taxpayers.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form-w-9",
+      "title": "Form W-9",
+      "prompts": [
+        {
+          "id": "rev-3-2024",
+          "label": "Rev. 3-2024",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "page-6",
+          "label": "Page 6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "victims-of-identity-theft",
+          "label": "Victims of identity theft",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "taxpayer-advocate-service-tas-assistance",
+          "label": "Taxpayer Advocate Service (TAS) assistance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "877-777-4778-or-tty-tdd",
+          "label": "877-777-4778 or TTY/TDD",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "phishing",
+          "label": "Phishing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "irs",
+          "label": "IRS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "treasurer-inspector-general-for-tax-administration-tigta",
+          "label": "Treasurer Inspector General for Tax Administration (TIGTA)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spam-uce-gov",
+          "label": "spam@uce.gov",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "www-ftc-gov-complaint",
+          "label": "www.ftc.gov/complaint",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "www-irs-gov-identitytheft",
+          "label": "www.irs.gov/IdentityTheft",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "identity-theft",
+          "label": "Identity Theft",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "www-irs-gov",
+          "label": "www.irs.gov",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "privacy-act-notice",
+      "title": "Privacy Act Notice",
+      "prompts": [
+        {
+          "id": "section-6109",
+          "label": "Section 6109",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "correct-tin",
+          "label": "correct TIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "file-information-returns",
+          "label": "file information returns",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "irs-2",
+          "label": "IRS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mortgage-interest",
+          "label": "mortgage interest",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "debt",
+          "label": "debt",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "contributions",
+          "label": "contributions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ira",
+          "label": "IRA",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "archer-msa",
+          "label": "Archer MSA",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "hsa",
+          "label": "HSA",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "routine-uses",
+          "label": "Routine uses",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-justice",
+          "label": "Department of Justice",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "district-of-columbia",
+          "label": "District of Columbia",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "u-s-commonwealths",
+          "label": "U.S. commonwealths",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "countries",
+          "label": "countries",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "tin",
+          "label": "TIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "tax-return",
+          "label": "tax return",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-3406",
+          "label": "section 3406",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "taxable-interest",
+          "label": "taxable interest",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dividends",
+          "label": "dividends",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "certain-penalties",
+          "label": "Certain penalties",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

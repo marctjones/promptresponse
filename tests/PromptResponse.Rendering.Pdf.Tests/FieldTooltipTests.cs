@@ -1,9 +1,8 @@
-using System.Text;
-using System.Text.RegularExpressions;
 using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using Xunit;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
 
 namespace PromptResponse.Rendering.Pdf.Tests;
 
@@ -28,30 +27,31 @@ public class FieldTooltipTests
         return output.ToArray();
     }
 
-    /// <summary>PDF text strings are UTF-16BE with octal escapes; decode before asserting.</summary>
+    /// <summary>
+    /// Every field's accessible name (<c>/TU</c>), read through the same public API a
+    /// consumer would use.
+    /// </summary>
+    /// <remarks>
+    /// This used to regex the saved bytes for <c>/TU (...)</c> and hand-decode the
+    /// UTF-16BE octal escapes. That assertion could not tell "the tooltip is missing"
+    /// apart from "the tooltip is in a carrier I cannot read", and the difference
+    /// mattered: when the PDF engine began packing AcroForm dictionaries into
+    /// Flate-compressed object streams, all six tests here went red against output
+    /// that was perfectly correct — the data was always there, `qpdf --qdf` showed it.
+    /// Cost three reverted dependency upgrades and three upstream bug reports to work
+    /// out. Reopening the document and reading /TU off the field dictionary asserts
+    /// the requirement (a filler and a screen reader can get the guidance) rather than
+    /// an incidental fact about how the bytes happen to be packed.
+    /// </remarks>
     private static List<string> Tooltips(byte[] pdf)
     {
-        static byte[] Unescape(string raw)
-        {
-            var outBytes = new List<byte>();
-            for (var i = 0; i < raw.Length;)
-            {
-                if (raw[i] == '\\' && i + 3 < raw.Length && char.IsDigit(raw[i + 1]))
-                {
-                    outBytes.Add(Convert.ToByte(raw.Substring(i + 1, 3), 8)); i += 4;
-                }
-                else if (raw[i] == '\\') { outBytes.Add((byte)raw[i + 1]); i += 2; }
-                else { outBytes.Add((byte)raw[i]); i++; }
-            }
-            return [.. outBytes];
-        }
-
-        var text = Encoding.Latin1.GetString(pdf);
-        return Regex.Matches(text, @"/TU\s*\(((?:\\.|[^()\\])*)\)", RegexOptions.Singleline)
-            .Select(m => Unescape(m.Groups[1].Value))
-            .Select(b => b.Length > 1 && b[0] == 0xFE && b[1] == 0xFF
-                ? Encoding.BigEndianUnicode.GetString(b, 2, b.Length - 2)
-                : Encoding.Latin1.GetString(b))
+        using var doc = PdfeDoc.Open(pdf);
+        var form = doc.GetAcroForm();
+        form.Should().NotBeNull("a fillable export must carry an AcroForm");
+        return form!.Fields
+            .Select(f => f.RawDictionary.GetStringOrNull("TU"))
+            .Where(t => !string.IsNullOrEmpty(t))
+            .Select(t => t!)
             .ToList();
     }
 
@@ -135,7 +135,11 @@ public class FieldTooltipTests
         }));
 
         Tooltips(pdf).Should().Contain("Department — Pick the one that pays you.");
-        Encoding.Latin1.GetString(pdf).Should().Contain("/Opt",
-            "the offered options travel too, so the dropdown is usable in a PDF reader");
+        using var doc = PdfeDoc.Open(pdf);
+        var acro = doc.GetAcroForm();
+        acro.Should().NotBeNull();
+        acro!.Fields.Should().ContainSingle(f => f.Options != null && f.Options.Count > 0)
+            .Which.Options.Should().Contain(["Sales", "Finance"],
+                "the offered options travel too, so the dropdown is usable in a PDF reader");
     }
 }

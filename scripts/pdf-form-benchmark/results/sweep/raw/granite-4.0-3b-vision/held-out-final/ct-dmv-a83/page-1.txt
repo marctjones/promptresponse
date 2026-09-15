@@ -1,0 +1,91 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Special Power of Attorney"
+    },
+    {
+      "id": "section_2",
+      "title": "State of Connecticut"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "HEREBY APPOINT", 
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Print full name above",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "day of",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 6,
+      "label": "PERSONALLY APPEARED",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "SIGNER AND SEALER OF THE FOREGOING POWER OF ATTORNEY, WHO",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "ACKNOWLEDGED THE SAME AS HIS HER FREE ACT AND DEED, BEFORE ME THIS",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 9,
+      "label": "DAY",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 10,
+      "label": "NOTARY PUBLIC / JUSTICE OF THE PEACE",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "MY COMMISSION EXPRESSES",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}

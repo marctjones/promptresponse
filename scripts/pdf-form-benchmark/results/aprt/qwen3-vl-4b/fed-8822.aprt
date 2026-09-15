@@ -1,0 +1,339 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 8822 (Change of Address)"
+  },
+  "sections": [
+    {
+      "id": "complete-this-part-to-change-your-home-mailing-address",
+      "title": "Complete This Part To Change Your Home Mailing Address",
+      "prompts": [
+        {
+          "id": "check-all-boxes-this-change-affects",
+          "label": "Check all boxes this change affects:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "individual-income-tax-returns-forms-1040-1040-sr-1040-nr-etc",
+          "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "gift-estate-or-generation-skipping-transfer-tax-returns-forms-706-709-etc",
+          "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "decedent-s-name",
+          "label": "Decedent's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-name-first-name-initial-and-last-name",
+          "label": "Your name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-social-security-number",
+          "label": "Your social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-name-first-name-initial-and-last-name",
+          "label": "Spouse's name (first name, initial, and last name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-social-security-number",
+          "label": "Spouse's social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-prior-name-s-see-instructions",
+          "label": "Your prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "spouse-s-prior-name-s-see-instructions",
+          "label": "Spouse's prior name(s). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "your-old-address-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-if-different-from-line-6a-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "Spouse's old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-if-different-from-line-6a-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions-2",
+          "label": "Spouse's old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-2",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-2",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-2",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-address-no-street-apt-no-city-or-town-state-and-zip-code-if-a-p-o-box-see-instructions-if-foreign-address-also-complete-spaces-below-see-instructions",
+          "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-3",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-3",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-3",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "title": "Signature",
+      "prompts": [
+        {
+          "id": "daytime-telephone-number-of-person-to-contact-optional",
+          "label": "Daytime telephone number of person to contact (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-signature",
+          "label": "Your signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-representative-executor-administrator-if-applicable",
+          "label": "Signature of representative, executor, administrator/if applicable",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "title",
+          "label": "Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-joint-return-spouse-s-signature",
+          "label": "If joint return, spouse's signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-3",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature",
+          "label": "Signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "where-to-file",
+      "title": "Where To File",
+      "prompts": [
+        {
+          "id": "if-you-checked-the-box-on-line-2-send-form-8822-to-department-of-the-treasury-internal-revenue-service-center-kansas-city-mo-64999-0023",
+          "label": "If you checked the box on line 2, send Form 8822 to: Department of the Treasury, Internal Revenue Service Center, Kansas City, MO 64999-0023.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-did-not-check-the-box-on-line-2-send-form-8822-to-the-address-shown-here-applies-to-you",
+          "label": "If you did not check the box on line 2, send Form 8822 to the address shown here applies to you:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-your-old-home-mailing-address-was-in",
+          "label": "IF your old home mailing address was in ...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Alabama, Arkansas, Delaware, Georgia, Illinois, Indiana, Iowa, Kentucky, Maine, Massachusetts, Minnesota, Missouri, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, South Carolina, Tennessee, Vermont, Virginia, Wisconsin",
+              "Florida, Louisiana, Mississippi, Texas",
+              "Alaska, Arizona, California, Colorado, Connecticut, District of Columbia, Hawaii, Idaho, Kansas, Maryland, Michigan, Montana, Nebraska, Nevada, New Mexico, North Dakota, Ohio, Oregon, Pennsylvania, Rhode Island, South Dakota, Utah, Washington, West Virginia",
+              "A foreign country, American Samoa, or Puerto Rico (or are excluding income under Internal Revenue Code section 933), or use an APO or FPO address, or file Form 2555, 2555-EZ, or 4563, or are a dual-status alien or non bona fide resident of Guam or the Virgin Islands.",
+              "Guam: bona fide residents",
+              "Virgin Islands: bona fide residents"
+            ]
+          }
+        },
+        {
+          "id": "then-use-this-address",
+          "label": "THEN use this address ...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Department of the Treasury Internal Revenue Service Kansas City, MO 64999-0023",
+              "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+              "Department of the Treasury Internal Revenue Service Ogden, UT 84201-0023",
+              "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+              "Department of Revenue and Taxation Government of Guam P.O. Box 23607 GMF, GU 96921",
+              "V.I. Bureau of Internal Revenue 6115 Estate Smith Bay, Suite 225 St. Thomas, VI 00802"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

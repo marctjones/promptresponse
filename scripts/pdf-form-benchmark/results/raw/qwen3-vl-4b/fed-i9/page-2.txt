@@ -1,0 +1,283 @@
+{
+  "sections": [
+    {
+      "id": "main-content",
+      "title": "Lists of Acceptable Documents"
+    }
+  ],
+  "fields": [
+    {
+      "label": "U.S. Passport or U.S. Passport Card",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Permanent Resident Card or Alien Registration Receipt Card (Form I-551)",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Foreign passport that contains a temporary I-551 stamp or temporary I-551 printed notation on a machine-readable immigrant visa",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employment Authorization Document that contains a photograph (Form I-766)",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "For an individual temporarily authorized to work for a specific employer because of his or her status or parole:",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "a. Foreign passport; and",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "b. Form I-94 or Form I-94A that has the following:",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(1) The same name as the passport; and",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(2) An endorsement of the individual's status or parole as long as that period of endorsement has not yet expired and the proposed employment is not in conflict with any restrictions or limitations identified on the form.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "6. Passport from the Federated States of Micronesia (FSM) or the Republic of the Marshall Islands (RMI) with Form I-94 or Form I-94A indicating nonimmigrant admission under the Compact of Free Association Between the United States and the FSM or RMI",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Driver's license or ID card issued by a State or outlying possession of the United States provided it contains a photograph or information such as name, date of birth, sex, height, eye color, and address",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ID card issued by federal, state or local government agencies or entities, provided it contains a photograph or information such as name, date of birth, sex, height, eye color, and address",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "School ID card with a photograph",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Voter's registration card",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "U.S. Military card or draft record",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Military dependent's ID card",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "U.S. Coast Guard Merchant Mariner Card",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Native American tribal document",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Native American tribal document",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Driver's license issued by a Canadian government authority",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "For persons under age 18 who are unable to present a document listed above:",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "School record or report card",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Clinic, doctor, or hospital record",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Day-care or nursery school record",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "A Social Security Account Number card, unless the card includes one of the following restrictions:",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(1) NOT VALID FOR EMPLOYMENT",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(2) VALID FOR WORK ONLY WITH INS AUTHORIZATION",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "(3) VALID FOR WORK ONLY WITH DHS AUTHORIZATION",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Certification of report of birth issued by the Department of State (Forms DS-1350, FS-545, FS-240)",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Original or certified copy of birth certificate issued by a State, county, municipal authority, or territory of the United States bearing an official seal",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Native American tribal document",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "U.S. Citizen ID Card (Form I-197)",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Identification Card for Use of Resident Citizen in the United States (Form I-179)",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employment authorization document issued by the Department of Homeland Security",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Receipt for a replacement of a lost, stolen, or damaged List A document.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Form I-94 issued to a lawful permanent resident that contains an I-551 stamp and a photograph of the individual.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Form I-94 with \"RE\" notation or refugee stamp issued to a refugee.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Receipt for a replacement of a lost, stolen, or damaged List B document.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Receipt for a replacement of a lost, stolen, or damaged List C document.",
+      "section_id": "main-content",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

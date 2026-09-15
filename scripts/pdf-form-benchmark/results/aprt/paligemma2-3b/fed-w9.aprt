@@ -1,0 +1,527 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "w-9",
+          "label": "W-9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "request-for-taxpayer-identification-number-and-certification",
+          "label": "Request for Taxpayer Identification Number and Certification",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "form-3435-rev-06",
+          "label": "Form 3435 (Rev. 06)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-march-2007",
+          "label": "Date: March 2007",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "department-of-treasury-internal-revenue-service",
+          "label": "Department of Treasury Internal Revenue Service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "before-you-request",
+          "label": "Before You Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-instructions",
+          "label": "[Other instructions]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "copies-to-accounts-maintained-by-irs-only",
+          "label": "(Copies to accounts maintained by IRS only)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "requestor-s-name-and-address-optional",
+          "label": "Requestor's name and address (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "6-city-state-and-zip-code",
+          "label": "6 City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "7-list-account-numbers-if-have-optional",
+          "label": "7 List account numbers(if have optional):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "part-i-taxpayer-identification-number-tin",
+          "label": "Part I Taxpayer Identification Number (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "of",
+          "label": "of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-identification-number",
+          "label": "Employee Identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "of-2",
+          "label": "of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "part-ii-certification",
+          "label": "Part II Certification",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-i-am-aware-and-agree-that",
+          "label": "1. I am aware and agree that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-this-is-a-copy-of",
+          "label": "[Signature] This is a copy of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total-instructions",
+          "label": "Total Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-b-2016",
+          "label": "Form W-9 Rev. B-2016",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-3-2014",
+          "label": "Form W-9 (Rev. 3) 2014",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-4064-b-investment-fund-and-their-equity-investments",
+          "label": "Form 4064:B (investment fund and their equity investments);",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-4064c-employee-compensation",
+          "label": "\u2022 Form 4064C (employee compensation);",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "by-filing-your-tax-returns-on-time-you-are-eligible-to-avoid-penalties-in-the-following-situations",
+          "label": "By filing your tax returns on time, you are eligible to avoid penalties in the following situations:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "form-1035-c-cancelable-debt",
+          "label": "Form 1035 C (cancelable debt);",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-3-2014-2",
+          "label": "Form W-9 Rev. 3/2014",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "what-is-fatca-reporting",
+          "label": "What is FATCA Reporting?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-2a",
+          "label": "Line 2a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-3b",
+          "label": "Line 3b",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "updating-your-information",
+          "label": "updating your information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "penalties",
+          "label": "Penalties",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-3-2014-3",
+          "label": "Form W-9 (Rev. 3-2014)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-9",
+          "label": "Line 9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "part-b-taxpayer-identification-number-tin",
+          "label": "Part B. Taxpayer Identification Number (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "line-8",
+          "label": "Line 8",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "14-register-exchange-transactions-and-patronage-dividends",
+          "label": "14- Register exchange transactions and patronage dividends;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-3-2014-4",
+          "label": "Form W-9 Rev. 3:2014",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "part-ii-certification-2",
+          "label": "Part II. Certification",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-this-type-of-account",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "give-name-and-ssn-or",
+          "label": "Give name and SSN or:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "legal-entity",
+          "label": "Legal entity*",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "corporation-or-llc-existing-corporate-corporation",
+          "label": "Corporation or LLC existing corporate corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-corporation",
+          "label": "The corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-corporation-2",
+          "label": "The corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "legal-entity-the-partnership",
+          "label": "Legal entity* The partnership",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "9-partnership-agreement-see-form-1034a",
+          "label": "9. Partnership agreement (see Form 1034a)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-public-entity",
+          "label": "The public entity",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "12-partnerships-or-multi-member-llc",
+          "label": "12. Partnerships or multi-member LLC",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "corporation-name-and-number-in-the-form",
+          "label": "Corporation name and number in the form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "see-page-10",
+          "label": "(see page 10)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-are-a-corporation",
+          "label": "If you are a corporation:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-trust",
+          "label": "The trust",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5-mortgage-interest-paid-by-you-population-or-abandonment-of-property-see-page-10",
+          "label": "5. Mortgage interest paid by you, population or abandonment of property (see page 10)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "what-name-and-number-to-give-the-requester-for-this-type-of-account",
+          "label": "What Name And Number To Give the Requester For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "the-actual-owner-of-the-account-see-page-10",
+          "label": "The actual owner of the account (see page 10)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "1-individual",
+          "label": "1. Individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-tax-or-more-individual-joint-account",
+          "label": "2. Tax or more individual (joint account)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-corporation",
+          "label": "3. Corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "4-tax-or-more-individual-not-in-u-s",
+          "label": "4. Tax or more individual (not in U.S.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "6-other-entity",
+          "label": "6. Other entity",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-9-rev-3-2014-5",
+          "label": "Form W-9 Rev. 3:2014",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "privacy-act-notice",
+          "label": "Privacy Act Notice",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,458 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w4"
+  },
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "first-name-and-middle-initial",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-state-and-zip-code",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "single-or-married-filing-separately",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Single",
+              "Married filing separately"
+            ]
+          }
+        },
+        {
+          "id": "married-filing-jointly-or-qualifying-surviving-s",
+          "label": "Married filing jointly or Qualifying surviving spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Married filing jointly",
+              "Qualifying surviving spouse"
+            ]
+          }
+        },
+        {
+          "id": "head-of-household",
+          "label": "Head of household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Head of household"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "if-there-are-only-two-jobs-total-you-may-check-t",
+          "label": "If there are only two jobs total, you may check this box",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits",
+      "prompts": [
+        {
+          "id": "multiply-the-number-of-qualifying-children-under",
+          "label": "Multiply the number of qualifying children under age 17 by $2,200",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-other-dependents-by-500",
+          "label": "Multiply the number of other dependents by $500",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-the-amounts-from-steps-3-a-and-3-b-plus-the-",
+          "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-income-not-from-jobs",
+          "label": "Other income (not from jobs)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "deductions",
+          "label": "Deductions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "extra-withholding",
+          "label": "Extra withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "i-claim-exemption-from-withholding-for-2026",
+          "label": "I claim exemption from withholding for 2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only",
+      "prompts": [
+        {
+          "id": "employer-s-name-and-address",
+          "label": "Employer's name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-date-of-employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-identification-number-ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "two-jobs",
+          "label": "Two jobs.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-02-0",
+          "label": "topmostSubform[0].Page3[0].f3_02[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-03-0",
+          "label": "topmostSubform[0].Page3[0].f3_03[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-04-0",
+          "label": "topmostSubform[0].Page3[0].f3_04[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-the-number-of-pay-periods-per-year-for-the",
+          "label": "Enter the number of pay periods per year for the highest paying job.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-06-0",
+          "label": "topmostSubform[0].Page3[0].f3_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-b-deductions-worksheet-keep-for-your-reco",
+      "title": "Step 4(b)\u2014Deductions Worksheet (Keep for your records.)",
+      "prompts": [
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensat",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensat-2",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensat-3",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-1a-1b-and-1c-enter-the-result-here",
+          "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "seniors-age-65-or-older",
+          "label": "Seniors age 65 or older.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "seniors-age-65-or-older-2",
+          "label": "Seniors age 65 or older.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-3a-and-3b-enter-the-result-here",
+          "label": "Add lines 3a and 3b. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-an-estimate-of-your-student-loan-interest-",
+          "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions-2",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions-3",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions-4",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions-5",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-6a-6b-6c-6d-and-6e-enter-the-result-he",
+          "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions-2",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions-3",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions-4",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "standard-deduction",
+          "label": "Standard deduction.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "cash-gifts-to-charities",
+          "label": "Cash gifts to charities.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-11-and-12-enter-the-result-here",
+          "label": "Add lines 11 and 12. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-10-is-greater-than-line-13-subtract-line",
+          "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-2-4-5-and-14-enter-the-result-here-and",
+          "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

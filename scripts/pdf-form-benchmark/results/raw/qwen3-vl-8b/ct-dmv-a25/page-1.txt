@@ -1,0 +1,134 @@
+{
+  "sections": [
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS"
+    },
+    {
+      "id": "vehicle_owner_information",
+      "title": "VEHICLE OWNER INFORMATION"
+    },
+    {
+      "id": "vehicle_information",
+      "title": "VEHICLE INFORMATION"
+    },
+    {
+      "id": "hearing_request",
+      "title": "HEARING REQUEST"
+    }
+  ],
+  "fields": [
+    {
+      "label": "NAME",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "TELEPHONE NUMBER",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    },
+    {
+      "label": "ADDRESS",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "No. & Street",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/Town",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+      "section_id": "vehicle_owner_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MARKER PLATE NO.",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MAKE",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MODEL",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "YEAR",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE OF LAST REGISTRATION",
+      "section_id": "vehicle_information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE (Owner)",
+      "section_id": "hearing_request",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "hearing_request",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

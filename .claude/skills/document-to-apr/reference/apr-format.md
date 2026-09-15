@@ -8,14 +8,18 @@ It carries content only — no layout, no styling, no code.
 
 ```json
 {
-  "version": "1.0",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": { ... },
   "sections": [ ... ]
 }
 ```
 
-- `version` — always `"1.0"`.
+- `aprVersion` — the format version this document declares. Use
+  `"1.0-beta.6"`: that is what the current validator accepts, and a document
+  declaring anything else is rejected. (The key is `aprVersion`, not
+  `version`; a document using `version` fails validation with
+  `UNSUPPORTED_VERSION`.)
 - `documentType` — `"template"` (blank form) or `"filledForm"` (has answers). When
   importing, always `"template"`.
 - `metadata` — see below.
@@ -30,13 +34,16 @@ It carries content only — no layout, no styling, no code.
   "created": "2026-06-06T00:00:00Z",
   "modified": "2026-06-06T00:00:00Z",
   "author": "…",
-  "templateId": "contact-intake",
+  "templateId": "tag:example.com,2026:contact-intake",
   "templateVersion": "1.0"
 }
 ```
 
 - `title` is **required** and non-empty. Everything else is optional.
-- `templateId` — a stable kebab-case id for the template (recommended).
+- `templateId` — **must be a URI** when present. Use a tag URI such as
+  `tag:example.com,2026:contact-intake`: a domain or email address you held on a
+  date, then a name. A bare `contact-intake` is rejected (`WRONG_TYPE`). A filled
+  form must carry one.
 - Dates are ISO-8601 UTC strings.
 
 ## Section
@@ -57,9 +64,10 @@ It carries content only — no layout, no styling, no code.
 - `prompts` — the fields directly in this section (may be empty if it only nests
   sub-sections).
 - `sections` — nested sub-sections, unlimited depth.
-- A section must contain at least one prompt **or** one child section (exception:
-  a table section using `dynamicRows`, which may legitimately start empty).
-- `tableLayout` — present only on table sections (see "Table section").
+- A section must contain at least one prompt **or** one child section. There is no
+  exception: a table needs at least one row.
+- `kind` — `"table"` only on a table section (see "Table section"). `canAddRows`
+  and `maxRows` belong only on a table.
 
 ## Prompt (a field)
 
@@ -74,8 +82,7 @@ It carries content only — no layout, no styling, no code.
     "helpText": "Primary email address",
     "suggestedValues": ["A", "B"],
     "validationPattern": "…optional regex (advisory)…"
-  },
-  "responseMetadata": {}
+  }
 }
 ```
 
@@ -84,35 +91,27 @@ It carries content only — no layout, no styling, no code.
 - `response` — **always a string**; `""` in a template. Even numbers/dates are
   strings (`"42"`, `"2026-06-06"`).
 - `hints` — all optional, all advisory:
-  - `expectedDataType` — one of `text`, `multiline`, `email`, `phone`, `url`,
-    `number`, `currency`, `date`, `time`, `datetime`, `boolean`.
+  - `expectedDataType` — one of the registered types: `text`, `multiline`, `email`,
+    `phone`, `url`, `date`, `time`, `datetime`, `number`, `currency`,
+    `boolean`, `select`, `multichoice`, `password`, `range`, `color`.
   - `placeholder` — example text shown in an empty field.
   - `helpText` — guidance shown with the field.
-  - `suggestedValues` — array of options → rendered as a dropdown.
+  - `suggestedValues` — options offered to the filler; a response outside them is still valid.
+    Pair with `select` for choose-one or `multichoice` for choose-several.
   - `validationPattern` — optional regex; advisory only, never enforced.
   - Expression hints (advanced): `exprValue`, `exprHidden`, `exprExpected`,
     `exprReadOnly`, `exprValidation` — see "Expressions".
-- `responseMetadata` — leave as `{}` for a template.
 
 ## Table section
 
-A section becomes a table when it has a `tableLayout`. Columns are fields; rows
-repeat.
+A section becomes a table by carrying `"kind": "table"` — and only by carrying it.
+Rows are ordinary child sections; cells are ordinary prompts.
 
 ```json
 {
   "id": "tbl_income",
   "title": "Income by Tax Year",
-  "tableLayout": {
-    "columns": [
-      { "id": "wages",    "label": "Wages",    "type": "currency", "placeholder": "0.00" },
-      { "id": "interest", "label": "Interest", "type": "currency" }
-    ],
-    "fixedRows": [
-      { "id": "year_2024", "label": "2024" },
-      { "id": "year_2023", "label": "2023" }
-    ]
-  },
+  "kind": "table",
   "sections": [
     {
       "id": "year_2024",
@@ -121,21 +120,30 @@ repeat.
         { "id": "year_2024.wages",    "label": "Wages",    "response": "", "hints": { "expectedDataType": "currency" } },
         { "id": "year_2024.interest", "label": "Interest", "response": "", "hints": { "expectedDataType": "currency" } }
       ]
+    },
+    {
+      "id": "year_2023",
+      "title": "2023",
+      "prompts": [
+        { "id": "year_2023.wages",    "label": "Wages",    "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "year_2023.interest", "label": "Interest", "response": "", "hints": { "expectedDataType": "currency" } }
+      ]
     }
-    // …one child section per fixed row…
   ]
 }
 ```
 
-- `tableLayout.columns[]` — `{ id, label, type?, placeholder?, suggestedValues?, helpText? }`.
-  `type` uses the same vocabulary as `expectedDataType` (`text`, `currency`,
-  `number`, `date`, `boolean`, …).
-- Use **either** `fixedRows` **or** `dynamicRows`:
-  - `fixedRows[]` — `{ id, label }`. For each fixed row, add a **child section**
-    whose `id` equals the row id and whose prompts are the cells. Each cell prompt
-    id is `"{rowId}.{columnId}"`. These cells become individually fillable.
-  - `dynamicRows` — `{ minRows?, maxRows?, rowLabel? }` for user-added rows; do
-    not create child sections.
+- **There are no column definitions.** A column header is the `label` of the prompt
+  in that position, and its type is that prompt's `expectedDataType`. Prompts in
+  the same position correspond across every row.
+- Each row's `title` identifies it. Ids follow `"{rowId}.{columnId}"`.
+- `canAddRows: true` lets a filler add or remove rows; absent means fixed.
+  `maxRows` is an advisory cap.
+- A table has **at least one** row, even one a filler can add to — otherwise
+  `EMPTY_TABLE`.
+- `tableLayout`, `columns`, `fixedRows` and `dynamicRows` are **not APR**; an
+  earlier design used them. The validator still reports such a document valid,
+  with an `UNPREFIXED_MEMBER` warning, and the table is gone.
 
 ## Expressions (advanced, optional)
 
@@ -157,10 +165,15 @@ underscores only (no hyphens). `unit_price` is fine; `unit-price` parses as
 
 ## Validation checklist (what the validator enforces)
 
-- `version == "1.0"`, `metadata.title` non-empty, ≥ 1 section.
-- Every section: non-empty `id` (unique) and non-empty `title`; not empty (has a
-  prompt or child section, unless it's a `dynamicRows` table).
-- Every prompt: non-empty `id` (unique) and non-empty `label`.
-- All ids unique across the entire document.
-- Hints are advisory — they never cause validation failure. (Type mismatches at
-  most produce warnings, never errors.)
+- `aprVersion` is `"1.0-beta.6"`, `documentType` is `"template"` or `"filledForm"`,
+  `metadata.title` is non-empty, and there is at least one section.
+- `metadata.templateId`, when present, is a URI; a `filledForm` must have one.
+- Every section has a non-empty `id` and `title` and at least one prompt or child
+  section — tables included.
+- Every prompt has a non-empty `id` and `label`.
+- Section ids are unique among all sections, and prompt ids among all prompts,
+  across the whole document. The two are separate namespaces.
+- Every `response` is a JSON string.
+- A `kind: "table"` section has at least one child section.
+- Hints are advisory: they never cause a validation failure, at most a warning.
+- Read the warnings anyway. `UNPREFIXED_MEMBER` means a member that is not APR.

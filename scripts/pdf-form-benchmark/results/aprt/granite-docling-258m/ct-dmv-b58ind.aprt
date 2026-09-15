@@ -1,0 +1,383 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-58 (Change of Address, Individual)"
+  },
+  "sections": [
+    {
+      "id": "state-of-connecticut-department-of-motor-vehicles",
+      "title": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
+      "prompts": [
+        {
+          "id": "about-you",
+          "label": "About You",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-residence-address",
+          "label": "Your Residence Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "your-mailing-address",
+          "label": "Your Mailing Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "organ-and-tissue-donor-status",
+          "label": "Organ and Tissue Donor Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-e-mail-address",
+          "label": "Your E-mail Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "your-vehicles-vessels",
+          "label": "Your Vehicles/Vessels",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "stop",
+          "label": "STOP!",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature",
+          "label": "SIGNATURE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-registration-application-section",
+          "label": "Voter Registration Application Section",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-last-first-middle",
+          "label": "NAME (Last, First, Middle)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-license-id-number",
+          "label": "OPERATOR LICENSE/ID NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "street-address",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "unit-apt",
+          "label": "UNIT/APT. #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dmv",
+          "label": "DMV",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "of-voters",
+          "label": "of voters",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-registered",
+          "label": "a registered",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "street",
+          "label": "STREET",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-2",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dit",
+          "label": "DIT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "and-wish",
+          "label": "and wish",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if",
+          "label": "If",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "renew",
+          "label": "renew",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate",
+          "label": "PLATE/",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vessel",
+          "label": "VESSEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate-2",
+          "label": "PLATE/",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vessel-2",
+          "label": "VESSEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no",
+          "label": "NO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list",
+          "label": "LIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "all",
+          "label": "*All",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-2",
+          "label": "SIGNATURE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "are",
+          "label": "Are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "you",
+          "label": "You",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-declaration-i-swear-or-affirm-under-penalty-of-perjury-that",
+          "label": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-am-a-u-s-citizen",
+          "label": "* I am a U.S. Citizen;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "x-signature-for-voter-registration-only",
+          "label": "X SIGNATURE FOR VOTER REGISTRATION ONLY **",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "yes",
+          "label": "YES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-2",
+          "label": "NO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-declaration-i-swear-or-affirm-under-penalty-of-perjury-that-2",
+          "label": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-am-a-u-s-citizen-2",
+          "label": "* I am a U.S. Citizen;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "yes-2",
+          "label": "YES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-3",
+          "label": "NO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-declaration-i-swear-or-affirm-under-penalty-of-perjury-that-3",
+          "label": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-am-a-u-s-citizen-3",
+          "label": "* I am a U.S. Citizen;",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

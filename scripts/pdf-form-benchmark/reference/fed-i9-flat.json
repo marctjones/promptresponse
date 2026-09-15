@@ -1,0 +1,3781 @@
+{
+  "formId": "fed-i9-flat",
+  "pageCount": 4,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 2,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 3,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 4,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "USCIS",
+      "rect": {
+        "left": 523.66,
+        "bottom": 761.53,
+        "right": 556.07,
+        "top": 772.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Employment Eligibility Verification",
+      "rect": {
+        "left": 198.67,
+        "bottom": 758.02,
+        "right": 413.33,
+        "top": 772.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "Form I-9",
+      "rect": {
+        "left": 518.64,
+        "bottom": 748.33,
+        "right": 561.1,
+        "top": 759.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "Department of Homeland Security",
+      "rect": {
+        "left": 224.89,
+        "bottom": 741.58,
+        "right": 387.12,
+        "top": 752.58
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "OMB No.1615-0047",
+      "rect": {
+        "left": 506.21,
+        "bottom": 737.4,
+        "right": 572.88,
+        "top": 745.4
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "U.S.Citizenship and Immigration Services",
+      "rect": {
+        "left": 211.61,
+        "bottom": 728.38,
+        "right": 397.91,
+        "top": 739.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "Expires 05/31/2027",
+      "rect": {
+        "left": 510,
+        "bottom": 725.44,
+        "right": 572.88,
+        "top": 733.44
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "START HERE: Employers must ensure the form instructions are available to employees when completing this form. Employers are liable for",
+      "rect": {
+        "left": 36.01,
+        "bottom": 701.69,
+        "right": 568.22,
+        "top": 709.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "failing to comply with the requirements for completing this form. See below and the Instructions.",
+      "rect": {
+        "left": 36.01,
+        "bottom": 692.09,
+        "right": 405.83,
+        "top": 700.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "ANTI-DISCRIMINATION NOTICE: All employees can choose which acceptable documentation to present for Form I-9. Employers cannot ask",
+      "rect": {
+        "left": 36.01,
+        "bottom": 679.49,
+        "right": 538.08,
+        "top": 687.49
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "employees for documentation to verify information in Section 1, or specify which acceptable documentation employees must present for Section 2 or",
+      "rect": {
+        "left": 36.01,
+        "bottom": 669.89,
+        "right": 564.26,
+        "top": 677.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "Supplement B, Reverification and Rehire. Treating employees differently based on their citizenship, immigration status, or national origin may be illegal.",
+      "rect": {
+        "left": 36.01,
+        "bottom": 660.29,
+        "right": 571.23,
+        "top": 668.29
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "Section 1. Employee Information and Attestation: Employees must complete and sign Section 1 of Form I-9 no later than the first",
+      "rect": {
+        "left": 38.16,
+        "bottom": 643.89,
+        "right": 566.84,
+        "top": 652.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "day of employment, but not before accepting a job offer.",
+      "rect": {
+        "left": 38.16,
+        "bottom": 634.89,
+        "right": 266.77,
+        "top": 643.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 42,
+        "bottom": 621.97,
+        "right": 123.68,
+        "top": 628.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 204,
+        "bottom": 621.97,
+        "right": 283.73,
+        "top": 628.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "Middle Initial (if any)",
+      "rect": {
+        "left": 348,
+        "bottom": 621.97,
+        "right": 410.25,
+        "top": 628.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "Other Last Names Used (if any)",
+      "rect": {
+        "left": 420,
+        "bottom": 621.97,
+        "right": 518.42,
+        "top": 628.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "Address (Street Number and Name)",
+      "rect": {
+        "left": 42,
+        "bottom": 595.97,
+        "right": 154.04,
+        "top": 602.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "Apt. Number (if any)",
+      "rect": {
+        "left": 234,
+        "bottom": 595.97,
+        "right": 296.63,
+        "top": 602.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "City or Town",
+      "rect": {
+        "left": 306,
+        "bottom": 595.97,
+        "right": 345.29,
+        "top": 602.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "State",
+      "rect": {
+        "left": 462,
+        "bottom": 595.97,
+        "right": 478.35,
+        "top": 602.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "ZIP Code",
+      "rect": {
+        "left": 510,
+        "bottom": 595.97,
+        "right": 539.57,
+        "top": 602.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "Date of Birth (mm/dd/yyyy)",
+      "rect": {
+        "left": 42,
+        "bottom": 569.97,
+        "right": 124.85,
+        "top": 576.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "U.S. Social Security Number",
+      "rect": {
+        "left": 150,
+        "bottom": 569.97,
+        "right": 238.7,
+        "top": 576.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "Employee\u0027s Email Address",
+      "rect": {
+        "left": 264,
+        "bottom": 569.97,
+        "right": 347.04,
+        "top": 576.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "Employee\u0027s Telephone Number",
+      "rect": {
+        "left": 456,
+        "bottom": 569.97,
+        "right": 553.83,
+        "top": 576.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "Check one of the following boxes to attest to your citizenship or immigration status (See page 2 and 3 of the instructions.):",
+      "rect": {
+        "left": 180,
+        "bottom": 540.97,
+        "right": 557.03,
+        "top": 547.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "I am aware that federal law",
+      "rect": {
+        "left": 42,
+        "bottom": 539.68,
+        "right": 143.38,
+        "top": 547.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "provides for imprisonment and/or",
+      "rect": {
+        "left": 42,
+        "bottom": 530.68,
+        "right": 170.02,
+        "top": 538.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "1. A citizen of the United States",
+      "rect": {
+        "left": 197,
+        "bottom": 525.97,
+        "right": 295.22,
+        "top": 532.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "fines for false statements, or the",
+      "rect": {
+        "left": 42,
+        "bottom": 521.68,
+        "right": 165.14,
+        "top": 529.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "2. A noncitizen national of the United States (See Instructions.)",
+      "rect": {
+        "left": 197,
+        "bottom": 513.97,
+        "right": 392.11,
+        "top": 520.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "use of false documents, in",
+      "rect": {
+        "left": 42,
+        "bottom": 512.68,
+        "right": 142.46,
+        "top": 520.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "connection with the completion of",
+      "rect": {
+        "left": 42,
+        "bottom": 503.68,
+        "right": 171.77,
+        "top": 511.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "3. A lawful permanent resident (Enter USCIS or A-Number.)",
+      "rect": {
+        "left": 197,
+        "bottom": 501.97,
+        "right": 382.74,
+        "top": 508.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "this form. I attest, under penalty",
+      "rect": {
+        "left": 42,
+        "bottom": 494.68,
+        "right": 163.63,
+        "top": 502.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "4. An alien authorized to work until",
+      "rect": {
+        "left": 197.24,
+        "bottom": 488.87,
+        "right": 308.15,
+        "top": 495.87
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "(exp. date, if any)",
+      "rect": {
+        "left": 331.49,
+        "bottom": 488.87,
+        "right": 385.57,
+        "top": 495.87
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "of perjury, that this information,",
+      "rect": {
+        "left": 42,
+        "bottom": 485.68,
+        "right": 162.89,
+        "top": 493.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "including my selection of the box",
+      "rect": {
+        "left": 42,
+        "bottom": 476.68,
+        "right": 168.68,
+        "top": 484.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "If you check Item Number 4., enter one of these:",
+      "rect": {
+        "left": 197.24,
+        "bottom": 471.37,
+        "right": 349.37,
+        "top": 478.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "attesting to my citizenship or",
+      "rect": {
+        "left": 42,
+        "bottom": 467.68,
+        "right": 152.68,
+        "top": 475.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "USCIS A-Number",
+      "rect": {
+        "left": 193.41,
+        "bottom": 459.97,
+        "right": 250.59,
+        "top": 466.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "Form I-94 Admission Number",
+      "rect": {
+        "left": 281.19,
+        "bottom": 459.97,
+        "right": 378.81,
+        "top": 466.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "Foreign Passport Number and Country of Issuance",
+      "rect": {
+        "left": 401.21,
+        "bottom": 459.97,
+        "right": 570.79,
+        "top": 466.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "immigration status, is true and",
+      "rect": {
+        "left": 42,
+        "bottom": 458.68,
+        "right": 158.46,
+        "top": 466.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "OR",
+      "rect": {
+        "left": 265.5,
+        "bottom": 454.26,
+        "right": 274.5,
+        "top": 460.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "OR",
+      "rect": {
+        "left": 385.5,
+        "bottom": 454.26,
+        "right": 394.5,
+        "top": 460.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "correct.",
+      "rect": {
+        "left": 42,
+        "bottom": 449.68,
+        "right": 71.35,
+        "top": 457.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "Signature of Employee",
+      "rect": {
+        "left": 42,
+        "bottom": 435.97,
+        "right": 112.82,
+        "top": 442.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "Today\u0027s Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 372,
+        "bottom": 435.97,
+        "right": 456.97,
+        "top": 442.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "If a preparer and/or translator assisted you in completing Section 1, that person MUST complete the Preparer and/or Translator Certification on Page 3.",
+      "rect": {
+        "left": 56.19,
+        "bottom": 411.97,
+        "right": 557.95,
+        "top": 418.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "Section 2. Employer Review and Verification: Employers or their authorized representative must complete and sign Section 2 within three",
+      "rect": {
+        "left": 38.12,
+        "bottom": 397.6,
+        "right": 558.21,
+        "top": 406.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "business days after the employee\u0027s first day of employment, and must physically examine, or examine consistent with an alternative procedure",
+      "rect": {
+        "left": 38.12,
+        "bottom": 389.62,
+        "right": 541.67,
+        "top": 397.62
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "authorized by the Secretary of DHS, documentation from List A OR a combination of documentation from List B and List C. Enter any additional",
+      "rect": {
+        "left": 38.12,
+        "bottom": 381.82,
+        "right": 545.32,
+        "top": 389.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "documentation in the Additional Information box; see Instructions.",
+      "rect": {
+        "left": 38.12,
+        "bottom": 374.02,
+        "right": 269.8,
+        "top": 382.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "List A",
+      "rect": {
+        "left": 183.89,
+        "bottom": 363.68,
+        "right": 206.11,
+        "top": 371.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "List B",
+      "rect": {
+        "left": 333.89,
+        "bottom": 363.68,
+        "right": 356.11,
+        "top": 371.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "List C",
+      "rect": {
+        "left": 492.89,
+        "bottom": 363.68,
+        "right": 515.11,
+        "top": 371.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "AND",
+      "rect": {
+        "left": 412.42,
+        "bottom": 363.97,
+        "right": 427.58,
+        "top": 370.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "OR",
+      "rect": {
+        "left": 265.5,
+        "bottom": 364.27,
+        "right": 274.5,
+        "top": 370.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "Document Title 1",
+      "rect": {
+        "left": 38,
+        "bottom": 348.78,
+        "right": 94.4,
+        "top": 355.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "Issuing Authority",
+      "rect": {
+        "left": 38,
+        "bottom": 330.89,
+        "right": 89.75,
+        "top": 337.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 312.97,
+        "right": 120.08,
+        "top": 319.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Expiration Date (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 294.97,
+        "right": 109.2,
+        "top": 301.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "Additional Information",
+      "rect": {
+        "left": 267.03,
+        "bottom": 279.88,
+        "right": 352.35,
+        "top": 287.88
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "Document Title 2 (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 276.97,
+        "right": 119.29,
+        "top": 283.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "Issuing Authority",
+      "rect": {
+        "left": 38,
+        "bottom": 258.97,
+        "right": 89.75,
+        "top": 265.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 240.96,
+        "right": 120.08,
+        "top": 247.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "Expiration Date (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 222.97,
+        "right": 109.2,
+        "top": 229.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "Document Title 3 (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 204.97,
+        "right": 119.29,
+        "top": 211.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "Issuing Authority",
+      "rect": {
+        "left": 38,
+        "bottom": 186.97,
+        "right": 89.75,
+        "top": 193.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 168.98,
+        "right": 120.08,
+        "top": 175.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "Expiration Date (if any)",
+      "rect": {
+        "left": 38,
+        "bottom": 150.98,
+        "right": 109.2,
+        "top": 157.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "rect": {
+        "left": 279.36,
+        "bottom": 149.41,
+        "right": 563.4,
+        "top": 156.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "First Day of Employment",
+      "rect": {
+        "left": 462,
+        "bottom": 137.18,
+        "right": 538.63,
+        "top": 144.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "Certification: I attest, under penalty of perjury, that (1) I have examined the documentation presented by the above-named",
+      "rect": {
+        "left": 38,
+        "bottom": 133.47,
+        "right": 442.8,
+        "top": 140.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "(mm/dd/yyyy):",
+      "rect": {
+        "left": 462,
+        "bottom": 128.78,
+        "right": 505.95,
+        "top": 135.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "employee, (2) the above-listed documentation appears to be genuine and to relate to the employee named, and (3) to the",
+      "rect": {
+        "left": 38,
+        "bottom": 125.07,
+        "right": 437.46,
+        "top": 132.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "best of my knowledge, the employee is authorized to work in the United States.",
+      "rect": {
+        "left": 38,
+        "bottom": 116.67,
+        "right": 300.94,
+        "top": 123.67
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "Last Name, First Name and Title of Employer or Authorized Representative Signature of Employer or Authorized Representative Today\u0027s Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 37.92,
+        "bottom": 101.97,
+        "right": 528.81,
+        "top": 108.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "Employer\u0027s Business or Organization Name",
+      "rect": {
+        "left": 38,
+        "bottom": 68.97,
+        "right": 173.17,
+        "top": 75.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "Employer\u0027s Business or Organization Address, City or Town, State, ZIP Code",
+      "rect": {
+        "left": 246,
+        "bottom": 68.97,
+        "right": 485.04,
+        "top": 75.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "For reverification or rehire, complete Supplement B, Reverification and Rehire on Page 4.",
+      "rect": {
+        "left": 136.62,
+        "bottom": 39.68,
+        "right": 475.37,
+        "top": 47.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "Form I-9 Edition 01/20/25",
+      "rect": {
+        "left": 36,
+        "bottom": 24.44,
+        "right": 132.25,
+        "top": 33.44
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "Page 1 of 4",
+      "rect": {
+        "left": 535.26,
+        "bottom": 24.44,
+        "right": 576,
+        "top": 33.44
+      }
+    },
+    {
+      "page": 2,
+      "order": 87,
+      "text": "LISTS OF ACCEPTABLE DOCUMENTS",
+      "rect": {
+        "left": 178.67,
+        "bottom": 724.95,
+        "right": 435.34,
+        "top": 738.95
+      }
+    },
+    {
+      "page": 2,
+      "order": 88,
+      "text": "All documents containing an expiration date must be unexpired.",
+      "rect": {
+        "left": 152.29,
+        "bottom": 708.42,
+        "right": 461.7,
+        "top": 719.42
+      }
+    },
+    {
+      "page": 2,
+      "order": 89,
+      "text": "*Documents extended by the issuing authority are considered unexpired.",
+      "rect": {
+        "left": 128.45,
+        "bottom": 695.22,
+        "right": 482.77,
+        "top": 706.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 90,
+      "text": "Employees may present one selection from List A or a",
+      "rect": {
+        "left": 175.24,
+        "bottom": 681.31,
+        "right": 438.75,
+        "top": 692.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 91,
+      "text": "combination of one selection from List B and one selection from List C.",
+      "rect": {
+        "left": 135.19,
+        "bottom": 668.11,
+        "right": 478.81,
+        "top": 679.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 92,
+      "text": "Examples of many of these documents appear in the Handbook for Employers (M-274).",
+      "rect": {
+        "left": 80.23,
+        "bottom": 653.81,
+        "right": 533.77,
+        "top": 664.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 93,
+      "text": "LIST A",
+      "rect": {
+        "left": 104.33,
+        "bottom": 627.68,
+        "right": 129.67,
+        "top": 635.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 94,
+      "text": "LIST B",
+      "rect": {
+        "left": 287.33,
+        "bottom": 627.68,
+        "right": 312.67,
+        "top": 635.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 95,
+      "text": "LIST C",
+      "rect": {
+        "left": 476.33,
+        "bottom": 627.68,
+        "right": 501.67,
+        "top": 635.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 96,
+      "text": "Documents that Establish Both Identity",
+      "rect": {
+        "left": 42.33,
+        "bottom": 614.48,
+        "right": 191.67,
+        "top": 622.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 97,
+      "text": "Documents that Establish Employment",
+      "rect": {
+        "left": 417.77,
+        "bottom": 614.48,
+        "right": 566.23,
+        "top": 622.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 98,
+      "text": "OR",
+      "rect": {
+        "left": 201,
+        "bottom": 609.68,
+        "right": 213,
+        "top": 617.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 99,
+      "text": "Documents that Establish Identity",
+      "rect": {
+        "left": 238.55,
+        "bottom": 609.68,
+        "right": 367.46,
+        "top": 617.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 100,
+      "text": "AND",
+      "rect": {
+        "left": 387.34,
+        "bottom": 609.68,
+        "right": 404.67,
+        "top": 617.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 101,
+      "text": "and Employment Authorization",
+      "rect": {
+        "left": 57.89,
+        "bottom": 604.88,
+        "right": 176.11,
+        "top": 612.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 102,
+      "text": "Authorization",
+      "rect": {
+        "left": 466.24,
+        "bottom": 604.88,
+        "right": 517.79,
+        "top": 612.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 103,
+      "text": "1. A Social Security Account Number card,",
+      "rect": {
+        "left": 404.01,
+        "bottom": 587.68,
+        "right": 557.41,
+        "top": 595.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 104,
+      "text": "1.U.S. Passport or U.S. Passport Card",
+      "rect": {
+        "left": 42.01,
+        "bottom": 582.68,
+        "right": 179.06,
+        "top": 590.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 105,
+      "text": "1. Driver\u0027s license or ID card issued by a State or",
+      "rect": {
+        "left": 222.01,
+        "bottom": 581.68,
+        "right": 396.83,
+        "top": 589.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 106,
+      "text": "unless the card includes one of the following",
+      "rect": {
+        "left": 416.01,
+        "bottom": 578.08,
+        "right": 572.99,
+        "top": 586.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 107,
+      "text": "outlying possession of the United States",
+      "rect": {
+        "left": 234.01,
+        "bottom": 572.08,
+        "right": 376.04,
+        "top": 580.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 108,
+      "text": "restrictions:",
+      "rect": {
+        "left": 416.01,
+        "bottom": 568.48,
+        "right": 456.9,
+        "top": 576.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 109,
+      "text": "2.Permanent Resident Card or Alien",
+      "rect": {
+        "left": 42.01,
+        "bottom": 563.49,
+        "right": 171.07,
+        "top": 571.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 110,
+      "text": "provided it contains a photograph or",
+      "rect": {
+        "left": 234.01,
+        "bottom": 562.48,
+        "right": 361.4,
+        "top": 570.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 111,
+      "text": "Registration Receipt Card (Form I-551)",
+      "rect": {
+        "left": 54.01,
+        "bottom": 553.89,
+        "right": 192.28,
+        "top": 561.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 112,
+      "text": "information such as name, date of birth,",
+      "rect": {
+        "left": 234.01,
+        "bottom": 552.88,
+        "right": 374.25,
+        "top": 560.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 113,
+      "text": "(1) NOT VALID FOR EMPLOYMENT",
+      "rect": {
+        "left": 438.01,
+        "bottom": 552.88,
+        "right": 571.8,
+        "top": 560.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 114,
+      "text": "sex, height, eye color, and address",
+      "rect": {
+        "left": 234.01,
+        "bottom": 543.28,
+        "right": 357.65,
+        "top": 551.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 115,
+      "text": "(2) VALID FOR WORK ONLY WITH",
+      "rect": {
+        "left": 438.01,
+        "bottom": 537.28,
+        "right": 568.24,
+        "top": 545.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 116,
+      "text": "3.Foreign passport that contains a",
+      "rect": {
+        "left": 42.01,
+        "bottom": 537.09,
+        "right": 163.52,
+        "top": 545.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 117,
+      "text": "INS AUTHORIZATION",
+      "rect": {
+        "left": 452.5,
+        "bottom": 527.68,
+        "right": 533.39,
+        "top": 535.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 118,
+      "text": "temporary I-551 stamp or temporary",
+      "rect": {
+        "left": 54.01,
+        "bottom": 527.49,
+        "right": 182.05,
+        "top": 535.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 119,
+      "text": "2. ID card issued by federal, state or local",
+      "rect": {
+        "left": 222.01,
+        "bottom": 523.89,
+        "right": 371.42,
+        "top": 531.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 120,
+      "text": "I-551 printed notation on a machine-",
+      "rect": {
+        "left": 54.01,
+        "bottom": 517.89,
+        "right": 182.53,
+        "top": 525.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 121,
+      "text": "government agencies or entities, provided it",
+      "rect": {
+        "left": 234.01,
+        "bottom": 514.29,
+        "right": 388.76,
+        "top": 522.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 122,
+      "text": "(3) VALID FOR WORK ONLY WITH",
+      "rect": {
+        "left": 438.01,
+        "bottom": 512.08,
+        "right": 568.24,
+        "top": 520.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 123,
+      "text": "readable immigrant visa",
+      "rect": {
+        "left": 54.01,
+        "bottom": 508.29,
+        "right": 138.93,
+        "top": 516.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 124,
+      "text": "contains a photograph or information such as",
+      "rect": {
+        "left": 234.01,
+        "bottom": 504.69,
+        "right": 394.1,
+        "top": 512.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 125,
+      "text": "DHS AUTHORIZATION",
+      "rect": {
+        "left": 452.5,
+        "bottom": 502.48,
+        "right": 536.95,
+        "top": 510.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 126,
+      "text": "name, date of birth, sex, height, eye color,",
+      "rect": {
+        "left": 234.01,
+        "bottom": 495.09,
+        "right": 382.98,
+        "top": 503.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 127,
+      "text": "4. Employment Authorization Document",
+      "rect": {
+        "left": 42.01,
+        "bottom": 491.49,
+        "right": 185.19,
+        "top": 499.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "and address",
+      "rect": {
+        "left": 234.01,
+        "bottom": 485.49,
+        "right": 278.04,
+        "top": 493.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "that contains a photograph (Form I-766)",
+      "rect": {
+        "left": 54.01,
+        "bottom": 481.89,
+        "right": 195.42,
+        "top": 489.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "2. Certification of report of birth issued by the",
+      "rect": {
+        "left": 410.01,
+        "bottom": 481.29,
+        "right": 571.42,
+        "top": 489.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "Department of State (Forms DS-1350,",
+      "rect": {
+        "left": 422.01,
+        "bottom": 471.69,
+        "right": 557.17,
+        "top": 479.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "photograph5. For an individual temporarily authorized",
+      "rect": {
+        "left": 42.01,
+        "bottom": 465.69,
+        "right": 347.53,
+        "top": 476.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "3.School ID card with a",
+      "rect": {
+        "left": 222.01,
+        "bottom": 468.69,
+        "right": 304.82,
+        "top": 476.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "FS-545, FS-240)",
+      "rect": {
+        "left": 422.01,
+        "bottom": 462.09,
+        "right": 481.58,
+        "top": 470.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "to work for a specific employer because",
+      "rect": {
+        "left": 54.01,
+        "bottom": 456.09,
+        "right": 194.51,
+        "top": 464.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "4.Voter\u0027s registration card",
+      "rect": {
+        "left": 222.01,
+        "bottom": 450.69,
+        "right": 313.46,
+        "top": 458.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "3. Original or certified copy of birth certificate",
+      "rect": {
+        "left": 410.01,
+        "bottom": 447.09,
+        "right": 570.52,
+        "top": 455.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "of his or her status or parole:",
+      "rect": {
+        "left": 54.01,
+        "bottom": 446.49,
+        "right": 155.83,
+        "top": 454.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "issued by a State, county, municipal",
+      "rect": {
+        "left": 422.01,
+        "bottom": 437.49,
+        "right": 549.63,
+        "top": 445.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "5.U.S. Military card or draft record",
+      "rect": {
+        "left": 222.01,
+        "bottom": 432.69,
+        "right": 342.6,
+        "top": 440.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "a. Foreign passport; and",
+      "rect": {
+        "left": 54.03,
+        "bottom": 430.89,
+        "right": 142.97,
+        "top": 438.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "authority, or territory of the United States",
+      "rect": {
+        "left": 422.01,
+        "bottom": 427.89,
+        "right": 566.07,
+        "top": 435.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "bearing an official seal",
+      "rect": {
+        "left": 422.01,
+        "bottom": 418.29,
+        "right": 501.61,
+        "top": 426.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "b. Form I-94 or Form I-94A that has",
+      "rect": {
+        "left": 54.03,
+        "bottom": 415.29,
+        "right": 182.52,
+        "top": 423.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "6.Military dependent\u0027s ID card",
+      "rect": {
+        "left": 222.01,
+        "bottom": 414.69,
+        "right": 328.14,
+        "top": 422.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "the following:",
+      "rect": {
+        "left": 65.51,
+        "bottom": 405.69,
+        "right": 112.21,
+        "top": 413.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "4.Native American tribal document",
+      "rect": {
+        "left": 410.01,
+        "bottom": 402.69,
+        "right": 532.84,
+        "top": 410.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "7.U.S. Coast Guard Merchant Mariner Card",
+      "rect": {
+        "left": 222.01,
+        "bottom": 396.69,
+        "right": 376.84,
+        "top": 404.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "(1) The same name as the",
+      "rect": {
+        "left": 65.98,
+        "bottom": 390.09,
+        "right": 161.67,
+        "top": 398.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "5.U.S. Citizen ID Card (Form I-197)",
+      "rect": {
+        "left": 410.01,
+        "bottom": 384.69,
+        "right": 535.93,
+        "top": 392.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "passport; and",
+      "rect": {
+        "left": 80.01,
+        "bottom": 380.49,
+        "right": 128.41,
+        "top": 388.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "8.Native American tribal document",
+      "rect": {
+        "left": 222.01,
+        "bottom": 378.69,
+        "right": 344.84,
+        "top": 386.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "(2) An endorsement of the",
+      "rect": {
+        "left": 65.98,
+        "bottom": 370.89,
+        "right": 160.91,
+        "top": 378.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "6.Identification Card for Use of Resident",
+      "rect": {
+        "left": 410.01,
+        "bottom": 368.49,
+        "right": 552.41,
+        "top": 376.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "I-179)9.Driver\u0027s Citizen in the United States (Form",
+      "rect": {
+        "left": 222.01,
+        "bottom": 358.89,
+        "right": 564.17,
+        "top": 370.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "license issued by a Canadian",
+      "rect": {
+        "left": 258.32,
+        "bottom": 362.49,
+        "right": 362.38,
+        "top": 370.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "individual\u0027s status or parole as",
+      "rect": {
+        "left": 80.01,
+        "bottom": 361.29,
+        "right": 186.8,
+        "top": 369.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "government authority",
+      "rect": {
+        "left": 234.01,
+        "bottom": 352.89,
+        "right": 309.16,
+        "top": 360.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "long as that period of",
+      "rect": {
+        "left": 80.01,
+        "bottom": 351.69,
+        "right": 154.64,
+        "top": 359.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "endorsement has not yet",
+      "rect": {
+        "left": 80.01,
+        "bottom": 342.09,
+        "right": 167.98,
+        "top": 350.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "7.Employment authorization document",
+      "rect": {
+        "left": 410.01,
+        "bottom": 341.68,
+        "right": 547.08,
+        "top": 349.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "For persons under age 18 who are",
+      "rect": {
+        "left": 226.35,
+        "bottom": 336.11,
+        "right": 389.42,
+        "top": 346.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "expired and the proposed",
+      "rect": {
+        "left": 80.01,
+        "bottom": 332.49,
+        "right": 170.65,
+        "top": 340.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "issued by the Department of Homeland",
+      "rect": {
+        "left": 421.01,
+        "bottom": 332.08,
+        "right": 559.77,
+        "top": 340.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "unable to present a document",
+      "rect": {
+        "left": 236.8,
+        "bottom": 324.11,
+        "right": 379.26,
+        "top": 334.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "employment is not in conflict",
+      "rect": {
+        "left": 80.01,
+        "bottom": 322.89,
+        "right": 180.39,
+        "top": 330.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "Security",
+      "rect": {
+        "left": 421.01,
+        "bottom": 322.48,
+        "right": 449.9,
+        "top": 330.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "listed above:",
+      "rect": {
+        "left": 277.96,
+        "bottom": 312.11,
+        "right": 339.18,
+        "top": 322.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "with any restrictions or",
+      "rect": {
+        "left": 80.01,
+        "bottom": 313.29,
+        "right": 159.5,
+        "top": 321.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "For examples, see Section 7 and",
+      "rect": {
+        "left": 421.97,
+        "bottom": 306.88,
+        "right": 541.15,
+        "top": 314.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "limitations identified on the form.",
+      "rect": {
+        "left": 80.01,
+        "bottom": 303.69,
+        "right": 194.59,
+        "top": 311.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "Section 13 of the M-274 on",
+      "rect": {
+        "left": 421.01,
+        "bottom": 297.28,
+        "right": 519.28,
+        "top": 305.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "10.School record or report card",
+      "rect": {
+        "left": 222,
+        "bottom": 294.69,
+        "right": 333.28,
+        "top": 302.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "uscis.gov/i-9-central.",
+      "rect": {
+        "left": 421.01,
+        "bottom": 287.68,
+        "right": 500.59,
+        "top": 295.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "6. Passport from the Federated States of",
+      "rect": {
+        "left": 42,
+        "bottom": 284.49,
+        "right": 188.34,
+        "top": 292.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "11.Clinic, doctor, or hospital record",
+      "rect": {
+        "left": 222,
+        "bottom": 276.69,
+        "right": 346.17,
+        "top": 284.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "Micronesia (FSM) or the Republic of the",
+      "rect": {
+        "left": 54,
+        "bottom": 274.89,
+        "right": 195.16,
+        "top": 282.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "The Form I-766, Employment",
+      "rect": {
+        "left": 421.97,
+        "bottom": 272.08,
+        "right": 526.01,
+        "top": 280.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "Marshall Islands (RMI) with Form I-94 or",
+      "rect": {
+        "left": 54,
+        "bottom": 265.29,
+        "right": 196.46,
+        "top": 273.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "Authorization Document, is a List A, Item",
+      "rect": {
+        "left": 422.01,
+        "bottom": 262.48,
+        "right": 567.41,
+        "top": 270.48
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "12.Day-care or nursery school record",
+      "rect": {
+        "left": 222,
+        "bottom": 257.69,
+        "right": 354.61,
+        "top": 265.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "Form I-94A indicating nonimmigrant",
+      "rect": {
+        "left": 54,
+        "bottom": 255.69,
+        "right": 180.52,
+        "top": 263.69
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "Number 4. document, not a List C",
+      "rect": {
+        "left": 422.01,
+        "bottom": 252.88,
+        "right": 543.39,
+        "top": 260.88
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "admission under the Compact of Free",
+      "rect": {
+        "left": 54,
+        "bottom": 246.09,
+        "right": 187.64,
+        "top": 254.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "document.",
+      "rect": {
+        "left": 422.01,
+        "bottom": 243.28,
+        "right": 459.36,
+        "top": 251.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "Association Between the United States",
+      "rect": {
+        "left": 54,
+        "bottom": 236.49,
+        "right": 191.64,
+        "top": 244.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "and the FSM or RMI",
+      "rect": {
+        "left": 54,
+        "bottom": 226.89,
+        "right": 125.92,
+        "top": 234.89
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "Acceptable Receipts",
+      "rect": {
+        "left": 252.2,
+        "bottom": 203.92,
+        "right": 359.8,
+        "top": 214.92
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "May be presented in lieu of a document listed above for a temporary period.",
+      "rect": {
+        "left": 138.41,
+        "bottom": 188.5,
+        "right": 473.59,
+        "top": 198.5
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "For receipt validity dates, see the M-274.",
+      "rect": {
+        "left": 215.68,
+        "bottom": 173.5,
+        "right": 396.31,
+        "top": 183.5
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "Receipt for a replacement of a lost, stolen, or",
+      "rect": {
+        "left": 222,
+        "bottom": 155.67,
+        "right": 381.19,
+        "top": 163.67
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "Receipt for a replacement of a lost, stolen, or",
+      "rect": {
+        "left": 408,
+        "bottom": 155.67,
+        "right": 567.19,
+        "top": 163.67
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "\u25CF Receipt for a replacement of a lost,",
+      "rect": {
+        "left": 42,
+        "bottom": 155.51,
+        "right": 173.64,
+        "top": 163.51
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "OR",
+      "rect": {
+        "left": 201,
+        "bottom": 149.67,
+        "right": 213,
+        "top": 157.67
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "damaged List B document.",
+      "rect": {
+        "left": 222,
+        "bottom": 146.07,
+        "right": 317.17,
+        "top": 154.07
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "damaged List C document.",
+      "rect": {
+        "left": 408,
+        "bottom": 146.07,
+        "right": 503.61,
+        "top": 154.07
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "stolen, or damaged List A document.",
+      "rect": {
+        "left": 55,
+        "bottom": 145.87,
+        "right": 185.3,
+        "top": 153.87
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "\u25CF Form I-94 issued to a lawful",
+      "rect": {
+        "left": 42,
+        "bottom": 131.68,
+        "right": 147.84,
+        "top": 139.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "permanent resident that contains an",
+      "rect": {
+        "left": 55,
+        "bottom": 122.04,
+        "right": 182.64,
+        "top": 130.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "I-551 stamp and a photograph of the",
+      "rect": {
+        "left": 55,
+        "bottom": 110.07,
+        "right": 185.21,
+        "top": 118.07
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "individual.",
+      "rect": {
+        "left": 55,
+        "bottom": 99.23,
+        "right": 90.58,
+        "top": 107.23
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "\u25CF Form I-94 with \u201CRE\u201D notation or",
+      "rect": {
+        "left": 42,
+        "bottom": 83.68,
+        "right": 159.39,
+        "top": 91.68
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "refugee stamp issued to a refugee.",
+      "rect": {
+        "left": 55,
+        "bottom": 74.04,
+        "right": 178.63,
+        "top": 82.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "*Refer to the Employment Authorization Extensions page on I-9 Central for more information.",
+      "rect": {
+        "left": 36,
+        "bottom": 51.67,
+        "right": 366.4,
+        "top": 59.67
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "Form I-9 Edition 01/20/25",
+      "rect": {
+        "left": 36,
+        "bottom": 21.44,
+        "right": 132.25,
+        "top": 30.44
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "Page 2 of 4",
+      "rect": {
+        "left": 535.26,
+        "bottom": 21.44,
+        "right": 576,
+        "top": 30.44
+      }
+    },
+    {
+      "page": 3,
+      "order": 207,
+      "text": "Supplement A,",
+      "rect": {
+        "left": 263.16,
+        "bottom": 763.02,
+        "right": 351.84,
+        "top": 777.02
+      }
+    },
+    {
+      "page": 3,
+      "order": 208,
+      "text": "USCIS",
+      "rect": {
+        "left": 516.92,
+        "bottom": 760.56,
+        "right": 549.33,
+        "top": 771.56
+      }
+    },
+    {
+      "page": 3,
+      "order": 209,
+      "text": "Preparer and/or Translator Certification for Section 1",
+      "rect": {
+        "left": 143.87,
+        "bottom": 746.22,
+        "right": 468.12,
+        "top": 760.22
+      }
+    },
+    {
+      "page": 3,
+      "order": 210,
+      "text": "Form I-9",
+      "rect": {
+        "left": 511.9,
+        "bottom": 747.36,
+        "right": 554.35,
+        "top": 758.36
+      }
+    },
+    {
+      "page": 3,
+      "order": 211,
+      "text": "Supplement A",
+      "rect": {
+        "left": 499.66,
+        "bottom": 734.16,
+        "right": 566.59,
+        "top": 745.16
+      }
+    },
+    {
+      "page": 3,
+      "order": 212,
+      "text": "Department of Homeland Security",
+      "rect": {
+        "left": 224.89,
+        "bottom": 725.77,
+        "right": 387.11,
+        "top": 736.77
+      }
+    },
+    {
+      "page": 3,
+      "order": 213,
+      "text": "OMB No. 1615-0047",
+      "rect": {
+        "left": 494.5,
+        "bottom": 722.53,
+        "right": 571.75,
+        "top": 731.53
+      }
+    },
+    {
+      "page": 3,
+      "order": 214,
+      "text": "U.S. Citizenship and Immigration Services",
+      "rect": {
+        "left": 211.6,
+        "bottom": 712.57,
+        "right": 400.41,
+        "top": 723.57
+      }
+    },
+    {
+      "page": 3,
+      "order": 215,
+      "text": "Expires 05/31/2027",
+      "rect": {
+        "left": 497.75,
+        "bottom": 711.73,
+        "right": 568.5,
+        "top": 720.73
+      }
+    },
+    {
+      "page": 3,
+      "order": 216,
+      "text": "Middle initial (if any) from Section 1.",
+      "rect": {
+        "left": 444,
+        "bottom": 681.97,
+        "right": 556.81,
+        "top": 688.97
+      }
+    },
+    {
+      "page": 3,
+      "order": 217,
+      "text": "Last Name (Family Name) from Section 1.",
+      "rect": {
+        "left": 42,
+        "bottom": 681.96,
+        "right": 174.64,
+        "top": 688.96
+      }
+    },
+    {
+      "page": 3,
+      "order": 218,
+      "text": "First Name (Given Name) from Section 1.",
+      "rect": {
+        "left": 264,
+        "bottom": 681.96,
+        "right": 394.69,
+        "top": 688.96
+      }
+    },
+    {
+      "page": 3,
+      "order": 219,
+      "text": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1",
+      "rect": {
+        "left": 37.42,
+        "bottom": 645.89,
+        "right": 571.44,
+        "top": 654.89
+      }
+    },
+    {
+      "page": 3,
+      "order": 220,
+      "text": "of Form I-9. The preparer and/or translator must enter the employee\u0027s name in the spaces provided above. Each preparer or translator",
+      "rect": {
+        "left": 37.42,
+        "bottom": 635.09,
+        "right": 571.68,
+        "top": 644.09
+      }
+    },
+    {
+      "page": 3,
+      "order": 221,
+      "text": "must complete, sign, and date a separate certification area. Employers must retain completed supplement sheets with the employee\u0027s",
+      "rect": {
+        "left": 37.42,
+        "bottom": 624.29,
+        "right": 569.19,
+        "top": 633.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 222,
+      "text": "completed Form I-9.",
+      "rect": {
+        "left": 37.42,
+        "bottom": 613.49,
+        "right": 117.94,
+        "top": 622.49
+      }
+    },
+    {
+      "page": 3,
+      "order": 223,
+      "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
+      "rect": {
+        "left": 37.42,
+        "bottom": 592.89,
+        "right": 556.99,
+        "top": 601.89
+      }
+    },
+    {
+      "page": 3,
+      "order": 224,
+      "text": "knowledge the information is true and correct.",
+      "rect": {
+        "left": 37.42,
+        "bottom": 582.09,
+        "right": 235.45,
+        "top": 591.09
+      }
+    },
+    {
+      "page": 3,
+      "order": 225,
+      "text": "Signature of Preparer or Translator",
+      "rect": {
+        "left": 38.84,
+        "bottom": 566.85,
+        "right": 162.89,
+        "top": 574.85
+      }
+    },
+    {
+      "page": 3,
+      "order": 226,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 417.12,
+        "bottom": 566.82,
+        "right": 484.24,
+        "top": 574.82
+      }
+    },
+    {
+      "page": 3,
+      "order": 227,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 529.48,
+        "right": 132.19,
+        "top": 537.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 228,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 272.84,
+        "bottom": 529.48,
+        "right": 363.96,
+        "top": 537.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 229,
+      "text": "Middle Initial (if any)",
+      "rect": {
+        "left": 494.84,
+        "bottom": 529.48,
+        "right": 565.97,
+        "top": 537.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 230,
+      "text": "City or Town",
+      "rect": {
+        "left": 296.84,
+        "bottom": 499.5,
+        "right": 341.73,
+        "top": 507.5
+      }
+    },
+    {
+      "page": 3,
+      "order": 231,
+      "text": "State ZIP Code",
+      "rect": {
+        "left": 452.84,
+        "bottom": 499.5,
+        "right": 510.44,
+        "top": 507.5
+      }
+    },
+    {
+      "page": 3,
+      "order": 232,
+      "text": "Address (Street Number and Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 499.48,
+        "right": 166.89,
+        "top": 507.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 233,
+      "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
+      "rect": {
+        "left": 37.42,
+        "bottom": 465.92,
+        "right": 556.99,
+        "top": 474.92
+      }
+    },
+    {
+      "page": 3,
+      "order": 234,
+      "text": "knowledge the information is true and correct.",
+      "rect": {
+        "left": 37.42,
+        "bottom": 455.12,
+        "right": 235.45,
+        "top": 464.12
+      }
+    },
+    {
+      "page": 3,
+      "order": 235,
+      "text": "Signature of Preparer or Translator",
+      "rect": {
+        "left": 38.84,
+        "bottom": 441.29,
+        "right": 162.89,
+        "top": 449.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 236,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 417.12,
+        "bottom": 441.26,
+        "right": 484.24,
+        "top": 449.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 237,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 403.46,
+        "right": 132.19,
+        "top": 411.46
+      }
+    },
+    {
+      "page": 3,
+      "order": 238,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 272.84,
+        "bottom": 403.46,
+        "right": 363.96,
+        "top": 411.46
+      }
+    },
+    {
+      "page": 3,
+      "order": 239,
+      "text": "Middle Initial (if any)",
+      "rect": {
+        "left": 494.84,
+        "bottom": 403.46,
+        "right": 565.97,
+        "top": 411.46
+      }
+    },
+    {
+      "page": 3,
+      "order": 240,
+      "text": "City or Town",
+      "rect": {
+        "left": 296.04,
+        "bottom": 373.62,
+        "right": 340.93,
+        "top": 381.62
+      }
+    },
+    {
+      "page": 3,
+      "order": 241,
+      "text": "State ZIP Code",
+      "rect": {
+        "left": 457.5,
+        "bottom": 373.62,
+        "right": 514.52,
+        "top": 381.62
+      }
+    },
+    {
+      "page": 3,
+      "order": 242,
+      "text": "Address (Street Number and Name)",
+      "rect": {
+        "left": 38.89,
+        "bottom": 373.61,
+        "right": 166.94,
+        "top": 381.61
+      }
+    },
+    {
+      "page": 3,
+      "order": 243,
+      "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
+      "rect": {
+        "left": 37.42,
+        "bottom": 339.48,
+        "right": 556.99,
+        "top": 348.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 244,
+      "text": "knowledge the information is true and correct.",
+      "rect": {
+        "left": 37.42,
+        "bottom": 328.68,
+        "right": 235.45,
+        "top": 337.68
+      }
+    },
+    {
+      "page": 3,
+      "order": 245,
+      "text": "Signature of Preparer or Translator",
+      "rect": {
+        "left": 38.84,
+        "bottom": 314.85,
+        "right": 162.89,
+        "top": 322.85
+      }
+    },
+    {
+      "page": 3,
+      "order": 246,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 417.12,
+        "bottom": 314.82,
+        "right": 484.24,
+        "top": 322.82
+      }
+    },
+    {
+      "page": 3,
+      "order": 247,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 277.48,
+        "right": 132.19,
+        "top": 285.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 248,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 272.84,
+        "bottom": 277.48,
+        "right": 363.96,
+        "top": 285.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 249,
+      "text": "Middle Initial (if any)",
+      "rect": {
+        "left": 494.84,
+        "bottom": 277.48,
+        "right": 565.97,
+        "top": 285.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 250,
+      "text": "City or Town",
+      "rect": {
+        "left": 296.04,
+        "bottom": 247.45,
+        "right": 340.93,
+        "top": 255.45
+      }
+    },
+    {
+      "page": 3,
+      "order": 251,
+      "text": "State ZIP Code",
+      "rect": {
+        "left": 455.33,
+        "bottom": 247.45,
+        "right": 512.62,
+        "top": 255.45
+      }
+    },
+    {
+      "page": 3,
+      "order": 252,
+      "text": "Address (Street Number and Name)",
+      "rect": {
+        "left": 38.89,
+        "bottom": 247.44,
+        "right": 166.94,
+        "top": 255.44
+      }
+    },
+    {
+      "page": 3,
+      "order": 253,
+      "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
+      "rect": {
+        "left": 37.42,
+        "bottom": 213.48,
+        "right": 556.99,
+        "top": 222.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 254,
+      "text": "knowledge the information is true and correct.",
+      "rect": {
+        "left": 37.42,
+        "bottom": 202.68,
+        "right": 235.45,
+        "top": 211.68
+      }
+    },
+    {
+      "page": 3,
+      "order": 255,
+      "text": "Signature of Preparer or Translator",
+      "rect": {
+        "left": 38.84,
+        "bottom": 188.85,
+        "right": 162.89,
+        "top": 196.85
+      }
+    },
+    {
+      "page": 3,
+      "order": 256,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 417.12,
+        "bottom": 188.82,
+        "right": 484.24,
+        "top": 196.82
+      }
+    },
+    {
+      "page": 3,
+      "order": 257,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 151.48,
+        "right": 132.19,
+        "top": 159.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 258,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 272.84,
+        "bottom": 151.48,
+        "right": 363.96,
+        "top": 159.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 259,
+      "text": "Middle Initial (if any)",
+      "rect": {
+        "left": 494.84,
+        "bottom": 151.42,
+        "right": 565.97,
+        "top": 159.42
+      }
+    },
+    {
+      "page": 3,
+      "order": 260,
+      "text": "City or Town",
+      "rect": {
+        "left": 296.84,
+        "bottom": 121.5,
+        "right": 341.73,
+        "top": 129.5
+      }
+    },
+    {
+      "page": 3,
+      "order": 261,
+      "text": "State ZIP Code",
+      "rect": {
+        "left": 452.84,
+        "bottom": 121.5,
+        "right": 510.44,
+        "top": 129.5
+      }
+    },
+    {
+      "page": 3,
+      "order": 262,
+      "text": "Address (Street Number and Name)",
+      "rect": {
+        "left": 38.84,
+        "bottom": 121.48,
+        "right": 166.89,
+        "top": 129.48
+      }
+    },
+    {
+      "page": 3,
+      "order": 263,
+      "text": "Form I-9 Edition 01/20/25",
+      "rect": {
+        "left": 36.01,
+        "bottom": 24.44,
+        "right": 132.25,
+        "top": 33.44
+      }
+    },
+    {
+      "page": 3,
+      "order": 264,
+      "text": "Page 3 of 4",
+      "rect": {
+        "left": 535.26,
+        "bottom": 24.44,
+        "right": 576,
+        "top": 33.44
+      }
+    },
+    {
+      "page": 4,
+      "order": 265,
+      "text": "Supplement B,",
+      "rect": {
+        "left": 263.55,
+        "bottom": 763.02,
+        "right": 351.46,
+        "top": 777.02
+      }
+    },
+    {
+      "page": 4,
+      "order": 266,
+      "text": "USCIS",
+      "rect": {
+        "left": 516.93,
+        "bottom": 760.42,
+        "right": 549.33,
+        "top": 771.42
+      }
+    },
+    {
+      "page": 4,
+      "order": 267,
+      "text": "Form I-9",
+      "rect": {
+        "left": 511.9,
+        "bottom": 747.22,
+        "right": 554.36,
+        "top": 758.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 268,
+      "text": "Reverification and Rehire (formerly Section 3)",
+      "rect": {
+        "left": 167.02,
+        "bottom": 742.22,
+        "right": 444.99,
+        "top": 756.22
+      }
+    },
+    {
+      "page": 4,
+      "order": 269,
+      "text": "Supplement B",
+      "rect": {
+        "left": 499.97,
+        "bottom": 734.02,
+        "right": 566.29,
+        "top": 745.02
+      }
+    },
+    {
+      "page": 4,
+      "order": 270,
+      "text": "Department of Homeland Security",
+      "rect": {
+        "left": 224.89,
+        "bottom": 723.77,
+        "right": 387.11,
+        "top": 734.77
+      }
+    },
+    {
+      "page": 4,
+      "order": 271,
+      "text": "OMB No. 1615-0047",
+      "rect": {
+        "left": 494.51,
+        "bottom": 722.39,
+        "right": 571.76,
+        "top": 731.39
+      }
+    },
+    {
+      "page": 4,
+      "order": 272,
+      "text": "U.S. Citizenship and Immigration Services",
+      "rect": {
+        "left": 211.6,
+        "bottom": 710.57,
+        "right": 400.41,
+        "top": 721.57
+      }
+    },
+    {
+      "page": 4,
+      "order": 273,
+      "text": "Expires 05/31/2027",
+      "rect": {
+        "left": 497.76,
+        "bottom": 711.59,
+        "right": 568.5,
+        "top": 720.59
+      }
+    },
+    {
+      "page": 4,
+      "order": 274,
+      "text": "Last Name (Family Name) from Section 1.",
+      "rect": {
+        "left": 42,
+        "bottom": 679.76,
+        "right": 174.64,
+        "top": 686.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 275,
+      "text": "First Name (Given Name) from Section 1.",
+      "rect": {
+        "left": 264,
+        "bottom": 679.76,
+        "right": 394.69,
+        "top": 686.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 276,
+      "text": "Middle initial (if any) from Section 1.",
+      "rect": {
+        "left": 444,
+        "bottom": 679.76,
+        "right": 556.81,
+        "top": 686.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 277,
+      "text": "Instructions: This supplement replaces Section 3 on the previous version of Form I-9. Only use this page if your employee requires",
+      "rect": {
+        "left": 36,
+        "bottom": 644.67,
+        "right": 534.44,
+        "top": 652.67
+      }
+    },
+    {
+      "page": 4,
+      "order": 278,
+      "text": "reverification, is rehired within three years of the date the original Form I-9 was completed, or provides proof of a legal name change. Enter",
+      "rect": {
+        "left": 36,
+        "bottom": 635.08,
+        "right": 566.34,
+        "top": 643.08
+      }
+    },
+    {
+      "page": 4,
+      "order": 279,
+      "text": "the employee\u0027s name in the fields above. Use a new section for each reverification or rehire. Review the Form I-9 instructions before",
+      "rect": {
+        "left": 36,
+        "bottom": 625.48,
+        "right": 538.16,
+        "top": 633.48
+      }
+    },
+    {
+      "page": 4,
+      "order": 280,
+      "text": "completing this page. Keep this page as part of the employee\u0027s Form I-9 record. Additional guidance can be found in the",
+      "rect": {
+        "left": 36,
+        "bottom": 615.88,
+        "right": 493.2,
+        "top": 623.88
+      }
+    },
+    {
+      "page": 4,
+      "order": 281,
+      "text": "Handbook for Employers: Guidance for Completing Form I-9 (M-274)",
+      "rect": {
+        "left": 36,
+        "bottom": 606.28,
+        "right": 295.58,
+        "top": 614.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 282,
+      "text": "applicable)Date of Rehire (if applicable)",
+      "rect": {
+        "left": 42,
+        "bottom": 589.75,
+        "right": 218.2,
+        "top": 596.75
+      }
+    },
+    {
+      "page": 4,
+      "order": 283,
+      "text": "New Name (if",
+      "rect": {
+        "left": 140,
+        "bottom": 589.75,
+        "right": 182.4,
+        "top": 596.75
+      }
+    },
+    {
+      "page": 4,
+      "order": 284,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 144,
+        "bottom": 577.77,
+        "right": 225.68,
+        "top": 584.77
+      }
+    },
+    {
+      "page": 4,
+      "order": 285,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 342,
+        "bottom": 577.77,
+        "right": 421.73,
+        "top": 584.77
+      }
+    },
+    {
+      "page": 4,
+      "order": 286,
+      "text": "Middle Initial",
+      "rect": {
+        "left": 522,
+        "bottom": 577.76,
+        "right": 560.9,
+        "top": 584.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 287,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 42,
+        "bottom": 577.75,
+        "right": 100.73,
+        "top": 584.75
+      }
+    },
+    {
+      "page": 4,
+      "order": 288,
+      "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
+      "rect": {
+        "left": 36,
+        "bottom": 546.27,
+        "right": 555.22,
+        "top": 554.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 289,
+      "text": "continued employment authorization. Enter the document information in the spaces below.",
+      "rect": {
+        "left": 36,
+        "bottom": 536.67,
+        "right": 355.57,
+        "top": 544.67
+      }
+    },
+    {
+      "page": 4,
+      "order": 290,
+      "text": "Document Title",
+      "rect": {
+        "left": 42,
+        "bottom": 523.76,
+        "right": 89.07,
+        "top": 530.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 291,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 246,
+        "bottom": 523.76,
+        "right": 328.08,
+        "top": 530.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 292,
+      "text": "Expiration Date (if any) (mm/dd/yyyy)",
+      "rect": {
+        "left": 450,
+        "bottom": 523.76,
+        "right": 565.14,
+        "top": 530.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 293,
+      "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
+      "rect": {
+        "left": 42,
+        "bottom": 498.25,
+        "right": 549.63,
+        "top": 506.25
+      }
+    },
+    {
+      "page": 4,
+      "order": 294,
+      "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
+      "rect": {
+        "left": 42,
+        "bottom": 488.65,
+        "right": 566.97,
+        "top": 496.65
+      }
+    },
+    {
+      "page": 4,
+      "order": 295,
+      "text": "Name of Employer or Authorized Representative",
+      "rect": {
+        "left": 42,
+        "bottom": 471.97,
+        "right": 192.57,
+        "top": 478.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 296,
+      "text": "Signature of Employer or Authorized Representative",
+      "rect": {
+        "left": 201.87,
+        "bottom": 471.97,
+        "right": 363.74,
+        "top": 478.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 297,
+      "text": "Today\u0027s Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 474,
+        "bottom": 471.97,
+        "right": 558.97,
+        "top": 478.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 298,
+      "text": "Additional Information (Initial and date each notation.)",
+      "rect": {
+        "left": 42,
+        "bottom": 440.55,
+        "right": 231.45,
+        "top": 448.55
+      }
+    },
+    {
+      "page": 4,
+      "order": 299,
+      "text": "Check here if you used an",
+      "rect": {
+        "left": 469.31,
+        "bottom": 438.2,
+        "right": 550.64,
+        "top": 445.2
+      }
+    },
+    {
+      "page": 4,
+      "order": 300,
+      "text": "alternative procedure authorized",
+      "rect": {
+        "left": 469.31,
+        "bottom": 429.8,
+        "right": 569.7,
+        "top": 436.8
+      }
+    },
+    {
+      "page": 4,
+      "order": 301,
+      "text": "by DHS to examine documents.",
+      "rect": {
+        "left": 469.31,
+        "bottom": 421.4,
+        "right": 567.74,
+        "top": 428.4
+      }
+    },
+    {
+      "page": 4,
+      "order": 302,
+      "text": "Date of Rehire (if applicable) New Name (if applicable)",
+      "rect": {
+        "left": 42,
+        "bottom": 403.75,
+        "right": 211.9,
+        "top": 410.75
+      }
+    },
+    {
+      "page": 4,
+      "order": 303,
+      "text": "Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 42,
+        "bottom": 391.76,
+        "right": 100.73,
+        "top": 398.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 304,
+      "text": "Last Name (Family Name)",
+      "rect": {
+        "left": 144,
+        "bottom": 391.76,
+        "right": 225.68,
+        "top": 398.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 305,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 341.99,
+        "bottom": 391.76,
+        "right": 421.73,
+        "top": 398.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 306,
+      "text": "Middle Initial",
+      "rect": {
+        "left": 524,
+        "bottom": 391.76,
+        "right": 562.91,
+        "top": 398.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 307,
+      "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
+      "rect": {
+        "left": 36,
+        "bottom": 360.27,
+        "right": 555.22,
+        "top": 368.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 308,
+      "text": "continued employment authorization. Enter the document information in the spaces below.",
+      "rect": {
+        "left": 36,
+        "bottom": 350.67,
+        "right": 355.57,
+        "top": 358.67
+      }
+    },
+    {
+      "page": 4,
+      "order": 309,
+      "text": "Document Title",
+      "rect": {
+        "left": 42,
+        "bottom": 337.76,
+        "right": 89.07,
+        "top": 344.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 310,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 246,
+        "bottom": 337.76,
+        "right": 328.08,
+        "top": 344.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 311,
+      "text": "Expiration Date (if any) (mm/dd/yyyy)",
+      "rect": {
+        "left": 450,
+        "bottom": 337.76,
+        "right": 565.14,
+        "top": 344.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 312,
+      "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
+      "rect": {
+        "left": 42,
+        "bottom": 312.47,
+        "right": 549.63,
+        "top": 320.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 313,
+      "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
+      "rect": {
+        "left": 42,
+        "bottom": 302.87,
+        "right": 566.97,
+        "top": 310.87
+      }
+    },
+    {
+      "page": 4,
+      "order": 314,
+      "text": "Name of Employer or Authorized Representative",
+      "rect": {
+        "left": 42,
+        "bottom": 285.97,
+        "right": 192.57,
+        "top": 292.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 315,
+      "text": "Signature of Employer or Authorized Representative",
+      "rect": {
+        "left": 201.76,
+        "bottom": 285.97,
+        "right": 363.62,
+        "top": 292.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 316,
+      "text": "Today\u0027s Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 474,
+        "bottom": 285.97,
+        "right": 558.97,
+        "top": 292.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 317,
+      "text": "Additional Information (Initial and date each notation.)",
+      "rect": {
+        "left": 42,
+        "bottom": 255.68,
+        "right": 231.45,
+        "top": 263.68
+      }
+    },
+    {
+      "page": 4,
+      "order": 318,
+      "text": "Check here if you used an",
+      "rect": {
+        "left": 469.31,
+        "bottom": 252.2,
+        "right": 550.64,
+        "top": 259.2
+      }
+    },
+    {
+      "page": 4,
+      "order": 319,
+      "text": "alternative procedure authorized",
+      "rect": {
+        "left": 469.31,
+        "bottom": 243.8,
+        "right": 569.7,
+        "top": 250.8
+      }
+    },
+    {
+      "page": 4,
+      "order": 320,
+      "text": "by DHS to examine documents.",
+      "rect": {
+        "left": 469.31,
+        "bottom": 235.4,
+        "right": 567.74,
+        "top": 242.4
+      }
+    },
+    {
+      "page": 4,
+      "order": 321,
+      "text": "Date of Rehire (if applicable) New Name (if applicable)",
+      "rect": {
+        "left": 42,
+        "bottom": 217.75,
+        "right": 211.9,
+        "top": 224.75
+      }
+    },
+    {
+      "page": 4,
+      "order": 322,
+      "text": "Date (mm/dd/yyyy) Last Name (Family Name)",
+      "rect": {
+        "left": 42,
+        "bottom": 205.76,
+        "right": 190.26,
+        "top": 212.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 323,
+      "text": "First Name (Given Name)",
+      "rect": {
+        "left": 342,
+        "bottom": 205.76,
+        "right": 421.73,
+        "top": 212.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 324,
+      "text": "Middle Initial",
+      "rect": {
+        "left": 524,
+        "bottom": 205.76,
+        "right": 562.91,
+        "top": 212.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 325,
+      "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
+      "rect": {
+        "left": 36,
+        "bottom": 174.27,
+        "right": 555.22,
+        "top": 182.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 326,
+      "text": "continued employment authorization. Enter the document information in the spaces below.",
+      "rect": {
+        "left": 36,
+        "bottom": 164.67,
+        "right": 355.57,
+        "top": 172.67
+      }
+    },
+    {
+      "page": 4,
+      "order": 327,
+      "text": "Document Title",
+      "rect": {
+        "left": 44,
+        "bottom": 151.76,
+        "right": 91.07,
+        "top": 158.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 328,
+      "text": "Document Number (if any)",
+      "rect": {
+        "left": 246,
+        "bottom": 151.76,
+        "right": 328.08,
+        "top": 158.76
+      }
+    },
+    {
+      "page": 4,
+      "order": 329,
+      "text": "Expiration Date (if any) (mm/dd/yyyy)",
+      "rect": {
+        "left": 450.13,
+        "bottom": 151.71,
+        "right": 565.27,
+        "top": 158.71
+      }
+    },
+    {
+      "page": 4,
+      "order": 330,
+      "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
+      "rect": {
+        "left": 42,
+        "bottom": 126.47,
+        "right": 549.63,
+        "top": 134.47
+      }
+    },
+    {
+      "page": 4,
+      "order": 331,
+      "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
+      "rect": {
+        "left": 42,
+        "bottom": 116.87,
+        "right": 566.97,
+        "top": 124.87
+      }
+    },
+    {
+      "page": 4,
+      "order": 332,
+      "text": "Name of Employer or Authorized Representative",
+      "rect": {
+        "left": 42,
+        "bottom": 99.97,
+        "right": 192.57,
+        "top": 106.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 333,
+      "text": "Signature of Employer or Authorized Representative",
+      "rect": {
+        "left": 201.87,
+        "bottom": 99.97,
+        "right": 363.74,
+        "top": 106.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 334,
+      "text": "Today\u0027s Date (mm/dd/yyyy)",
+      "rect": {
+        "left": 474,
+        "bottom": 99.97,
+        "right": 558.97,
+        "top": 106.97
+      }
+    },
+    {
+      "page": 4,
+      "order": 335,
+      "text": "Additional Information (Initial and date each notation.)",
+      "rect": {
+        "left": 42,
+        "bottom": 69.68,
+        "right": 231.45,
+        "top": 77.68
+      }
+    },
+    {
+      "page": 4,
+      "order": 336,
+      "text": "Check here if you used an",
+      "rect": {
+        "left": 469.31,
+        "bottom": 65.2,
+        "right": 550.64,
+        "top": 72.2
+      }
+    },
+    {
+      "page": 4,
+      "order": 337,
+      "text": "alternative procedure authorized",
+      "rect": {
+        "left": 469.31,
+        "bottom": 56.8,
+        "right": 569.7,
+        "top": 63.8
+      }
+    },
+    {
+      "page": 4,
+      "order": 338,
+      "text": "by DHS to examine documents.",
+      "rect": {
+        "left": 469.31,
+        "bottom": 48.4,
+        "right": 567.74,
+        "top": 55.4
+      }
+    },
+    {
+      "page": 4,
+      "order": 339,
+      "text": "Form I-9 Edition 01/20/25",
+      "rect": {
+        "left": 36,
+        "bottom": 24.44,
+        "right": 132.25,
+        "top": 33.44
+      }
+    },
+    {
+      "page": 4,
+      "order": 340,
+      "text": "Page 4 of 4",
+      "rect": {
+        "left": 535.26,
+        "bottom": 24.44,
+        "right": 576,
+        "top": 33.44
+      }
+    }
+  ],
+  "answerKey": "fed-i9"
+}

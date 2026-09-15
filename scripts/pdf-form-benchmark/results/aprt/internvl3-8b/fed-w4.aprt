@@ -1,0 +1,762 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "first-name-and-middle-initial",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "does-your-name-match-the-name-on-your-social-security-card",
+          "label": "Does your name match the name on your social security card?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "single-or-married-filing-separately",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Single",
+              "Married filing jointly or Qualifying surviving spouse",
+              "Head of household"
+            ]
+          }
+        },
+        {
+          "id": "use-the-estimator-at-www-irs-gov-w4app",
+          "label": "Use the estimator at www.irs.gov/W4App",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "complete-this-step-if-you-1-hold-more-than-one-job-at-a-time-or-2-are-married-filing-jointly-and-your-spouse-also-works",
+          "label": "Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-only-one-of-the-following",
+          "label": "Do only one of the following",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "use-the-estimator-at-www-irs-gov-w4app-2",
+          "label": "Use the estimator at www.irs.gov/W4App",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "use-the-multiple-jobs-worksheet-on-page-3",
+          "label": "Use the Multiple Jobs Worksheet on page 3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-there-are-only-two-jobs-total-you-may-check-this-box",
+          "label": "If there are only two jobs total, you may check this box",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "complete-steps-3-4-b-on-form-w-4-for-the-highest-paying-job",
+          "label": "Complete Steps 3-4(b) on Form W-4 for the highest paying job",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits",
+      "prompts": [
+        {
+          "id": "if-your-total-income-will-be-200-000-or-less-400-000-or-less-if-married-filing-jointly",
+          "label": "If your total income will be $200,000 or less ($400,000 or less if married filing jointly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-qualifying-children-under-age-17-by-2-200",
+          "label": "Multiply the number of qualifying children under age 17 by $2,200",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-other-dependents-by-500",
+          "label": "Multiply the number of other dependents by $500",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-the-amounts-from-steps-3-a-and-3-b-plus-the-amount-for-other-credits",
+          "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-income-not-from-jobs",
+          "label": "Other income (not from jobs)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "deductions",
+          "label": "Deductions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "extra-withholding",
+          "label": "Extra withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "exempt-from-withholding",
+          "label": "Exempt from withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "i-claim-exemption-from-withholding-for-2026",
+          "label": "I claim exemption from withholding for 2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-certify-that-i-meet-both-of-the-conditions-for-exemption-for-2026",
+          "label": "I certify that I meet both of the conditions for exemption for 2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-signature",
+          "label": "Employee's signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-s-name-and-address",
+          "label": "Employer's name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-date-of-employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-identification-number-ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "general-instructions",
+      "title": "General Instructions",
+      "prompts": [
+        {
+          "id": "future-developments",
+          "label": "Future Developments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "purpose-of-form",
+          "label": "Purpose of Form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemption-from-withholding",
+          "label": "Exemption from withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-privacy",
+          "label": "Your privacy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "when-to-use-the-estimator",
+          "label": "When to use the estimator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "self-employment",
+          "label": "Self-employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions",
+      "prompts": [
+        {
+          "id": "nonresident-alien",
+          "label": "Nonresident alien",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-c",
+          "label": "Step 1(c)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "(a) most accurately calculates the additional tax",
+              "(b) does so with a little less accuracy"
+            ]
+          }
+        },
+        {
+          "id": "step-2",
+          "label": "Step 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "option-a",
+          "label": "Option (a)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "option-b",
+          "label": "Option (b)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "multiple-jobs",
+          "label": "Multiple jobs",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-3",
+          "label": "Step 3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-4",
+          "label": "Step 4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-4-a",
+          "label": "Step 4(a)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-4-b",
+          "label": "Step 4(b)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-4-c",
+          "label": "Step 4(c)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-b-multiple-jobs-worksheet",
+      "title": "Step 2(b) \u2013 Multiple Jobs Worksheet",
+      "prompts": [
+        {
+          "id": "1",
+          "label": "1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "2",
+          "label": "2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "2a",
+          "label": "2a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "2b",
+          "label": "2b",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "2c",
+          "label": "2c",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "3",
+          "label": "3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "4",
+          "label": "4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-b-deductions-worksheet",
+      "title": "Step 4(b) \u2013 Deductions Worksheet",
+      "prompts": [
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensation-and-passenger-vehicle-loan-interest",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "qualified-tips",
+          "label": "Qualified tips.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "qualified-overtime-compensation",
+          "label": "Qualified overtime compensation.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "qualified-passenger-vehicle-loan-interest",
+          "label": "Qualified passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-1a-1b-and-1c",
+          "label": "Add lines 1a, 1b, and 1c.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "seniors-age-65-or-older",
+          "label": "Seniors age 65 or older.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-6-000-if-you-are-age-65-or-older-before-the-end-of-the-year",
+          "label": "Enter $6,000 if you are age 65 or older before the end of the year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-6-000-if-your-spouse-is-age-65-or-older-before-the-end-of-the-year-and-has-a-social-security-number-valid-for-employment",
+          "label": "Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security number valid for employment.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-3a-and-3b",
+          "label": "Add lines 3a and 3b.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-an-estimate-of-your-student-loan-interest-deductible-ira-contributions-educator-expenses-alimony-paid-and-certain-other-adjustments-from-schedule-1-form-1040-part-ii-see-pub-505-for-more-information",
+          "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions",
+          "label": "Itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "medical-and-dental-expenses",
+          "label": "Medical and dental expenses.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "state-and-local-taxes",
+          "label": "State and local taxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "home-mortgage-interest",
+          "label": "Home mortgage interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "gifts-to-charities",
+          "label": "Gifts to charities.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "other-itemized-deductions",
+          "label": "Other itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-6a-6b-6c-6d-and-6e",
+          "label": "Add lines 6a, 6b, 6c, 6d, and 6e.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-your-total-income",
+          "label": "Enter your total income.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "subtract-line-4-from-line-8a",
+          "label": "Subtract line 4 from line 8a.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter",
+          "label": "Enter:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-9-is-greater-than-line-8b-enter-the-amount-from-line-7-otherwise-multiply-line-7-by-94-0-94",
+          "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "standard-deduction",
+          "label": "Standard deduction.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "cash-gifts-to-charities",
+          "label": "Cash gifts to charities.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-11-and-12",
+          "label": "Add lines 11 and 12.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-10-is-greater-than-line-13-subtract-line-11-from-line-10-and-enter-the-result-here-if-line-13-is-greater-than-line-10-enter-the-amount-from-line-12",
+          "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-2-4-5-and-14",
+          "label": "Add lines 2, 4, 5, and 14.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "married-filing-jointly-or-qualifying-surviving-spouse",
+      "title": "Married Filing Jointly or Qualifying Surviving Spouse",
+      "prompts": [
+        {
+          "id": "higher-paying-job-annual-taxable-wage-salary",
+          "label": "Higher Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "lower-paying-job-annual-taxable-wage-salary",
+          "label": "Lower Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "single-or-married-filing-separately",
+      "title": "Single or Married Filing Separately",
+      "prompts": [
+        {
+          "id": "higher-paying-job-annual-taxable-wage-salary-2",
+          "label": "Higher Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "lower-paying-job-annual-taxable-wage-salary-2",
+          "label": "Lower Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "head-of-household",
+      "title": "Head of Household",
+      "prompts": [
+        {
+          "id": "higher-paying-job-annual-taxable-wage-salary-3",
+          "label": "Higher Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "lower-paying-job-annual-taxable-wage-salary-3",
+          "label": "Lower Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

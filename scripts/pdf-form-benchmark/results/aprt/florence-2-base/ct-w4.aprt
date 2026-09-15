@@ -1,0 +1,303 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut Form CT-W4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "print-form",
+          "label": "Print Form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "clear-fields",
+          "label": "Clear Fields",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-revenue-services",
+          "label": "Department of Revenue Services",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connections",
+          "label": "State of Connections",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-withholding-certificate",
+          "label": "Employee's Withholding Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "effective-january-1-2026",
+          "label": "Effective January 1, 2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-withholding-certificate-2",
+          "label": "Employee's Withholding Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-withholding-certificate-3",
+          "label": "Employee's Withholding Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "married-filing-separating",
+          "label": "Married Filing Separating",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "wirnad",
+          "label": "Wirnad",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "married-filing-jointty",
+          "label": "Married Filing Jointty",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spaces-residence-and-act-msrray-and-no-annual",
+          "label": "Spaces Residence And Act (MSRRAY) and no annual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spaces-residence-and-act-msrray-and-no-annual-2",
+          "label": "Spaces Residence And Act (MSRRAY) and no annual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-spouse-is-employed-and-our-expected-combined",
+          "label": "My spouse is employed and our expected combined",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-a-significant-amount-of-income",
+          "label": "I am a significant amount of income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "single",
+          "label": "Single",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-a-recent-military-squares-residence-relle-mrara-msrra-msrra",
+          "label": "I am a recent military Squares Residence Relle (MRARA) (MSRRA) (MSRRA)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "employee-general-instructions",
+          "label": "Employee General Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-ct-w4-instructions",
+          "label": "Form CT-W4 Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-ct-w4-instructions-2",
+          "label": "Form CT-W4 Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-ct-w4-instructions-3",
+          "label": "Form CT-W4 Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-general-instructions-2",
+          "label": "Employee General Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-with-the-necessary-information-and-provide-your",
+          "label": "Employee with the necessary information and provide your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "you-will-not-be-underweight-or-income-tax-income-that-you-can-see-a-form-ct-w4",
+          "label": "you will not be underweight or income tax. Income that you can see a form (CT-W4)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "armed-forces-personal-pay-pay-is-just-a",
+          "label": "Armed Forces Personal Pay Pay is just a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "gross-income",
+          "label": "Gross Income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "military-spouses-residence-act-msrra",
+          "label": "Military Spouses, Residence Act (MSRRA)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "military-spouses-you-must-provide-your",
+          "label": "Military Spouses, you must provide your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "military-spouses-you-must-provide-your-2",
+          "label": "military Spouses, you must provide your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "numerous-income-tax-return-form-ct-w4-and-your",
+          "label": "Numerous income tax return, form (CT-W4) and your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "military-spouses-you-must-provide-your-3",
+          "label": "military Spouses, you must provide your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "numbers-for-annual-payment-ct-w4-and-any-more",
+          "label": "numbers for Annual Payment (CT-W4) and any more",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "filling-status",
+          "label": "Filling Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employees-instructions-for-c-t-w4-are",
+          "label": "Employees Instructions for C-T-W4) are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-your-withholding",
+          "label": "Check Your Withholding",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "report-certain-employees-clarifying-exemption-from",
+          "label": "Report certain Employees clarifying Exemption From",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

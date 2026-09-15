@@ -1,0 +1,279 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form SS-4 (Application for Employer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "ss-4",
+          "label": "SS-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "application-for-employer-identification-number",
+          "label": "Application for Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "omb-no-1545-0003",
+          "label": "OMB No. 1545-0003",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "from-december-20",
+          "label": "(from December 20%)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-december-20-2",
+          "label": "(from) December 20%",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-theresary",
+          "label": "(from) Theresary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-theresary-2",
+          "label": "(from) Theresary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-theresary-3",
+          "label": "(from) Theresary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-theresary-4",
+          "label": "(from) Theresary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-email-address-different-don-t-enter-a-box",
+          "label": "(From) Email address (different) (don't enter a box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "mailing-address-from-from-a-form",
+          "label": "Mailing address (from) (from) a form)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "from-stair-address-different-different-don-t-enter-a-box",
+          "label": "(from) Stair address (different) (different) (don't enter a box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "from-mailing-address-from-for-or-or-or-or-or-or-or-box",
+          "label": "(from) Mailing address (from) (for, or, or, or, or, or, or, or, box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "b-stair-address-different-different-for-or-or-or-or-or-or-or-or-or-box",
+          "label": "(b) Stair address (different) (different) (for, or, or, or, or, or, or, or, or, or, box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "city-state-and-state-code-for-or-in-between",
+          "label": "(City, state, and state/ code (for, or, in-between)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-state-code-for-or-in-between-2",
+          "label": "(City, state and state/ code (for, or, in-between)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "b-state-and-zip-code-for-or-or-or-or-in-between",
+          "label": "(b) State, and ZIP code (for, or, or, or, or, in-between)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "your-name-of-responsible-party",
+          "label": "(Your name of responsible party)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-name-of-responsible-party-2",
+          "label": "(Your name of responsible party)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-name-of-responsible-company-from",
+          "label": "(Your name of responsible company (from)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "78-sin-tin-or-ein",
+          "label": "78 SIN, TIN, or EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "from-name-of-responsible-company-llo",
+          "label": "(From) Name of responsible company (LLO)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "from-this-application-for-the-limited-ability-company-llo",
+          "label": "(From) This application for the limited ability company (LLO)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "form-s-2-12-2021",
+          "label": "Form S-2-12-2021",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "see-form-s-2-12-2021",
+          "label": "See Form S-2-12-2021",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-i-need-an-ein",
+          "label": "Do I Need an EIN?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "then",
+          "label": "THEN:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "stored-a-new-business",
+          "label": "stored a new business",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dont-currently-have-anexpect-to-have-any",
+          "label": "dont currently have anexpect to have any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "completes-1-2-3-4-4-5-6-6-4-6-6-6-0-if-applicable-3-a-or-or-or",
+          "label": "completes, 1-2-3-4-4-5-6-6-4-6-6-6-0, (if applicable, 3,a, or, or, or,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "competition-1-2-4-4-6-6-6-8-8-8-8-0-and-or",
+          "label": "competition, 1-2-4-4-6-6-6-8-8-8-8-0, and, or,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions-and-if-applicable-and-10-18",
+          "label": "(instructions, and, (if applicable, and, 10-18,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "needs-an-ein-for-banking-purposes-only",
+          "label": "needs an EIN for banking purposes only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

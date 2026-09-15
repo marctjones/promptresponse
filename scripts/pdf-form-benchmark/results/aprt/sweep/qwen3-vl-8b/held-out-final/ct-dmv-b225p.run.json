@@ -1,0 +1,16 @@
+{
+ "model": "qwen3-vl-8b",
+ "repo": "mlx-community/Qwen3-VL-8B-Instruct-4bit",
+ "mode": "split",
+ "prompt": "final",
+ "max_tokens": 8192,
+ "seconds": 109,
+ "pages": [
+  {
+   "page": 1,
+   "blanks": 15,
+   "fell_back": false
+  }
+ ],
+ "fell_back": []
+}

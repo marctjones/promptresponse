@@ -1,0 +1,353 @@
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Form SS-4 Application for Employer Identification Number"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions and EIN"
+    },
+    {
+      "id": "entity_info",
+      "title": "Entity Information"
+    },
+    {
+      "id": "address_info",
+      "title": "Address Information"
+    },
+    {
+      "id": "responsible_party",
+      "title": "Responsible Party"
+    },
+    {
+      "id": "entity_type",
+      "title": "Type of Entity"
+    },
+    {
+      "id": "reason_for_applying",
+      "title": "Reason for Applying"
+    },
+    {
+      "id": "business_details",
+      "title": "Business Details"
+    },
+    {
+      "id": "employment_details",
+      "title": "Employment Details"
+    },
+    {
+      "id": "third_party_designee",
+      "title": "Third Party Designee"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "EIN",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Trade name of business (if different from name on line 1)",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Executor, administrator, trustee, \"care of\" name",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4a,
+      "label": "Mailing address (room, apt., suite no. and street, or P.O. box)",
+      "section_id": "address_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5a,
+      "label": "Street address (if different) (Don't enter a P.O. box.)",
+      "section_id": "address_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4b,
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "address_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5b,
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "address_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "County and state where principal business is located",
+      "section_id": "address_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7a,
+      "label": "Name of responsible party",
+      "section_id": "responsible_party",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7b,
+      "label": "SSN, ITIN, or EIN",
+      "section_id": "responsible_party",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8a,
+      "label": "Is this application for a limited liability company (LLC) (or a foreign equivalent)?",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type_llc"
+    },
+    {
+      "n": 8b,
+      "label": "If 8a is \"Yes,\" enter the number of LLC members",
+      "section_id": "entity_type",
+      "field_kind": "number",
+      "expected_data_type": "number",
+      "group": "entity_type_llc"
+    },
+    {
+      "n": 8c,
+      "label": "If 8a is \"Yes,\" was the LLC organized in the United States?",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type_llc"
+    },
+    {
+      "n": 9a,
+      "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+      "section_id": "entity_type",
+      "field_kind": "choice",
+      "expected_data_type": "choice",
+      "choices": [
+        "Sole proprietor (SSN)",
+        "Estate (SSN of decedent)",
+        "Partnership",
+        "Plan administrator (TIN)",
+        "Corporation (enter form number to be filed)",
+        "Trust (TIN of grantor)",
+        "Personal service corporation",
+        "Military/National Guard",
+        "State/local government",
+        "Church or church-controlled organization",
+        "Farmers' cooperative",
+        "Other nonprofit organization (specify)",
+        "REMIC",
+        "Other (specify)",
+        "Group Exemption Number (GEN) if any"
+      ]
+    },
+    {
+      "n": 9b,
+      "label": "If a corporation, name the state or foreign country (if applicable) where incorporated",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "choice",
+      "expected_data_type": "choice",
+      "choices": [
+        "Banking purpose (specify purpose)",
+        "Started new business (specify type)",
+        "Changed type of organization (specify new type)",
+        "Purchased going business",
+        "Hired employees (Check the box and see line 13.)",
+        "Created a trust (specify type)",
+        "Compliance with IRS withholding regulations",
+        "Created a pension plan (specify type)",
+        "Other (specify)"
+      ]
+    },
+    {
+      "n": 11,
+      "label": "Date business started or acquired (month, day, year). See instructions.",
+      "section_id": "business_details",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 12,
+      "label": "Closing month of accounting year",
+      "section_id": "business_details",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 13,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "employment_details",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 14,
+      "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 944 annually instead of Forms 941 quarterly, check here. (Your employment tax liability will generally be $1,000 or less if you expect to pay $5,000 or less, $6,536 or less if you're in a U.S. territory, in total wages.) If you don't check this box, you must file Form 941 for every quarter",
+      "section_id": "employment_details",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "employment_tax_liability"
+    },
+    {
+      "n": 15,
+      "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+      "section_id": "employment_details",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 16,
+      "label": "Check one box that best describes the principal activity of your business",
+      "section_id": "business_details",
+      "field_kind": "choice",
+      "expected_data_type": "choice",
+      "choices": [
+        "Health care & social assistance",
+        "Wholesale—agent/broker",
+        "Construction",
+        "Rental & lease",
+        "Transportation & warehousing",
+        "Accommodation & food service",
+        "Wholesale—other",
+        "Retail",
+        "Real estate",
+        "Manufacturing",
+        "Finance & insurance",
+        "Other (specify)"
+      ]
+    },
+    {
+      "n": 17,
+      "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+      "section_id": "business_details",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "section_id": "business_details",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "previous_ein_application"
+    },
+    {
+      "n": 19,
+      "label": "If \"Yes,\" write previous EIN here",
+      "section_id": "business_details",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "previous_ein_application"
+    },
+    {
+      "n": 20,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Designee's name",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Designee's telephone number (include area code)",
+      "section_id": "third_party_designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 23,
+      "label": "Designee's fax number (include area code)",
+      "section_id": "third_party_designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 24,
+      "label": "Address and ZIP code",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Applicant's telephone number (include area code)",
+      "section_id": "third_party_designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 26,
+      "label": "Applicant's fax number (include area code)",
+      "section_id": "third_party_designee",
+      "field_kind": "phone",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 27,
+      "label": "Under penalties of perjury, I declare that I have examined this application, and to the best of my knowledge and belief, it is true, correct, and complete.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "Name and title (type or print clearly)",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "Signature",
+      "section_id": "third_party_designee",
+      "field_kind": "signature",
+      "expected_data_type": "signature"
+    },
+    {
+      "n": 30,
+      "label": "Date",
+      "section_id": "third_party_designee",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}

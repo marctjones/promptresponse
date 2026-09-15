@@ -1,0 +1,13 @@
+{
+  "sections": [
+    {
+      "id": "employee-general-instructions",
+      "title": "Employee General Instructions"
+    },
+    {
+      "id": "employer-instructions",
+      "title": "Employer Instructions"
+    }
+  ],
+  "fields": []
+}

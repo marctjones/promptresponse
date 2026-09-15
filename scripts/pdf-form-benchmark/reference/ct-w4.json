@@ -1,0 +1,2984 @@
+{
+  "formId": "ct-w4",
+  "pageCount": 2,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 2,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "declarationOrder": 1,
+      "name": "1",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 353.04,
+        "bottom": 346.68,
+        "right": 449.16,
+        "top": 361.31
+      },
+      "label": "1",
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "declarationOrder": 4,
+      "name": "Check Box1",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 462.76,
+        "bottom": 339.23,
+        "right": 480.76,
+        "top": 357.23
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "declarationOrder": 2,
+      "name": "2",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 355.08,
+        "bottom": 328.08,
+        "right": 448.56,
+        "top": 344.28
+      },
+      "label": "2",
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "declarationOrder": 3,
+      "name": "3",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 355.08,
+        "bottom": 310.08,
+        "right": 449.64,
+        "top": 325.23
+      },
+      "label": "3",
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "declarationOrder": 5,
+      "name": "residencedomicile",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 481.59,
+        "bottom": 307.03,
+        "right": 574.95,
+        "top": 319.03
+      },
+      "label": "residence/domicile",
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "declarationOrder": 7,
+      "name": "SSN",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 398.98,
+        "bottom": 275.52,
+        "right": 574.8,
+        "top": 293.41
+      },
+      "label": "Social Security Number",
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "declarationOrder": 6,
+      "name": "First name Ml Last name",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 37.49,
+        "bottom": 275.52,
+        "right": 393.53,
+        "top": 292.08
+      },
+      "label": "First name Ml Last name",
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "declarationOrder": 8,
+      "name": "Home address number and street apartment number suite number PO Box",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 38.02,
+        "bottom": 251.52,
+        "right": 574.8,
+        "top": 268.36
+      },
+      "label": "Home address (number and street, apartment number, suite number, PO Box)",
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "declarationOrder": 9,
+      "name": "Citytown State ZIP code",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36.83,
+        "bottom": 226.92,
+        "right": 575.33,
+        "top": 243.95
+      },
+      "label": "City/town State ZIP code",
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "declarationOrder": 10,
+      "name": "Date",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 419.17,
+        "bottom": 174.36,
+        "right": 574.8,
+        "top": 194.54
+      },
+      "label": "Date",
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "declarationOrder": 13,
+      "name": "Yes  Enter date hired",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 365.04,
+        "bottom": 145.08,
+        "right": 449.64,
+        "top": 160.76
+      },
+      "label": "Yes  Enter date hired",
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "declarationOrder": 11,
+      "name": "Check Box2",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 196.85,
+        "bottom": 142.61,
+        "right": 209.58,
+        "top": 154.93
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "declarationOrder": 12,
+      "name": "Check Box3",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 245.78,
+        "bottom": 142.53,
+        "right": 258.5,
+        "top": 154.85
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "declarationOrder": 14,
+      "name": "Text3",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 137.69,
+        "bottom": 107.11,
+        "right": 388.6,
+        "top": 129.11
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "declarationOrder": 15,
+      "name": "Text4",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 395.56,
+        "bottom": 105.71,
+        "right": 545.56,
+        "top": 123.15
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "declarationOrder": 16,
+      "name": "Employers business address",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 144,
+        "bottom": 82.68,
+        "right": 574.8,
+        "top": 105.6
+      },
+      "label": "Employer\u2019s business address",
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "declarationOrder": 17,
+      "name": "Citytown State ZIP code_2",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 37.41,
+        "bottom": 59.03,
+        "right": 449.37,
+        "top": 75.99
+      },
+      "label": "City/town State ZIP code",
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "declarationOrder": 18,
+      "name": "Contact person",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 93.84,
+        "bottom": 36.24,
+        "right": 392.88,
+        "top": 53.87
+      },
+      "label": "Contact person",
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "declarationOrder": 0,
+      "name": "Telephone number",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 453.39,
+        "bottom": 36.94,
+        "right": 575.62,
+        "top": 51.5
+      },
+      "label": "Telephone number \u2013 \u2013",
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "Form CT-W4",
+      "rect": {
+        "left": 262.05,
+        "bottom": 745.07,
+        "right": 355.1,
+        "top": 761.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Effective January 1, 2026",
+      "rect": {
+        "left": 457.28,
+        "bottom": 748.72,
+        "right": 575.99,
+        "top": 758.72
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "Department of Revenue Services",
+      "rect": {
+        "left": 36,
+        "bottom": 750.18,
+        "right": 153.82,
+        "top": 758.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "State of Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 741.18,
+        "right": 108.04,
+        "top": 749.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "Employee\u2019s Withholding Certificate",
+      "rect": {
+        "left": 214.34,
+        "bottom": 732.12,
+        "right": 401.99,
+        "top": 744.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "(Rev. 12/25)",
+      "rect": {
+        "left": 36,
+        "bottom": 727.98,
+        "right": 79.43,
+        "top": 735.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "Employee Instructions",
+      "rect": {
+        "left": 36,
+        "bottom": 712.06,
+        "right": 127.16,
+        "top": 720.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "\u2022 Read the instructions on Page 2 before completing this form.",
+      "rect": {
+        "left": 36,
+        "bottom": 698.46,
+        "right": 271.39,
+        "top": 706.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "\u2022 Choose the statement that best describes your gross income.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 697.81,
+        "right": 551.42,
+        "top": 706.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "\u2022 Select the filing status you expect to report on your Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 686.66,
+        "right": 283.37,
+        "top": 695.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "\u2022 Enter the Withholding Code on Line 1 below.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 686.01,
+        "right": 488.61,
+        "top": 694.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "income tax return.",
+      "rect": {
+        "left": 43.2,
+        "bottom": 676.66,
+        "right": 111.23,
+        "top": 685.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "Withholding",
+      "rect": {
+        "left": 545.8,
+        "bottom": 673.19,
+        "right": 572.49,
+        "top": 678.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "Married Filing Separately",
+      "rect": {
+        "left": 372.64,
+        "bottom": 668.57,
+        "right": 479.68,
+        "top": 677.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "Code",
+      "rect": {
+        "left": 553.3,
+        "bottom": 666.59,
+        "right": 564.98,
+        "top": 671.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "Withholding",
+      "rect": {
+        "left": 269.03,
+        "bottom": 660.49,
+        "right": 295.71,
+        "top": 665.72
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "Married Filing Jointly",
+      "rect": {
+        "left": 105.81,
+        "bottom": 656.08,
+        "right": 196.33,
+        "top": 665.08
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "My expected annual gross income is less than or equal to",
+      "rect": {
+        "left": 314.2,
+        "bottom": 653.7,
+        "right": 513.77,
+        "top": 661.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "Code",
+      "rect": {
+        "left": 276.53,
+        "bottom": 653.89,
+        "right": 288.2,
+        "top": 659.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "E",
+      "rect": {
+        "left": 553.87,
+        "bottom": 643.7,
+        "right": 560.54,
+        "top": 653.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "$12,000 or I am claiming exemption under the MSRRA* and",
+      "rect": {
+        "left": 314.2,
+        "bottom": 644.7,
+        "right": 526.74,
+        "top": 652.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "Our expected combined annual gross income is less than or",
+      "rect": {
+        "left": 40,
+        "bottom": 641.21,
+        "right": 253.9,
+        "top": 649.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "no withholding is necessary.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 635.7,
+        "right": 414.17,
+        "top": 643.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "equal to $24,000 or I am claiming exemption under the Military",
+      "rect": {
+        "left": 40,
+        "bottom": 632.21,
+        "right": 260.98,
+        "top": 640.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "E",
+      "rect": {
+        "left": 279.67,
+        "bottom": 627.21,
+        "right": 286.34,
+        "top": 637.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "A",
+      "rect": {
+        "left": 553.59,
+        "bottom": 622.2,
+        "right": 560.81,
+        "top": 632.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "Spouses Residency Relief Act (MSRRA)* and no withholding",
+      "rect": {
+        "left": 40,
+        "bottom": 623.21,
+        "right": 255.63,
+        "top": 631.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "My expected annual gross income is greater than $12,000.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 622.2,
+        "right": 524.1,
+        "top": 630.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "is necessary.",
+      "rect": {
+        "left": 40,
+        "bottom": 614.21,
+        "right": 86.68,
+        "top": 622.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "I have significant nonwage income and wish to avoid having",
+      "rect": {
+        "left": 314.2,
+        "bottom": 607.8,
+        "right": 526.3,
+        "top": 615.8
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 602.8,
+        "right": 560.81,
+        "top": 612.8
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "My spouse is employed and our expected combined annual",
+      "rect": {
+        "left": 40,
+        "bottom": 600.71,
+        "right": 251.67,
+        "top": 608.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "too little tax withheld.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 598.8,
+        "right": 388.46,
+        "top": 606.8
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "A",
+      "rect": {
+        "left": 279.39,
+        "bottom": 591.71,
+        "right": 286.61,
+        "top": 601.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "gross income is greater than $24,000 and less than or equal",
+      "rect": {
+        "left": 40,
+        "bottom": 591.71,
+        "right": 254.78,
+        "top": 599.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 583.4,
+        "right": 560.81,
+        "top": 593.4
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "I am a nonresident of Connecticut with substantial other income.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 584.4,
+        "right": 541.42,
+        "top": 592.4
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "to $100,500. See Certain Married Individuals, Page 2.",
+      "rect": {
+        "left": 40,
+        "bottom": 582.71,
+        "right": 227.2,
+        "top": 590.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "Withholding",
+      "rect": {
+        "left": 545.84,
+        "bottom": 571.41,
+        "right": 572.53,
+        "top": 576.63
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "Single",
+      "rect": {
+        "left": 413.34,
+        "bottom": 567.33,
+        "right": 440.35,
+        "top": 576.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "My spouse is not employed and our expected combined",
+      "rect": {
+        "left": 40,
+        "bottom": 568.31,
+        "right": 240.09,
+        "top": 576.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "C",
+      "rect": {
+        "left": 279.39,
+        "bottom": 563.31,
+        "right": 286.61,
+        "top": 573.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "Code",
+      "rect": {
+        "left": 553.35,
+        "bottom": 564.81,
+        "right": 565.02,
+        "top": 570.03
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "annual gross income is greater than $24,000.",
+      "rect": {
+        "left": 40,
+        "bottom": 559.31,
+        "right": 202.32,
+        "top": 567.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "My expected annual gross income is less than or equal to",
+      "rect": {
+        "left": 314.2,
+        "bottom": 550.6,
+        "right": 513.77,
+        "top": 558.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "E",
+      "rect": {
+        "left": 553.87,
+        "bottom": 545.6,
+        "right": 560.54,
+        "top": 555.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "My spouse is employed and our expected combined",
+      "rect": {
+        "left": 40,
+        "bottom": 544.91,
+        "right": 225.43,
+        "top": 552.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "D",
+      "rect": {
+        "left": 279.39,
+        "bottom": 539.91,
+        "right": 286.61,
+        "top": 549.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "$15,000 and no withholding is necessary.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 541.6,
+        "right": 460.87,
+        "top": 549.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "annual gross income is greater than $100,500.",
+      "rect": {
+        "left": 40,
+        "bottom": 535.91,
+        "right": 206.77,
+        "top": 543.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "F",
+      "rect": {
+        "left": 554.15,
+        "bottom": 527.1,
+        "right": 560.26,
+        "top": 537.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "My expected annual gross income is greater than $15,000.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 528.1,
+        "right": 524.1,
+        "top": 536.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "I have significant nonwage income and wish to avoid having",
+      "rect": {
+        "left": 40,
+        "bottom": 521.51,
+        "right": 252.1,
+        "top": 529.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "D",
+      "rect": {
+        "left": 279.39,
+        "bottom": 516.51,
+        "right": 286.61,
+        "top": 526.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "I have significant nonwage income and wish to avoid having",
+      "rect": {
+        "left": 314.2,
+        "bottom": 513.7,
+        "right": 526.3,
+        "top": 521.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "too little tax withheld.",
+      "rect": {
+        "left": 40,
+        "bottom": 512.51,
+        "right": 114.26,
+        "top": 520.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 508.7,
+        "right": 560.81,
+        "top": 518.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "too little tax withheld.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 504.7,
+        "right": 388.46,
+        "top": 512.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "D",
+      "rect": {
+        "left": 279.39,
+        "bottom": 497.11,
+        "right": 286.61,
+        "top": 507.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "I am a nonresident of Connecticut with substantial other income.",
+      "rect": {
+        "left": 40,
+        "bottom": 498.11,
+        "right": 257.14,
+        "top": 506.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 489.3,
+        "right": 560.81,
+        "top": 499.3
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "I am a nonresident of Connecticut with substantial other income.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 490.3,
+        "right": 541.42,
+        "top": 498.3
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "Withholding",
+      "rect": {
+        "left": 269.06,
+        "bottom": 485.03,
+        "right": 295.75,
+        "top": 490.25
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "CodeQualifying",
+      "rect": {
+        "left": 88.37,
+        "bottom": 478.43,
+        "right": 288.24,
+        "top": 490.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Surviving Spouse",
+      "rect": {
+        "left": 134.88,
+        "bottom": 481.12,
+        "right": 210.9,
+        "top": 490.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Withholding",
+      "rect": {
+        "left": 545.23,
+        "bottom": 477.14,
+        "right": 572.83,
+        "top": 482.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "Head of Household",
+      "rect": {
+        "left": 385.84,
+        "bottom": 473.15,
+        "right": 467.85,
+        "top": 482.15
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "Code",
+      "rect": {
+        "left": 552.99,
+        "bottom": 470.54,
+        "right": 565.06,
+        "top": 475.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "My expected annual gross income is less than or equal to",
+      "rect": {
+        "left": 40,
+        "bottom": 465.09,
+        "right": 239.41,
+        "top": 473.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "E",
+      "rect": {
+        "left": 279.67,
+        "bottom": 455.09,
+        "right": 286.34,
+        "top": 465.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "My expected annual gross income is less than or equal to",
+      "rect": {
+        "left": 314.2,
+        "bottom": 456.46,
+        "right": 513.77,
+        "top": 464.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "$24,000 or I am claiming exemption under the MSRRA* and",
+      "rect": {
+        "left": 40,
+        "bottom": 456.09,
+        "right": 252.54,
+        "top": 464.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "E",
+      "rect": {
+        "left": 553.87,
+        "bottom": 451.46,
+        "right": 560.54,
+        "top": 461.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "$19,000 and no withholding is necessary.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 447.46,
+        "right": 460.87,
+        "top": 455.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "no withholding is necessary.",
+      "rect": {
+        "left": 40,
+        "bottom": 447.09,
+        "right": 139.97,
+        "top": 455.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "B",
+      "rect": {
+        "left": 553.59,
+        "bottom": 432.96,
+        "right": 560.81,
+        "top": 442.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "C",
+      "rect": {
+        "left": 279.39,
+        "bottom": 432.59,
+        "right": 286.61,
+        "top": 442.59
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "My expected annual gross income is greater than $19,000.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 433.96,
+        "right": 524.1,
+        "top": 441.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "My expected annual gross income is greater than $24,000.",
+      "rect": {
+        "left": 40,
+        "bottom": 433.59,
+        "right": 247.98,
+        "top": 441.59
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "I have significant nonwage income and wish to avoid having",
+      "rect": {
+        "left": 314.2,
+        "bottom": 419.56,
+        "right": 526.3,
+        "top": 427.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "I have significant nonwage income and wish to avoid having too",
+      "rect": {
+        "left": 40,
+        "bottom": 419.19,
+        "right": 255.87,
+        "top": 427.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 414.56,
+        "right": 560.81,
+        "top": 424.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "D",
+      "rect": {
+        "left": 279.39,
+        "bottom": 414.19,
+        "right": 286.61,
+        "top": 424.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "too little tax withheld.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 410.56,
+        "right": 388.46,
+        "top": 418.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "little tax withheld.",
+      "rect": {
+        "left": 40,
+        "bottom": 410.19,
+        "right": 97.87,
+        "top": 418.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "D",
+      "rect": {
+        "left": 553.59,
+        "bottom": 395.16,
+        "right": 560.81,
+        "top": 405.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "D",
+      "rect": {
+        "left": 279.39,
+        "bottom": 394.79,
+        "right": 286.61,
+        "top": 404.79
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "I am a nonresident of Connecticut with substantial other income.",
+      "rect": {
+        "left": 314.2,
+        "bottom": 396.16,
+        "right": 541.42,
+        "top": 404.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": "I am a nonresident of Connecticut with substantial other income.",
+      "rect": {
+        "left": 40,
+        "bottom": 395.79,
+        "right": 257.14,
+        "top": 403.79
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": "* If you are claiming the Military Spouses Residency Relief Act (MSRRA) exemption, see instructions on Page 2.",
+      "rect": {
+        "left": 35.5,
+        "bottom": 381.99,
+        "right": 432.48,
+        "top": 389.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": "Employees: See Employee General Instructions on Page 2. Sign and return Form CT-W4 to your employer. Keep a copy for your records.",
+      "rect": {
+        "left": 37,
+        "bottom": 361.91,
+        "right": 571.6,
+        "top": 370.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "\uF072",
+      "rect": {
+        "left": 465.12,
+        "bottom": 343.26,
+        "right": 478.48,
+        "top": 358.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "1. Withholding Code: Enter Withholding Code letter chosen from above. .......................1.",
+      "rect": {
+        "left": 36,
+        "bottom": 348.19,
+        "right": 348.54,
+        "top": 356.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": "Check if you are claiming",
+      "rect": {
+        "left": 482.4,
+        "bottom": 348.02,
+        "right": 575.98,
+        "top": 356.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": "the MSRRA exemption",
+      "rect": {
+        "left": 482.4,
+        "bottom": 339.02,
+        "right": 565.29,
+        "top": 347.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "and enter state of legal",
+      "rect": {
+        "left": 482.4,
+        "bottom": 330.02,
+        "right": 576.01,
+        "top": 338.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "2. Additional withholding amount per pay period: If any, see instructions. . .....................2. $",
+      "rect": {
+        "left": 36,
+        "bottom": 329.59,
+        "right": 355.08,
+        "top": 337.59
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": "residence/domicile:",
+      "rect": {
+        "left": 482.4,
+        "bottom": 321.02,
+        "right": 550.86,
+        "top": 329.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": "3. Reduced withholding amount per pay period: If any, see instructions. ........................3. $",
+      "rect": {
+        "left": 36,
+        "bottom": 310.99,
+        "right": 355.08,
+        "top": 318.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": "_____________________",
+      "rect": {
+        "left": 482.4,
+        "bottom": 308.42,
+        "right": 575.81,
+        "top": 316.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": "First name",
+      "rect": {
+        "left": 40,
+        "bottom": 292.1,
+        "right": 77.78,
+        "top": 300.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": "Ml",
+      "rect": {
+        "left": 216,
+        "bottom": 292.1,
+        "right": 224.44,
+        "top": 300.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": "Last name",
+      "rect": {
+        "left": 252,
+        "bottom": 292.1,
+        "right": 289.35,
+        "top": 300.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "Social Security Number",
+      "rect": {
+        "left": 396,
+        "bottom": 292.1,
+        "right": 479.58,
+        "top": 300.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "Home address (number and street, apartment number, suite number, PO Box)",
+      "rect": {
+        "left": 40,
+        "bottom": 268.1,
+        "right": 316.89,
+        "top": 276.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "City/town",
+      "rect": {
+        "left": 40,
+        "bottom": 244.1,
+        "right": 72.9,
+        "top": 252.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "State",
+      "rect": {
+        "left": 216,
+        "bottom": 244.1,
+        "right": 234.68,
+        "top": 252.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 107,
+      "text": "ZIP code",
+      "rect": {
+        "left": 288,
+        "bottom": 244.1,
+        "right": 320.02,
+        "top": 252.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "Declaration: I declare under penalty of law that I have examined this certificate and, to the best of my knowledge and belief, it is true, complete, and",
+      "rect": {
+        "left": 36.6,
+        "bottom": 216.06,
+        "right": 579.88,
+        "top": 224.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 109,
+      "text": "correct. I understand the penalty for reporting false information is a fine of not more than $5,000, imprisonment for not more than five years, or both.",
+      "rect": {
+        "left": 36.6,
+        "bottom": 206.06,
+        "right": 577.86,
+        "top": 214.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 110,
+      "text": "Employee\u2019s signature",
+      "rect": {
+        "left": 40,
+        "bottom": 191.94,
+        "right": 116.45,
+        "top": 199.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 111,
+      "text": "Date",
+      "rect": {
+        "left": 396,
+        "bottom": 191.94,
+        "right": 412.9,
+        "top": 199.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 112,
+      "text": "Employers: See Employer Instructions, on Page 2.",
+      "rect": {
+        "left": 36,
+        "bottom": 160.57,
+        "right": 233.6,
+        "top": 169.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 113,
+      "text": "\uF072 No",
+      "rect": {
+        "left": 198,
+        "bottom": 144.21,
+        "right": 222.77,
+        "top": 156.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 114,
+      "text": "\uF072 Yes",
+      "rect": {
+        "left": 247.5,
+        "bottom": 144.21,
+        "right": 276.2,
+        "top": 156.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 115,
+      "text": "Is this a new or rehired employee?",
+      "rect": {
+        "left": 36,
+        "bottom": 144.21,
+        "right": 170.8,
+        "top": 153.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 116,
+      "text": "Enter date hired:",
+      "rect": {
+        "left": 290.25,
+        "bottom": 144.21,
+        "right": 355.46,
+        "top": 153.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 117,
+      "text": "mm/dd/yyyy",
+      "rect": {
+        "left": 385.82,
+        "bottom": 137.27,
+        "right": 428.5,
+        "top": 145.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 118,
+      "text": "Employer\u2019s business name",
+      "rect": {
+        "left": 40,
+        "bottom": 123.22,
+        "right": 135.6,
+        "top": 131.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 119,
+      "text": "Federal Employer Identification Number",
+      "rect": {
+        "left": 396,
+        "bottom": 123.22,
+        "right": 536.94,
+        "top": 131.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 120,
+      "text": "Employer\u2019s business address",
+      "rect": {
+        "left": 40,
+        "bottom": 99.22,
+        "right": 144.05,
+        "top": 107.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 121,
+      "text": "City/town",
+      "rect": {
+        "left": 40,
+        "bottom": 75.22,
+        "right": 72.9,
+        "top": 83.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 122,
+      "text": "State",
+      "rect": {
+        "left": 216,
+        "bottom": 75.22,
+        "right": 234.68,
+        "top": 83.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 123,
+      "text": "ZIP code",
+      "rect": {
+        "left": 288,
+        "bottom": 75.22,
+        "right": 320.02,
+        "top": 83.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 124,
+      "text": "Contact person",
+      "rect": {
+        "left": 40,
+        "bottom": 51.22,
+        "right": 94.25,
+        "top": 59.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 125,
+      "text": "Telephone number",
+      "rect": {
+        "left": 396,
+        "bottom": 51.22,
+        "right": 463.14,
+        "top": 59.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 126,
+      "text": "\u2013 \u2013",
+      "rect": {
+        "left": 453.75,
+        "bottom": 40.5,
+        "right": 514.76,
+        "top": 49.5
+      }
+    },
+    {
+      "page": 1,
+      "order": 127,
+      "text": "Visit us at portal.ct.gov/DRS for more information.",
+      "rect": {
+        "left": 193.56,
+        "bottom": 18.42,
+        "right": 418.43,
+        "top": 28.42
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "Form CT-W4 Instructions",
+      "rect": {
+        "left": 234.66,
+        "bottom": 747.26,
+        "right": 377.95,
+        "top": 759.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "Form CT-W4NA and Form CT-W4 will help your employer determine",
+      "rect": {
+        "left": 313.2,
+        "bottom": 732.01,
+        "right": 575.81,
+        "top": 741.01
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "Employee General Instructions",
+      "rect": {
+        "left": 86.4,
+        "bottom": 729.56,
+        "right": 248.4,
+        "top": 740.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "how much to withhold from your wages for services performed",
+      "rect": {
+        "left": 313.2,
+        "bottom": 721.26,
+        "right": 576.2,
+        "top": 730.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "Form CT-W4, Employee\u2019s Withholding Certificate, provides your",
+      "rect": {
+        "left": 36,
+        "bottom": 714.96,
+        "right": 298.79,
+        "top": 723.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "within Connecticut. Residents of states with a \u201Cconvenience of the",
+      "rect": {
+        "left": 313.2,
+        "bottom": 710.51,
+        "right": 575.96,
+        "top": 719.51
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "employer with the necessary information to withhold the correct",
+      "rect": {
+        "left": 36,
+        "bottom": 704.21,
+        "right": 298.72,
+        "top": 713.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "employer\u201D test will be subject to similar rules for work performed for",
+      "rect": {
+        "left": 313.2,
+        "bottom": 699.76,
+        "right": 579.79,
+        "top": 708.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "amount of Connecticut income tax from your wages to ensure that",
+      "rect": {
+        "left": 36,
+        "bottom": 693.46,
+        "right": 298.64,
+        "top": 702.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "a Connecticut employer. Any nonresident who expects to have no",
+      "rect": {
+        "left": 313.2,
+        "bottom": 689.01,
+        "right": 574.96,
+        "top": 698.01
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "you will not be underwithheld or overwithheld.",
+      "rect": {
+        "left": 36,
+        "bottom": 682.71,
+        "right": 217.57,
+        "top": 691.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "Connecticut income tax liability should choose Withholding Code \u201CE.\u201D",
+      "rect": {
+        "left": 313.2,
+        "bottom": 678.26,
+        "right": 576.01,
+        "top": 687.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "You are required to pay Connecticut income tax as income is earned",
+      "rect": {
+        "left": 36,
+        "bottom": 667.46,
+        "right": 305.91,
+        "top": 676.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "Armed Forces Personnel and Veterans",
+      "rect": {
+        "left": 313.2,
+        "bottom": 657.06,
+        "right": 478.76,
+        "top": 666.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "or received during the year. You should complete a new Form CT-W4",
+      "rect": {
+        "left": 36,
+        "bottom": 656.71,
+        "right": 298.8,
+        "top": 665.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "If you are a Connecticut resident, your armed forces pay is subject",
+      "rect": {
+        "left": 313.2,
+        "bottom": 646.31,
+        "right": 577.17,
+        "top": 655.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "at least once a year or if your tax situation changes.",
+      "rect": {
+        "left": 36,
+        "bottom": 645.96,
+        "right": 241.6,
+        "top": 654.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "to Connecticut income tax withholding unless you qualify as a",
+      "rect": {
+        "left": 313.2,
+        "bottom": 635.56,
+        "right": 566.08,
+        "top": 644.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "If your circumstances change, such as you receive a bonus or your",
+      "rect": {
+        "left": 36,
+        "bottom": 630.71,
+        "right": 298.76,
+        "top": 639.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "nonresident for Connecticut income tax purposes. If you qualify as",
+      "rect": {
+        "left": 313.2,
+        "bottom": 624.81,
+        "right": 576.29,
+        "top": 633.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "filing status changes, you must furnish your employer with a new",
+      "rect": {
+        "left": 36,
+        "bottom": 619.96,
+        "right": 293.74,
+        "top": 628.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "a nonresident, you may request that no Connecticut income tax",
+      "rect": {
+        "left": 313.2,
+        "bottom": 614.06,
+        "right": 566.51,
+        "top": 623.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "Form CT-W4 within ten days of the change.",
+      "rect": {
+        "left": 36,
+        "bottom": 609.21,
+        "right": 209.56,
+        "top": 618.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "be withheld from your armed forces pay by entering Withholding",
+      "rect": {
+        "left": 313.2,
+        "bottom": 603.31,
+        "right": 575.99,
+        "top": 612.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "Code \u201CE\u201D on Line 1.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 592.56,
+        "right": 391.24,
+        "top": 601.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "Gross Income",
+      "rect": {
+        "left": 36,
+        "bottom": 589.46,
+        "right": 96.02,
+        "top": 598.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "For Form CT-W4 purposes, gross income means all income from",
+      "rect": {
+        "left": 36,
+        "bottom": 578.71,
+        "right": 298.78,
+        "top": 587.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "Military Spouses Residency Relief Act (MSRRA)",
+      "rect": {
+        "left": 313.2,
+        "bottom": 571.37,
+        "right": 517.74,
+        "top": 580.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "all sources, whether received in the form of money, goods, property,",
+      "rect": {
+        "left": 36,
+        "bottom": 567.96,
+        "right": 299,
+        "top": 576.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "If you are claiming an exemption from Connecticut income tax under",
+      "rect": {
+        "left": 313.2,
+        "bottom": 560.62,
+        "right": 581.77,
+        "top": 569.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "or services, not exempt from federal income tax, and includes any",
+      "rect": {
+        "left": 36,
+        "bottom": 557.21,
+        "right": 298.18,
+        "top": 566.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "the MSRRA, you must provide your employer with a copy of your",
+      "rect": {
+        "left": 313.2,
+        "bottom": 549.87,
+        "right": 575.95,
+        "top": 558.87
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "additions to income from Schedule 1 of Form CT-1040, Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 546.46,
+        "right": 298.78,
+        "top": 555.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "military spouse\u2019s Leave and Earnings Statement (LES) and a copy",
+      "rect": {
+        "left": 313.2,
+        "bottom": 539.12,
+        "right": 575.96,
+        "top": 548.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "Resident Income Tax Return, or Form CT-1040NR/PY, Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 535.71,
+        "right": 298.83,
+        "top": 544.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "of your military dependent ID card.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 528.37,
+        "right": 450.76,
+        "top": 537.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "Nonresident and Part\u2011Year Resident Income Tax Return.",
+      "rect": {
+        "left": 36,
+        "bottom": 524.96,
+        "right": 261.79,
+        "top": 533.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "See Informational Publication 2019(5), Connecticut Income Tax",
+      "rect": {
+        "left": 313.2,
+        "bottom": 513.12,
+        "right": 575.99,
+        "top": 522.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "Filing Status",
+      "rect": {
+        "left": 36,
+        "bottom": 505.21,
+        "right": 90.01,
+        "top": 514.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "Information for Armed Forces Personnel and Veterans.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 502.37,
+        "right": 531.81,
+        "top": 511.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "Generally, the filing status you expect to report on your Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 494.46,
+        "right": 303.54,
+        "top": 503.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "income tax return is the same as the filing status you expect to report",
+      "rect": {
+        "left": 36,
+        "bottom": 483.71,
+        "right": 306,
+        "top": 492.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "Employer Instructions",
+      "rect": {
+        "left": 397.09,
+        "bottom": 482.62,
+        "right": 492.11,
+        "top": 491.62
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "on your federal income tax return. However, special rules apply to",
+      "rect": {
+        "left": 36,
+        "bottom": 472.96,
+        "right": 297.74,
+        "top": 481.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "For any employee who does not complete Form CT-W4, you are",
+      "rect": {
+        "left": 313.2,
+        "bottom": 468.99,
+        "right": 576.02,
+        "top": 477.99
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "married individuals who file a joint federal return but have a different",
+      "rect": {
+        "left": 36,
+        "bottom": 462.21,
+        "right": 305.14,
+        "top": 471.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "required to withhold at the highest marginal rate of 6.99% without",
+      "rect": {
+        "left": 313.2,
+        "bottom": 458.24,
+        "right": 576.06,
+        "top": 467.24
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "residency status. Nonresidents and part-year residents should see",
+      "rect": {
+        "left": 36,
+        "bottom": 451.46,
+        "right": 298.79,
+        "top": 460.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "allowance for exemption. You are required to keep Form CT\u2011W4 in",
+      "rect": {
+        "left": 313.2,
+        "bottom": 447.49,
+        "right": 568.12,
+        "top": 456.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "the instructions to Form CT\u20111040NR/PY.",
+      "rect": {
+        "left": 36,
+        "bottom": 440.71,
+        "right": 197.55,
+        "top": 449.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "your files for each employee.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 436.74,
+        "right": 423.39,
+        "top": 445.74
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "Check Your Withholding",
+      "rect": {
+        "left": 36,
+        "bottom": 420.96,
+        "right": 140.51,
+        "top": 429.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "Report Certain Employees Claiming Exemption From",
+      "rect": {
+        "left": 313.2,
+        "bottom": 415.54,
+        "right": 570.48,
+        "top": 424.54
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "You may be underwithheld if any of the following apply:",
+      "rect": {
+        "left": 36,
+        "bottom": 410.21,
+        "right": 255.61,
+        "top": 419.21
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "Withholding to DRS",
+      "rect": {
+        "left": 313.2,
+        "bottom": 404.79,
+        "right": 397.69,
+        "top": 413.79
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "\u2022",
+      "rect": {
+        "left": 36,
+        "bottom": 397.66,
+        "right": 39.15,
+        "top": 406.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "You have more than one job;",
+      "rect": {
+        "left": 49.5,
+        "bottom": 397.66,
+        "right": 165.07,
+        "top": 406.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "Employers are required to file copies of Form CT\u2011W4 with DRS for",
+      "rect": {
+        "left": 313.2,
+        "bottom": 394.04,
+        "right": 576.68,
+        "top": 403.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "\u2022",
+      "rect": {
+        "left": 36,
+        "bottom": 385.11,
+        "right": 39.15,
+        "top": 394.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "You qualify under Certain Married Individuals; or",
+      "rect": {
+        "left": 49.5,
+        "bottom": 385.11,
+        "right": 243.1,
+        "top": 394.11
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "certain employees claiming \u201CE\u201D (no withholding is necessary). Mail",
+      "rect": {
+        "left": 313.2,
+        "bottom": 383.29,
+        "right": 575.98,
+        "top": 392.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "\u2022",
+      "rect": {
+        "left": 36,
+        "bottom": 372.56,
+        "right": 39.15,
+        "top": 381.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "You have substantial nonwage income.",
+      "rect": {
+        "left": 49.5,
+        "bottom": 372.56,
+        "right": 206.08,
+        "top": 381.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "copies of Forms CT-W4 to:",
+      "rect": {
+        "left": 313.2,
+        "bottom": 372.54,
+        "right": 420.72,
+        "top": 381.54
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "Department of Revenue Services",
+      "rect": {
+        "left": 340.2,
+        "bottom": 359.99,
+        "right": 472.75,
+        "top": 368.99
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "If you are underwithheld, you should consider adjusting your",
+      "rect": {
+        "left": 36,
+        "bottom": 357.31,
+        "right": 290,
+        "top": 366.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "PO Box 2931",
+      "rect": {
+        "left": 340.2,
+        "bottom": 349.24,
+        "right": 393.73,
+        "top": 358.24
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "withholding or making estimated payments using Form CT-1040ES,",
+      "rect": {
+        "left": 36,
+        "bottom": 346.56,
+        "right": 298.8,
+        "top": 355.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "Hartford CT 06104\u20112931",
+      "rect": {
+        "left": 340.2,
+        "bottom": 338.49,
+        "right": 437.74,
+        "top": 347.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "Estimated Connecticut Income Tax Payment Coupon for Individuals.",
+      "rect": {
+        "left": 36,
+        "bottom": 335.81,
+        "right": 298.8,
+        "top": 344.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "You may also select Withholding Code \u201CD\u201D to elect the highest level",
+      "rect": {
+        "left": 36,
+        "bottom": 325.06,
+        "right": 298.79,
+        "top": 334.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "Report New and Rehired Employees to the Department of Labor",
+      "rect": {
+        "left": 313.2,
+        "bottom": 317.29,
+        "right": 580.95,
+        "top": 326.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "of withholding.",
+      "rect": {
+        "left": 36,
+        "bottom": 314.31,
+        "right": 93.53,
+        "top": 323.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "New employees are workers not previously employed by your",
+      "rect": {
+        "left": 313.2,
+        "bottom": 306.54,
+        "right": 575.87,
+        "top": 315.54
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "If you owe $1,000 or more, after subtracting from your Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 299.06,
+        "right": 300.42,
+        "top": 308.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "business, or workers rehired after having been separated from your",
+      "rect": {
+        "left": 313.2,
+        "bottom": 295.79,
+        "right": 575.97,
+        "top": 304.79
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "income tax the amount withheld from your income for the prior",
+      "rect": {
+        "left": 36,
+        "bottom": 288.31,
+        "right": 287.72,
+        "top": 297.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "business for more than sixty consecutive days.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 285.04,
+        "right": 499.28,
+        "top": 294.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "taxable year, and any PE Tax Credit, you may be subject to interest",
+      "rect": {
+        "left": 36,
+        "bottom": 277.56,
+        "right": 304.42,
+        "top": 286.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 207,
+      "text": "Employers with offices in Connecticut or transacting business in",
+      "rect": {
+        "left": 313.2,
+        "bottom": 269.79,
+        "right": 567.62,
+        "top": 278.79
+      }
+    },
+    {
+      "page": 2,
+      "order": 208,
+      "text": "on the underpayment at the rate of 1% per month or fraction of a",
+      "rect": {
+        "left": 36,
+        "bottom": 266.81,
+        "right": 298.84,
+        "top": 275.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 209,
+      "text": "Connecticut are required to report new hires to the Department of",
+      "rect": {
+        "left": 313.2,
+        "bottom": 259.04,
+        "right": 576.02,
+        "top": 268.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 210,
+      "text": "month.",
+      "rect": {
+        "left": 36,
+        "bottom": 256.06,
+        "right": 63.51,
+        "top": 265.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 211,
+      "text": "Labor (DOL) within 20 days of the date of hire.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 248.29,
+        "right": 497.79,
+        "top": 257.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 212,
+      "text": "Certain Married Individuals",
+      "rect": {
+        "left": 36,
+        "bottom": 240.81,
+        "right": 151.53,
+        "top": 249.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 213,
+      "text": "New hires can be reported by:",
+      "rect": {
+        "left": 313.2,
+        "bottom": 233.04,
+        "right": 433.25,
+        "top": 242.04
+      }
+    },
+    {
+      "page": 2,
+      "order": 214,
+      "text": "If you are a married individual filing jointly and you and your spouse",
+      "rect": {
+        "left": 36,
+        "bottom": 230.06,
+        "right": 298.76,
+        "top": 239.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 215,
+      "text": "\u2022 Using the Connecticut New Hire Reporting website at",
+      "rect": {
+        "left": 313.2,
+        "bottom": 220.49,
+        "right": 576.08,
+        "top": 229.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 216,
+      "text": "both select Withholding Code \u201CA,\u201D you may have too much or too",
+      "rect": {
+        "left": 36,
+        "bottom": 219.31,
+        "right": 298.77,
+        "top": 228.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 217,
+      "text": "www1.ctdol.state.ct.us/newhires;",
+      "rect": {
+        "left": 324.2,
+        "bottom": 209.74,
+        "right": 465.24,
+        "top": 218.74
+      }
+    },
+    {
+      "page": 2,
+      "order": 218,
+      "text": "little Connecticut income tax withheld from your pay. This is because",
+      "rect": {
+        "left": 36,
+        "bottom": 208.56,
+        "right": 302.65,
+        "top": 217.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 219,
+      "text": "the phase\u2011out of the personal exemption and credit is based on your",
+      "rect": {
+        "left": 36,
+        "bottom": 197.81,
+        "right": 301.82,
+        "top": 206.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 220,
+      "text": "\u2022 Faxing copies of completed Forms CT\u2011W4 to 800-816-1108; or",
+      "rect": {
+        "left": 313.2,
+        "bottom": 197.19,
+        "right": 575.31,
+        "top": 206.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 221,
+      "text": "combined incomes. The withholding tables cannot reflect your exact",
+      "rect": {
+        "left": 36,
+        "bottom": 187.06,
+        "right": 300.49,
+        "top": 196.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 222,
+      "text": "\u2022 Mailing copies of completed Forms CT-W4 to:",
+      "rect": {
+        "left": 313.2,
+        "bottom": 184.64,
+        "right": 506.75,
+        "top": 193.64
+      }
+    },
+    {
+      "page": 2,
+      "order": 223,
+      "text": "withholding requirement without considering the income of your",
+      "rect": {
+        "left": 36,
+        "bottom": 176.31,
+        "right": 298.69,
+        "top": 185.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 224,
+      "text": "Connecticut Department of Labor",
+      "rect": {
+        "left": 340.2,
+        "bottom": 172.09,
+        "right": 472.76,
+        "top": 181.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 225,
+      "text": "spouse.",
+      "rect": {
+        "left": 36,
+        "bottom": 165.56,
+        "right": 66.89,
+        "top": 174.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 226,
+      "text": "Office of Research, CT\u2011W4",
+      "rect": {
+        "left": 340.2,
+        "bottom": 161.34,
+        "right": 448,
+        "top": 170.34
+      }
+    },
+    {
+      "page": 2,
+      "order": 227,
+      "text": "200 Folly Brook Blvd",
+      "rect": {
+        "left": 340.2,
+        "bottom": 150.59,
+        "right": 422.73,
+        "top": 159.59
+      }
+    },
+    {
+      "page": 2,
+      "order": 228,
+      "text": "To minimize this problem and determine if you need to adjust your",
+      "rect": {
+        "left": 36,
+        "bottom": 150.31,
+        "right": 299.07,
+        "top": 159.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 229,
+      "text": "Wethersfield CT 06109",
+      "rect": {
+        "left": 340.2,
+        "bottom": 139.84,
+        "right": 432.23,
+        "top": 148.84
+      }
+    },
+    {
+      "page": 2,
+      "order": 230,
+      "text": "withholding using Line 2 or Line 3, see Supplemental Tables in",
+      "rect": {
+        "left": 36,
+        "bottom": 139.56,
+        "right": 298.78,
+        "top": 148.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 231,
+      "text": "Informational Publication 2026(7), Is My Connecticut Withholding",
+      "rect": {
+        "left": 36,
+        "bottom": 128.81,
+        "right": 298.79,
+        "top": 137.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 232,
+      "text": "For more information on DOL requirements or for alternative",
+      "rect": {
+        "left": 313.2,
+        "bottom": 124.59,
+        "right": 575.84,
+        "top": 133.59
+      }
+    },
+    {
+      "page": 2,
+      "order": 233,
+      "text": "Correct?",
+      "rect": {
+        "left": 36,
+        "bottom": 118.06,
+        "right": 70.51,
+        "top": 127.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 234,
+      "text": "reporting options, visit the DOL website at portal.ct.gov/dol or call",
+      "rect": {
+        "left": 313.2,
+        "bottom": 113.84,
+        "right": 576,
+        "top": 122.84
+      }
+    },
+    {
+      "page": 2,
+      "order": 235,
+      "text": "DOL at 860\u2011263\u20116310.",
+      "rect": {
+        "left": 313.2,
+        "bottom": 103.09,
+        "right": 402.75,
+        "top": 112.09
+      }
+    },
+    {
+      "page": 2,
+      "order": 236,
+      "text": "Nonresident Employees Working Partly Within and Partly",
+      "rect": {
+        "left": 36,
+        "bottom": 102.81,
+        "right": 280.56,
+        "top": 111.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 237,
+      "text": "Outside of Connecticut",
+      "rect": {
+        "left": 36,
+        "bottom": 92.06,
+        "right": 135.01,
+        "top": 101.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 238,
+      "text": "If you work partly within and partly outside of Connecticut for",
+      "rect": {
+        "left": 36,
+        "bottom": 76.81,
+        "right": 298.66,
+        "top": 85.81
+      }
+    },
+    {
+      "page": 2,
+      "order": 239,
+      "text": "the same employer, you should also complete Form CT-W4NA,",
+      "rect": {
+        "left": 36,
+        "bottom": 66.06,
+        "right": 298.8,
+        "top": 75.06
+      }
+    },
+    {
+      "page": 2,
+      "order": 240,
+      "text": "Employee\u2019s Withholding or Exemption Certificate - Nonresident",
+      "rect": {
+        "left": 36,
+        "bottom": 55.31,
+        "right": 292.16,
+        "top": 64.31
+      }
+    },
+    {
+      "page": 2,
+      "order": 241,
+      "text": "Apportionment, and provide it to your employer. The information on",
+      "rect": {
+        "left": 36,
+        "bottom": 44.56,
+        "right": 298.76,
+        "top": 53.56
+      }
+    },
+    {
+      "page": 2,
+      "order": 242,
+      "text": "Page 2 of 2",
+      "rect": {
+        "left": 529.96,
+        "bottom": 26.46,
+        "right": 576,
+        "top": 35.46
+      }
+    },
+    {
+      "page": 2,
+      "order": 243,
+      "text": "Form CT-W4 (Rev. 12/25)",
+      "rect": {
+        "left": 36,
+        "bottom": 26.46,
+        "right": 128.33,
+        "top": 34.46
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<doctag><section_header_level_1><loc_146><loc_34><loc_356><loc_45>LISTS OF ACCEPTABLE DOCUMENTS</section_header_level_1>
+<text><loc_121><loc_46><loc_396><loc_54>All documents containing an expiration date must be unexpired.</text>
+<text><loc_105><loc_54><loc_397><loc_72>* Documents extended by the issuing authority are considered unexpired. Employees may present one selection from List A or a</text>
+<text><loc_126><loc_72><loc_376><loc_80>combination of one selection from List B and one selection from List C.</text>
+<text><loc_65><loc_81><loc_438><loc_89>Examples of many of these documents appear in the Handbook for Employers (M-274).</text>
+<otsl><loc_29><loc_96><loc_471><loc_458></otsl>
+<text><loc_29><loc_463><loc_299><loc_470>*Refer to the Employment Authorization Extensions page on I-9 Central for more information.</text>
+<page_footer><loc_29><loc_481><loc_115><loc_488>Form I-9 Edition 01/20/25</page_footer>
+<page_footer><loc_437><loc_481><loc_471><loc_488>Page 2 of 4</page_footer>
+</doctag>

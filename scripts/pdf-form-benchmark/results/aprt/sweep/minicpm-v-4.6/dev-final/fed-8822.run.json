@@ -1,0 +1,22 @@
+{
+ "model": "minicpm-v-4.6",
+ "repo": "mlx-community/MiniCPM-V-4.6-5bit",
+ "mode": "split",
+ "prompt": "final",
+ "max_tokens": 8192,
+ "seconds": 42,
+ "pages": [
+  {
+   "page": 1,
+   "blanks": 25,
+   "fell_back": false
+  },
+  {
+   "page": 2,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  }
+ ],
+ "fell_back": []
+}

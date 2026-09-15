@@ -72,6 +72,12 @@ internal static class PdfImportQualityAssessor
     {
         if (string.IsNullOrWhiteSpace(label)) return true;
         var trimmed = label.Trim();
+
+        // A label with no letters at all is not a question. ct-w4's author
+        // labelled three fields "1", "2" and "3", which the digit-and-letter
+        // test below lets through because it requires a letter to be present.
+        if (!trimmed.Any(char.IsLetter)) return true;
+
         return trimmed.Contains('[') || trimmed.StartsWith('#') ||
                (!trimmed.Contains(' ') && trimmed.Length <= 12 && trimmed.Any(char.IsDigit) && trimmed.Any(char.IsLetter));
     }

@@ -1,0 +1,149 @@
+{
+  "sections": [
+    {
+      "id": "supplement-b-header",
+      "title": "Supplement B, Reverification and Rehire (formerly Section 3)"
+    },
+    {
+      "id": "instructions-section",
+      "title": "Instructions"
+    },
+    {
+      "id": "reverification-section",
+      "title": "Reverification"
+    },
+    {
+      "id": "attestation-section",
+      "title": "I attest, under penalty of perjury..."
+    },
+    {
+      "id": "additional-info-section",
+      "title": "Additional Information"
+    },
+    {
+      "id": "alternative-procedure-section",
+      "title": "Check here if you used an alternative procedure authorized by DHS to examine documents."
+    }
+  ],
+  "fields": [
+    {
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "supplement-b-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "supplement-b-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "supplement-b-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Date of Rehire (if applicable)",
+      "section_id": "instructions-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "New Name (if applicable)",
+      "section_id": "instructions-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "reverification-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Last Name (Family Name)",
+      "section_id": "reverification-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "First Name (Given Name)",
+      "section_id": "reverification-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Middle Initial",
+      "section_id": "reverification-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Document Title",
+      "section_id": "reverification-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Document Number (if any)",
+      "section_id": "reverification-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "reverification-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "attestation-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "attestation-section",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "attestation-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "additional-info-section",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "alternative-procedure-section",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    }
+  ]
+}

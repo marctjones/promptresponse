@@ -1,0 +1,46 @@
+<doctag><section_header_level_1><loc_192><loc_21><loc_308><loc_30>Form CT-W4 Instructions</section_header_level_1>
+<section_header_level_1><loc_71><loc_33><loc_203><loc_41>Employee General Instructions</section_header_level_1>
+<text><loc_29><loc_43><loc_246><loc_71>Form CT-W4 , Employee's Withholding Certificate , provides your employer with the necessary information to withhold the correct amount of Connecticut income tax from your wages to ensure that you will not be under withheld or over withheld.</text>
+<text><loc_29><loc_73><loc_246><loc_94>You are required to pay Connecticut income tax as income is earned or received during the year. You should complete a new Form CT-W4 at least once a year or if your tax situation changes.</text>
+<text><loc_29><loc_97><loc_246><loc_117>If your circumstances change, such as you receive a bonus or your filing status changes, you must furnish your employer with a new Form CT-W4 within ten days of the change.</text>
+<section_header_level_1><loc_29><loc_123><loc_79><loc_130>Gross Income</section_header_level_1>
+<text><loc_29><loc_130><loc_246><loc_170>For Form CT-W4 purposes, gross income means all income from all sources, whether received in the form of money, goods, property, or services, not exempt from federal income tax, and includes any additions to income from Schedule 1 of Form CT-1040 , Connecticut Resident Income Tax Return , or Form CT-1040NR/PY , Connecticut Nonresident and Part-Year Resident Income Tax Return .</text>
+<section_header_level_1><loc_29><loc_176><loc_74><loc_183>Filing Status</section_header_level_1>
+<text><loc_29><loc_183><loc_246><loc_223>Generally, the filing status you expect to report on your Connecticut income tax return is the same as the filing status you expect to report on your federal income tax return. However, special rules apply to married individuals who file a joint federal return but have a different residency status. Nonresidents and part-year residents should see the instructions to Form CT-1040NR/PY.</text>
+<section_header_level_1><loc_29><loc_229><loc_115><loc_236>Check Your Withholding</section_header_level_1>
+<text><loc_29><loc_236><loc_209><loc_243>You may be under withheld if any of the following apply:</text>
+<unordered_list><list_item><loc_29><loc_244><loc_135><loc_251>· You have more than one job;</list_item>
+<list_item><loc_29><loc_252><loc_199><loc_259>· You qualify under Certain Married Individuals ; or</list_item>
+<list_item><loc_29><loc_260><loc_168><loc_267>· You have substantial nonwage income.</list_item>
+</unordered_list>
+<text><loc_29><loc_270><loc_246><loc_303>If you are under withheld, you should consider adjusting your withholding or making estimated payments using Form CT-1040ES , Estimated Connecticut Income Tax Payment Coupon for Individuals . You may also select Withholding Code "D" to elect the highest level of withholding.</text>
+<text><loc_29><loc_306><loc_246><loc_340>If you owe $1,000 or more, after subtracting from your Connecticut income tax the amount withheld from your income for the prior taxable year, and any PE Tax Credit, you may be subject to interest on the underpayment at the rate of 1% per month or fraction of a month.</text>
+<section_header_level_1><loc_29><loc_344><loc_124><loc_351>Certain Married Individuals</section_header_level_1>
+<text><loc_29><loc_351><loc_246><loc_397>If you are a married individual filing jointly and you and your spouse both select Withholding Code "A," you may have too much or too little Connecticut income tax withheld from your pay. This is because the phase-out of the personal exemption and credit is based on your combined incomes. The withholding tables cannot reflect your exact withholding requirement without considering the income of your spouse.</text>
+<text><loc_29><loc_400><loc_246><loc_427>To minimize this problem and determine if you need to adjust your withholding using Line 2 or Line 3, see Supplemental Tables in Informational Publication 2026(7) , Is My Connecticut Withholding Correct?</text>
+<section_header_level_1><loc_29><loc_430><loc_231><loc_444>Nonresident Employees Working Partly Within and Partly Outside of Connecticut</section_header_level_1>
+<text><loc_29><loc_446><loc_246><loc_474>If you work partly within and partly outside of Connecticut for the same employer, you should also complete Form CT-W4NA , Employee's Withholding or Exemption Certificate Nonresident Apportionment , and provide it to your employer. The information on</text>
+<page_footer><loc_29><loc_479><loc_104><loc_485>Form CT-W4 (Rev. 12/25)</page_footer>
+<text><loc_255><loc_33><loc_473><loc_73>Form CT-W4NA and Form CT-W4 will help your employer determine how much to withhold from your wages for services performed within Connecticut. Residents of states with a "convenience of the employer" test will be subject to similar rules for work performed for a Connecticut employer. Any nonresident who expects to have no Connecticut income tax liability should choose Withholding Code "E."</text>
+<section_header_level_1><loc_255><loc_79><loc_391><loc_86>Armed Forces Personnel and Veterans</section_header_level_1>
+<text><loc_255><loc_86><loc_473><loc_127>If you are a Connecticut resident, your armed forces pay is subject to Connecticut income tax withholding unless you qualify as a nonresident for Connecticut income tax purposes. If you qualify as a nonresident, you may request that no Connecticut income tax be withheld from your armed forces pay by entering Withholding Code "E" on Line 1.</text>
+<section_header_level_1><loc_255><loc_134><loc_423><loc_141>Military Spouses Residency Relief Act (MSRRA)</section_header_level_1>
+<text><loc_255><loc_141><loc_473><loc_168>If you are claiming an exemption from Connecticut income tax under the MSRRA, you must provide your employer with a copy of your military spouse's Leave and Earnings Statement (LES) and a copy of your military dependent ID card.</text>
+<text><loc_255><loc_171><loc_473><loc_185>See Informational Publication 2019(5) , Connecticut Income Tax Information for Armed Forces Personnel and Veterans .</text>
+<section_header_level_1><loc_324><loc_191><loc_402><loc_198>Employer Instructions</section_header_level_1>
+<text><loc_255><loc_199><loc_473><loc_226>For any employee who does not complete Form CT-W4, you are required to withhold at the highest marginal rate of 6.99% without allowance for exemption. You are required to keep Form CT-W4 in your files for each employee.</text>
+<section_header_level_1><loc_255><loc_232><loc_473><loc_246>Report Certain Employees Claiming Exemption From Withholding to DRS</section_header_level_1>
+<text><loc_255><loc_246><loc_473><loc_266>Employers are required to file copies of Form CT-W4 with DRS for certain employees claiming "E" (no withholding is necessary). Mail copies of Forms CT-W4 to:</text>
+<text><loc_277><loc_268><loc_386><loc_283>Department of Revenue Services PO Box 2931</text>
+<text><loc_277><loc_283><loc_357><loc_289>Hartford CT 06104-2931</text>
+<text><loc_255><loc_296><loc_473><loc_323>Report New and Rehired Employees to the Department of Labor New employees are workers not previously employed by your business, or workers rehired after having been separated from your business for more than sixty consecutive days.</text>
+<text><loc_255><loc_325><loc_473><loc_345>Employers with offices in Connecticut or transacting business in Connecticut are required to report new hires to the Department of Labor (DOL) within 20 days of the date of hire.</text>
+<text><loc_255><loc_348><loc_354><loc_355>New hires can be reported by:</text>
+<unordered_list><list_item><loc_255><loc_356><loc_473><loc_369>· Using the Connecticut New Hire Reporting website at www1.ctdol.state.ct.us/newhires ;</list_item>
+<list_item><loc_255><loc_370><loc_470><loc_377>· Faxing copies of completed Forms CT-W4 to 800-816-1108 ; or</list_item>
+<list_item><loc_255><loc_378><loc_414><loc_385>· Mailing copies of completed Forms CT-W4 to:</list_item>
+</unordered_list>
+<text><loc_277><loc_386><loc_386><loc_415>Connecticut Department of Labor Office of Research, CT-W4 200 Folly Brook Blvd Wethersfield CT 06109</text>
+<text><loc_255><loc_418><loc_473><loc_438>For more information on DOL requirements or for alternative reporting options, visit the DOL website at portal.ct.gov/dol or call DOL at 860-263-6310.</text>
+<page_footer><loc_433><loc_478><loc_471><loc_485>Page 2 of 2</page_footer>
+</doctag>

@@ -1,0 +1,103 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a83"
+  },
+  "sections": [
+    {
+      "id": "special-power-of-attorney",
+      "title": "Special Power of Attorney",
+      "prompts": [
+        {
+          "id": "know-all-persons-by-these-presents-which-are-int",
+          "label": "KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "hereby-appoint",
+          "label": "HEREBY APPOINT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-full-name-above",
+          "label": "Print full name above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "in-witness-whereof-i-have-hereunto-signed-my-nam",
+          "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "personally-appeared",
+          "label": "PERSONALLY APPEARED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signer-and-sealer-of-the-foregoing-power-of-atto",
+          "label": "SIGNER AND SEALER OF THE FOREGOING POWER OF ATTORNEY, WHO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "acknowledged-the-same-as-his-her-free-act-and-de",
+          "label": "ACKNOWLEDGED THE SAME AS HIS HER FREE ACT AND DEED, BEFORE ME THIS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "day",
+          "label": "DAY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "notary-public-justice-of-the-peace",
+          "label": "NOTARY PUBLIC / JUSTICE OF THE PEACE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expresses",
+          "label": "MY COMMISSION EXPRESSES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

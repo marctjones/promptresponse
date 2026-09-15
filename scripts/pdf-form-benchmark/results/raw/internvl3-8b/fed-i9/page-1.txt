@@ -1,0 +1,309 @@
+```json
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Employee Information and Attestation"
+    },
+    {
+      "id": "section-2",
+      "title": "Employer Review and Verification"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Last Name (Family Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle Initial (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Other Last Names Used (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (Street Number and Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Apt. Number (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City or Town",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP Code",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Date of Birth (mm/dd/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "U.S. Social Security Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "Employee's Email Address",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "email",
+      "required": false
+    },
+    {
+      "label": "Employee's Telephone Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": false
+    },
+    {
+      "label": "I am aware that federal law provides for imprisonment and/or fines for false statements, or the use of false documents, in connection with the completion of this form.",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "1. A citizen of the United States",
+        "2. A noncitizen national of the United States",
+        "3. A lawful permanent resident",
+        "4. An alien authorized to work until (exp. date, if any)"
+      ]
+    },
+    {
+      "label": "If you check Item Number 4, enter one of these:",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "USCIS A-Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form I-94 Admission Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign Passport Number and Country of Issuance",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Signature of Employee",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "If a preparer and/or translator assisted you in completing Section 1, that person MUST complete the Preparer and/or Translator Certification on Page 3.",
+      "section_id": "section-1",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Document Title 1",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Document Title 2 (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Document Title 3 (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": false
+    },
+    {
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Last Name, First Name and Title of Employer or Authorized Representative",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "section-2",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "First Day of Employment (mm/dd/yyyy)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Employer's Business or Organization Name",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}
+```

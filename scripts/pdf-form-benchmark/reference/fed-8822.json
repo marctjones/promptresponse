@@ -1,0 +1,3340 @@
+{
+  "formId": "fed-8822",
+  "pageCount": 2,
+  "pages": [
+    {
+      "number": 1,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 2,
+      "width": 611.98,
+      "height": 791.97
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "declarationOrder": 0,
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 649.97,
+        "right": 65.6,
+        "top": 657.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "declarationOrder": 1,
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 566,
+        "bottom": 625.97,
+        "right": 574,
+        "top": 633.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "declarationOrder": 2,
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 601.97,
+        "right": 65.6,
+        "top": 609.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "declarationOrder": 3,
+      "name": "topmostSubform[0].Page1[0].f1_1[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 158.4,
+        "bottom": 563.97,
+        "right": 324,
+        "top": 575.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "declarationOrder": 4,
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 446.4,
+        "bottom": 563.97,
+        "right": 576,
+        "top": 575.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "declarationOrder": 5,
+      "name": "topmostSubform[0].Page1[0].f1_3[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 527.97,
+        "right": 439.2,
+        "top": 551.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "declarationOrder": 6,
+      "name": "topmostSubform[0].Page1[0].f1_4[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 439.2,
+        "bottom": 527.97,
+        "right": 576,
+        "top": 551.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "declarationOrder": 7,
+      "name": "topmostSubform[0].Page1[0].f1_5[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 491.97,
+        "right": 439.2,
+        "top": 515.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "declarationOrder": 8,
+      "name": "topmostSubform[0].Page1[0].f1_6[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 439.2,
+        "bottom": 491.97,
+        "right": 576,
+        "top": 515.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "declarationOrder": 9,
+      "name": "topmostSubform[0].Page1[0].f1_7[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 455.97,
+        "right": 576,
+        "top": 479.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "declarationOrder": 10,
+      "name": "topmostSubform[0].Page1[0].f1_8[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 419.97,
+        "right": 576,
+        "top": 443.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "declarationOrder": 11,
+      "name": "topmostSubform[0].Page1[0].f1_9[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 383.97,
+        "right": 576,
+        "top": 401.22
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "declarationOrder": 12,
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 359.97,
+        "right": 324,
+        "top": 373.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "declarationOrder": 13,
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 324,
+        "bottom": 359.97,
+        "right": 504,
+        "top": 373.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "declarationOrder": 14,
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 504,
+        "bottom": 359.97,
+        "right": 576,
+        "top": 373.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "declarationOrder": 15,
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 323.97,
+        "right": 576,
+        "top": 341.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "declarationOrder": 16,
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 299.97,
+        "right": 324,
+        "top": 313.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "declarationOrder": 17,
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 324,
+        "bottom": 299.97,
+        "right": 504,
+        "top": 313.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "declarationOrder": 18,
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 504,
+        "bottom": 299.97,
+        "right": 576,
+        "top": 313.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 19,
+      "declarationOrder": 19,
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 263.97,
+        "right": 576,
+        "top": 281.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 20,
+      "declarationOrder": 20,
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 36,
+        "bottom": 239.97,
+        "right": 324,
+        "top": 253.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 21,
+      "declarationOrder": 21,
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 324,
+        "bottom": 239.97,
+        "right": 504,
+        "top": 253.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 22,
+      "declarationOrder": 22,
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 504,
+        "bottom": 239.97,
+        "right": 576,
+        "top": 253.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 23,
+      "declarationOrder": 23,
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 288,
+        "bottom": 203.97,
+        "right": 576,
+        "top": 227.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 24,
+      "declarationOrder": 24,
+      "name": "topmostSubform[0].Page1[0].f1_22[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 338.4,
+        "bottom": 143.96,
+        "right": 576,
+        "top": 155.97
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "Form 8822",
+      "rect": {
+        "left": 36,
+        "bottom": 737.83,
+        "right": 106.15,
+        "top": 761.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Change of Address",
+      "rect": {
+        "left": 238.64,
+        "bottom": 742.99,
+        "right": 373.36,
+        "top": 758.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "(For Individual, Gift, Estate, or Generation-Skipping Transfer Tax Returns)",
+      "rect": {
+        "left": 141.6,
+        "bottom": 727.11,
+        "right": 470.4,
+        "top": 737.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "OMB No. 1545-1163",
+      "rect": {
+        "left": 500.31,
+        "bottom": 724.41,
+        "right": 565.29,
+        "top": 731.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "(Rev. February 2021)",
+      "rect": {
+        "left": 36,
+        "bottom": 723.47,
+        "right": 100.83,
+        "top": 730.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "\u25B6 Please type or print. \u25B6 See instructions on back. \u25B6 Do not attach this form to your return.",
+      "rect": {
+        "left": 130.52,
+        "bottom": 713.92,
+        "right": 481.48,
+        "top": 721.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "Department of the Treasury",
+      "rect": {
+        "left": 36,
+        "bottom": 708.97,
+        "right": 118.4,
+        "top": 715.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "\u25B6 Information about Form 8822 is available at www.irs.gov/form8822.",
+      "rect": {
+        "left": 174.68,
+        "bottom": 702.5,
+        "right": 437.32,
+        "top": 710.5
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "Internal Revenue Service",
+      "rect": {
+        "left": 36,
+        "bottom": 700.97,
+        "right": 110.54,
+        "top": 707.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "Part I",
+      "rect": {
+        "left": 41.22,
+        "bottom": 686.83,
+        "right": 66.78,
+        "top": 696.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "Complete This Part To Change Your Home Mailing Address",
+      "rect": {
+        "left": 86,
+        "bottom": 686.83,
+        "right": 368.35,
+        "top": 696.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "Check all boxes this change affects:",
+      "rect": {
+        "left": 36,
+        "bottom": 669.96,
+        "right": 182.33,
+        "top": 678.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "1",
+      "rect": {
+        "left": 45.4,
+        "bottom": 651.54,
+        "right": 50.4,
+        "top": 660.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+      "rect": {
+        "left": 72,
+        "bottom": 650.54,
+        "right": 344.75,
+        "top": 659.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "\u25B6 If your last return was a joint return and you are now establishing a residence separate from the spouse with whom",
+      "rect": {
+        "left": 72,
+        "bottom": 639.34,
+        "right": 554.35,
+        "top": 648.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "you filed that return, check here . . . . . . . . . . . . . . . . . . . . . . . . . . . \u25B6",
+      "rect": {
+        "left": 80.95,
+        "bottom": 628.17,
+        "right": 553.46,
+        "top": 637.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "2",
+      "rect": {
+        "left": 45.4,
+        "bottom": 603.54,
+        "right": 50.4,
+        "top": 612.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+      "rect": {
+        "left": 72,
+        "bottom": 602.54,
+        "right": 380.73,
+        "top": 611.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "\u25B6 For Forms 706 and 706-NA, enter the decedent\u2019s name and social security number below.",
+      "rect": {
+        "left": 72,
+        "bottom": 590.54,
+        "right": 444.27,
+        "top": 599.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "\u25B6 Decedent\u2019s name",
+      "rect": {
+        "left": 72,
+        "bottom": 567.17,
+        "right": 152.2,
+        "top": 576.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "\u25B6 Social security number",
+      "rect": {
+        "left": 338.4,
+        "bottom": 567.17,
+        "right": 439.92,
+        "top": 576.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "3a",
+      "rect": {
+        "left": 45.43,
+        "bottom": 554.54,
+        "right": 55.6,
+        "top": 563.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "3b",
+      "rect": {
+        "left": 448.3,
+        "bottom": 554.54,
+        "right": 458.8,
+        "top": 563.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "Your name (first name, initial, and last name)",
+      "rect": {
+        "left": 64.8,
+        "bottom": 554.47,
+        "right": 205.6,
+        "top": 561.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "Your social security number",
+      "rect": {
+        "left": 468,
+        "bottom": 553.97,
+        "right": 561.58,
+        "top": 560.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "4a",
+      "rect": {
+        "left": 45.43,
+        "bottom": 518.54,
+        "right": 55.6,
+        "top": 527.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "4b",
+      "rect": {
+        "left": 448.3,
+        "bottom": 518.54,
+        "right": 458.8,
+        "top": 527.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "Spouse\u2019s name (first name, initial, and last name)",
+      "rect": {
+        "left": 64.8,
+        "bottom": 518.47,
+        "right": 220.52,
+        "top": 525.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "Spouse\u2019s social security number",
+      "rect": {
+        "left": 468,
+        "bottom": 517.97,
+        "right": 574.32,
+        "top": 524.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "5a",
+      "rect": {
+        "left": 45.43,
+        "bottom": 482.54,
+        "right": 55.6,
+        "top": 491.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "Your prior name(s). See instructions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 482.47,
+        "right": 182.89,
+        "top": 489.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "5b",
+      "rect": {
+        "left": 45.1,
+        "bottom": 446.54,
+        "right": 55.6,
+        "top": 455.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "Spouse\u2019s prior name(s). See instructions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 446.47,
+        "right": 197.8,
+        "top": 453.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "6a",
+      "rect": {
+        "left": 45.43,
+        "bottom": 410.54,
+        "right": 55.6,
+        "top": 419.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below,",
+      "rect": {
+        "left": 64.8,
+        "bottom": 411.97,
+        "right": 541.77,
+        "top": 418.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "see instructions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 404.47,
+        "right": 116.01,
+        "top": 411.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "Foreign country name",
+      "rect": {
+        "left": 38,
+        "bottom": 376.97,
+        "right": 106.46,
+        "top": 383.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "Foreign province/county",
+      "rect": {
+        "left": 326,
+        "bottom": 376.97,
+        "right": 402.1,
+        "top": 383.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "Foreign postal code",
+      "rect": {
+        "left": 506,
+        "bottom": 376.97,
+        "right": 568.36,
+        "top": 383.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "6b",
+      "rect": {
+        "left": 45.1,
+        "bottom": 350.54,
+        "right": 55.6,
+        "top": 359.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "Spouse\u2019s old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also",
+      "rect": {
+        "left": 64.8,
+        "bottom": 351.97,
+        "right": 552.4,
+        "top": 358.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "complete spaces below, see instructions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 344.47,
+        "right": 194.19,
+        "top": 351.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "Foreign country name",
+      "rect": {
+        "left": 38,
+        "bottom": 316.97,
+        "right": 106.46,
+        "top": 323.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "Foreign province/county",
+      "rect": {
+        "left": 326,
+        "bottom": 316.97,
+        "right": 402.1,
+        "top": 323.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "Foreign postal code",
+      "rect": {
+        "left": 506,
+        "bottom": 316.97,
+        "right": 568.36,
+        "top": 323.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "7",
+      "rect": {
+        "left": 45.4,
+        "bottom": 290.54,
+        "right": 50.4,
+        "top": 299.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see",
+      "rect": {
+        "left": 64.8,
+        "bottom": 291.97,
+        "right": 541.51,
+        "top": 298.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "instructions.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 284.47,
+        "right": 103.05,
+        "top": 291.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "Foreign country name",
+      "rect": {
+        "left": 38,
+        "bottom": 256.97,
+        "right": 106.46,
+        "top": 263.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "Foreign province/county",
+      "rect": {
+        "left": 326,
+        "bottom": 256.97,
+        "right": 402.1,
+        "top": 263.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "Foreign postal code",
+      "rect": {
+        "left": 506,
+        "bottom": 256.97,
+        "right": 568.36,
+        "top": 263.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "Part II",
+      "rect": {
+        "left": 39.75,
+        "bottom": 230.83,
+        "right": 68.25,
+        "top": 240.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "Signature",
+      "rect": {
+        "left": 86,
+        "bottom": 230.83,
+        "right": 131.93,
+        "top": 240.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "Daytime telephone number of person to contact (optional) \u25B6",
+      "rect": {
+        "left": 36,
+        "bottom": 212.65,
+        "right": 282.23,
+        "top": 222.65
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "\u25B2",
+      "rect": {
+        "left": 77.18,
+        "bottom": 155.88,
+        "right": 86.18,
+        "top": 179.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "\u25B2",
+      "rect": {
+        "left": 329.18,
+        "bottom": 155.88,
+        "right": 338.18,
+        "top": 179.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "Sign",
+      "rect": {
+        "left": 36,
+        "bottom": 159.6,
+        "right": 61.33,
+        "top": 171.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "Your signature",
+      "rect": {
+        "left": 86.4,
+        "bottom": 160.97,
+        "right": 132.03,
+        "top": 167.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "Date",
+      "rect": {
+        "left": 277.6,
+        "bottom": 160.97,
+        "right": 292.25,
+        "top": 167.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "Signature of representative, executor, administrator/if applicable Date",
+      "rect": {
+        "left": 338.4,
+        "bottom": 160.97,
+        "right": 551.45,
+        "top": 167.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "Here",
+      "rect": {
+        "left": 36,
+        "bottom": 145.2,
+        "right": 63.34,
+        "top": 157.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "\u25B2",
+      "rect": {
+        "left": 77.18,
+        "bottom": 131.88,
+        "right": 86.18,
+        "top": 155.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "\u25B2",
+      "rect": {
+        "left": 329.18,
+        "bottom": 131.88,
+        "right": 338.18,
+        "top": 155.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "If joint return, spouse\u2019s signature",
+      "rect": {
+        "left": 86.4,
+        "bottom": 136.97,
+        "right": 188.82,
+        "top": 143.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Date",
+      "rect": {
+        "left": 277.6,
+        "bottom": 136.97,
+        "right": 292.25,
+        "top": 143.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Title",
+      "rect": {
+        "left": 338.4,
+        "bottom": 136.97,
+        "right": 351.49,
+        "top": 143.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "Form 8822 (Rev. 2-2021)",
+      "rect": {
+        "left": 487.05,
+        "bottom": 122.83,
+        "right": 576,
+        "top": 132.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "For Privacy Act and Paperwork Reduction Act Notice, see back of form.",
+      "rect": {
+        "left": 36,
+        "bottom": 122.26,
+        "right": 308.88,
+        "top": 130.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "Cat. No. 12081V",
+      "rect": {
+        "left": 366.6,
+        "bottom": 121.97,
+        "right": 418.21,
+        "top": 128.97
+      }
+    },
+    {
+      "page": 2,
+      "order": 69,
+      "text": "Page 2",
+      "rect": {
+        "left": 550.48,
+        "bottom": 747.83,
+        "right": 576,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 70,
+      "text": "Form 8822 (Rev. 2-2021)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 113.55,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 2,
+      "order": 71,
+      "text": "Future Developments",
+      "rect": {
+        "left": 36,
+        "bottom": 725.4,
+        "right": 158.68,
+        "top": 737.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 72,
+      "text": "Privacy Act and Paperwork Reduction Act",
+      "rect": {
+        "left": 410.4,
+        "bottom": 728.26,
+        "right": 570.26,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 73,
+      "text": "Where To File",
+      "rect": {
+        "left": 229.2,
+        "bottom": 715.39,
+        "right": 307.62,
+        "top": 727.39
+      }
+    },
+    {
+      "page": 2,
+      "order": 74,
+      "text": "Notice. We ask for the information on this",
+      "rect": {
+        "left": 410.4,
+        "bottom": 719.26,
+        "right": 560.2,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 75,
+      "text": "Information about developments affecting",
+      "rect": {
+        "left": 36,
+        "bottom": 711.26,
+        "right": 185.37,
+        "top": 719.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 76,
+      "text": "form to carry out the Internal Revenue laws of",
+      "rect": {
+        "left": 410.4,
+        "bottom": 710.26,
+        "right": 573.38,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 77,
+      "text": "Form 8822 (such as legislation enacted after",
+      "rect": {
+        "left": 36,
+        "bottom": 702.26,
+        "right": 194.26,
+        "top": 710.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 78,
+      "text": "the United States. Our legal right to ask for",
+      "rect": {
+        "left": 410.4,
+        "bottom": 701.26,
+        "right": 563.17,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 79,
+      "text": "\u2022 If you checked the box on line 2, send",
+      "rect": {
+        "left": 229.2,
+        "bottom": 701.25,
+        "right": 371.46,
+        "top": 709.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 80,
+      "text": "we release it) is at www.irs.gov/form8822.",
+      "rect": {
+        "left": 36,
+        "bottom": 693.26,
+        "right": 185.17,
+        "top": 701.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 81,
+      "text": "information is Internal Revenue Code sections",
+      "rect": {
+        "left": 410.4,
+        "bottom": 692.26,
+        "right": 574.72,
+        "top": 700.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 82,
+      "text": "Form 8822 to: Department of the",
+      "rect": {
+        "left": 235.2,
+        "bottom": 692.25,
+        "right": 352.58,
+        "top": 700.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 83,
+      "text": "6001 and 6011, which require you to file a",
+      "rect": {
+        "left": 410.4,
+        "bottom": 683.26,
+        "right": 560.07,
+        "top": 691.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 84,
+      "text": "Treasury, Internal Revenue Service",
+      "rect": {
+        "left": 235.2,
+        "bottom": 683.25,
+        "right": 359.35,
+        "top": 691.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 85,
+      "text": "Purpose of Form",
+      "rect": {
+        "left": 36,
+        "bottom": 675.4,
+        "right": 131.77,
+        "top": 687.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 86,
+      "text": "statement with us for any tax for which you",
+      "rect": {
+        "left": 410.4,
+        "bottom": 674.26,
+        "right": 564.19,
+        "top": 682.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 87,
+      "text": "Center, Kansas City, MO 64999-0023.",
+      "rect": {
+        "left": 235.2,
+        "bottom": 674.25,
+        "right": 371.41,
+        "top": 682.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 88,
+      "text": "are liable. Section 6109 requires that you",
+      "rect": {
+        "left": 410.4,
+        "bottom": 665.26,
+        "right": 556.5,
+        "top": 673.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 89,
+      "text": "You can use Form 8822 to notify the Internal",
+      "rect": {
+        "left": 36,
+        "bottom": 661.26,
+        "right": 194.86,
+        "top": 669.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 90,
+      "text": "\u2022 If you did not check the box on line 2,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 661.25,
+        "right": 369.98,
+        "top": 669.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 91,
+      "text": "provide your social security number on what",
+      "rect": {
+        "left": 410.4,
+        "bottom": 656.26,
+        "right": 568.79,
+        "top": 664.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 92,
+      "text": "Revenue Service if you changed your home",
+      "rect": {
+        "left": 36,
+        "bottom": 652.26,
+        "right": 191.29,
+        "top": 660.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 93,
+      "text": "send Form 8822 to the address shown",
+      "rect": {
+        "left": 235.2,
+        "bottom": 652.25,
+        "right": 373.17,
+        "top": 660.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 94,
+      "text": "you file. This is so we know who you are, and",
+      "rect": {
+        "left": 410.4,
+        "bottom": 647.26,
+        "right": 572.03,
+        "top": 655.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 95,
+      "text": "mailing address. If this change also affects",
+      "rect": {
+        "left": 36,
+        "bottom": 643.26,
+        "right": 188.17,
+        "top": 651.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 96,
+      "text": "here that applies to you:",
+      "rect": {
+        "left": 235.2,
+        "bottom": 643.25,
+        "right": 321.59,
+        "top": 651.25
+      }
+    },
+    {
+      "page": 2,
+      "order": 97,
+      "text": "can process your form and other papers.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 638.26,
+        "right": 556.5,
+        "top": 646.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 98,
+      "text": "the mailing address for your children who",
+      "rect": {
+        "left": 36,
+        "bottom": 634.26,
+        "right": 185.94,
+        "top": 642.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 99,
+      "text": "IF your old home mailing",
+      "rect": {
+        "left": 229.2,
+        "bottom": 630.66,
+        "right": 311.34,
+        "top": 637.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 100,
+      "text": "THEN use this",
+      "rect": {
+        "left": 325.2,
+        "bottom": 630.66,
+        "right": 372.39,
+        "top": 637.66
+      }
+    },
+    {
+      "page": 2,
+      "order": 101,
+      "text": "filed income tax returns, complete and file a",
+      "rect": {
+        "left": 36,
+        "bottom": 625.26,
+        "right": 194.55,
+        "top": 633.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 102,
+      "text": "Generally, tax returns and return",
+      "rect": {
+        "left": 418.4,
+        "bottom": 625.26,
+        "right": 533.67,
+        "top": 633.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 103,
+      "text": "address was in . . .",
+      "rect": {
+        "left": 229.2,
+        "bottom": 622.26,
+        "right": 291.03,
+        "top": 629.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 104,
+      "text": "address . . .",
+      "rect": {
+        "left": 325.2,
+        "bottom": 622.26,
+        "right": 363.71,
+        "top": 629.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 105,
+      "text": "separate Form 8822 for each child. If you are",
+      "rect": {
+        "left": 36,
+        "bottom": 616.26,
+        "right": 198.55,
+        "top": 624.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 106,
+      "text": "information are confidential, as required by",
+      "rect": {
+        "left": 410.4,
+        "bottom": 616.26,
+        "right": 563.31,
+        "top": 624.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 107,
+      "text": "a representative signing for the taxpayer,",
+      "rect": {
+        "left": 36,
+        "bottom": 607.26,
+        "right": 181.94,
+        "top": 615.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 108,
+      "text": "section 6103. However, we may give the",
+      "rect": {
+        "left": 410.4,
+        "bottom": 607.26,
+        "right": 555.01,
+        "top": 615.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 109,
+      "text": "Alabama, Arkansas,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 606.96,
+        "right": 291.44,
+        "top": 613.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 110,
+      "text": "Department of the",
+      "rect": {
+        "left": 326,
+        "bottom": 606.96,
+        "right": 382.8,
+        "top": 613.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 111,
+      "text": "attach to Form 8822 a copy of your power of",
+      "rect": {
+        "left": 36,
+        "bottom": 598.26,
+        "right": 195.88,
+        "top": 606.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 112,
+      "text": "information to the Department of Justice and",
+      "rect": {
+        "left": 410.4,
+        "bottom": 598.26,
+        "right": 570.6,
+        "top": 606.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 113,
+      "text": "Delaware, Georgia, Illinois,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 598.96,
+        "right": 312.28,
+        "top": 605.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 114,
+      "text": "Treasury",
+      "rect": {
+        "left": 355.71,
+        "bottom": 598.96,
+        "right": 382.8,
+        "top": 605.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 115,
+      "text": "Indiana, Iowa, Kentucky,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 590.96,
+        "right": 305.96,
+        "top": 597.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 116,
+      "text": "Internal Revenue",
+      "rect": {
+        "left": 330.29,
+        "bottom": 590.96,
+        "right": 382.8,
+        "top": 597.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 117,
+      "text": "attorney. Generally, it takes 4 to 6 weeks to",
+      "rect": {
+        "left": 36,
+        "bottom": 589.26,
+        "right": 190.69,
+        "top": 597.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 118,
+      "text": "to other federal agencies, as provided by law.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 589.26,
+        "right": 573.22,
+        "top": 597.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 119,
+      "text": "Maine, Massachusetts,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 582.96,
+        "right": 301.43,
+        "top": 589.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 120,
+      "text": "Service",
+      "rect": {
+        "left": 359.6,
+        "bottom": 582.96,
+        "right": 382.8,
+        "top": 589.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 121,
+      "text": "process a change of address.",
+      "rect": {
+        "left": 36,
+        "bottom": 580.26,
+        "right": 142.09,
+        "top": 588.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 122,
+      "text": "We may give it to cities, states, the District of",
+      "rect": {
+        "left": 410.4,
+        "bottom": 580.26,
+        "right": 571.46,
+        "top": 588.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 123,
+      "text": "Minnesota, Missouri, New",
+      "rect": {
+        "left": 229.2,
+        "bottom": 574.96,
+        "right": 310.23,
+        "top": 581.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 124,
+      "text": "Kansas City, MO",
+      "rect": {
+        "left": 330.15,
+        "bottom": 574.96,
+        "right": 382.8,
+        "top": 581.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 125,
+      "text": "Columbia, and U.S. commonwealths or",
+      "rect": {
+        "left": 410.4,
+        "bottom": 571.26,
+        "right": 550.88,
+        "top": 579.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 126,
+      "text": "Changing both home and business",
+      "rect": {
+        "left": 36,
+        "bottom": 567.26,
+        "right": 168.44,
+        "top": 575.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 127,
+      "text": "Hampshire, New Jersey,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 566.96,
+        "right": 305.56,
+        "top": 573.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "64999-0023",
+      "rect": {
+        "left": 345.05,
+        "bottom": 566.96,
+        "right": 382.8,
+        "top": 573.96
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "possessions to carry out their tax laws. We",
+      "rect": {
+        "left": 410.4,
+        "bottom": 562.26,
+        "right": 563.74,
+        "top": 570.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "addresses? Use Form 8822-B to change",
+      "rect": {
+        "left": 36,
+        "bottom": 558.26,
+        "right": 183.74,
+        "top": 566.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "New York, North Carolina,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 558.95,
+        "right": 310.99,
+        "top": 565.95
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "may also disclose this information to other",
+      "rect": {
+        "left": 410.4,
+        "bottom": 553.26,
+        "right": 561.69,
+        "top": 561.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "Oklahoma, South Carolina,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 550.95,
+        "right": 313.35,
+        "top": 557.95
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "your business address.",
+      "rect": {
+        "left": 36,
+        "bottom": 549.26,
+        "right": 118.83,
+        "top": 557.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "countries under a tax treaty, to federal and",
+      "rect": {
+        "left": 410.4,
+        "bottom": 544.26,
+        "right": 562.42,
+        "top": 552.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "Tennessee, Vermont,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 542.95,
+        "right": 295.33,
+        "top": 549.95
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "Prior Name(s)",
+      "rect": {
+        "left": 36,
+        "bottom": 531.4,
+        "right": 114.19,
+        "top": 543.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "state agencies to enforce federal nontax",
+      "rect": {
+        "left": 410.4,
+        "bottom": 535.26,
+        "right": 554.11,
+        "top": 543.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "Virginia, Wisconsin",
+      "rect": {
+        "left": 229.2,
+        "bottom": 534.95,
+        "right": 288.18,
+        "top": 541.95
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "criminal laws, or to federal law enforcement",
+      "rect": {
+        "left": 410.4,
+        "bottom": 526.26,
+        "right": 565.95,
+        "top": 534.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "Florida, Louisiana,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 520.08,
+        "right": 286.24,
+        "top": 527.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "Department of the",
+      "rect": {
+        "left": 326,
+        "bottom": 520.08,
+        "right": 382.8,
+        "top": 527.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "If you or your spouse changed your name",
+      "rect": {
+        "left": 36,
+        "bottom": 517.26,
+        "right": 184.78,
+        "top": 525.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "and intelligence agencies to combat terrorism.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 517.26,
+        "right": 575.91,
+        "top": 525.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "Mississippi, Texas",
+      "rect": {
+        "left": 229.2,
+        "bottom": 512.08,
+        "right": 286.37,
+        "top": 519.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "Treasury",
+      "rect": {
+        "left": 355.71,
+        "bottom": 512.08,
+        "right": 382.8,
+        "top": 519.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "because of marriage, divorce, etc., complete",
+      "rect": {
+        "left": 36,
+        "bottom": 508.26,
+        "right": 195.58,
+        "top": 516.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "The use of this form is voluntary. However,",
+      "rect": {
+        "left": 418.4,
+        "bottom": 504.26,
+        "right": 570.86,
+        "top": 512.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "Internal Revenue",
+      "rect": {
+        "left": 330.29,
+        "bottom": 504.08,
+        "right": 382.8,
+        "top": 511.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "line 5. Also, be sure to notify the Social",
+      "rect": {
+        "left": 36,
+        "bottom": 499.26,
+        "right": 174.98,
+        "top": 507.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "if you fail to provide the Internal Revenue",
+      "rect": {
+        "left": 410.4,
+        "bottom": 495.26,
+        "right": 556.34,
+        "top": 503.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "Service",
+      "rect": {
+        "left": 359.6,
+        "bottom": 496.08,
+        "right": 382.8,
+        "top": 503.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "Security Administration of your new name so",
+      "rect": {
+        "left": 36,
+        "bottom": 490.26,
+        "right": 196.02,
+        "top": 498.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "Austin, TX",
+      "rect": {
+        "left": 351.04,
+        "bottom": 488.08,
+        "right": 382.8,
+        "top": 495.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "Service with your current mailing address, you",
+      "rect": {
+        "left": 410.4,
+        "bottom": 486.26,
+        "right": 575.6,
+        "top": 494.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "that it has the same name in its records that",
+      "rect": {
+        "left": 36,
+        "bottom": 481.26,
+        "right": 192.94,
+        "top": 489.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "73301-0023",
+      "rect": {
+        "left": 345.05,
+        "bottom": 480.08,
+        "right": 382.8,
+        "top": 487.08
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "may not receive a notice of deficiency or a",
+      "rect": {
+        "left": 410.4,
+        "bottom": 477.26,
+        "right": 561.53,
+        "top": 485.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "you have on your tax return. This prevents",
+      "rect": {
+        "left": 36,
+        "bottom": 472.26,
+        "right": 186.4,
+        "top": 480.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "notice and demand for tax. Despite the failure",
+      "rect": {
+        "left": 410.4,
+        "bottom": 468.26,
+        "right": 573.7,
+        "top": 476.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "Alaska, Arizona, California,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 467.37,
+        "right": 312.67,
+        "top": 474.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "Department of the",
+      "rect": {
+        "left": 326,
+        "bottom": 467.37,
+        "right": 382.8,
+        "top": 474.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "delays in processing your return and issuing",
+      "rect": {
+        "left": 36,
+        "bottom": 463.26,
+        "right": 193.36,
+        "top": 471.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "to receive such notices, penalties and interest",
+      "rect": {
+        "left": 410.4,
+        "bottom": 459.26,
+        "right": 573.98,
+        "top": 467.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "Colorado, Connecticut,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 459.37,
+        "right": 301.93,
+        "top": 466.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "Treasury",
+      "rect": {
+        "left": 355.71,
+        "bottom": 459.37,
+        "right": 382.8,
+        "top": 466.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "refunds. It also safeguards your future social",
+      "rect": {
+        "left": 36,
+        "bottom": 454.26,
+        "right": 194.68,
+        "top": 462.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "District of Columbia,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 451.37,
+        "right": 293.12,
+        "top": 458.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "Internal Revenue",
+      "rect": {
+        "left": 330.29,
+        "bottom": 451.37,
+        "right": 382.8,
+        "top": 458.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "will continue to accrue on the tax deficiencies.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 450.26,
+        "right": 575.45,
+        "top": 458.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "security benefits.",
+      "rect": {
+        "left": 36,
+        "bottom": 445.26,
+        "right": 96.9,
+        "top": 453.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "Hawaii, Idaho, Kansas,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 443.37,
+        "right": 300.63,
+        "top": 450.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "Service",
+      "rect": {
+        "left": 359.6,
+        "bottom": 443.37,
+        "right": 382.8,
+        "top": 450.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "You are not required to provide the",
+      "rect": {
+        "left": 418.4,
+        "bottom": 437.26,
+        "right": 543.61,
+        "top": 445.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "Maryland, Michigan,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 435.37,
+        "right": 292.61,
+        "top": 442.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "Ogden, UT",
+      "rect": {
+        "left": 348.7,
+        "bottom": 435.37,
+        "right": 382.8,
+        "top": 442.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "Addresses",
+      "rect": {
+        "left": 36,
+        "bottom": 427.4,
+        "right": 96.66,
+        "top": 439.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "information requested on a form that is",
+      "rect": {
+        "left": 410.4,
+        "bottom": 428.26,
+        "right": 549.4,
+        "top": 436.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "Montana, Nebraska,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 427.37,
+        "right": 292.61,
+        "top": 434.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "84201-0023",
+      "rect": {
+        "left": 345.05,
+        "bottom": 427.37,
+        "right": 382.8,
+        "top": 434.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "subject to the Paperwork Reduction Act",
+      "rect": {
+        "left": 410.4,
+        "bottom": 419.26,
+        "right": 555.46,
+        "top": 427.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "Nevada, New Mexico,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 419.37,
+        "right": 297.9,
+        "top": 426.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "Be sure to include any apartment, room, or",
+      "rect": {
+        "left": 36,
+        "bottom": 413.26,
+        "right": 189.38,
+        "top": 421.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "North Dakota, Ohio,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 411.37,
+        "right": 291.57,
+        "top": 418.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "unless the form displays a valid OMB control",
+      "rect": {
+        "left": 410.4,
+        "bottom": 410.26,
+        "right": 570.29,
+        "top": 418.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "suite number in the space provided.",
+      "rect": {
+        "left": 36,
+        "bottom": 404.26,
+        "right": 164.49,
+        "top": 412.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "Oregon, Pennsylvania,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 403.37,
+        "right": 299.47,
+        "top": 410.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "number. Books or records relating to a form",
+      "rect": {
+        "left": 410.4,
+        "bottom": 401.26,
+        "right": 567.17,
+        "top": 409.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "Rhode Island, South",
+      "rect": {
+        "left": 229.2,
+        "bottom": 395.37,
+        "right": 292.86,
+        "top": 402.37
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "or its instructions must be retained as long as",
+      "rect": {
+        "left": 410.4,
+        "bottom": 392.26,
+        "right": 573.1,
+        "top": 400.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "P.O. Box",
+      "rect": {
+        "left": 36,
+        "bottom": 388.83,
+        "right": 77.31,
+        "top": 398.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "Dakota, Utah, Washington,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 387.36,
+        "right": 313.35,
+        "top": 394.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "their contents may become material in the",
+      "rect": {
+        "left": 410.4,
+        "bottom": 383.26,
+        "right": 560.67,
+        "top": 391.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "West Virginia, Wyoming",
+      "rect": {
+        "left": 229.2,
+        "bottom": 379.36,
+        "right": 303.36,
+        "top": 386.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "Enter your box number instead of your street",
+      "rect": {
+        "left": 36,
+        "bottom": 375.26,
+        "right": 196.03,
+        "top": 383.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "administration of any Internal Revenue law.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 374.26,
+        "right": 564.05,
+        "top": 382.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "address only if your post office does not",
+      "rect": {
+        "left": 36,
+        "bottom": 366.26,
+        "right": 179.72,
+        "top": 374.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "A foreign country,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 363.13,
+        "right": 284.82,
+        "top": 370.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "Department of the",
+      "rect": {
+        "left": 326,
+        "bottom": 363.13,
+        "right": 382.8,
+        "top": 370.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "The time needed to complete and file this",
+      "rect": {
+        "left": 418.4,
+        "bottom": 361.26,
+        "right": 566.45,
+        "top": 369.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "deliver mail to your street address.",
+      "rect": {
+        "left": 36,
+        "bottom": 357.26,
+        "right": 159.42,
+        "top": 365.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "American Samoa, or",
+      "rect": {
+        "left": 229.2,
+        "bottom": 355.13,
+        "right": 292.99,
+        "top": 362.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "Treasury",
+      "rect": {
+        "left": 355.71,
+        "bottom": 355.13,
+        "right": 382.8,
+        "top": 362.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "form will vary depending on individual",
+      "rect": {
+        "left": 410.4,
+        "bottom": 352.26,
+        "right": 545.23,
+        "top": 360.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "Puerto Rico (or are",
+      "rect": {
+        "left": 229.2,
+        "bottom": 347.13,
+        "right": 287.92,
+        "top": 354.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "Internal Revenue",
+      "rect": {
+        "left": 330.29,
+        "bottom": 347.13,
+        "right": 382.8,
+        "top": 354.13
+      }
+    },
+    {
+      "page": 2,
+      "order": 207,
+      "text": "Foreign Address",
+      "rect": {
+        "left": 36,
+        "bottom": 341.83,
+        "right": 114.51,
+        "top": 351.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 208,
+      "text": "circumstances. The estimated average time is",
+      "rect": {
+        "left": 410.4,
+        "bottom": 343.26,
+        "right": 574.14,
+        "top": 351.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 209,
+      "text": "excluding income under",
+      "rect": {
+        "left": 229.2,
+        "bottom": 339.12,
+        "right": 304.28,
+        "top": 346.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 210,
+      "text": "Service",
+      "rect": {
+        "left": 359.6,
+        "bottom": 339.12,
+        "right": 382.8,
+        "top": 346.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 211,
+      "text": "16 minutes.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 334.26,
+        "right": 452.06,
+        "top": 342.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 212,
+      "text": "Internal Revenue Code",
+      "rect": {
+        "left": 229.2,
+        "bottom": 331.12,
+        "right": 300.64,
+        "top": 338.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 213,
+      "text": "Austin, TX",
+      "rect": {
+        "left": 351.04,
+        "bottom": 331.12,
+        "right": 382.8,
+        "top": 338.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 214,
+      "text": "Follow the country\u2019s practice for entering the",
+      "rect": {
+        "left": 36,
+        "bottom": 328.26,
+        "right": 196.01,
+        "top": 336.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 215,
+      "text": "section 933), or use an",
+      "rect": {
+        "left": 229.2,
+        "bottom": 323.12,
+        "right": 300.26,
+        "top": 330.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 216,
+      "text": "73301-0023",
+      "rect": {
+        "left": 345.05,
+        "bottom": 323.12,
+        "right": 382.8,
+        "top": 330.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 217,
+      "text": "Comments. You can send comments from",
+      "rect": {
+        "left": 410.4,
+        "bottom": 321.26,
+        "right": 562.19,
+        "top": 329.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 218,
+      "text": "postal code. Please do not abbreviate the",
+      "rect": {
+        "left": 36,
+        "bottom": 319.26,
+        "right": 185.06,
+        "top": 327.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 219,
+      "text": "APO or FPO address, or",
+      "rect": {
+        "left": 229.2,
+        "bottom": 315.12,
+        "right": 305.05,
+        "top": 322.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 220,
+      "text": "www.irs.gov/FormComments. Or you can write",
+      "rect": {
+        "left": 410.4,
+        "bottom": 312.26,
+        "right": 575.57,
+        "top": 320.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 221,
+      "text": "country.",
+      "rect": {
+        "left": 36,
+        "bottom": 310.26,
+        "right": 65.19,
+        "top": 318.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 222,
+      "text": "file Form 2555, 2555-EZ,",
+      "rect": {
+        "left": 229.2,
+        "bottom": 307.12,
+        "right": 306.62,
+        "top": 314.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 223,
+      "text": "to the Internal Revenue Service, Tax Forms",
+      "rect": {
+        "left": 410.4,
+        "bottom": 303.26,
+        "right": 562.03,
+        "top": 311.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 224,
+      "text": "or 4563, or are a dual-",
+      "rect": {
+        "left": 229.2,
+        "bottom": 299.12,
+        "right": 298.83,
+        "top": 306.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 225,
+      "text": "\u201CIn Care of\u201D Address",
+      "rect": {
+        "left": 36,
+        "bottom": 294.83,
+        "right": 134.14,
+        "top": 304.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 226,
+      "text": "and Publications Division, 1111 Constitution",
+      "rect": {
+        "left": 410.4,
+        "bottom": 294.26,
+        "right": 565.71,
+        "top": 302.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 227,
+      "text": "status alien or non bona",
+      "rect": {
+        "left": 229.2,
+        "bottom": 291.12,
+        "right": 304.53,
+        "top": 298.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 228,
+      "text": "Ave. NW, IR-6526, Washington, DC 20224. DO",
+      "rect": {
+        "left": 410.4,
+        "bottom": 285.26,
+        "right": 575.79,
+        "top": 293.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 229,
+      "text": "fide resident of Guam or",
+      "rect": {
+        "left": 229.2,
+        "bottom": 283.12,
+        "right": 305.04,
+        "top": 290.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 230,
+      "text": "If you receive your mail in care of a third party",
+      "rect": {
+        "left": 36,
+        "bottom": 281.26,
+        "right": 199.13,
+        "top": 289.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 231,
+      "text": "NOT SEND THE FORM TO THIS ADDRESS.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 276.26,
+        "right": 570.95,
+        "top": 284.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 232,
+      "text": "the Virgin Islands.",
+      "rect": {
+        "left": 229.2,
+        "bottom": 275.12,
+        "right": 284.69,
+        "top": 282.12
+      }
+    },
+    {
+      "page": 2,
+      "order": 233,
+      "text": "(such as an accountant or attorney), enter",
+      "rect": {
+        "left": 36,
+        "bottom": 272.26,
+        "right": 184.92,
+        "top": 280.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 234,
+      "text": "Instead, see Where To File, earlier.",
+      "rect": {
+        "left": 410.4,
+        "bottom": 267.26,
+        "right": 531.82,
+        "top": 275.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 235,
+      "text": "\u201CC/O\u201D followed by the third party\u2019s name and",
+      "rect": {
+        "left": 36,
+        "bottom": 263.26,
+        "right": 197.07,
+        "top": 271.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 236,
+      "text": "Guam:",
+      "rect": {
+        "left": 229.2,
+        "bottom": 257.2,
+        "right": 250.08,
+        "top": 264.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 237,
+      "text": "Department of",
+      "rect": {
+        "left": 337.8,
+        "bottom": 257.2,
+        "right": 382.8,
+        "top": 264.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 238,
+      "text": "street address or P.O. box.",
+      "rect": {
+        "left": 36,
+        "bottom": 254.26,
+        "right": 132.61,
+        "top": 262.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 239,
+      "text": "bona fide residents",
+      "rect": {
+        "left": 229.2,
+        "bottom": 249.2,
+        "right": 289.1,
+        "top": 256.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 240,
+      "text": "Revenue and",
+      "rect": {
+        "left": 341.7,
+        "bottom": 249.2,
+        "right": 382.8,
+        "top": 256.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 241,
+      "text": "Signature",
+      "rect": {
+        "left": 36,
+        "bottom": 236.4,
+        "right": 91.12,
+        "top": 248.4
+      }
+    },
+    {
+      "page": 2,
+      "order": 242,
+      "text": "Taxation",
+      "rect": {
+        "left": 355.97,
+        "bottom": 241.19,
+        "right": 382.8,
+        "top": 248.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 243,
+      "text": "Government of",
+      "rect": {
+        "left": 336.12,
+        "bottom": 233.19,
+        "right": 382.8,
+        "top": 240.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 244,
+      "text": "Guam",
+      "rect": {
+        "left": 363.87,
+        "bottom": 225.19,
+        "right": 382.8,
+        "top": 232.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 245,
+      "text": "The taxpayer, executor, donor, or an",
+      "rect": {
+        "left": 36,
+        "bottom": 222.26,
+        "right": 166.38,
+        "top": 230.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 246,
+      "text": "P.O. Box 23607",
+      "rect": {
+        "left": 333.26,
+        "bottom": 217.19,
+        "right": 382.8,
+        "top": 224.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 247,
+      "text": "authorized representative must sign. If your",
+      "rect": {
+        "left": 36,
+        "bottom": 213.26,
+        "right": 190.54,
+        "top": 221.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 248,
+      "text": "GMF, GU 96921",
+      "rect": {
+        "left": 331.71,
+        "bottom": 209.19,
+        "right": 382.8,
+        "top": 216.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 249,
+      "text": "last return was a joint return, your spouse",
+      "rect": {
+        "left": 36,
+        "bottom": 204.26,
+        "right": 184.02,
+        "top": 212.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 250,
+      "text": "Virgin Islands:",
+      "rect": {
+        "left": 229.2,
+        "bottom": 197.2,
+        "right": 272.89,
+        "top": 204.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 251,
+      "text": "V.I. Bureau of",
+      "rect": {
+        "left": 340.41,
+        "bottom": 197.2,
+        "right": 382.8,
+        "top": 204.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 252,
+      "text": "must also sign (unless you have indicated by",
+      "rect": {
+        "left": 36,
+        "bottom": 195.26,
+        "right": 195.6,
+        "top": 203.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 253,
+      "text": "bona fide residents",
+      "rect": {
+        "left": 229.2,
+        "bottom": 189.19,
+        "right": 289.1,
+        "top": 196.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 254,
+      "text": "Internal Revenue",
+      "rect": {
+        "left": 330.29,
+        "bottom": 189.19,
+        "right": 382.8,
+        "top": 196.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 255,
+      "text": "checking the box on line 1 that you are",
+      "rect": {
+        "left": 36,
+        "bottom": 186.26,
+        "right": 174.7,
+        "top": 194.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 256,
+      "text": "6115 Estate",
+      "rect": {
+        "left": 345.58,
+        "bottom": 181.19,
+        "right": 382.8,
+        "top": 188.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 257,
+      "text": "establishing a separate residence).",
+      "rect": {
+        "left": 36,
+        "bottom": 177.26,
+        "right": 159.86,
+        "top": 185.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 258,
+      "text": "Smith Bay,",
+      "rect": {
+        "left": 348.7,
+        "bottom": 173.19,
+        "right": 382.8,
+        "top": 180.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 259,
+      "text": "\u25B2! must attach to Form 8822 a copy",
+      "rect": {
+        "left": 37.77,
+        "bottom": 143.76,
+        "right": 196.26,
+        "top": 176.55
+      }
+    },
+    {
+      "page": 2,
+      "order": 260,
+      "text": "Suite 225",
+      "rect": {
+        "left": 353.23,
+        "bottom": 165.19,
+        "right": 382.8,
+        "top": 172.19
+      }
+    },
+    {
+      "page": 2,
+      "order": 261,
+      "text": "If you are a representative signing",
+      "rect": {
+        "left": 78,
+        "bottom": 161.76,
+        "right": 197.56,
+        "top": 169.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 262,
+      "text": "St. Thomas, VI 00802",
+      "rect": {
+        "left": 318.31,
+        "bottom": 157.2,
+        "right": 382.8,
+        "top": 164.2
+      }
+    },
+    {
+      "page": 2,
+      "order": 263,
+      "text": "on behalf of the taxpayer, you",
+      "rect": {
+        "left": 78,
+        "bottom": 152.76,
+        "right": 183.5,
+        "top": 160.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 264,
+      "text": "CAUTION",
+      "rect": {
+        "left": 38.41,
+        "bottom": 136.83,
+        "right": 69.59,
+        "top": 143.33
+      }
+    },
+    {
+      "page": 2,
+      "order": 265,
+      "text": "of your power of attorney. To do",
+      "rect": {
+        "left": 78,
+        "bottom": 134.76,
+        "right": 192.97,
+        "top": 142.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 266,
+      "text": "this, you can use Form 2848. The Internal",
+      "rect": {
+        "left": 36,
+        "bottom": 125.76,
+        "right": 183.15,
+        "top": 133.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 267,
+      "text": "Revenue Service will not complete an",
+      "rect": {
+        "left": 36,
+        "bottom": 116.76,
+        "right": 169.49,
+        "top": 124.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 268,
+      "text": "address change from an \u201Cunauthorized\u201D third",
+      "rect": {
+        "left": 36,
+        "bottom": 107.76,
+        "right": 195.74,
+        "top": 115.76
+      }
+    },
+    {
+      "page": 2,
+      "order": 269,
+      "text": "party.",
+      "rect": {
+        "left": 36,
+        "bottom": 98.76,
+        "right": 56.15,
+        "top": 106.76
+      }
+    }
+  ]
+}

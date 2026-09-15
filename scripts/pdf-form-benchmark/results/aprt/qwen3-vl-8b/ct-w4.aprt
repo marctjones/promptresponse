@@ -1,0 +1,253 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut Form CT-W4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "withholding-code-selection",
+      "title": "Withholding Code Selection",
+      "prompts": [
+        {
+          "id": "choose-the-statement-that-best-describes-your-gross-income",
+          "label": "Choose the statement that best describes your gross income.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-the-withholding-code-on-line-1-below",
+          "label": "Enter the Withholding Code on Line 1 below.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "withholding-code",
+          "label": "Withholding Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employee-details",
+      "title": "Employee Details",
+      "prompts": [
+        {
+          "id": "1-withholding-code-enter-withholding-code-letter-chosen-from-above",
+          "label": "1. Withholding Code: Enter Withholding Code letter chosen from above.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-additional-withholding-amount-per-pay-period-if-any-see-instructions",
+          "label": "2. Additional withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "3-reduced-withholding-amount-per-pay-period-if-any-see-instructions",
+          "label": "3. Reduced withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "check-if-you-are-claiming-the-msrra-exemption-and-enter-state-of-legal-residence-domicile",
+          "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "first-name",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mi",
+          "label": "MI",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "home-address-number-and-street-apartment-number-suite-number-po-box",
+          "label": "Home address (number and street, apartment number, suite number, PO Box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "declaration",
+      "title": "Declaration",
+      "prompts": [
+        {
+          "id": "employee-s-signature",
+          "label": "Employee's signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-details",
+      "title": "Employer Details",
+      "prompts": [
+        {
+          "id": "is-this-a-new-or-rehired-employee",
+          "label": "Is this a new or rehired employee?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        {
+          "id": "enter-date-hired",
+          "label": "Enter date hired:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-s-business-name",
+          "label": "Employer's business name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "federal-employer-identification-number",
+          "label": "Federal Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-address",
+          "label": "Employer's business address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "city-town-2",
+          "label": "City/town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "contact-person",
+          "label": "Contact person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "Telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    }
+  ]
+}

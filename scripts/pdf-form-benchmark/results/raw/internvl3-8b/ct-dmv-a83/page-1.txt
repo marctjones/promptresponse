@@ -1,0 +1,133 @@
+```json
+{
+  "sections": [
+    {
+      "id": "declaration",
+      "title": "Declaration"
+    },
+    {
+      "id": "appointment",
+      "title": "Appointment"
+    },
+    {
+      "id": "witness",
+      "title": "Witness"
+    },
+    {
+      "id": "signatures",
+      "title": "Signatures"
+    },
+    {
+      "id": "notary",
+      "title": "Notary"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Print your full name above",
+      "section_id": "declaration",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Print full name of your agent above",
+      "section_id": "appointment",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this ____ day of ____, 20__",
+      "section_id": "witness",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Principal:",
+      "section_id": "signatures",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "L.S.",
+      "section_id": "signatures",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Signature of Witness",
+      "section_id": "signatures",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Signature of Witness",
+      "section_id": "notary",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "County of",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "SS:",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Personally appeared",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Full name of Principal",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "acknowledged the same as his or her free act and deed, before me, this ____ day of ____, 20__",
+      "section_id": "notary",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Notary Public/Justice of Peace",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Commissioner of the Superior Court",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "My commission expires:",
+      "section_id": "notary",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}
+```

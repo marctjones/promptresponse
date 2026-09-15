@@ -1,0 +1,332 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-58 (Change of Address, Individual)"
+  },
+  "sections": [
+    {
+      "id": "about-you",
+      "title": "About You",
+      "prompts": [
+        {
+          "id": "name-last-first-middle",
+          "label": "NAME (Last, First, Middle)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "birth-date",
+          "label": "BIRTH DATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "operator-license-id-number",
+          "label": "OPERATOR LICENSE/ID NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-residence-address",
+      "title": "Your Residence Address",
+      "prompts": [
+        {
+          "id": "street-address",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "unit-apt",
+          "label": "UNIT/APT. #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-mailing-address",
+      "title": "Your Mailing Address",
+      "prompts": [
+        {
+          "id": "street-address-2",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "unit-apt-2",
+          "label": "UNIT/APT. #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-2",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "organ-and-tissue-donor-status",
+      "title": "Organ and Tissue Donor Status",
+      "prompts": [
+        {
+          "id": "i-consent-to-organ-and-tissue-donation-and-wish-to-be-in-the-donor-registry",
+          "label": "I consent to organ and tissue donation and wish to be in the donor registry",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "i-no-longer-wish-to-be-in-the-donor-registry",
+          "label": "I no longer wish to be in the donor registry",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-e-mail-address",
+      "title": "Your E-mail Address",
+      "prompts": [
+        {
+          "id": "e-mail",
+          "label": "E-MAIL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "check-here-to-remove-an-e-mail-address-already-on-file-and-have-your-registration-renewal-reminders-sent-to-you-by-mail",
+          "label": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "your-vehicles-vessels",
+      "title": "Your Vehicles/Vessels",
+      "prompts": [
+        {
+          "id": "plate-vessel-no",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate-vessel-no-2",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-2",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "plate-vessel-no-3",
+          "label": "PLATE/VESSEL NO:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-3",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-required",
+          "label": "SIGNATURE REQUIRED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "DATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "voter-registration-application-section",
+      "title": "Voter Registration Application Section",
+      "prompts": [
+        {
+          "id": "are-you-a-citizen-of-the-united-states-of-america",
+          "label": "Are you a citizen of the United States of America?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "YES",
+              "NO"
+            ]
+          }
+        },
+        {
+          "id": "will-you-be-at-least-18-years-of-age-on-or-before-election-day",
+          "label": "Will you be at least 18 years of age on or before election day?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "YES",
+              "NO"
+            ]
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "YES",
+              "NO"
+            ]
+          }
+        },
+        {
+          "id": "name-of-party",
+          "label": "NAME OF PARTY:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "DEMOCRATIC",
+              "REPUBLICAN",
+              "OTHER:"
+            ]
+          }
+        },
+        {
+          "id": "i-do-not-wish-to-enroll-in-a-party-at-this-time-and-will-be-registered-as-unaffiliated",
+          "label": "I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "x-signature-for-voter-registration-only",
+          "label": "X SIGNATURE FOR VOTER REGISTRATION ONLY **",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}
