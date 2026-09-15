@@ -3412,9 +3412,13 @@
         "metadata/example/b45f8df82b",
         "metadata/sentence/bf08cea2a8",
         "metadata/sentence/33f2b26304",
-        "metadata/example/52539bba75"
+        "metadata/example/52539bba75",
+        "metadata/example/baef4d0638",
+        "metadata/sentence/28065927ee",
+        "metadata/sentence/5422ff8600",
+        "metadata/sentence/7a1a7cdc12"
       ],
-      "note": "examples added so the specification shows each rule it states here (#488)"
+      "note": "examples added so the specification shows each rule it states here (#488) an example that a `language` member relaxes no check on human-facing text (APR-MODEL-085)"
     },
     "metadata/table-header/bd072d4771": {
       "anchor": "metadata",

@@ -681,6 +681,12 @@
       "spec:id-namespaces"
     ]
   },
+  "APR-MODEL-093": {
+    "reason": "A rule about two versions of a template, not about one document. No single example can hold an id constant across a revision the corpus does not have.",
+    "coveredBy": [
+      "spec:id-namespaces"
+    ]
+  },
   "APR-MODEL-097": {
     "reason": "A rule on what a reader preserves, which no document can violate.",
     "coveredBy": [

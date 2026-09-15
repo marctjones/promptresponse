@@ -1717,7 +1717,31 @@ A validator **MUST NOT** relax a check on human-facing text because of a
 > language the filler typed; a workflow that needs to know which asks for it as
 > a prompt.
 
-**Example 5.2-1.** A form in English, with one section in French and one of its
+**Example 5.2-1.** The same title, carrying a zero-width space, in a form that declares
+a language and in one that does not. Both are valid and both warn: the `language`
+member changes nothing about the check.
+
+```apr-example
+id: language-does-not-relax-the-check
+rule: metadata
+satisfies: APR-MODEL-085
+representation: jsonc
+expect: valid
+warns: FORBIDDEN_CODE_POINT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Inta\u200bke",
+    "language": "ar"
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2-2.** A form in English, with one section in French and one of its
 prompts in German.
 
 ```apr-example
@@ -1744,7 +1768,7 @@ expect: valid
 }
 ```
 
-**Example 5.2-2.** A title of spaces only.
+**Example 5.2-3.** A title of spaces only.
 
 ```apr-example
 id: title-blank
@@ -1761,7 +1785,7 @@ diagnostic: REQUIRED_FIELD
 }
 ```
 
-**Example 5.2-3.** A filled form naming the template it answers.
+**Example 5.2-4.** A filled form naming the template it answers.
 
 ```apr-example
 id: filled-form-with-template-id
@@ -1778,7 +1802,7 @@ expect: valid
 }
 ```
 
-**Example 5.2-4.** A filled form without a `templateId`.
+**Example 5.2-5.** A filled form without a `templateId`.
 
 ```apr-example
 id: filled-form-without-template-id
@@ -1796,7 +1820,7 @@ diagnostic: REQUIRED_FIELD
 }
 ```
 
-**Example 5.2-5.** A `templateId` that is not a URI.
+**Example 5.2-6.** A `templateId` that is not a URI.
 
 ```apr-example
 id: template-id-not-a-uri
