@@ -675,7 +675,10 @@
           "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
         }
       ],
-      "gap": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike.",
+      "gap": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike.",
+      "gapRules": [
+        "APR-EXPR-020"
+      ],
       "rules": [
         "APR-EXPR-004",
         "APR-EXPR-005",
@@ -708,7 +711,7 @@
       "id": "REQ-expr-authoring",
       "section": "expr-authoring",
       "statement": "Expressions are type-checked at authoring time",
-      "strength": "none",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -718,7 +721,10 @@
       "rules": [
         "APR-EXPR-010"
       ],
-      "gap": "A SHOULD about type-checking at authoring time, before a filler ever sees the form. The harness evaluates a completed document and has no authoring step."
+      "gap": "APR-EXPR-010 is a SHOULD about type-checking before a filler ever sees the form, and the conformance harness evaluates a completed document with no authoring step, so no vector reaches it. One implementation has it, and this entry already gated on the test without crediting it: FormExpressionContext.Check compiles an expression against the document's type environment and returns the checker's issues, and Check_ReportsTypeErrorsAtAuthoringTime asserts that a sound expression yields no diagnostics while a bool-condition type error and an undeclared reference each yield some. That test would fail if the rule were broken, so the strength was never `none`. The Python, TypeScript and Java expression modules expose evaluation only and have no authoring-time checker to call. What stays unasserted is the rule's second half — nothing checks that a diagnostic carries position information — which is why this is a gap rather than an exception entry naming that test. Closing it takes that assertion, and the other four implementations acquiring the entry point before it is the format's behaviour rather than one product's.",
+      "gapRules": [
+        "APR-EXPR-010"
+      ]
     },
     {
       "id": "REQ-expr-fallback",
@@ -734,7 +740,11 @@
         "APR-EXPR-032",
         "APR-EXPR-033"
       ],
-      "gap": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+      "gap": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first.",
+      "gapRules": [
+        "APR-EXPR-030",
+        "APR-EXPR-031"
+      ]
     },
     {
       "id": "REQ-expr-computed",
@@ -786,7 +796,10 @@
           "ref": "core.unit"
         }
       ],
-      "gap": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable.",
+      "gap": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in `ctx`: every conformance case supplies `ctx` itself, so the suite is the host and cannot be caught violating a rule whose input it defines. Closing it is a review of an actual embedding — what the desktop client and the CLI put in `ctx` when a real person fills a real form — not a vector, and no test asserts the absence of a class of value. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable.",
+      "gapRules": [
+        "APR-EXPR-007"
+      ],
       "rules": [
         "APR-EXPR-007",
         "APR-EXPR-014"
@@ -812,7 +825,10 @@
         "APR-EXPR-002",
         "APR-EXPR-003"
       ],
-      "gap": "APR-EXPR-001 and APR-EXPR-003 are covered by evaluation vectors. APR-EXPR-002, that evaluation is pure and exposes no filesystem, network, process, clock or randomness, cannot be reached by one: a document cannot ask for a capability the language does not have, and proving absence needs inspection of the host rather than a case."
+      "gap": "APR-EXPR-001 and APR-EXPR-003 are covered by evaluation vectors. APR-EXPR-002, that evaluation is pure and exposes no filesystem, network, process, clock or randomness, cannot be reached by one: a document cannot ask for a capability the language does not have, and proving absence needs inspection of the host rather than a case.",
+      "gapRules": [
+        "APR-EXPR-002"
+      ]
     },
     {
       "id": "REQ-expr-language",
@@ -820,9 +836,6 @@
       "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library and standard macros, and no extension library",
       "strength": "external",
       "gates": [],
-      "gapRules": [
-        "APR-EXPR-012"
-      ],
       "rules": [
         "APR-EXPR-012",
         "APR-EXPR-013"
@@ -843,7 +856,11 @@
           "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
         }
       ],
-      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit.",
+      "gap": "APR-EXPR-011 requires an implementation to bound expression size, complexity and evaluation cost; APR-EXPR-035 requires reaching a bound to apply the fallback rather than mutate in part. Nothing in this repository bounds any of the three. No size limit, complexity limit or evaluation budget appears in the .NET, Python or TypeScript expression modules or in scripts/aprexpr.py, and check-expression-oracle.py asserts the pinned CEL surface without asserting a limit. The rules hold in practice only because CEL terminates by construction, which is section 11.3's reason for choosing the language and not the same claim: an expression that terminates can still be arbitrarily large or costly. APR-EXPR-035's condition therefore never arises, because there is no bound to reach. Exact bounds are implementation-defined, so no vector can assert a particular limit, but a test could assert that some bound exists and that crossing it degrades to the fallback rather than mutating in part. That is what closing these would take.",
+      "gapRules": [
+        "APR-EXPR-011",
+        "APR-EXPR-035"
+      ],
       "rules": [
         "APR-EXPR-011",
         "APR-EXPR-035"

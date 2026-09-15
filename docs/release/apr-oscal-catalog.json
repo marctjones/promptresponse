@@ -15150,7 +15150,7 @@
               {
                 "id": "apr-expr-004_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15212,7 +15212,7 @@
               {
                 "id": "apr-expr-005_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15331,7 +15331,7 @@
               {
                 "id": "apr-expr-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
+                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in `ctx`: every conformance case supplies `ctx` itself, so the suite is the host and cannot be caught violating a rule whose input it defines. Closing it is a review of an actual embedding — what the desktop client and the CLI put in `ctx` when a real person fills a real form — not a vector, and no test asserts the absence of a class of value. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
               }
             ]
           },
@@ -15469,7 +15469,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -15507,7 +15507,7 @@
               {
                 "id": "apr-expr-010_gap",
                 "name": "assessment-gap",
-                "prose": "A SHOULD about type-checking at authoring time, before a filler ever sees the form. The harness evaluates a completed document and has no authoring step."
+                "prose": "APR-EXPR-010 is a SHOULD about type-checking before a filler ever sees the form, and the conformance harness evaluates a completed document with no authoring step, so no vector reaches it. One implementation has it, and this entry already gated on the test without crediting it: FormExpressionContext.Check compiles an expression against the document's type environment and returns the checker's issues, and Check_ReportsTypeErrorsAtAuthoringTime asserts that a sound expression yields no diagnostics while a bool-condition type error and an undeclared reference each yield some. That test would fail if the rule were broken, so the strength was never `none`. The Python, TypeScript and Java expression modules expose evaluation only and have no authoring-time checker to call. What stays unasserted is the rule's second half — nothing checks that a diagnostic carries position information — which is why this is a gap rather than an exception entry naming that test. Closing it takes that assertion, and the other four implementations acquiring the entry point before it is the format's behaviour rather than one product's."
               }
             ]
           },
@@ -15569,7 +15569,7 @@
               {
                 "id": "apr-expr-011_gap",
                 "name": "assessment-gap",
-                "prose": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
+                "prose": "APR-EXPR-011 requires an implementation to bound expression size, complexity and evaluation cost; APR-EXPR-035 requires reaching a bound to apply the fallback rather than mutate in part. Nothing in this repository bounds any of the three. No size limit, complexity limit or evaluation budget appears in the .NET, Python or TypeScript expression modules or in scripts/aprexpr.py, and check-expression-oracle.py asserts the pinned CEL surface without asserting a limit. The rules hold in practice only because CEL terminates by construction, which is section 11.3's reason for choosing the language and not the same claim: an expression that terminates can still be arbitrarily large or costly. APR-EXPR-035's condition therefore never arises, because there is no bound to reach. Exact bounds are implementation-defined, so no vector can assert a particular limit, but a test could assert that some bound exists and that crossing it degrades to the fallback rather than mutating in part. That is what closing these would take."
               }
             ]
           },
@@ -15745,7 +15745,7 @@
               {
                 "id": "apr-expr-014_gap",
                 "name": "assessment-gap",
-                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
+                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in `ctx`: every conformance case supplies `ctx` itself, so the suite is the host and cannot be caught violating a rule whose input it defines. Closing it is a review of an actual embedding — what the desktop client and the CLI put in `ctx` when a real person fills a real form — not a vector, and no test asserts the absence of a class of value. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
               }
             ]
           },
@@ -15807,7 +15807,7 @@
               {
                 "id": "apr-expr-015_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15869,7 +15869,7 @@
               {
                 "id": "apr-expr-016_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15931,7 +15931,7 @@
               {
                 "id": "apr-expr-017_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -15993,7 +15993,7 @@
               {
                 "id": "apr-expr-018_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16055,7 +16055,7 @@
               {
                 "id": "apr-expr-019_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16117,7 +16117,7 @@
               {
                 "id": "apr-expr-020_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16179,7 +16179,7 @@
               {
                 "id": "apr-expr-021_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16241,7 +16241,7 @@
               {
                 "id": "apr-expr-022_gap",
                 "name": "assessment-gap",
-                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+                "prose": "APR-EXPR-020 types `_now` as a timestamp supplied by the caller, and no two readers agree on what that means. Measured through the driver protocol with `_now` supplied as 2026-09-01T12:00:00Z, as three `exprValue` expressions: a comparison against timestamp('2026-01-01T00:00:00Z'), getFullYear(), and string(_now). The reference validator answers `after`, `2026` and `2026-09-01T12:00:00Z`. Java returns the fallback for all three, so `_now` is unbound there (#513). Python answers the comparison, so `_now` is bound, but getFullYear() falls back and string(_now) yields `2026-09-01 00:00:00+00:00` — neither RFC 3339 nor the instant the caller supplied (#533). TypeScript answers the first two and falls back only on string(_now) (#534). .NET was not measured in this run, no SDK being reachable from the environment it ran in. A case naming APR-EXPR-020 therefore fails at least two drivers whichever of the three expressions it uses, and closing it is three separate SDK fixes rather than one. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -16613,7 +16613,7 @@
               {
                 "id": "apr-expr-028_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16675,7 +16675,7 @@
               {
                 "id": "apr-expr-029_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16737,7 +16737,7 @@
               {
                 "id": "apr-expr-030_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16799,7 +16799,7 @@
               {
                 "id": "apr-expr-031_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16861,7 +16861,7 @@
               {
                 "id": "apr-expr-032_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -16923,7 +16923,7 @@
               {
                 "id": "apr-expr-033_gap",
                 "name": "assessment-gap",
-                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case can require APR-EXPR-030 or 031. Re-measured through the driver protocol: the reference driver returns responses, hidden, expected, readOnly, validation and unbound in `evaluated`, while the Python, TypeScript and Java drivers return responses, hidden and validation only. The harness fails a case naming a group a driver omits, so these two rules cannot be asked at all rather than being asked and failed. Closing them needs the three drivers to report the two groups first."
               }
             ]
           },
@@ -17047,7 +17047,7 @@
               {
                 "id": "apr-expr-035_gap",
                 "name": "assessment-gap",
-                "prose": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
+                "prose": "APR-EXPR-011 requires an implementation to bound expression size, complexity and evaluation cost; APR-EXPR-035 requires reaching a bound to apply the fallback rather than mutate in part. Nothing in this repository bounds any of the three. No size limit, complexity limit or evaluation budget appears in the .NET, Python or TypeScript expression modules or in scripts/aprexpr.py, and check-expression-oracle.py asserts the pinned CEL surface without asserting a limit. The rules hold in practice only because CEL terminates by construction, which is section 11.3's reason for choosing the language and not the same claim: an expression that terminates can still be arbitrarily large or costly. APR-EXPR-035's condition therefore never arises, because there is no bound to reach. Exact bounds are implementation-defined, so no vector can assert a particular limit, but a test could assert that some bound exists and that crossing it degrades to the fallback rather than mutating in part. That is what closing these would take."
               }
             ]
           }
