@@ -48,6 +48,15 @@ internal static class AprStructuralTypes
         ["roles"] = [JsonValueKind.Array],
     };
 
+    private static readonly Dictionary<string, JsonValueKind[]> SubmissionEntry = new(StringComparer.Ordinal)
+    {
+        ["kind"] = [JsonValueKind.String],
+        ["url"] = [JsonValueKind.String],
+        ["fields"] = [JsonValueKind.Object],
+        ["expires"] = [JsonValueKind.String],
+        ["refresh"] = [JsonValueKind.String],
+    };
+
     private static readonly Dictionary<string, JsonValueKind[]> Section = new(StringComparer.Ordinal)
     {
         ["id"] = [JsonValueKind.String],
@@ -102,11 +111,43 @@ internal static class AprStructuralTypes
         if (form.TryGetProperty("metadata", out var metadata) && metadata.ValueKind == JsonValueKind.Object)
         {
             Check(metadata, Metadata, "/metadata");
+            if (metadata.TryGetProperty("submissionUrls", out var entries) && entries.ValueKind == JsonValueKind.Array)
+            {
+                var index = 0;
+                foreach (var entry in entries.EnumerateArray()) CheckSubmissionEntry(entry, $"/metadata/submissionUrls/{index++}");
+            }
         }
         if (form.TryGetProperty("sections", out var sections) && sections.ValueKind == JsonValueKind.Array)
         {
             var index = 0;
             foreach (var section in sections.EnumerateArray()) CheckSection(section, $"/sections/{index++}");
+        }
+    }
+
+    /// <summary>
+    /// A submission entry is a URL string, or an object naming its kind and url; a
+    /// <c>post</c> carries the policy fields it is sent with (APR-MODEL-128 to 135).
+    /// </summary>
+    private static void CheckSubmissionEntry(JsonElement entry, string path)
+    {
+        if (entry.ValueKind == JsonValueKind.String) return;
+        if (entry.ValueKind != JsonValueKind.Object)
+        {
+            throw new SerializationException(
+                $"{path} is {Spell(entry.ValueKind)} where the format declares a string or an object.")
+            { Code = "WRONG_TYPE" };
+        }
+        foreach (var required in (string[])["kind", "url"])
+        {
+            if (entry.TryGetProperty(required, out var value) && value.ValueKind != JsonValueKind.Null) continue;
+            throw new SerializationException($"{path}/{required} is required on a submission entry object.")
+            { Code = "REQUIRED_FIELD" };
+        }
+        Check(entry, SubmissionEntry, path);
+        if (entry.GetProperty("kind").ValueEquals(Models.SubmissionTarget.Post) && !entry.TryGetProperty("fields", out _))
+        {
+            throw new SerializationException($"{path}/fields is required on a post entry, which is sent with its policy fields.")
+            { Code = "REQUIRED_FIELD" };
         }
     }
 
@@ -172,7 +213,7 @@ internal static class AprStructuralTypes
     /// <summary>Members the format types as an array of strings.</summary>
     private static readonly HashSet<string> StringArrays = new(StringComparer.Ordinal)
     {
-        "submissionUrls", "regarding", "suggestedValues",
+        "regarding", "suggestedValues",
     };
 
     private static void Check(JsonElement node, Dictionary<string, JsonValueKind[]> table, string path)

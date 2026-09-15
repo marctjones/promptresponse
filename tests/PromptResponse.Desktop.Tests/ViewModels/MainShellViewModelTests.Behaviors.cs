@@ -204,6 +204,26 @@ public partial class MainShellViewModelTests
     }
 
     [Fact]
+    public void OnlyPutEntries_AreOfferedForSubmission()
+    {
+        // APR-MODEL-139: a post entry needs a multipart request this client does not send,
+        // and an entry of a kind it does not know is not acted on, whatever its url says.
+        var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.DocumentType = DocumentType.FilledForm; document.Metadata.SubmissionUrls = ["https://example.com/submit", "mailto:forms@example.com"]; session.Set(document, null, dirty: true);
+        var shell = new MainShellViewModel(fileService, dialogs, session, profile, new PromptViewModelFactory(profile));
+        shell.CanSubmitViaHttps().Should().BeTrue();
+        shell.CanSubmitViaEmail().Should().BeTrue();
+
+        document.Metadata.SubmissionUrls =
+        [
+            new SubmissionTarget { Kind = SubmissionTarget.Post, Url = "https://example.com/submit", Fields = System.Text.Json.JsonDocument.Parse("{}").RootElement.Clone() },
+            new SubmissionTarget { Kind = "future", Url = "mailto:forms@example.com" },
+        ];
+
+        shell.CanSubmitViaHttps().Should().BeFalse();
+        shell.CanSubmitViaEmail().Should().BeFalse();
+    }
+
+    [Fact]
     public async Task SubmitViaHttps_IgnoresAnOutOfRangeDestinationChoice()
     {
         var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var submission = Substitute.For<IHttpsSubmissionService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.Metadata.SubmissionUrls = ["https://example.com/submit"]; session.Set(document, null, dirty: true); dialogs.ShowChoiceAsync("Submit via HTTPS", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(4));

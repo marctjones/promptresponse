@@ -277,7 +277,8 @@ internal static class AdvisoryVocabulary
         var urls = document.Metadata?.SubmissionUrls;
         for (var index = 0; index < (urls?.Count ?? 0); index++)
         {
-            ReportExcluded(urls![index], $"metadata.submissionUrls[{index}]",
+            var entry = urls![index];
+            ReportExcluded(entry.Url, $"metadata.submissionUrls[{index}]{(entry.IsShorthand ? "" : ".url")}",
                 "SUBMISSION_URL_FORBIDDEN_CODE_POINT", allowCarriageReturn: false, result);
         }
     }
@@ -449,7 +450,7 @@ internal static class AdvisoryVocabulary
         var urls = document.Metadata?.SubmissionUrls;
         for (var index = 0; index < (urls?.Count ?? 0); index++)
         {
-            var url = urls![index];
+            if (urls![index] is not { Url: { } url } entry) continue;
             var scheme = url.Contains(':', StringComparison.Ordinal)
                 ? url[..url.IndexOf(':', StringComparison.Ordinal)]
                 : string.Empty;
@@ -457,7 +458,7 @@ internal static class AdvisoryVocabulary
             result.AddWarning(new ValidationWarning(
                 $"submission entry {index} names the scheme '{scheme}', which this "
                 + "document does not define; a reader offers the entries it understands.",
-                $"metadata.submissionUrls[{index}]", "SUBMISSION_URL_UNSUPPORTED"));
+                $"metadata.submissionUrls[{index}]{(entry.IsShorthand ? "" : ".url")}", "SUBMISSION_URL_UNSUPPORTED"));
         }
     }
 

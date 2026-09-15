@@ -106,6 +106,21 @@ public class AdvisoryVocabularyTests
         Check(document).Warnings.Should().Contain(w => w.WarningCode == "SUBMISSION_URL_FORBIDDEN_CODE_POINT");
     }
 
+    [Fact]
+    public void AnObjectSubmissionEntry_IsAdvisedAtItsUrl()
+    {
+        var document = Form(new Prompt { Id = "p", Label = "P" });
+        document.Metadata.SubmissionUrls =
+            [new SubmissionTarget { Kind = SubmissionTarget.Put, Url = "ftp://uploads.exa​mple.gov/permits" }];
+
+        var warnings = Check(document).Warnings;
+
+        warnings.Should().Contain(w => w.WarningCode == "SUBMISSION_URL_FORBIDDEN_CODE_POINT"
+            && w.PropertyPath == "metadata.submissionUrls[0].url");
+        warnings.Should().Contain(w => w.WarningCode == "SUBMISSION_URL_UNSUPPORTED"
+            && w.PropertyPath == "metadata.submissionUrls[0].url");
+    }
+
     [Theory]
     [InlineData("first name", true)]
     [InlineData("café", true)]

@@ -41,7 +41,7 @@ public class SubmitCommandTests : IDisposable
         }
     }
 
-    private string Write(string name, params string[] submissionUrls)
+    private string Write(string name, params SubmissionTarget[] submissionUrls)
     {
         var document = new AprDocument
         {
@@ -64,7 +64,7 @@ public class SubmitCommandTests : IDisposable
         return path;
     }
 
-    private string WriteYaml(string name, params string[] submissionUrls)
+    private string WriteYaml(string name, params SubmissionTarget[] submissionUrls)
     {
         var document = new AprDocument
         {
@@ -150,6 +150,25 @@ public class SubmitCommandTests : IDisposable
         var code = await command.ExecuteAsync([path, "--yes"]);
 
         code.Should().Be(1, "choosing for somebody is choosing where their answers go");
+        delivery.Sent.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task APostTarget_IsNotSubmittedTo()
+    {
+        // APR-MODEL-139: this command builds no multipart POST, so it does not act on a
+        // post entry, and sending the document to one as a PUT is not that request.
+        var (command, delivery) = Build();
+        var path = Write("a.aprf", new SubmissionTarget
+        {
+            Kind = SubmissionTarget.Post,
+            Url = "https://uploads.example.gov/",
+            Fields = System.Text.Json.JsonDocument.Parse("{\"key\":\"submissions/a\"}").RootElement.Clone(),
+        });
+
+        var code = await command.ExecuteAsync([path, "--yes"]);
+
+        code.Should().Be(1);
         delivery.Sent.Should().BeEmpty();
     }
 

@@ -57,11 +57,11 @@ public sealed class HiddenCharacterAdvisor : IValidator<AprDocument>
         if (urls is null) return;
         for (var i = 0; i < urls.Count; i++)
         {
-            if (!Text.StringSanitizer.ContainsHiddenCharacters(urls[i])) continue;
+            if (!Text.StringSanitizer.ContainsHiddenCharacters(urls[i].Url)) continue;
             result.AddWarning(new ValidationWarning(
                 "The submission URL contains hidden characters (zero-width, bidi, or similar). "
                 + "It may display as a different address than it actually is. Retype it rather than editing it.",
-                $"metadata.submissionUrls[{i}]", "SUBMISSION_URL_HIDDEN_CHARS"));
+                $"metadata.submissionUrls[{i}]{(urls[i].IsShorthand ? "" : ".url")}", "SUBMISSION_URL_HIDDEN_CHARS"));
         }
     }
 

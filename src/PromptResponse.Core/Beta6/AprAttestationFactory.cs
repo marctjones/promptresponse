@@ -96,8 +96,9 @@ public static class AprAttestationFactory
         {
             return;
         }
-        foreach (var url in urls.EnumerateArray())
+        foreach (var entry in urls.EnumerateArray())
         {
+            var url = entry.ValueKind == JsonValueKind.Object && entry.TryGetProperty("url", out var member) ? member : entry;
             if (url.ValueKind == JsonValueKind.String
                 && Text.StringSanitizer.ContainsHiddenCharacters(url.GetString()))
             {

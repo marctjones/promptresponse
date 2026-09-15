@@ -1,5 +1,6 @@
 using System.Text;
 using PromptResponse.Core.Beta6;
+using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using PromptResponse.Host.Abstractions;
@@ -52,7 +53,7 @@ public sealed class SubmitCommand(
         // No automatic fallback. Where a document names one target the choice is
         // unambiguous; where it names several, choosing for somebody is choosing where
         // their answers go.
-        var chosen = requested ?? (declared.Count == 1 ? declared[0] : null);
+        var chosen = requested ?? (declared.Count == 1 ? declared[0].Url : null);
         if (chosen is null)
         {
             Console.Error.WriteLine(declared.Count == 0
@@ -60,9 +61,19 @@ public sealed class SubmitCommand(
                 : $"Error: this document names {declared.Count} targets. Choose one with --url=…");
             return 1;
         }
-        if (declared.Count > 0 && !declared.Contains(chosen, StringComparer.Ordinal))
+        var entry = declared.FirstOrDefault(target => string.Equals(target.Url, chosen, StringComparison.Ordinal));
+        if (declared.Count > 0 && entry is null)
         {
             Console.Error.WriteLine("Error: --url must be one of the targets the document names.");
+            return 1;
+        }
+        // A post entry is sent as a multipart form this command does not build, and an entry
+        // of a kind it does not implement is not acted on (APR-MODEL-139).
+        if (entry is not null && entry.Kind != SubmissionTarget.Put)
+        {
+            Console.Error.WriteLine(
+                $"Error: '{chosen}' is a {entry.Kind ?? "kindless"} target. This command submits "
+                + "to put targets and mailto addresses.");
             return 1;
         }
         if (!Uri.TryCreate(chosen, UriKind.Absolute, out var target) || !delivery.Supports(target))

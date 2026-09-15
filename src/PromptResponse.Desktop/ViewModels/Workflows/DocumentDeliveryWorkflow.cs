@@ -50,7 +50,7 @@ internal sealed class DocumentDeliveryWorkflow
         var source = _session.CurrentDocument;
         if (source?.Metadata.SubmissionUrls is not { Count: > 0 } targets) return;
 
-        var choices = targets.Where(IsEmailTarget).ToList();
+        var choices = targets.Where(IsEmailTarget).Select(target => target.Url!).ToList();
         if (choices.Count == 0) return;
 
         var selectedIndex = await _dialogService.ShowChoiceAsync(
@@ -84,7 +84,7 @@ internal sealed class DocumentDeliveryWorkflow
     public async Task SubmitViaHttpsAsync()
     {
         var source = _session.CurrentDocument;
-        var targets = source?.Metadata.SubmissionUrls?.Where(IsHttpsTarget).ToList() ?? [];
+        var targets = source?.Metadata.SubmissionUrls?.Where(IsHttpsTarget).Select(target => target.Url!).ToList() ?? [];
         if (targets.Count == 0) return;
 
         // A submission URL is where this document's completed data goes; a
@@ -129,10 +129,15 @@ internal sealed class DocumentDeliveryWorkflow
         else _fileService.SetCurrentFilePath(previousPath);
     }
 
-    private static bool IsEmailTarget(string url) => MailHandoffService.TryGetRecipient(url, out _);
+    // Only a put entry is offered. A post entry is sent as a multipart form this client
+    // does not build, and an entry of a kind it does not implement is not acted on
+    // (APR-MODEL-139).
+    private static bool IsEmailTarget(SubmissionTarget target) =>
+        target is { Kind: SubmissionTarget.Put, Url: { } url } && MailHandoffService.TryGetRecipient(url, out _);
 
-    private static bool IsHttpsTarget(string url) =>
-        Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
+    private static bool IsHttpsTarget(SubmissionTarget target) =>
+        target.Kind == SubmissionTarget.Put
+        && Uri.TryCreate(target.Url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
 
     private static bool TryGetChoice(int? choice, IReadOnlyList<string> choices, out int selected)
     {
