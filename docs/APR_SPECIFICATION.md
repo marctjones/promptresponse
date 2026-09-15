@@ -3124,6 +3124,9 @@ reports a warning under the row's code.
 | `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-031] |
 | `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-032] |
 | `CONFUSABLE_SCRIPT_MIX` | One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-035] |
+| `RESPONSE_FORBIDDEN_CODE_POINT` | A response carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-036] |
+| `SUBMISSION_URL_FORBIDDEN_CODE_POINT` | A `submissionUrls` entry carries a code point the floor excludes ([Human-facing text](#human-text)). | **SHOULD** | [APR-VAL-037] |
+| `ID_FORBIDDEN_CHARACTER` | An id carries a character outside `[A-Za-z0-9_.-]` ([Ids](#prompt-object)). | **SHOULD** | [APR-VAL-038] |
 
 Warnings are how an implementation tells a person "this might not be what you
 meant" without ever telling them "you are not allowed to write this."
@@ -3353,8 +3356,15 @@ different conditions, and this document governs them differently.
 A `url` or `email` hint describes what the author *hoped* to receive; it does not
 license editing what was actually written.
 
-A validator **MUST** report a warning for a response that contains a code point
+A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT`
+([Warnings](#warnings)), for a response that contains a code point
 [Human-facing text](#human-text) excludes. [APR-TEXT-004]
+
+The floor is the whole of it: the excluded set is the one
+[Human-facing text](#human-text) states, not a shorter list of the invisible
+characters that happen to be best known. An unassigned, private-use, surrogate or
+deprecated code point in an answer is as much a surprise to the person reading it
+as a zero-width space is.
 
 The consuming workflow decides what to do about such a response; it is the only
 party that knows what the answer is for.
@@ -3387,8 +3397,9 @@ author-supplied array of explicit delivery choices, machine-consumed and
 security-critical. Cleaning a zero-width character out of a hostname picks a
 destination on the author's behalf, a decision only the author can make.
 
-A validator **SHOULD** report a warning for a `submissionUrls` entry that contains
-a code point [Human-facing text](#human-text) excludes. [APR-TEXT-007]
+A validator **SHOULD** report a warning, `SUBMISSION_URL_FORBIDDEN_CODE_POINT`
+([Warnings](#warnings)), for a `submissionUrls` entry that contains a code point
+[Human-facing text](#human-text) excludes. [APR-TEXT-007]
 
 An implementation **MUST NOT** produce an attestation over a form whose
 `submissionUrls` has such an entry. [APR-TEXT-008]
@@ -3399,8 +3410,9 @@ An implementation **MUST NOT** produce an attestation over a form whose
 Ids are machine keys: they appear in attestation manifests, database columns, and
 cell addresses.
 
-A validator **SHOULD** report a warning for an id that contains a character
-outside `[A-Za-z0-9_.-]`. [APR-TEXT-010]
+A validator **SHOULD** report a warning, `ID_FORBIDDEN_CHARACTER`
+([Warnings](#warnings)), for an id that contains a character outside
+`[A-Za-z0-9_.-]`. [APR-TEXT-010]
 
 #### 8.2.3 Human-facing text {#human-text}
 

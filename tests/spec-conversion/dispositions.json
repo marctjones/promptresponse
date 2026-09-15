@@ -7220,7 +7220,14 @@
       "text": "7.2 Warnings — advisory only",
       "disposition": "keep",
       "status": "applied",
-      "issue": 480
+      "issue": 480,
+      "replacedBy": [
+        "warnings/heading/7cdd3520c6",
+        "warnings/table-row/e03a63aab4",
+        "warnings/table-row/7492147866",
+        "warnings/table-row/12de0c0cfa"
+      ],
+      "note": "section 7.2 names the codes for the hidden-character conditions chapter 8 states (#506, #507, #508)"
     },
     "warnings/table-header/dd7d6afc64": {
       "anchor": "warnings",
@@ -7802,10 +7809,12 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "filled-never-rewritten/sentence/f8fb5fc059",
-        "filled-never-rewritten/sentence/392bef334d"
+        "filled-never-rewritten/sentence/392bef334d",
+        "filled-never-rewritten/sentence/314aa711f5",
+        "filled-never-rewritten/sentence/2788693392",
+        "filled-never-rewritten/sentence/3e59e4d210"
       ],
-      "note": "a validator reports (APR-TEXT-004) and a renderer shows it visibly (APR-TEXT-013); suspicious characters are the code points the floor excludes",
+      "note": "section 7.2 names the codes for the hidden-character conditions chapter 8 states (#506, #507, #508)",
       "issue": 481
     },
     "filled-never-rewritten/sentence/2e77caf6f3": {
@@ -7942,9 +7951,9 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "authoring-strictness/sentence/8f0dccf5d8"
+        "authoring-strictness/sentence/c769dac2b3"
       ],
-      "note": "a validator is the subject; the hidden characters are the code points the floor excludes",
+      "note": "section 7.2 names the codes for the hidden-character conditions chapter 8 states (#506, #507, #508)",
       "issue": 481
     },
     "authoring-strictness/list-item/6fff2e9987": {
@@ -8001,9 +8010,9 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "authoring-strictness/sentence/e08356ac49"
+        "authoring-strictness/sentence/ca7e9daa07"
       ],
-      "note": "a validator is the subject; the reason is a sentence of its own",
+      "note": "section 7.2 names the codes for the hidden-character conditions chapter 8 states (#506, #507, #508)",
       "issue": 481
     },
     "human-text/heading/eb06657b5c": {

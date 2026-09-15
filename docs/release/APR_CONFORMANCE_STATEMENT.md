@@ -16,7 +16,7 @@ class of product.
 
 ## `core`
 
-232 rules.
+235 rules.
 
 ### Implementation
 
@@ -147,9 +147,9 @@ class of product.
 | [APR-MODEL-099](../APR_SPECIFICATION.md#table-rows) | MUST NOT | A validator **MUST NOT** reject a table that carries more instances than its `maxRows`. | |
 | [APR-MODEL-100](../APR_SPECIFICATION.md#table-ragged) | MUST NOT | A validator **MUST NOT** reject a table whose instances disagree. | |
 | [APR-MODEL-116](../APR_SPECIFICATION.md#hints-object) | MUST NOT | A validator **MUST NOT** reject a form because a hint is unusable, such as a `validationPattern` that is not a regular expression, a bound of the wrong type, or an expression that does not compile. | |
-| [APR-TEXT-004](../APR_SPECIFICATION.md#filled-never-rewritten) | MUST | A validator **MUST** report a warning for a response that contains a code point [Human-facing text](../APR_SPECIFICATION.md#human-text) excludes. | |
-| [APR-TEXT-007](../APR_SPECIFICATION.md#authoring-strictness) | SHOULD | A validator **SHOULD** report a warning for a `submissionUrls` entry that contains a code point [Human-facing text](../APR_SPECIFICATION.md#human-text) excludes. | |
-| [APR-TEXT-010](../APR_SPECIFICATION.md#authoring-strictness) | SHOULD | A validator **SHOULD** report a warning for an id that contains a character outside `[A-Za-z0-9_.-]`. | |
+| [APR-TEXT-004](../APR_SPECIFICATION.md#filled-never-rewritten) | MUST | A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT` ([Warnings](../APR_SPECIFICATION.md#warnings)), for a response that contains a code point [Human-facing text](../APR_SPECIFICATION.md#human-text) excludes. | |
+| [APR-TEXT-007](../APR_SPECIFICATION.md#authoring-strictness) | SHOULD | A validator **SHOULD** report a warning, `SUBMISSION_URL_FORBIDDEN_CODE_POINT` ([Warnings](../APR_SPECIFICATION.md#warnings)), for a `submissionUrls` entry that contains a code point [Human-facing text](../APR_SPECIFICATION.md#human-text) excludes. | |
+| [APR-TEXT-010](../APR_SPECIFICATION.md#authoring-strictness) | SHOULD | A validator **SHOULD** report a warning, `ID_FORBIDDEN_CHARACTER` ([Warnings](../APR_SPECIFICATION.md#warnings)), for an id that contains a character outside `[A-Za-z0-9_.-]`. | |
 | [APR-TEXT-012](../APR_SPECIFICATION.md#human-text) | SHOULD | A validator **SHOULD** apply the confusable and mixed-script detection of UTS #39 to human-facing text and report what it finds. | |
 | [APR-TEXT-014](../APR_SPECIFICATION.md#human-text) | MUST | A validator **MUST** report a warning for human-facing text that is not in Normalization Form C or that contains a code point the rule above excludes. | |
 | [APR-VAL-005](../APR_SPECIFICATION.md#semantic-validation) | MUST NOT | A validator **MUST NOT** reject a document because of what a response means. | |
@@ -177,6 +177,9 @@ class of product.
 | [APR-VAL-031](../APR_SPECIFICATION.md#warnings) | MUST | `NON_NFC_TEXT` — Human-facing text is not in Normalization Form C ([Human-facing text](../APR_SPECIFICATION.md#human-text)). — **MUST** | |
 | [APR-VAL-032](../APR_SPECIFICATION.md#warnings) | MUST | `FORBIDDEN_CODE_POINT` — Human-facing text carries a code point the floor excludes ([Human-facing text](../APR_SPECIFICATION.md#human-text)). — **MUST** | |
 | [APR-VAL-035](../APR_SPECIFICATION.md#warnings) | MUST | `CONFUSABLE_SCRIPT_MIX` — One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](../APR_SPECIFICATION.md#human-text)). — **MUST** | |
+| [APR-VAL-036](../APR_SPECIFICATION.md#warnings) | MUST | `RESPONSE_FORBIDDEN_CODE_POINT` — A response carries a code point the floor excludes ([Human-facing text](../APR_SPECIFICATION.md#human-text)). — **MUST** | |
+| [APR-VAL-037](../APR_SPECIFICATION.md#warnings) | SHOULD | `SUBMISSION_URL_FORBIDDEN_CODE_POINT` — A `submissionUrls` entry carries a code point the floor excludes ([Human-facing text](../APR_SPECIFICATION.md#human-text)). — **SHOULD** | |
+| [APR-VAL-038](../APR_SPECIFICATION.md#warnings) | SHOULD | `ID_FORBIDDEN_CHARACTER` — An id carries a character outside `[A-Za-z0-9_.-]` ([Ids](../APR_SPECIFICATION.md#prompt-object)). — **SHOULD** | |
 
 ### Renderer
 
