@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "9674a437-f58f-5eea-8e24-1c448ec337e2",
+    "uuid": "b68005dc-bf25-54ae-bb8e-fac92c9a3c19",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "afd870ea9cb6b13410ea2dcbfde8d88edbde176b182e95f47be55a51f1b18403"
+          "value": "6868c4ef9d7a65be198f05fec6c088b5baf796338726308ad59b4daf5fd4775a"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -4224,12 +4224,12 @@
               {
                 "id": "apr-model-033_smt",
                 "name": "statement",
-                "prose": "Send the document as the body of one `PUT`, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) — **MUST**"
+                "prose": "Send the document as the body of one `PUT` to a `put` entry, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) — **MUST**"
               },
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -4291,7 +4291,7 @@
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -4353,7 +4353,7 @@
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -5982,12 +5982,12 @@
               {
                 "id": "apr-model-064_smt",
                 "name": "statement",
-                "prose": "`submissionUrls` — array of string — **OPTIONAL** — Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission))."
+                "prose": "`submissionUrls` — array of string or object — **OPTIONAL** — Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission))."
               },
               {
                 "id": "apr-model-064_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7301,7 +7301,7 @@
               {
                 "id": "apr-model-086_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7363,7 +7363,7 @@
               {
                 "id": "apr-model-087_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7425,7 +7425,7 @@
               {
                 "id": "apr-model-088_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7487,7 +7487,7 @@
               {
                 "id": "apr-model-089_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7549,7 +7549,7 @@
               {
                 "id": "apr-model-090_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -7611,7 +7611,7 @@
               {
                 "id": "apr-model-091_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           },
@@ -9687,6 +9687,750 @@
                 "id": "apr-model-126_gap",
                 "name": "assessment-gap",
                 "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-128",
+            "title": "APR-MODEL-128 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-128"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQUIRED"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-128_smt",
+                "name": "statement",
+                "prose": "`kind` — string — **REQUIRED** — `put` or `post`."
+              },
+              {
+                "id": "apr-model-128_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-129",
+            "title": "APR-MODEL-129 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-129"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQUIRED"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-129_smt",
+                "name": "statement",
+                "prose": "`url` — string — **REQUIRED** — The target the request is sent to, used verbatim, query string included."
+              },
+              {
+                "id": "apr-model-129_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-130",
+            "title": "APR-MODEL-130 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-130"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "OPTIONAL"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-130_smt",
+                "name": "statement",
+                "prose": "`fields` — object — **OPTIONAL** — The policy fields a `post` target requires, each sent verbatim."
+              },
+              {
+                "id": "apr-model-130_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-131",
+            "title": "APR-MODEL-131 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-131"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "OPTIONAL"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-131_smt",
+                "name": "statement",
+                "prose": "`expires` — string — **OPTIONAL** — An RFC 3339 instant after which the grant is spent."
+              },
+              {
+                "id": "apr-model-131_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-132",
+            "title": "APR-MODEL-132 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-132"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "OPTIONAL"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-132_smt",
+                "name": "statement",
+                "prose": "`refresh` — string — **OPTIONAL** — A URL that issues a replacement entry, described below."
+              },
+              {
+                "id": "apr-model-132_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-133",
+            "title": "APR-MODEL-133 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-133"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-133_smt",
+                "name": "statement",
+                "prose": "A `submissionUrls` entry **MUST** be a string or an object."
+              },
+              {
+                "id": "apr-model-133_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-134",
+            "title": "APR-MODEL-134 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-134"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "reader"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-134_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** read a string entry as an object whose `kind` is `put` and whose `url` is that string."
+              },
+              {
+                "id": "apr-model-134_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-135",
+            "title": "APR-MODEL-135 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-135"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "document"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-135_smt",
+                "name": "statement",
+                "prose": "A `post` entry **MUST** carry `fields`."
+              },
+              {
+                "id": "apr-model-135_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-136",
+            "title": "APR-MODEL-136 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-136"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "implementation"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-136_smt",
+                "name": "statement",
+                "prose": "Send the document to a `post` entry as one `multipart/form-data` POST, every member of `fields` as a form field ahead of the document, the document last and carrying that same media type — **MUST**"
+              },
+              {
+                "id": "apr-model-136_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-137",
+            "title": "APR-MODEL-137 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-137"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST NOT"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "implementation"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-137_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST NOT** fetch `refresh` without an explicit user action."
+              },
+              {
+                "id": "apr-model-137_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-138",
+            "title": "APR-MODEL-138 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-138"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SHOULD"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "writer"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-138_smt",
+                "name": "statement",
+                "prose": "A writer **SHOULD** name the stored object by the form's semantic digest, as `submissions/` followed by the digest ([Digests](#digests))."
+              },
+              {
+                "id": "apr-model-138_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-139",
+            "title": "APR-MODEL-139 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-139"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST NOT"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "implementation"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-139_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST NOT** act on an entry whose `kind` it does not recognise or does not implement."
+              },
+              {
+                "id": "apr-model-139_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
               }
             ]
           }
