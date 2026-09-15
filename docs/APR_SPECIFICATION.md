@@ -1891,30 +1891,6 @@ expect: valid
 }
 ```
 
-**Example 5.2.1-2.** An entry that is neither a string nor an object. `submissionUrls` is
-declared as an array of string or object, so a number is not the type its row
-gives ([Errors](#structural-validation)).
-
-```apr-example
-id: submission-entry-wrong-type
-rule: submission
-violates: APR-MODEL-133
-representation: jsonc
-expect: reject
-diagnostic: WRONG_TYPE
----
-{
-  "aprVersion": "1.0-beta.6",
-  "metadata": {
-    "title": "Well permit",
-    "submissionUrls": [ 42 ]
-  },
-  "sections": [
-    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
-  ]
-}
-```
-
 The string form is the shorthand in ordinary use, and it stays. An object entry
 carries these members.
 

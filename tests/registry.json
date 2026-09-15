@@ -1155,7 +1155,7 @@
       "statement": "A submission entry is an https pre-signed target, as a put or a post, or a mailto address; delivery is one request or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-133 is evidenced both ways by spec:submission-string-entries and spec:submission-entry-wrong-type. The rest divides in two. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields, and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, enforcing the array-of-string shape beta.7 widened. Those stay uncovered rather than excepted, because the work is real and tracked (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523).",
+      "gap": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523).",
       "rules": [
         "APR-MODEL-033",
         "APR-MODEL-034",
@@ -1191,6 +1191,7 @@
         "APR-MODEL-130",
         "APR-MODEL-131",
         "APR-MODEL-132",
+        "APR-MODEL-133",
         "APR-MODEL-134",
         "APR-MODEL-135",
         "APR-MODEL-136",
