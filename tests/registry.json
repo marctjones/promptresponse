@@ -434,7 +434,7 @@
       "id": "REQ-any-string",
       "section": "any-string",
       "statement": "Any string is a valid response, whatever the hint asked for",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -443,13 +443,20 @@
         {
           "type": "test",
           "ref": "RealFile_ResponsesAreAlwaysStrings"
+        },
+        {
+          "type": "test",
+          "ref": "AMebibyteResponse_SurvivesARoundTrip"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_a_mebibyte_response_survives_a_round_trip"
         }
       ],
       "rules": [
         "APR-MODEL-002",
         "APR-MODEL-127"
-      ],
-      "gap": "APR-MODEL-127 states a floor on what an implementation must accept, not a property of any one document, so no conformance case can carry it: a vector proving a mebibyte is readable would be a mebibyte long. The .NET test that proved it is not in this change, which is specification-only."
+      ]
     },
     {
       "id": "REQ-attestation-members",
@@ -691,6 +698,14 @@
         {
           "type": "test",
           "ref": "AnAttestationMember_IsRefusedUnderTheCodeItsRowNames"
+        },
+        {
+          "type": "test",
+          "ref": "Manifest_CarriesAnEntryForEveryValue_UnknownMembersIncluded"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_a_manifest_carries_an_entry_for_every_value"
         }
       ],
       "rules": [
@@ -705,11 +720,10 @@
         "APR-DIGEST-009",
         "APR-DIGEST-010"
       ],
-      "gap": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model.",
+      "gap": "Two rules have no vector, for two different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding.",
       "gapRules": [
         "APR-DIGEST-005",
-        "APR-DIGEST-007",
-        "APR-DIGEST-010"
+        "APR-DIGEST-007"
       ]
     },
     {
@@ -1747,6 +1761,14 @@
         {
           "type": "test",
           "ref": "test_beta6_refuses_a_forbidden_code_point_while_reading"
+        },
+        {
+          "type": "test",
+          "ref": "AWriter_WritesNoByteOrderMark"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_a_writer_writes_no_byte_order_mark"
         }
       ],
       "rules": [
@@ -1756,7 +1778,7 @@
         "APR-REP-018",
         "APR-REP-019"
       ],
-      "gap": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018, #543)."
+      "gap": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them."
     },
     {
       "id": "REQ-response-verbatim",

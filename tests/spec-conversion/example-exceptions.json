@@ -282,6 +282,15 @@
       "spec:digest-same-in-yaml"
     ]
   },
+  "APR-DIGEST-010": {
+    "reason": "A SHOULD on what a manifest producer emits, which no input document shows. The tests compare a produced manifest's paths against every pointer in a form carrying an unknown member.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprSemanticDigestTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-EXPR-001": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": [
@@ -954,6 +963,15 @@
       "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"
     ]
   },
+  "APR-MODEL-127": {
+    "reason": "A floor on what an implementation accepts, not a property of one document; a vector proving it would be a mebibyte long. The tests round-trip a response of exactly 1,048,576 UTF-8 bytes and check it is unchanged.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-RENDER-001": {
     "reason": "The accessible name is a property of the rendered interface, not of the document.",
     "coveredBy": [
@@ -1080,6 +1098,15 @@
     "reason": "A rule on how a reader is built. A document that would exploit an unsafe loader needs a tag, which the excluded-constructs table already refuses.",
     "coveredBy": [
       "spec:yaml-tag"
+    ]
+  },
+  "APR-REP-018": {
+    "reason": "A rule on what a writer emits, which no input document shows. The tests write a form in both representations and check the first character is not a byte-order mark.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
     ]
   },
   "APR-REP-019": {
