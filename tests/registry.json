@@ -1071,14 +1071,6 @@
       ]
     },
     {
-      "id": "REQ-lang-rfc2119",
-      "section": "normative-language",
-      "statement": "BCP 14 keywords are normative only in all capitals",
-      "strength": "none",
-      "gates": [],
-      "gap": "Definitional. Nothing to execute."
-    },
-    {
       "id": "REQ-metadata-members",
       "section": "metadata",
       "statement": "metadata.title required non-blank; filledForm declares templateId; templateId is a URI, never fetched; workflow state is not form data; submissionUrls is an array and a scalar submissionUrl is never honoured",
