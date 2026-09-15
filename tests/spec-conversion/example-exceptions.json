@@ -40,12 +40,24 @@
       "corpus:streams/cms-proof.apr.jsonc"
     ]
   },
+  "APR-ATTEST-011": {
+    "reason": "A rule on what an implementation requires before acting on a form, which no document can show. The test reads, validates, renders and writes a form beside no attestation and beside failing ones.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AttestationsNeverGateTheDataTests.cs"
+    ]
+  },
   "APR-ATTEST-012": {
     "reason": "A rule on what an implementation refuses to do, which no document can violate. The cases show a stream whose attestation is unresolved or unverifiable read valid, and the resolver test shows an invalid manifest never removes the form.",
     "coveredBy": [
       "spec:attestation-state-no-error",
       "corpus:streams/unsupported-proof.apr.jsonc",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
+  },
+  "APR-ATTEST-013": {
+    "reason": "A permission, which nothing can violate.",
+    "coveredBy": [
+      "spec:attestation-state-no-error"
     ]
   },
   "APR-ATTEST-014": {
@@ -81,6 +93,13 @@
       "typescript/src/test/beta6.test.ts",
       "java/src/test/java/org/promptresponse/AprConformanceTest.java",
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
+    ]
+  },
+  "APR-ATTEST-019": {
+    "reason": "A rule on what an implementation lets an attestation decide, which no document can show. The tests find the form's data whole whether its attestation is absent, of another form, or carries a proof that fails.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AttestationsNeverGateTheDataTests.cs",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
   },
   "APR-ATTEST-031": {
@@ -306,6 +325,12 @@
       "spec:expr-fallback-value"
     ]
   },
+  "APR-EXPR-002": {
+    "reason": "A rule on what an implementation exposes to an expression; a document cannot ask for a capability the language lacks. The example names the host environment, and the evaluation fails to its fallback.",
+    "coveredBy": [
+      "spec:expr-activation-is-all-there-is"
+    ]
+  },
   "APR-EXPR-003": {
     "reason": "A rule on how an implementation handles its own evaluation failure; no document can make an implementation propagate an error.",
     "coveredBy": [
@@ -329,6 +354,12 @@
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": [
       "spec:expr-unbound-empty"
+    ]
+  },
+  "APR-EXPR-007": {
+    "reason": "A rule on what a host places in ctx. Every case supplies ctx itself, so no document or case can show a host breaking it.",
+    "coveredBy": [
+      "spec:expr-ctx"
     ]
   },
   "APR-EXPR-008": {
