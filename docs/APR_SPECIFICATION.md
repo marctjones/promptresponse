@@ -4341,6 +4341,32 @@ diagnostic: REQUIRED_FIELD
 {"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"/a","digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
 ```
 
+**Example 10-7.** A manifest entry without `path`.
+
+```apr-example
+id: manifest-entry-without-path
+rule: digests
+violates: APR-DIGEST-008
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"digest":"sha256:abababababababababababababababababababababababababababababababab"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-8.** A manifest entry without `digest`.
+
+```apr-example
+id: manifest-entry-without-digest
+rule: digests
+violates: APR-DIGEST-009
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":""}]},"proofs":[],"witnesses":[]}
+```
+
 An implementation producing a manifest **SHOULD** give it one entry for every
 value in the semantic model at every depth, unknown members included. [APR-DIGEST-010]
 
@@ -6153,6 +6179,32 @@ preserves: /proofs/0/type, /proofs/0/value
 }
 ```
 
+**Example 12.4-3.** A proof without `type`.
+
+```apr-example
+id: attestation-proof-without-type
+rule: proofs
+violates: APR-ATTEST-033
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[{"value":"b3BhcXVl"}],"witnesses":[]}
+```
+
+**Example 12.4-4.** A proof without `value`.
+
+```apr-example
+id: attestation-proof-without-value
+rule: proofs
+violates: APR-ATTEST-034
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[{"type":"example/opaque-v1"}],"witnesses":[]}
+```
+
 "I cannot check this" and "this is forged" are different statements.
 
 A renderer **MUST NOT** present an `unverifiable` proof as `invalid`. [APR-ATTEST-039]
@@ -6236,6 +6288,19 @@ diagnostic: WRONG_TYPE
     "the counter attestation"
   ]
 }
+```
+
+**Example 12.5-3.** Witnesses repeating one digest.
+
+```apr-example
+id: attestation-witness-repeated
+rule: witnesses
+violates: APR-ATTEST-043
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[],"witnesses":["sha256:48f60a7124d41f89159e9d38003441a22755f09bc8744227dabde81a5bf8f1d0","sha256:48f60a7124d41f89159e9d38003441a22755f09bc8744227dabde81a5bf8f1d0"]}
 ```
 
 Witnessing neither authorizes a change nor proves a clock order, workflow

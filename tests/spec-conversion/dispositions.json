@@ -8637,7 +8637,13 @@
         "digests/example/afc08e4b44",
         "digests/sentence/329a365e66",
         "digests/sentence/20523023fb",
-        "digests/example/9ba317c04a"
+        "digests/example/9ba317c04a",
+        "digests/sentence/717b1bbd3d",
+        "digests/sentence/56642826d6",
+        "digests/example/e3700ed1a6",
+        "digests/sentence/ac291b19d6",
+        "digests/sentence/5c48bbd06d",
+        "digests/example/61d9ff1ba2"
       ],
       "issue": 482,
       "note": "examples added so the specification shows each rule it states here (#488)"
@@ -10510,7 +10516,13 @@
         "proofs/sentence/990e97938b",
         "proofs/example/3532a6bac7",
         "proofs/sentence/c50c4c2082",
-        "proofs/sentence/335d9fc832"
+        "proofs/sentence/335d9fc832",
+        "proofs/sentence/ec7c47f673",
+        "proofs/sentence/71b35ab2ad",
+        "proofs/example/1cd39be05f",
+        "proofs/sentence/16b0e9493a",
+        "proofs/sentence/be5f0cef2a",
+        "proofs/example/9079ab4bed"
       ]
     },
     "proofs/sentence/926542560d": {
@@ -10666,7 +10678,10 @@
         "witnesses/sentence/e8a46750e2",
         "witnesses/example/85685e370c",
         "witnesses/sentence/3a85c07f1f",
-        "witnesses/sentence/5da88f5ca6"
+        "witnesses/sentence/5da88f5ca6",
+        "witnesses/sentence/9fd0a1d1f4",
+        "witnesses/sentence/df05b21f12",
+        "witnesses/example/6c04138be4"
       ]
     },
     "witnesses/sentence/cedfe5ed4f": {

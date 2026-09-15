@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "f7969d31-fab9-5e0f-aabf-09517fadc0aa",
+    "uuid": "cb512c3a-2fc1-5621-98d7-a2ec16445bcb",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "c36c2d41262f137dd1a95d03249e9d3a889645534a7e2865652257d01bc2b535"
+          "value": "2039c434dda58d6864a6b70d8e02476c2272c97cced6beba08ba771e67fc22a6"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -14333,7 +14333,7 @@
               {
                 "id": "apr-digest-001_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14395,7 +14395,7 @@
               {
                 "id": "apr-digest-002_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14457,7 +14457,7 @@
               {
                 "id": "apr-digest-003_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14519,7 +14519,7 @@
               {
                 "id": "apr-digest-004_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14581,7 +14581,7 @@
               {
                 "id": "apr-digest-005_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14643,7 +14643,7 @@
               {
                 "id": "apr-digest-006_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14705,7 +14705,7 @@
               {
                 "id": "apr-digest-007_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14767,7 +14767,7 @@
               {
                 "id": "apr-digest-008_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14829,7 +14829,7 @@
               {
                 "id": "apr-digest-009_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           },
@@ -14891,7 +14891,7 @@
               {
                 "id": "apr-digest-010_gap",
                 "name": "assessment-gap",
-                "prose": "Five rules have no vector, for four different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
+                "prose": "Three rules have no vector, for three different reasons, and none of them is closed by writing a document. APR-DIGEST-005 is what a verifier reports once a subject differs from `root`. The driver protocol carries no field for a verifier's differing paths — outcome, diagnostic, digest, warnings, evaluated and written is the whole of it — so no suite case can ask it, and the SDK assertions that touch differingPaths ask something else: two report the empty set when nothing differs or the root pointer against a manifest carrying no entries at all, and the fields-scope tests deliberately assert a path the manifest does not carry, which is section 12.3's requirement rather than this one. Closing it needs a test that hands a verifier a complete manifest, changes one deep value, and asserts both halves: the deepest carried path is reported, and no path the manifest omits is. APR-DIGEST-007 needs a verifier that cannot preserve or digest an unknown member. Every reader here can — APR-MODEL-021 requires it and the round-trip `preserves` marker checks it — so the precondition never arises and the rule holds by construction; no test would fail if it stopped holding. APR-DIGEST-010 recommends a shape to a producer, and nothing in this repository scores a producer's manifest. All four manifest builders do recurse to every value at every depth, but the closest test, Manifest_ContainsRootAndNonPlaintextLeafDigest, asserts only that the root pointer and one nested response path are present: a producer emitting the root and the leaves alone would pass it and violate the rule. Closing it needs a test comparing a produced manifest's entry paths against every pointer in the semantic model."
               }
             ]
           }
@@ -17462,7 +17462,7 @@
               {
                 "id": "apr-attest-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -17524,7 +17524,7 @@
               {
                 "id": "apr-attest-008_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -17891,7 +17891,7 @@
               {
                 "id": "apr-attest-014_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19004,7 +19004,7 @@
               {
                 "id": "apr-attest-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19066,7 +19066,7 @@
               {
                 "id": "apr-attest-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19128,7 +19128,7 @@
               {
                 "id": "apr-attest-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19190,7 +19190,7 @@
               {
                 "id": "apr-attest-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19252,7 +19252,7 @@
               {
                 "id": "apr-attest-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19314,7 +19314,7 @@
               {
                 "id": "apr-attest-038_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19376,7 +19376,7 @@
               {
                 "id": "apr-attest-039_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19438,7 +19438,7 @@
               {
                 "id": "apr-attest-040_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19500,7 +19500,7 @@
               {
                 "id": "apr-attest-041_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time (#540)."
               }
             ]
           },
@@ -19524,7 +19524,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -19558,11 +19558,6 @@
                 "id": "apr-attest-042_smt",
                 "name": "statement",
                 "prose": "Each entry in `witnesses` **MUST** be the digest of an earlier attestation's envelope."
-              },
-              {
-                "id": "apr-attest-042_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-043 has no violating example: the .NET reader accepts a repeated witness (#517)."
               }
             ]
           },
@@ -19586,7 +19581,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -19620,11 +19615,6 @@
                 "id": "apr-attest-043_smt",
                 "name": "statement",
                 "prose": "`witnesses` **MUST NOT** repeat a digest."
-              },
-              {
-                "id": "apr-attest-043_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-043 has no violating example: the .NET reader accepts a repeated witness (#517)."
               }
             ]
           },

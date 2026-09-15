@@ -181,6 +181,36 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "attestation-proof-without-type",
+      "number": "12.4-3",
+      "rule": "proofs",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"}]},\"proofs\":[{\"value\":\"b3BhcXVl\"}],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-ATTEST-033"
+      ],
+      "violates": [
+        "APR-ATTEST-033"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "attestation-proof-without-value",
+      "number": "12.4-4",
+      "rule": "proofs",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"}]},\"proofs\":[{\"type\":\"example/opaque-v1\"}],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-ATTEST-034"
+      ],
+      "violates": [
+        "APR-ATTEST-034"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "attestation-proofs-not-array",
       "number": "12.2-13",
       "rule": "attestation-catalogue",
@@ -352,6 +382,21 @@
       ],
       "violates": [
         "APR-ATTEST-042"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "attestation-witness-repeated",
+      "number": "12.5-3",
+      "rule": "witnesses",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"}]},\"proofs\":[],\"witnesses\":[\"sha256:48f60a7124d41f89159e9d38003441a22755f09bc8744227dabde81a5bf8f1d0\",\"sha256:48f60a7124d41f89159e9d38003441a22755f09bc8744227dabde81a5bf8f1d0\"]}\n",
+      "rules": [
+        "APR-ATTEST-043"
+      ],
+      "violates": [
+        "APR-ATTEST-043"
       ],
       "diagnostic": "WRONG_TYPE"
     },
@@ -1440,6 +1485,36 @@
         "APR-DIGEST-003"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "manifest-entry-without-digest",
+      "number": "10-8",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-009"
+      ],
+      "violates": [
+        "APR-DIGEST-009"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "manifest-entry-without-path",
+      "number": "10-7",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-008"
+      ],
+      "violates": [
+        "APR-DIGEST-008"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
     },
     {
       "id": "manifest-well-formed",

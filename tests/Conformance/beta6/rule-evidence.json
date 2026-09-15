@@ -4,9 +4,9 @@
   "counts": {
     "enforced": 178,
     "satisfied": 175,
-    "violated": 167,
-    "caught": 167,
-    "complete": 142
+    "violated": 170,
+    "caught": 170,
+    "complete": 145
   },
   "legs": {
     "APR-ATTEST-001": "esvc",
@@ -51,7 +51,7 @@
     "APR-ATTEST-040": "----",
     "APR-ATTEST-041": "----",
     "APR-ATTEST-042": "esvc",
-    "APR-ATTEST-043": "es--",
+    "APR-ATTEST-043": "esvc",
     "APR-ATTEST-044": "-s--",
     "APR-ATTEST-045": "-s--",
     "APR-ATTEST-046": "esvc",
@@ -83,8 +83,8 @@
     "APR-DIGEST-005": "----",
     "APR-DIGEST-006": "-s--",
     "APR-DIGEST-007": "----",
-    "APR-DIGEST-008": "es--",
-    "APR-DIGEST-009": "es--",
+    "APR-DIGEST-008": "esvc",
+    "APR-DIGEST-009": "esvc",
     "APR-DIGEST-010": "----",
     "APR-EXPR-001": "esvc",
     "APR-EXPR-002": "----",
