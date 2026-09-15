@@ -273,10 +273,15 @@ Issue #379, which tracked closing this gap for all three, is resolved.
 ## Required behaviours
 
 Read both representations, preserve independent stream records, hold the digest
-and manifest relations, reject a root `signatures` member, reject any
-stated `aprVersion` other than `1.0-beta.7` or `1.0-beta.6` at parse and write
-boundaries, report an absent or blank one as `REQUIRED_FIELD` rather than
-`UNSUPPORTED_VERSION`, and preserve every response byte for byte across a round
-trip.
+and manifest relations, reject any stated `aprVersion` other than `1.0-beta.7`
+or `1.0-beta.6` at parse and write boundaries, report an absent or blank one as
+`REQUIRED_FIELD` rather than `UNSUPPORTED_VERSION`, and preserve every response
+byte for byte across a round trip.
+
+An SDK does **not** reject a root `signatures` member. The specification names no
+such member, which makes it an unknown one, and `APR-MODEL-020` says a reader
+**MUST NOT** reject a document for carrying unknown members while
+`APR-MODEL-021` says it preserves them unchanged. The beta.3 embedded-signature
+model is gone; nothing replaced it with a prohibition.
 
 No SDK does the last of those yet; it is #531.
