@@ -274,5 +274,9 @@ Issue #379, which tracked closing this gap for all three, is resolved.
 
 Read both representations, preserve independent stream records, hold the digest
 and manifest relations, reject a root `signatures` member, reject any
-`aprVersion` other than `1.0-beta.6` at parse and write boundaries, and preserve
-every response byte for byte across a round trip.
+stated `aprVersion` other than `1.0-beta.7` or `1.0-beta.6` at parse and write
+boundaries, report an absent or blank one as `REQUIRED_FIELD` rather than
+`UNSUPPORTED_VERSION`, and preserve every response byte for byte across a round
+trip.
+
+No SDK does the last of those yet; it is #531.

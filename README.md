@@ -240,7 +240,8 @@ manually maintained inventory and policy.
 ## Project Status
 
 🚧 **Pre-public beta migration** — beta.3 is the implementation baseline and
-`1.0-beta.6` is the active format target. See [ROADMAP.md](ROADMAP.md) for the
+`1.0-beta.7` is the active format target, accepted alongside `1.0-beta.6`.
+See [ROADMAP.md](ROADMAP.md) for the
 dependency order; do not publish or stabilize beta.3 as a public contract.
 
 - [x] Core library (models, JSON serialization, advisory validation,
