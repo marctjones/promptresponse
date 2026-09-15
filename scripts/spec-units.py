@@ -34,7 +34,10 @@ KEYWORDS = re.compile(r"\b(MUST NOT|MUST|SHALL NOT|SHALL|SHOULD NOT|SHOULD|NOT R
 LOWERCASE = re.compile(r"\b(must|shall|should|required|may)\b")
 HISTORY = re.compile(r"\b(earlier (?:draft|version|scheme|baseline|design|ordering)|"
                      r"previous (?:version|draft|specification)|formerly|retire[ds]?|legacy|"
-                     r"beta\.(?!6\b)\d+)\b", re.IGNORECASE)
+                     # The versions this document declares are not its history: the
+                     # format version and the one it still accepts beside it
+                     # (#version-compatibility). Every earlier beta is history.
+                     r"beta\.(?![67]\b)\d+)\b", re.IGNORECASE)
 RULE = re.compile(r"\[(APR-[A-Z]+-\d{3})\]")
 LEADING_RULES = re.compile(r"^((?:\[APR-[A-Z]+-\d{3}\]\s*)+)(.*)$", re.DOTALL)
 HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*(?:\{#([a-z0-9-]+)\})?\s*$")
