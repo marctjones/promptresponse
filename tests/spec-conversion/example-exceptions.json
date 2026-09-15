@@ -582,6 +582,15 @@
       "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs"
     ]
   },
+  "APR-MODEL-037": {
+    "reason": "A rule on what a writer adds when it fills a form, which no input document shows. The tests fill one response, write the form back, and check the result is the source plus that response and nothing else.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-MODEL-038": {
     "reason": "A rule on what a reader infers, which no document can violate.",
     "coveredBy": [
@@ -772,6 +781,15 @@
       "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
     ]
   },
+  "APR-MODEL-084": {
+    "reason": "A rule on what a writer does to language members when it fills a form, which no input document shows. The tests fill a form carrying a document and a section language and check both come back unchanged, with none added.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
+    ]
+  },
   "APR-MODEL-085": {
     "reason": "The rule is that a check is not relaxed, and the harness traces a warning to the rule the advisory itself cites. FORBIDDEN_CODE_POINT cites APR-VAL-032, so no advisory can cite a rule about declining to suppress one. The case shows the observable behaviour: the same text warns identically with and without a language member.",
     "coveredBy": [
@@ -834,6 +852,15 @@
     "reason": "A rule on what a writer does when it reorders prompts, which no input document shows. The editor test moves prompts and checks every prompt keeps the id it had.",
     "coveredBy": [
       "tests/PromptResponse.Desktop.Tests/ViewModels/ReorderTests.cs"
+    ]
+  },
+  "APR-MODEL-095": {
+    "reason": "A rule on what a writer does to an id it was not asked to repair, which no input document shows. The tests write a form carrying a blank prompt id and check it comes back blank, neither invented nor replaced.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6WriterGuardTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java"
     ]
   },
   "APR-MODEL-097": {

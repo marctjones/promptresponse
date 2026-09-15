@@ -3019,7 +3019,7 @@
               {
                 "id": "apr-model-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -3081,7 +3081,7 @@
               {
                 "id": "apr-model-008_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -4405,7 +4405,7 @@
               {
                 "id": "apr-model-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -4467,7 +4467,7 @@
               {
                 "id": "apr-model-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -4605,7 +4605,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -4667,7 +4667,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -4729,7 +4729,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -5543,7 +5543,7 @@
               {
                 "id": "apr-model-057_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5605,7 +5605,7 @@
               {
                 "id": "apr-model-058_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5667,7 +5667,7 @@
               {
                 "id": "apr-model-059_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5729,7 +5729,7 @@
               {
                 "id": "apr-model-060_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5791,7 +5791,7 @@
               {
                 "id": "apr-model-061_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5853,7 +5853,7 @@
               {
                 "id": "apr-model-062_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -5915,7 +5915,7 @@
               {
                 "id": "apr-model-063_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -7043,7 +7043,7 @@
               {
                 "id": "apr-model-082_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -7105,7 +7105,7 @@
               {
                 "id": "apr-model-083_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -7167,7 +7167,7 @@
               {
                 "id": "apr-model-084_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -7229,7 +7229,7 @@
               {
                 "id": "apr-model-085_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
+                "prose": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524)."
               }
             ]
           },
@@ -7811,7 +7811,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7873,7 +7873,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",

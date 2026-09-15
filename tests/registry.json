@@ -1179,6 +1179,14 @@
         {
           "type": "suite",
           "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "FillingAForm_AddsNothingButTheResponse"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_filling_a_form_adds_nothing_but_the_response"
         }
       ],
       "rules": [
@@ -1198,11 +1206,9 @@
         "APR-MODEL-084",
         "APR-MODEL-085"
       ],
-      "gap": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434.",
+      "gap": "APR-MODEL-083 binds a reader and 085 a validator, and no test checks them: that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524).",
       "gapRules": [
-        "APR-MODEL-037",
         "APR-MODEL-083",
-        "APR-MODEL-084",
         "APR-MODEL-085"
       ]
     },
@@ -1608,8 +1614,17 @@
       "id": "REQ-generated-ids",
       "section": "generated-ids",
       "statement": "Ids are never generated unless repair is requested; generated ids derive from the title path by JCS, SHA-256 and base32, prefixed s or p, both members of a duplicate renamed, never positional",
-      "strength": "none",
-      "gates": [],
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "FillingAForm_AddsNothingButTheResponse"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_filling_a_form_adds_nothing_but_the_response"
+        }
+      ],
       "gap": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures.",
       "rules": [
         "APR-MODEL-040",
