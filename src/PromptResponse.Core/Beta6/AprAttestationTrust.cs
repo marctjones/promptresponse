@@ -20,7 +20,11 @@ public sealed class AprAttestationTrustOptions
 {
     /// <summary>Trusted roots or pinned certificates.</summary>
     public IReadOnlyCollection<X509Certificate2>? TrustAnchors { get; init; }
-    /// <summary>Whether chain verification checks revocation online.</summary>
+    /// <summary>
+    /// Whether chain verification may contact the endpoints a certificate names: online
+    /// revocation checks and downloads of missing intermediates. Set it only on an explicit
+    /// user action.
+    /// </summary>
     public bool CheckRevocation { get; init; }
     /// <summary>Uses the operating-system trust store without revocation checks.</summary>
     public static AprAttestationTrustOptions Default { get; } = new();
@@ -40,8 +44,12 @@ internal static class AprAttestationTrustEvaluator
                 : (AprAttestationTrust.SelfSigned, "valid attestation; self-signed certificate, identity not verified");
         }
 
+        // The endpoints a certificate names were chosen by whoever sent the document, so
+        // building its chain contacts none of them unless the caller asked (APR-SEC-017).
+        // RevocationMode does not govern intermediate downloads; the download switch does.
         using var chain = new X509Chain();
         chain.ChainPolicy.RevocationMode = options.CheckRevocation ? X509RevocationMode.Online : X509RevocationMode.NoCheck;
+        chain.ChainPolicy.DisableCertificateDownloads = !options.CheckRevocation;
         if (options.TrustAnchors is { Count: > 0 } anchors)
         {
             chain.ChainPolicy.TrustMode = X509ChainTrustMode.CustomRootTrust;
