@@ -9,17 +9,6 @@ reader opens and saves it, which would make every additive change destructive.
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
-# Members retired from the format. Dropped on write rather than preserved, so a
-# document does not carry a contradiction forward (specification 5.8.1).
-RETIRED_MEMBERS = frozenset([
-    # Table column presentation, removed before 1.0.
-    "width", "alignment", "color", "background", "fontSize", "bold", "style",
-    # Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
-    # it carried no claim whose silent loss would be worse than its removal, and
-    # preserving it would write it back into a document the format says has none.
-    "responseMetadata",
-])
-
 
 @dataclass
 class PromptHints:
@@ -62,12 +51,10 @@ class Prompt:
     extra: Dict[str, Any] = field(default_factory=dict)
     # Whether this filling session computed the response now in `response`.
     #
-    # Not a member, never written, and outside equality: beta.6 retired
-    # `responseMetadata.source`, which tried to carry this between parties and
-    # rested a prohibition on a marker every reader was free to drop. Every
-    # non-empty response in a document as it was read is authored, whatever
-    # produced it, so what may be recomputed is a fact about this session rather
-    # than about the file.
+    # Not a member, never written, and outside equality. Every non-empty
+    # response in a document as it was read is authored, whatever produced it,
+    # so what may be recomputed is a fact about this session rather than about
+    # the file.
     computed_in_this_session: bool = field(default=False, compare=False, repr=False)
     # Whether the source document carried a `response` member at all.
     #

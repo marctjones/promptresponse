@@ -114,10 +114,6 @@ def _parse_record(raw: str) -> Beta6Record:
             raise AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE")
         _validate_attestation(value)
         return Beta6AttestationRecord(value)
-    if "signatures" in value:
-        raise AprParseError(
-            "beta.6 forms carry attestations as independent stream records, not an "
-            "embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES")
     return Beta6FormRecord(loads(json.dumps(value, ensure_ascii=False)), value)
 
 

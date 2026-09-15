@@ -42,13 +42,8 @@ def test_wire_helpers_reject_non_string_members_without_coercion():
         string_list_member({"submissionUrls": ["https://example.test", 4]}, "submissionUrls", "metadata")
 
 
-def test_wire_helpers_preserve_extensions_and_omit_retired_or_empty_members():
-    # "tableLayout" is not a retired name (specification 5.8.1 retires "width" and
-    # its presentation-set siblings, not the table-layout wrapper), so it is
-    # preserved like any other unrecognised member (issue #376).
-    assert unknown_members({"id": "one", "future": {"kept": True}, "tableLayout": {}, "width": 40}, {"id"}) == {
-        "future": {"kept": True}, "tableLayout": {},
-    }
+def test_wire_helpers_preserve_unknown_members_and_omit_empty_members():
+    assert unknown_members({"id": "one", "future": {"kept": True}}, {"id"}) == {"future": {"kept": True}}
     assert compact_members({"kept": "value", "none": None, "empty": [], "object": {}}) == {"kept": "value"}
 
 

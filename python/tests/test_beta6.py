@@ -45,12 +45,6 @@ def test_beta6_shared_out_of_order_stream_resolves_by_digest_not_position():
     assert pr.resolve_attestations(yaml_records)[0]["state"] == "unverifiable"
 
 
-def test_beta6_rejects_retired_embedded_signatures():
-    with pytest.raises(pr.AprParseError) as excinfo:
-        pr.read_beta6_form(FORM[:-1] + ',"signatures":[]}', "jsonc")
-    assert excinfo.value.code == "RETIRED_EMBEDDED_SIGNATURES"
-
-
 def test_beta6_rejects_duplicate_jsonc_members():
     with pytest.raises(pr.AprParseError, match="duplicate member"):
         pr.read_beta6_form(FORM.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc")

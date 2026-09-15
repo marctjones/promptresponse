@@ -235,7 +235,7 @@ def loads(text: str) -> AprDocument:
     if roles is not None and not isinstance(roles, list):
         raise AprParseError("roles must be an array", "WRONG_TYPE")
 
-    known = {"aprVersion", "documentType", "metadata", "sections", "roles", "signatures"}
+    known = {"aprVersion", "documentType", "metadata", "sections", "roles"}
     document = AprDocument(
         version=node["aprVersion"],
         document_type=_string(node, "documentType", "document"),
@@ -258,12 +258,6 @@ def loads(text: str) -> AprDocument:
     )
     if not is_supported_version(document.version):
         raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}", "UNSUPPORTED_VERSION")
-    if "signatures" in node:
-        raise AprParseError(
-            "beta.6 forms carry attestations as independent stream records, not an "
-            "embedded signatures member",
-            "RETIRED_EMBEDDED_SIGNATURES",
-        )
     return document
 
 

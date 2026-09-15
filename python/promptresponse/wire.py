@@ -7,7 +7,6 @@ wire-type and unknown-member invariants so model mapping remains readable.
 from typing import Any, Dict, Iterable
 
 from .errors import AprParseError
-from .models import RETIRED_MEMBERS
 
 
 def require_object(value: Any, what: str) -> Dict[str, Any]:
@@ -41,9 +40,9 @@ def string_list_member(node: Dict[str, Any], key: str, what: str):
 
 
 def unknown_members(node: Dict[str, Any], known: Iterable[str]) -> Dict[str, Any]:
-    """Preserve compatible extension members but omit explicitly retired ones."""
+    """Return every member not in ``known``, unchanged, so a writer can put it back."""
     taken = set(known)
-    return {key: value for key, value in node.items() if key not in taken and key not in RETIRED_MEMBERS}
+    return {key: value for key, value in node.items() if key not in taken}
 
 
 def compact_members(node: Dict[str, Any]) -> Dict[str, Any]:
