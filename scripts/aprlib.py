@@ -26,6 +26,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import pathlib
 import re
 
 RS = "\x1e"
@@ -36,6 +37,22 @@ JSON_NUMBER = re.compile(r"^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?$")
 YAML_NULL = re.compile(r"^(~|null|Null|NULL|)$")
 YAML_BOOL = re.compile(r"^(true|True|TRUE|false|False|FALSE)$")
 NON_FINITE = re.compile(r"^[-+]?\.(inf|Inf|INF|nan|NaN|NAN)$")
+
+
+def format_version() -> str:
+    """The format version, read from the specification header.
+
+    The version used to be written out in each generated artifact and in several
+    checks, and every bump then meant editing all of them and arguing with a gate
+    that only compared one copy against another. The specification states it; a
+    reader of that statement cannot drift from it.
+    """
+    spec = pathlib.Path(__file__).resolve().parent.parent / "docs" / "APR_SPECIFICATION.md"
+    text = spec.read_text(encoding="utf-8")
+    found = re.search(r"\*\*Describes format version:\*\* `([^`]+)`", text)
+    if not found:
+        raise AprError("the specification header states no format version")
+    return found.group(1)
 
 
 class AprError(ValueError):

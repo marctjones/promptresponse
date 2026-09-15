@@ -138,10 +138,16 @@ strictly apart.
 | --- | --- | --- | --- |
 | **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.7` |
 | **Specification document version** | every release | this document's header | `1.0.0-beta.7-draft` |
-| **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
+| **Conformance corpus tag** | when the corpus is revised | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
 
 The format version changes only with the wire format. Two releases that do not
 change the wire format declare the same format version.
+
+The corpus tag names a revision of the conformance corpus, not a release of this
+document. It is a path and a git tag rather than a version of the format, so a
+conformance claim cites the tag it was measured against
+([Declaring conformance](#declaring-conformance)) and nothing has to be renamed
+because a version number moved.
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 

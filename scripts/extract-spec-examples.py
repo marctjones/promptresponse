@@ -56,6 +56,9 @@ import pathlib
 import re
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import aprlib  # noqa: E402
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 VECTORS = ROOT / "tests" / "Conformance" / "beta6" / "spec-examples.json"
@@ -241,7 +244,7 @@ def render(examples: list[dict]) -> str:
                 "GENERATED from the examples embedded in docs/APR_SPECIFICATION.md. "
                 "Do not edit. Run scripts/extract-spec-examples.py --write."
             ),
-            "formatVersion": "1.0-beta.6",
+            "formatVersion": aprlib.format_version(),
             "examples": examples,
         },
         indent=2,

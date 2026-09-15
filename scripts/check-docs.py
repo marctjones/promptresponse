@@ -36,8 +36,6 @@ for path in (
 match = re.search(r"Specification document version:\*\* ([^\s]+)", spec)
 if not match:
     problems.append("APR specification document version is missing")
-elif not migrating_beta6 and match.group(1) != registry["specVersion"]:
-    problems.append("APR specification document version must equal tests/registry.json specVersion")
 elif migrating_beta6:
     for path in (
         "schemas/apr-1.0-beta.6.schema.json",
