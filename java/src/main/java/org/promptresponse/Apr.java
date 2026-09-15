@@ -375,15 +375,38 @@ public final class Apr {
      */
     private static final Set<String> RETIRED_MEMBERS = Set.of(
         "width", "alignment", "color", "background", "fontSize", "bold", "style",
-        "responseMetadata", "filledBy", "filledDate");
+        "responseMetadata");
 
-    @SuppressWarnings("unchecked") private static void dropRetiredMembers(Object node) {
-        if (node instanceof Map<?,?> raw) {
-            Map<String,Object> map = (Map<String,Object>) raw;
-            map.keySet().removeAll(RETIRED_MEMBERS);
-            for (Object child : map.values()) dropRetiredMembers(child);
-        } else if (node instanceof List<?> list) {
-            for (Object child : list) dropRetiredMembers(child);
+    /**
+     * Drops retired names from the objects the format defines -- the document, its
+     * metadata, roles, every section at any depth, prompts and hints -- and nowhere else.
+     * An extension member's value is data this reader does not interpret, so a key
+     * inside it that happens to share a retired name must come back unchanged
+     * (APR-MODEL-021). Python, TypeScript and .NET drop at the same level.
+     */
+    @SuppressWarnings("unchecked") private static void dropRetiredMembers(Map<String,Object> root) {
+        root.keySet().removeAll(RETIRED_MEMBERS);
+        if (root.get("metadata") instanceof Map<?,?> metadata) ((Map<String,Object>) metadata).keySet().removeAll(RETIRED_MEMBERS);
+        if (root.get("roles") instanceof List<?> roles) {
+            for (Object role : roles) if (role instanceof Map<?,?> r) ((Map<String,Object>) r).keySet().removeAll(RETIRED_MEMBERS);
+        }
+        if (root.get("sections") instanceof List<?> sections) dropRetiredMembersFromSections(sections);
+    }
+
+    @SuppressWarnings("unchecked") private static void dropRetiredMembersFromSections(List<?> sections) {
+        for (Object item : sections) {
+            if (!(item instanceof Map<?,?> raw)) continue;
+            Map<String,Object> section = (Map<String,Object>) raw;
+            section.keySet().removeAll(RETIRED_MEMBERS);
+            if (section.get("prompts") instanceof List<?> prompts) {
+                for (Object p : prompts) {
+                    if (!(p instanceof Map<?,?> rawPrompt)) continue;
+                    Map<String,Object> prompt = (Map<String,Object>) rawPrompt;
+                    prompt.keySet().removeAll(RETIRED_MEMBERS);
+                    if (prompt.get("hints") instanceof Map<?,?> hints) ((Map<String,Object>) hints).keySet().removeAll(RETIRED_MEMBERS);
+                }
+            }
+            if (section.get("sections") instanceof List<?> nested) dropRetiredMembersFromSections(nested);
         }
     }
 

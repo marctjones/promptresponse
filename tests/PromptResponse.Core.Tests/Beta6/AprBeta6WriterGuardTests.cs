@@ -56,6 +56,24 @@ public class AprBeta6WriterGuardTests
     }
 
     [Fact]
+    public void AnUnprefixedMemberThatArrived_IsWrittenBackUnchanged()
+    {
+        // A stream record is written from the value that was read, so nothing in it was
+        // added. APR-MODEL-021 requires a member present on read to be present, unchanged,
+        // on write; APR-MODEL-031 forbids only adding one.
+        var records = _reader.ReadStream(
+            "\u001e{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\","
+            + "\"title\":\"S\",\"tableLayout\":{\"fixedRows\":2},\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n",
+            AprRepresentation.Jsonc);
+
+        var written = _reader.WriteStream(records, AprRepresentation.Jsonc);
+
+        var section = _reader.ReadStream(written, AprRepresentation.Jsonc)
+            .OfType<AprFormRecord>().Single().Value.GetProperty("sections")[0];
+        section.GetProperty("tableLayout").GetProperty("fixedRows").GetInt32().Should().Be(2);
+    }
+
+    [Fact]
     public void AnUnprefixedMemberOnASectionOrPrompt_IsAlsoRefused()
     {
         var document = Form();
@@ -103,5 +121,19 @@ public class AprBeta6WriterGuardTests
             "responseMetadata was retired in beta.6 and is dropped rather than preserved");
         var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
         write.Should().NotThrow("the retired member is gone, so nothing unprefixed remains");
+    }
+
+    [Fact]
+    public void AWronglyCasedRetiredName_IsAnUnknownMember()
+    {
+        // Member names are case-sensitive (specification 5.8), so `Width` is not the
+        // retired `width`: it is an unknown member, preserved like any other.
+        var form = _reader.ReadForm(
+            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\","
+            + "\"title\":\"S\",\"width\":40,\"Width\":40,\"STYLE\":\"bold\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}",
+            AprRepresentation.Jsonc);
+
+        form.Sections[0].Extensions.Should().ContainKeys("Width", "STYLE")
+            .And.NotContainKey("width", "the lowercase name is the retired one");
     }
 }

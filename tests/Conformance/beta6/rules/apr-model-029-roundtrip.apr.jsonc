@@ -1,0 +1,21 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "tableLayout": {
+        "fixedRows": 2
+      },
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P"
+        }
+      ]
+    }
+  ]
+}

@@ -318,7 +318,10 @@ public sealed class AprBeta6Reader
         if (form.Value.TryGetProperty("signatures", out _))
             throw new SerializationException("beta.6 forms cannot emit root signatures.")
             { Code = "RETIRED_EMBEDDED_SIGNATURES" };
-        RequirePrefixedExtensions(form.Form);
+        // No unprefixed-member guard: this writes the value exactly as it was read, so
+        // an unprefixed member in it arrived rather than being added. APR-MODEL-021 and
+        // APR-MODEL-029 require it back unchanged; APR-MODEL-031 forbids adding one,
+        // which only WriteForm, writing from the typed model, can do.
         return form.Value.GetRawText();
     }
 
@@ -331,6 +334,8 @@ public sealed class AprBeta6Reader
     /// later version adds.
     ///
     /// The asymmetry is the point: tolerant of what arrives, strict about what leaves.
+    /// A stream record written back from its parsed value is not checked, because
+    /// nothing in it left that did not first arrive.
     /// </remarks>
     private static void RequirePrefixedExtensions(AprDocument form)
     {

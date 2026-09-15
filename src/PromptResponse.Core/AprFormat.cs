@@ -44,14 +44,16 @@ public static class AprFormat
     /// <c>Extensions</c>, not here.
     /// </remarks>
     public static readonly IReadOnlySet<string> RetiredMembers =
-        new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        // Ordinal, because member names are case-sensitive (specification 5.8): `Width`
+        // is an unknown member to preserve, not the retired `width`.
+        new HashSet<string>(StringComparer.Ordinal)
         {
             // Table column presentation, removed before 1.0 (see specification section 4.5).
             "width", "alignment", "color", "background", "fontSize", "bold", "style",
             // Workflow state, retired in beta.6. Dropped rather than preserved, and
-            // without a diagnostic: unlike `signatures`, none of these carried a claim
-            // whose silent loss would be worse than its removal.
-            "responseMetadata", "filledBy", "filledDate",
+            // without a diagnostic: unlike `signatures`, it carried no claim whose
+            // silent loss would be worse than its removal.
+            "responseMetadata",
         };
 
     /// <summary>Removes retired members from a captured extension bag, in place.</summary>
