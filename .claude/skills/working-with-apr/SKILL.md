@@ -112,8 +112,7 @@ with a worse control than the form deserved.
 - **Signature lines.** There is no `signature` type. A signature is an
   attestation that travels beside the form, never a response. `[APR-MODEL-030]`
   Do not create a prompt for "Signature of U.S. person". The date written beside
-  it *is* a question — `Date signed`, `date` — and stays. Never add a `signatures`
-  member either; it is retired and reported as `RETIRED_EMBEDDED_SIGNATURES`.
+  it *is* a question — `Date signed`, `date` — and stays.
 - **Headings.** "Part II — Certification" is a section `title`.
 - **Instructions.** "See instructions", "If you check Item 4, enter one of these:"
   — a sentence telling someone what to do is `helpText` on the prompt it explains,
@@ -155,8 +154,8 @@ These are old or invented and are not APR:
   sees a plain section. Treat any `UNPREFIXED_MEMBER` warning on something you
   wrote as a mistake, not noise.
 - `version` instead of `aprVersion` — rejected with `UNSUPPORTED_VERSION`.
-- `signatures`, `responseMetadata`, and the presentation set `width`,
-  `alignment`, `color`, `background`, `fontSize`, `bold`, `style` — retired.
+- Presentation on a table — a column width, alignment, colour or font. A writer
+  must not add it. `[APR-MODEL-013]`
 - Workflow state — who filled the form, when it was received, what happened to
   it. That is the receiver's record about a form, not a member of it, and older
   drafts' `filledBy` and `filledDate` are not APR. `[APR-MODEL-037]`
@@ -252,7 +251,7 @@ follow "Safety, and what to report" in `document-to-apr`.
 ## References
 
 - `docs/APR_SPECIFICATION.md` — normative. §4.7–4.8 responses, §5.3 sections,
-  §5.4 prompts, §5.5 tables, §5.7 hints and the type registry, §5.8.1 retired
+  §5.4 prompts, §5.5 tables, §5.7 hints and the type registry, §5.8 unknown
   members, §5.9 canonical values, §14 security.
 - `examples/form-patterns.aprt` — one validated example of each pattern here.
 - `examples/field-types-showcase.aprt` at the repository root — every data type,

@@ -15,7 +15,7 @@
     },
     {
       "id": "object-and-field-contract",
-      "question": "Does it state required object members, member types, defaults, uniqueness, cross-field constraints, and unknown or retired-member behavior?"
+      "question": "Does it state required object members, member types, defaults, uniqueness, cross-field constraints, and unknown-member behavior?"
     },
     {
       "id": "processing-and-errors",

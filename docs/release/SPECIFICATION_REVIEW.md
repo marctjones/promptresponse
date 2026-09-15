@@ -78,7 +78,7 @@ surfaces first.
 - [ ] Legal and illegal behaviour are both stated — a rule that says what is allowed and not what happens otherwise is incomplete
 - [ ] Member tables carry requiredness, type and domain for every member
 - [ ] Every rule in the conformance statement sits under the profile and class of product it binds
-- [ ] Compatibility behaviour is stated for unknown members, retired members and an unrecognised version
+- [ ] Compatibility behaviour is stated for unknown members and an unrecognised version
 - [ ] Security considerations cover what the format guarantees **and what it does not**
 
 ## 6. Judgement — the part no gate covers
