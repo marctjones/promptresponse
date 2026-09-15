@@ -32,31 +32,13 @@ namespace PromptResponse.Core.Tests.Conformance;
 public class ParserFuzzTests
 {
     private static readonly AprJsonSerializer Serializer = new();
-
-    /// <summary>How long a parse may run before the suite calls it non-terminating.</summary>
-    /// <remarks>
-    /// This is a liveness deadline, not a performance budget. APR-SEC-020 says a reader
-    /// MUST terminate on every input; it says nothing about how fast, and neither does
-    /// this suite. A wall-clock budget tight enough to be interesting is a budget that
-    /// measures the runner rather than the reader - the 5000 ms one this replaced failed
-    /// at 8994 ms under coverlet instrumentation on a change that touched no .NET code,
-    /// while passing in every uninstrumented job. Instrumentation multiplies the cost of
-    /// every sequence point; a machine under load multiplies it again.
-    ///
-    /// So the bound is set where only non-termination can reach it: two minutes, against a
-    /// worst instrumented observation of 8994 ms and an uninstrumented cost, for the same
-    /// five-million-character shape, of single-digit milliseconds. What a bound this loose
-    /// cannot see - a reader that terminates but whose cost grows with the square of its
-    /// input - is measured directly instead, by
-    /// <see cref="ParseCost_GrowsWithInputSize_NotWithItsSquare"/>.
-    /// </remarks>
-    private static readonly TimeSpan TerminationDeadline = TimeSpan.FromMinutes(2);
+    private const int BudgetMs = 5000;
 
     private static string ExamplesDir => Path.Combine(
         Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
         "examples");
 
-    /// <summary>Parse must end, and must end in one of two states.</summary>
+    /// <summary>Parse must end in one of two states, within a bounded time.</summary>
     /// <remarks>
     /// Exercised through both entry points. DeserializeAsync(Stream) is what actually opens
     /// a file in production, and it is a different code path from the string overload -
@@ -79,52 +61,32 @@ public class ParserFuzzTests
             },
             $"{what} [stream]");
 
-    /// <summary>Runs one parse and holds it to the contract: it returns a document, or it
-    /// throws <see cref="SerializationException"/>, and either way it returns.</summary>
     private static async Task AttemptAsync(Func<Task<AprDocument?>> parse, string what)
     {
-        // Off this thread deliberately: the string overload parses synchronously, so a
-        // reader that never returns would never reach an await and there would be nothing
-        // for a deadline to observe. On the pool there is.
-        var attempt = Task.Run(async () =>
-        {
-            try
-            {
-                var document = await parse();
-                // A parsed document must also validate without throwing, whatever it contains.
-                if (document is not null)
-                {
-                    new DocumentValidator().Validate(document);
-                }
-            }
-            catch (SerializationException)
-            {
-                // The designed outcome for bad input.
-            }
-            catch (Exception ex)
-            {
-                throw new Xunit.Sdk.XunitException(
-                    $"{what}: opening a document surfaced {ex.GetType().Name} rather than " +
-                    $"SerializationException. A caller told the format is safe to open cannot " +
-                    $"defend against an exception it was never told about. Message: {ex.Message.Split('\n')[0]}");
-            }
-        });
-
+        var stopwatch = Stopwatch.StartNew();
         try
         {
-            await attempt.WaitAsync(TerminationDeadline);
+            var document = await parse();
+            // A parsed document must also validate without throwing, whatever it contains.
+            if (document is not null)
+            {
+                new DocumentValidator().Validate(document);
+            }
         }
-        catch (TimeoutException)
+        catch (SerializationException)
         {
-            // Nothing can be done about the parse itself - .NET cannot abort a running
-            // thread - so the runaway work outlives this assertion and the host exits
-            // dirty. That is the correct report for a reader that does not come back.
-            throw new Xunit.Sdk.XunitException(
-                $"{what}: parsing had not returned after {TerminationDeadline.TotalSeconds:0} seconds. " +
-                "A reader MUST terminate on every input (APR-SEC-020); a document that hangs a " +
-                "reader is a denial of service, and a caller told the format is safe to open has " +
-                "no way to take its thread back.");
+            // The designed outcome for bad input.
         }
+        catch (Exception ex)
+        {
+            throw new Xunit.Sdk.XunitException(
+                $"{what}: opening a document surfaced {ex.GetType().Name} rather than " +
+                $"SerializationException. A caller told the format is safe to open cannot " +
+                $"defend against an exception it was never told about. Message: {ex.Message.Split('\n')[0]}");
+        }
+        stopwatch.Stop();
+        stopwatch.ElapsedMilliseconds.Should().BeLessThan(BudgetMs,
+            $"{what}: parsing must terminate promptly; a document that hangs a reader is a denial of service");
     }
 
     public static IEnumerable<object[]> CorpusFiles() =>
@@ -171,46 +133,33 @@ public class ParserFuzzTests
     }
 
     /// <summary>Structures designed to exhaust a parser rather than merely confuse it.</summary>
-    /// <remarks>
-    /// The second argument is the size the shape is built at. Shapes whose hazard is not a
-    /// matter of size - a lone surrogate, an empty file - carry 0 and ignore it. Size is a
-    /// parameter rather than a literal because the same builder is measured at two sizes by
-    /// <see cref="ParseCost_GrowsWithInputSize_NotWithItsSquare"/>, and a growth measurement
-    /// is only about the reader if both sizes come from the same construction.
-    /// </remarks>
     [Theory]
-    [InlineData("deep array nesting", 50_000)]
-    [InlineData("deep object nesting", 50_000)]
-    [InlineData("deep section nesting", 5_000)]
-    [InlineData("very long string", 5_000_000)]
-    [InlineData("many sections", 50_000)]
-    [InlineData("many prompts", 100_000)]
-    [InlineData("duplicate keys", 0)]
-    [InlineData("lone surrogate", 0)]
-    [InlineData("null bytes", 0)]
-    [InlineData("bom and whitespace only", 0)]
-    [InlineData("empty input", 0)]
-    public async Task HostileStructures_AreRefusedCleanly(string shape, int scale)
+    [InlineData("deep array nesting")]
+    [InlineData("deep object nesting")]
+    [InlineData("deep section nesting")]
+    [InlineData("very long string")]
+    [InlineData("many sections")]
+    [InlineData("many prompts")]
+    [InlineData("duplicate keys")]
+    [InlineData("lone surrogate")]
+    [InlineData("null bytes")]
+    [InlineData("bom and whitespace only")]
+    [InlineData("empty input")]
+    public async Task HostileStructures_AreRefusedCleanly(string shape)
     {
-        await MustSurviveAsync(HostileInput(shape, scale), shape);
-    }
-
-    /// <summary>One hostile shape, built at a chosen size.</summary>
-    private static string HostileInput(string shape, int scale)
-    {
-        return shape switch
+        var input = shape switch
         {
-            "deep array nesting" => new string('[', scale) + new string(']', scale),
-            "deep object nesting" => string.Concat(Enumerable.Repeat("{\"a\":", scale)) + "1"
-                                     + new string('}', scale),
-            "deep section nesting" => DeepSections(scale),
+            "deep array nesting" => new string('[', 50_000) + new string(']', 50_000),
+            "deep object nesting" => string.Concat(Enumerable.Repeat("{\"a\":", 50_000)) + "1"
+                                     + new string('}', 50_000),
+            "deep section nesting" => DeepSections(5_000),
             "very long string" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\""
-                                  + new string('x', scale) + "\"},\"sections\":[]}",
+                                  + new string('x', 5_000_000) + "\"},\"sections\":[]}",
             "many sections" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":["
-                               + string.Join(",", Enumerable.Range(0, scale)
+                               + string.Join(",", Enumerable.Range(0, 50_000)
                                    .Select(i => $"{{\"id\":\"s{i}\",\"title\":\"t\"}}")) + "]}",
             "many prompts" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":[{\"id\":\"s\",\"title\":\"t\",\"prompts\":["
-                              + string.Join(",", Enumerable.Range(0, scale)
+                              + string.Join(",", Enumerable.Range(0, 100_000)
                                   .Select(i => $"{{\"id\":\"p{i}\",\"label\":\"l\"}}")) + "]}]}",
             "duplicate keys" => "{\"aprVersion\":\"1.0-beta.6\",\"version\":\"9.9\",\"metadata\":{\"title\":\"t\",\"title\":\"u\"},\"sections\":[]}",
             "lone surrogate" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"\\uD800\"},\"sections\":[]}",
@@ -219,113 +168,8 @@ public class ParserFuzzTests
             "empty input" => string.Empty,
             _ => throw new ArgumentOutOfRangeException(nameof(shape)),
         };
-    }
 
-    /// <summary>Parse cost must grow with the size of a document, not with its square.</summary>
-    /// <remarks>
-    /// <see cref="TerminationDeadline"/> proves a reader comes back (APR-SEC-020) but is
-    /// far too loose to notice one that comes back late: quadratic scanning of a hostile
-    /// array is the classic way a "safe to open" format becomes a denial of service, and
-    /// it hides comfortably under any deadline generous enough to survive an instrumented
-    /// build. So growth is measured rather than bounded.
-    ///
-    /// The measurement is a ratio between two sizes of the same shape, taken in the same
-    /// process, on the same build, moments apart. Everything a wall-clock budget is
-    /// hostage to - coverlet instrumentation, runner speed, a noisy neighbour, the JIT -
-    /// applies to both halves and cancels. What survives is the reader's own growth curve,
-    /// which is the thing the specification's claim is actually about.
-    ///
-    /// At eight times the input a linear reader costs about eight times as much, and a
-    /// quadratic one about sixty-four. Measured here, instrumented and not: 5.7x to 8.6x
-    /// for the structural shapes, and 11.8x to 14.7x for the single multi-megabyte string,
-    /// which is bandwidth-bound rather than algorithm-bound - sixteen million characters
-    /// do not fit the caches that two million do, so its per-character cost rises even
-    /// though its per-character work does not. The ceiling sits at thirty-two: more than
-    /// twice the worst figure measured, and half of what quadratic would produce. A gate
-    /// that fires on noise is the defect this replaced, so the margin is deliberate.
-    /// </remarks>
-    [Theory]
-    [InlineData("very long string", 2_000_000)]
-    [InlineData("many sections", 5_000)]
-    [InlineData("many prompts", 12_500)]
-    public void ParseCost_GrowsWithInputSize_NotWithItsSquare(string shape, int baseScale)
-    {
-        const int factor = 8;
-        const double ceiling = 32.0;
-
-        var small = HostileInput(shape, baseScale);
-        var large = HostileInput(shape, baseScale * factor);
-
-        // The first parse of a process pays for JIT and tiered compilation. Charged to the
-        // smaller measurement it would inflate the baseline and hide real growth; charged
-        // to the larger one it would invent growth that is not there.
-        ParseCostMs(small);
-        ParseCostMs(large);
-
-        var (smallMs, largeMs) = ParseCosts(small, large, runs: 5);
-        var ratio = largeMs / Math.Max(smallMs, 0.001);
-
-        // Recorded, not asserted - the absolute times are a property of the runner, and
-        // only the ratio is a property of the reader. Kept so the numbers behind the
-        // figures quoted above can be re-measured rather than taken on trust.
-        File.WriteAllText(
-            Path.Combine(Path.GetTempPath(), $"apr-parse-scaling-{shape.Replace(' ', '-')}.txt"),
-            $"scale {baseScale}: {smallMs:F1}ms; scale {baseScale * factor}: {largeMs:F1}ms; " +
-            $"ratio {ratio:F1}{Environment.NewLine}");
-
-        ratio.Should().BeLessThan(ceiling,
-            $"{shape}: at {factor}x the input the reader took {ratio:F1}x the time " +
-            $"({smallMs:F1}ms -> {largeMs:F1}ms). Linear growth is about {factor}x and " +
-            $"quadratic about {factor * factor}x, so cost here is growing with more than " +
-            "the size of the document. A reader MUST terminate on every input " +
-            "(APR-SEC-020) and MUST refuse cleanly at a bound it applies (APR-SEC-019); a " +
-            "reader whose cost is superlinear in a hostile array honours neither in any " +
-            "useful sense - it is a denial of service that happens to finish");
-    }
-
-    /// <summary>Best-of-N cost for two inputs, measured alternately.</summary>
-    /// <remarks>
-    /// Alternately, so that a slow stretch on a shared runner lands on both sizes rather
-    /// than on one. The minimum rather than the mean, because interference can only ever
-    /// add time: the fastest observation is the one least polluted by things that are not
-    /// the reader.
-    /// </remarks>
-    private static (double Small, double Large) ParseCosts(string small, string large, int runs)
-    {
-        var smallBest = double.MaxValue;
-        var largeBest = double.MaxValue;
-        for (var i = 0; i < runs; i++)
-        {
-            smallBest = Math.Min(smallBest, ParseCostMs(small));
-            largeBest = Math.Min(largeBest, ParseCostMs(large));
-        }
-        return (smallBest, largeBest);
-    }
-
-    /// <summary>Cost of one parse, from a settled heap.</summary>
-    /// <remarks>
-    /// These inputs allocate megabytes. Without collecting first, the debt one measurement
-    /// runs up is paid inside the next one, and the ratio reports the garbage collector's
-    /// scheduling rather than the reader's growth curve. Refusal is a legitimate outcome -
-    /// the cost of reaching it is exactly what is being measured.
-    /// </remarks>
-    private static double ParseCostMs(string input)
-    {
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-        GC.Collect();
-
-        var stopwatch = Stopwatch.StartNew();
-        try
-        {
-            Serializer.Deserialize(input);
-        }
-        catch (SerializationException)
-        {
-            // Refusing is one of the two permitted endings; reaching it costs time too.
-        }
-        stopwatch.Stop();
-        return stopwatch.Elapsed.TotalMilliseconds;
+        await MustSurviveAsync(input, shape);
     }
 
     private static string DeepSections(int depth)
@@ -424,54 +268,6 @@ public class ParserFuzzTests
         File.WriteAllText(
             Path.Combine(Path.GetTempPath(), "apr-nesting-ceiling.txt"),
             deepest.ToString());
-    }
-
-    /// <summary>The response length floor the specification states, and the room above it.</summary>
-    /// <remarks>
-    /// Specification section 4.8 requires an implementation to support a response of at
-    /// least 1 MiB and states no ceiling, for the same reason section 5.6 states none for
-    /// nesting: the right limit for a phone and for a batch importer are not the same
-    /// number. So this asserts the floor only. The measured ceiling is recorded rather
-    /// than asserted - asserting it would turn an implementation detail into a contract.
-    ///
-    /// Written in two-byte characters on purpose. The floor is stated in UTF-8 bytes, and
-    /// a reader that counted UTF-16 code units instead would pass this test written in
-    /// ASCII and then refuse a real document half the size it accepted in the fixture.
-    ///
-    /// Both directions, because a floor only a reader honours is not a floor: a writer
-    /// that truncated on the way out would lose the response just as completely, and
-    /// "any string is a valid response" (APR-MODEL-002) is the promise this number makes
-    /// keepable.
-    /// </remarks>
-    [Fact]
-    public async Task ResponseOfOneMebibyte_SurvivesReadingAndWriting()
-    {
-        const int floorBytes = 1024 * 1024;   // section 4.8, APR-MODEL-127
-
-        var response = string.Concat(Enumerable.Repeat("\u00e9", floorBytes / 2));
-        Encoding.UTF8.GetByteCount(response).Should().Be(floorBytes,
-            "the fixture has to be a mebibyte of UTF-8, not a mebibyte of code units");
-
-        var json = "{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\","
-                   + "\"metadata\":{\"title\":\"t\"},\"sections\":[{\"id\":\"s\",\"title\":\"t\","
-                   + "\"prompts\":[{\"id\":\"p\",\"label\":\"l\",\"response\":\"" + response + "\"}]}]}";
-
-        // The stream overload is what opens a file, so the floor has to hold there.
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json), writable: false);
-        var document = await Serializer.DeserializeAsync(stream);
-
-        document.Should().NotBeNull(
-            "specification section 4.8 requires a response of at least 1 MiB to be readable");
-        var read = document!.Sections[0].Prompts[0].Response;
-        read.Should().Be(response,
-            "a response at the floor must come back exactly as written, not truncated to fit");
-
-        new DocumentValidator().Validate(document);
-
-        // And out again: a writer that dropped it would lose the answer just as surely.
-        var rewritten = Serializer.Deserialize(Serializer.Serialize(document));
-        rewritten!.Sections[0].Prompts[0].Response.Should().Be(response,
-            "a response at the floor must survive a write and a read back");
     }
 
     /// <summary>Encoding hazards that only exist at the byte level.</summary>

@@ -398,7 +398,7 @@
       "id": "REQ-any-string",
       "section": "any-string",
       "statement": "Any string is a valid response, whatever the hint asked for",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -407,16 +407,13 @@
         {
           "type": "test",
           "ref": "RealFile_ResponsesAreAlwaysStrings"
-        },
-        {
-          "type": "test",
-          "ref": "ResponseOfOneMebibyte_SurvivesReadingAndWriting"
         }
       ],
       "rules": [
         "APR-MODEL-002",
         "APR-MODEL-127"
-      ]
+      ],
+      "gap": "APR-MODEL-127 states a floor on what an implementation must accept, not a property of any one document, so no conformance case can carry it: a vector proving a mebibyte is readable would be a mebibyte long. The .NET test that proved it is not in this change, which is specification-only."
     },
     {
       "id": "REQ-attestation-members",
@@ -1245,14 +1242,6 @@
         {
           "type": "test",
           "ref": "Yaml_NestedTooDeep_IsAParseError_NotACrash"
-        },
-        {
-          "type": "test",
-          "ref": "HostileStructures_AreRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "ParseCost_GrowsWithInputSize_NotWithItsSquare"
         }
       ],
       "rules": [

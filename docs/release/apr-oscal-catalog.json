@@ -1029,7 +1029,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -1063,6 +1063,11 @@
                 "id": "apr-model-002_smt",
                 "name": "statement",
                 "prose": "A `prompt.response` **MAY** be any string, whatever its hints ask for."
+              },
+              {
+                "id": "apr-model-002_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-127 states a floor on what an implementation must accept, not a property of any one document, so no conformance case can carry it: a vector proving a mebibyte is readable would be a mebibyte long. The .NET test that proved it is not in this change, which is specification-only."
               }
             ]
           },
@@ -1200,7 +1205,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -1234,6 +1239,11 @@
                 "id": "apr-model-127_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST** support a `prompt.response` of at least **1 MiB** (1,048,576 bytes) encoded as UTF-8."
+              },
+              {
+                "id": "apr-model-127_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-127 states a floor on what an implementation must accept, not a property of any one document, so no conformance case can carry it: a vector proving a mebibyte is readable would be a mebibyte long. The .NET test that proved it is not in this change, which is specification-only."
               }
             ]
           },

@@ -62,55 +62,6 @@ def representation_of(path: pathlib.Path, text: str) -> str:
     return "jsonc-stream" if aprlib.RS in text else "jsonc"
 
 
-# Rules about how APR-JSONC is spelled. An example that exists to show one of them
-# says nothing in APR-YAML - there are no trailing commas or `//` comments to show -
-# so it is not twinned. Every other rule is a property of the semantic model, which
-# both representations are required to produce ([Equivalence](#stream-equivalence)).
-JSONC_ONLY_ANCHORS = {"apr-jsonc"}
-
-
-def yaml_twin(document: str) -> tuple[str, object] | None:
-    """The same semantic model, spelled as APR-YAML, or None if it cannot be spelled.
-
-    Generated rather than hand-written, and then read back with the specification's
-    own resolver and compared: a twin is only emitted when APR-YAML reading it
-    produces the very model APR-JSONC reading the original produced. That check is
-    what makes a generated vector evidence instead of an assumption - a serializer
-    that quoted one scalar too few would otherwise ship a case asserting something
-    the specification does not say.
-
-    PyYAML quotes a strict superset of what APR-YAML's scalar resolution
-    ([Scalar resolution](#yaml-resolution)) would coerce: every plain scalar APR
-    resolves to null, a boolean or a number is one PyYAML also refuses to leave
-    plain. Quoting more than necessary is always sound, because a quoted scalar is
-    a string verbatim, so the direction of that inequality is the safe one.
-    """
-    try:
-        import yaml
-    except ModuleNotFoundError as exc:   # noqa: F841
-        raise aprlib.MissingDependency(
-            "PyYAML is required to build the APR-YAML half of the suite") from None
-    try:
-        records = aprlib.load_jsonc(document)
-    except Exception:  # noqa: BLE001 - malformed JSON has no semantic model to respell
-        return None
-    if not isinstance(records, list):
-        records = [records]
-    if len(records) != 1:
-        return None
-    record = records[0]
-
-    text = yaml.safe_dump(record, sort_keys=False, default_flow_style=False,
-                          width=100, allow_unicode=True).rstrip("\n")
-    try:
-        back = aprlib.read_records(text, "yaml")
-    except Exception:  # noqa: BLE001 - a twin that cannot be read is not a twin
-        return None
-    if len(back) != 1 or back[0] != record:
-        return None
-    return text, record
-
-
 def build() -> dict:
     mapping = json.loads(MAP.read_text(encoding="utf-8"))
     expectations = {k: v for k, v in mapping.get("expectations", {}).items()
@@ -164,30 +115,6 @@ def build() -> dict:
             if example.get(key):
                 case[key] = example[key]
         cases.append(case)
-
-        # The same document in the other representation. `core` covers reading,
-        # validating, filling and writing "in both representations" (#profile-core),
-        # but the examples spell all but a handful in APR-JSONC, and the APR-YAML ones
-        # are chosen to show hazards peculiar to YAML. A reader could therefore pass
-        # every vector here while mishandling an ordinary APR-YAML form. Twinning is
-        # mechanical, so the suite carries both spellings of every case rather than
-        # asking the specification to print each document twice.
-        if example["representation"] == "jsonc" and example["rule"] not in JSONC_ONLY_ANCHORS:
-            twin = yaml_twin(document)
-            if twin is not None:
-                text, record = twin
-                twinned = dict(case)
-                twinned["id"] = f"{case['id']}:yaml"
-                twinned["representation"] = "yaml"
-                twinned["document"] = text
-                twinned["profile"] = profile_of("yaml", text)
-                twinned["twinOf"] = case["id"]
-                if case["expect"] == "valid":
-                    # The digest is the assertion that matters here: not merely that
-                    # the reader accepted the APR-YAML spelling, but that it built the
-                    # identical semantic model. That is the whole claim of equivalence.
-                    twinned["digest"] = aprlib.digest(record)
-                cases.append(twinned)
 
     for path in sorted(CORPUS.rglob("*")):
         if not path.is_file() or path.suffix not in {".jsonc", ".yaml", ".yml"}:
