@@ -24,7 +24,9 @@ subject by digest from one resolving it by position.
 
 `streams/cms-proof.apr.jsonc` holds the permit beside a CMS-signed attestation of
 it. The proof verifies, so the attestation is `valid`, and its self-signed
-certificate is not trusted: the two facts are reported apart.
+certificate is not trusted: the two facts are reported apart. "Not trusted" is the
+reference verifier's policy, not the specification's verdict: it holds no trust
+store, and the signing key is a published fixture that no verifier should trust.
 
 `streams/unsupported-proof.apr.jsonc` holds the permit beside an attestation whose
 only proof is of a type no verifier recognizes. It is `unverifiable`, never
