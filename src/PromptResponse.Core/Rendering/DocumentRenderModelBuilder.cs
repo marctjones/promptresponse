@@ -79,9 +79,15 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
     {
         var rowSections = section.Sections;
 
-        // Field names come from the first instance; ValidateTable warns when the
-        // others disagree, but rendering stays tolerant of a ragged table.
-        var headers = rowSections[0].Prompts.Select(p => p.Label).ToList();
+        // A renderer presents every prompt an instance carries, whether or not the other
+        // instances carry one at that position (APR-MODEL-101). So the table is as wide as
+        // its widest instance, and each column is named by the first instance carrying a
+        // prompt there. ValidateTable warns when instances disagree; rendering never drops
+        // a prompt because they do.
+        var width = rowSections.Max(row => row.Prompts.Count);
+        var headers = Enumerable.Range(0, width)
+            .Select(i => rowSections.First(row => i < row.Prompts.Count).Prompts[i].Label)
+            .ToList();
 
         var rows = new List<TableRowBlock>(rowSections.Count);
         foreach (var rowSection in rowSections)

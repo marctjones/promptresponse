@@ -87,6 +87,44 @@ public class DocumentRenderModelBuilderTableTests
     }
 
     [Fact]
+    public void Build_RaggedTable_PresentsEveryPromptAnInstanceCarries()
+    {
+        // APR-MODEL-101: a prompt an instance carries is presented whether or not the other
+        // instances carry one at that position.
+        var doc = DocumentRenderModelBuilderTestFactory.CreateDocument(new Section
+        {
+            Id = "t",
+            Title = "T",
+            Kind = "table",
+            Sections =
+            [
+                new Section
+                {
+                    Id = "row1",
+                    Title = "Row 1",
+                    Prompts = [new Prompt { Id = "row1.a", Label = "A", Response = "valA" }],
+                },
+                new Section
+                {
+                    Id = "row2",
+                    Title = "Row 2",
+                    Prompts =
+                    [
+                        new Prompt { Id = "row2.a", Label = "A", Response = "val2A" },
+                        new Prompt { Id = "row2.b", Label = "B", Response = "val2B" },
+                    ],
+                },
+            ],
+        });
+
+        var table = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<TableBlock>().Single();
+
+        table.ColumnHeaders.Should().Equal("A", "B");
+        table.Rows[0].Cells.Select(c => c.Value).Should().Equal("valA", "");
+        table.Rows[1].Cells.Select(c => c.Value).Should().Equal("val2A", "val2B");
+    }
+
+    [Fact]
     public void Build_TableCells_CarryIdAndColumnTypeAndChoices_ForFillableRendering()
     {
         var doc = DocumentRenderModelBuilderTestFactory.CreateDocument(new Section
