@@ -573,9 +573,9 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "version-compatibility/sentence/16a1c91ca8"
+        "version-compatibility/sentence/61dd8f410b"
       ],
-      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)",
+      "note": "only a version a record states can be unsupported; absent or blank is REQUIRED_FIELD",
       "issue": 473
     },
     "version-compatibility/sentence/6e807aeeb2": {
@@ -586,7 +586,7 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "version-compatibility/sentence/16a1c91ca8",
+        "version-compatibility/sentence/61dd8f410b",
         "version-compatibility/sentence/32b81b37b7",
         "version-compatibility/sentence/503f848985",
         "version-compatibility/example/440616afc6",
@@ -596,9 +596,11 @@
         "version-compatibility/sentence/358befdbbb",
         "version-compatibility/sentence/1431e56e15",
         "version-compatibility/sentence/86f2bcedfd",
-        "version-compatibility/sentence/befb65a676"
+        "version-compatibility/sentence/befb65a676",
+        "version-compatibility/sentence/786ead62cc",
+        "version-compatibility/sentence/14f479c939"
       ],
-      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)",
+      "note": "only a version a record states can be unsupported; absent or blank is REQUIRED_FIELD",
       "issue": 473
     },
     "version-compatibility/sentence/bd8c5aae62": {
@@ -7151,9 +7153,9 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "structural-validation/table-row/892b3a0417"
+        "structural-validation/table-row/36cb3b2acb"
       ],
-      "note": "gains an absent metadata or sections, and a role entry without id",
+      "note": "only a version a record states can be unsupported; absent or blank is REQUIRED_FIELD",
       "issue": 480
     },
     "structural-validation/table-row/2f951325e5": {
@@ -7164,10 +7166,10 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "structural-validation/table-row/303e4cc40a"
+        "structural-validation/table-row/e37ee22bf3"
       ],
       "issue": 480,
-      "note": "the format version is now 1.0-beta.7, with 1.0-beta.6 tolerated (#530)"
+      "note": "only a version a record states can be unsupported; absent or blank is REQUIRED_FIELD"
     },
     "structural-validation/table-row/33150c855d": {
       "anchor": "structural-validation",

@@ -151,8 +151,13 @@ because a version number moved.
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 
-A reader **MUST** reject a record whose `aprVersion` is neither `"1.0-beta.7"`
-nor `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
+A reader **MUST** reject a record that states an `aprVersion` other than
+`"1.0-beta.7"` or `"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
+
+A record that states no version states nothing to compare, so an absent or blank
+`aprVersion` is the missing member it is, reported as `REQUIRED_FIELD`
+([Errors](#structural-validation)). Only a version a record actually carries can
+be unsupported.
 
 `1.0-beta.7` is the current format version. `1.0-beta.6` is accepted alongside it
 because beta.7 adds no member to a record and removes none: every beta.6 record is
@@ -3101,8 +3106,8 @@ validator reports an error under the row's code.
 | Code | Condition | Requirement | Rule |
 | --- | --- | --- | --- |
 | `NULL_DOCUMENT` | No document. | **MUST** | [APR-VAL-011] |
-| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. | **MUST** | [APR-VAL-012] |
-| `UNSUPPORTED_VERSION` | `aprVersion` is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
+| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` absent or blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. | **MUST** | [APR-VAL-012] |
+| `UNSUPPORTED_VERSION` | `aprVersion` is stated and is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. | **MUST** | [APR-VAL-014] |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. | **MUST** | [APR-VAL-015] |
 | `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). | **MUST** | [APR-VAL-016] |
