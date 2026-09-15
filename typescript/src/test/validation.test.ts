@@ -28,6 +28,16 @@ test("a non-NFC title is preserved exactly and reported, not silently cleaned", 
   assert.deepEqual(codes(validate(document).warnings), ["NON_NFC_TEXT"]);
 });
 
+test("a response or submission URL carrying an excluded code point warns; a carriage return in a response does not", () => {
+  const form = (response: string, urls?: string[]) => loads(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T", ...(urls ? { submissionUrls: urls } : {}) },
+    sections: [{ id: "s", title: "S", prompts: [{ id: "p", label: "P", response }] }],
+  }));
+  assert.ok(codes(validate(form("Ad​a")).warnings).includes("RESPONSE_FORBIDDEN_CODE_POINT"));
+  assert.ok(!codes(validate(form("one\ttwo\r\nthree")).warnings).includes("RESPONSE_FORBIDDEN_CODE_POINT"));
+  assert.ok(codes(validate(form("", ["https://uploads.exa​mple.gov/permits"])).warnings).includes("SUBMISSION_URL_FORBIDDEN_CODE_POINT"));
+});
+
 test("an id outside the machine-key characters warns, never refuses (APR-TEXT-010)", () => {
   for (const [id, warns] of [["first name", true], ["café", true], ["q:1", true], ["first_name.v2-A", false]] as const) {
     const result = validate(loads(JSON.stringify({

@@ -245,7 +245,8 @@ internal static class AdvisoryVocabulary
     ///
     /// A response is not human-facing text in this sense. It is what a person typed, and
     /// suspicious characters in one are surfaced and rendered visibly while the document
-    /// stays valid — which is why this walks titles and labels and never a response.
+    /// stays valid. A response and a submission URL are held to the same floor under their
+    /// own codes, a response less a carriage return.
     /// </remarks>
     private static void InspectText(AprDocument document, ValidationResult result)
     {
@@ -267,7 +268,31 @@ internal static class AdvisoryVocabulary
             {
                 HoldToTheFloor(section.Prompts![index].Label, $"{path}.prompts[{index}].label", result);
                 LookForConfusableScriptMix(section.Prompts![index].Label, $"{path}.prompts[{index}].label", result);
+                // A response keeps the line breaks a person typed (APR-REP-004), so a
+                // carriage return is not held against it (APR-TEXT-004).
+                ReportExcluded(section.Prompts![index].Response, $"{path}.prompts[{index}].response",
+                    "RESPONSE_FORBIDDEN_CODE_POINT", allowCarriageReturn: true, result);
             }
+        }
+        var urls = document.Metadata?.SubmissionUrls;
+        for (var index = 0; index < (urls?.Count ?? 0); index++)
+        {
+            ReportExcluded(urls![index], $"metadata.submissionUrls[{index}]",
+                "SUBMISSION_URL_FORBIDDEN_CODE_POINT", allowCarriageReturn: false, result);
+        }
+    }
+
+    private static void ReportExcluded(
+        string? value, string path, string code, bool allowCarriageReturn, ValidationResult result)
+    {
+        if (value is not { Length: > 0 }) return;
+        foreach (var rune in value.EnumerateRunes())
+        {
+            if (allowCarriageReturn && rune.Value == 0x000D) continue;
+            if (!BelowTheFloor(rune)) continue;
+            result.AddWarning(new ValidationWarning(
+                $"U+{rune.Value:X4} is a code point the human-facing text floor excludes.", path, code));
+            return;   // One report names the member; listing every offender adds noise.
         }
     }
 

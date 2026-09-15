@@ -139,7 +139,8 @@ def _hold_to_the_floor(value, path: str, result: ValidationResult) -> None:
 
 
 def _validate_text_floor(document: AprDocument, result: ValidationResult) -> None:
-    """A response is not human-facing text in this sense; only titles and labels are."""
+    """Titles and labels are human-facing text. A response and a submission URL are held
+    to the same floor under their own codes, a response less a carriage return."""
     _hold_to_the_floor(document.metadata.title, "metadata.title", result)
     _hold_to_the_floor(document.metadata.description, "metadata.description", result)
     _hold_to_the_floor(document.metadata.author, "metadata.author", result)
@@ -149,6 +150,21 @@ def _validate_text_floor(document: AprDocument, result: ValidationResult) -> Non
         _hold_to_the_floor(section.description, f"{path}.description", result)
         for index, prompt in enumerate(section.prompts):
             _hold_to_the_floor(prompt.label, f"{path}.prompts[{index}].label", result)
+            # A response keeps the line breaks a person typed (APR-REP-004), so a carriage
+            # return is not held against it (APR-TEXT-004).
+            _report_excluded(prompt.response, f"{path}.prompts[{index}].response",
+                             "RESPONSE_FORBIDDEN_CODE_POINT", "\r", result)
+    for index, url in enumerate(document.metadata.submission_urls or []):
+        _report_excluded(url, f"metadata.submissionUrls[{index}]",
+                         "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", result)
+
+
+def _report_excluded(value, path: str, code: str, also_allowed: str, result: ValidationResult) -> None:
+    for character in value or "":
+        if character not in also_allowed and _below_floor(character):
+            result.warnings.append(ValidationWarning(
+                code, f"U+{ord(character):04X} is a code point the human-facing text floor excludes.", path))
+            return  # One report names the member; listing every offender adds noise.
 
 
 # Specification 8.2.3/APR-TEXT-012: "SHOULD apply the confusable and

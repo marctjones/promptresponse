@@ -126,8 +126,26 @@ public final class Apr {
         }
     }
 
-    /** A response is not human-facing text in this sense; only titles and labels are. */
+    private static void reportExcluded(String value, String path, String code, boolean allowCarriageReturn, List<ValidationIssue> warnings) {
+        if (value == null) return;
+        for (int offset = 0; offset < value.length();) {
+            int codePoint = value.codePointAt(offset);
+            offset += Character.charCount(codePoint);
+            if (allowCarriageReturn && codePoint == '\r') continue;
+            if (!belowFloor(codePoint)) continue;
+            issue(warnings, code, path, String.format("U+%04X is a code point the human-facing text floor excludes.", codePoint));
+            return; // One report names the member; listing every offender adds noise.
+        }
+    }
+
+    /**
+     * Titles and labels are human-facing text. A response and a submission URL are held to
+     * the same floor under their own codes, a response less a carriage return.
+     */
     @SuppressWarnings("unchecked") private static void validateTextFloor(AprDocument document, List<ValidationIssue> warnings) {
+        if (document.metadata().get("submissionUrls") instanceof List<?> urls) for (int i = 0; i < urls.size(); i++) {
+            if (urls.get(i) instanceof String url) reportExcluded(url, "metadata.submissionUrls[" + i + "]", "SUBMISSION_URL_FORBIDDEN_CODE_POINT", false, warnings);
+        }
         holdToTheFloor(AprDocument.string(document.metadata().get("title")), "metadata.title", warnings);
         holdToTheFloor(AprDocument.string(document.metadata().get("description")), "metadata.description", warnings);
         holdToTheFloor(AprDocument.string(document.metadata().get("author")), "metadata.author", warnings);
@@ -136,7 +154,13 @@ public final class Apr {
             holdToTheFloor(AprDocument.string(section.get("title")), path + ".title", warnings);
             holdToTheFloor(AprDocument.string(section.get("description")), path + ".description", warnings);
             List<Object> prompts = (List<Object>) section.getOrDefault("prompts", List.of());
-            for (int i = 0; i < prompts.size(); i++) holdToTheFloor(AprDocument.string(((Map<String,Object>) prompts.get(i)).get("label")), path + ".prompts[" + i + "].label", warnings);
+            for (int i = 0; i < prompts.size(); i++) {
+                Map<String,Object> prompt = (Map<String,Object>) prompts.get(i);
+                holdToTheFloor(AprDocument.string(prompt.get("label")), path + ".prompts[" + i + "].label", warnings);
+                // A response keeps the line breaks a person typed (APR-REP-004), so a
+                // carriage return is not held against it (APR-TEXT-004).
+                reportExcluded(AprDocument.string(prompt.get("response")), path + ".prompts[" + i + "].response", "RESPONSE_FORBIDDEN_CODE_POINT", true, warnings);
+            }
         });
     }
 

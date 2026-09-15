@@ -85,6 +85,28 @@ public class AdvisoryVocabularyTests
     }
 
     [Theory]
+    [InlineData("Ad​a", true)]
+    [InlineData("one\ttwo\r\nthree", false)]
+    [InlineData("plain", false)]
+    public void AResponseCarryingAnExcludedCodePoint_Warns_ButACarriageReturnDoesNot(string response, bool expected)
+    {
+        // APR-TEXT-004. A response keeps the line breaks a person typed (APR-REP-004).
+        var result = Check(Form(new Prompt { Id = "p", Label = "P", Response = response }));
+
+        result.Warnings.Any(w => w.WarningCode == "RESPONSE_FORBIDDEN_CODE_POINT").Should().Be(expected);
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ASubmissionUrlCarryingAnExcludedCodePoint_Warns()
+    {
+        var document = Form(new Prompt { Id = "p", Label = "P" });
+        document.Metadata!.SubmissionUrls = ["https://uploads.exa​mple.gov/permits"];
+
+        Check(document).Warnings.Should().Contain(w => w.WarningCode == "SUBMISSION_URL_FORBIDDEN_CODE_POINT");
+    }
+
+    [Theory]
     [InlineData("first name", true)]
     [InlineData("café", true)]
     [InlineData("q:1", true)]

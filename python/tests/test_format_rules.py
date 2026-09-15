@@ -109,6 +109,29 @@ def test_non_nfc_titles_are_preserved_and_reported_not_silently_cleaned():
     assert any(w.code == "NON_NFC_TEXT" for w in report.warnings)
 
 
+# ── APR-TEXT-004 / 007 responses and submission targets held to the floor ────
+
+def _codes(document):
+    return [w.code for w in pr.validate(document).warnings]
+
+
+def test_a_response_carrying_an_excluded_code_point_warns_and_a_carriage_return_does_not():
+    def form(response):
+        return pr.loads(json.dumps({
+            "aprVersion": "1.0-beta.6", "metadata": {"title": "T"},
+            "sections": [{"id": "s", "title": "S", "prompts": [{"id": "p", "label": "L", "response": response}]}]}))
+    assert "RESPONSE_FORBIDDEN_CODE_POINT" in _codes(form("Ad​a"))
+    assert "RESPONSE_FORBIDDEN_CODE_POINT" not in _codes(form("one\ttwo\r\nthree"))
+
+
+def test_a_submission_url_carrying_an_excluded_code_point_warns():
+    document = pr.loads(json.dumps({
+        "aprVersion": "1.0-beta.6",
+        "metadata": {"title": "T", "submissionUrls": ["https://uploads.exa​mple.gov/permits"]},
+        "sections": [{"id": "s", "title": "S", "prompts": [{"id": "p", "label": "L"}]}]}))
+    assert "SUBMISSION_URL_FORBIDDEN_CODE_POINT" in _codes(document)
+
+
 # ── APR-TEXT-010 ids are machine keys ────────────────────────────────────────
 
 @pytest.mark.parametrize("identifier, warns", [

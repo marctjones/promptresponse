@@ -98,8 +98,21 @@ function holdToTheFloor(value: string | undefined, path: string, warnings: Valid
   }
 }
 
-/** A response is not human-facing text in this sense; only titles and labels are. */
+function reportExcluded(value: string | undefined, path: string, code: string, alsoAllowed: string, warnings: ValidationIssue[]): void {
+  for (const character of value ?? "") {
+    if (alsoAllowed.includes(character) || !belowFloor(character)) continue;
+    warnings.push({ code, message: `U+${character.codePointAt(0)!.toString(16).toUpperCase().padStart(4, "0")} is a code point the human-facing text floor excludes.`, path });
+    return; // One report names the member; listing every offender adds noise.
+  }
+}
+
+/**
+ * Titles and labels are human-facing text. A response and a submission URL are held to
+ * the same floor under their own codes, a response less a carriage return.
+ */
 function validateTextFloor(document: AprDocument, warnings: ValidationIssue[]): void {
+  (document.metadata.submissionUrls ?? []).forEach((url, index) =>
+    reportExcluded(url, `metadata.submissionUrls[${index}]`, "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", warnings));
   holdToTheFloor(document.metadata.title, "metadata.title", warnings);
   holdToTheFloor(document.metadata.description, "metadata.description", warnings);
   holdToTheFloor(document.metadata.author, "metadata.author", warnings);
@@ -107,7 +120,12 @@ function validateTextFloor(document: AprDocument, warnings: ValidationIssue[]): 
   for (const [section, path] of walkSections(document.sections, "sections")) {
     holdToTheFloor(section.title, `${path}.title`, warnings);
     holdToTheFloor(section.description, `${path}.description`, warnings);
-    section.prompts.forEach((prompt, index) => holdToTheFloor(prompt.label, `${path}.prompts[${index}].label`, warnings));
+    section.prompts.forEach((prompt, index) => {
+      holdToTheFloor(prompt.label, `${path}.prompts[${index}].label`, warnings);
+      // A response keeps the line breaks a person typed (APR-REP-004), so a carriage
+      // return is not held against it (APR-TEXT-004).
+      reportExcluded(prompt.response, `${path}.prompts[${index}].response`, "RESPONSE_FORBIDDEN_CODE_POINT", "\r", warnings);
+    });
   }
 }
 

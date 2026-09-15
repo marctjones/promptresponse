@@ -75,6 +75,14 @@ public final class AprConformanceTest {
         AprDocument legitimate = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Toyota パーツ Order Form\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}"); // Katakana パーツ ("parts")
         if (!Apr.validate(legitimate).warnings().isEmpty()) throw new AssertionError("Latin+Katakana is not a confusable mix: " + codes(Apr.validate(legitimate).warnings()));
 
+        // APR-TEXT-004 and 007: a response or submission URL carrying an excluded code point warns; a carriage return in a response does not.
+        AprDocument hiddenResponse = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ad\\u200ba\"}]}]}");
+        if (!codes(Apr.validate(hiddenResponse).warnings()).contains("RESPONSE_FORBIDDEN_CODE_POINT")) throw new AssertionError("a zero-width space in a response must warn RESPONSE_FORBIDDEN_CODE_POINT");
+        AprDocument crlfResponse = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"one\\ttwo\\r\\nthree\"}]}]}");
+        if (codes(Apr.validate(crlfResponse).warnings()).contains("RESPONSE_FORBIDDEN_CODE_POINT")) throw new AssertionError("a carriage return in a response is a typed line break, not an excluded code point");
+        AprDocument hiddenUrl = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\",\"submissionUrls\":[\"https://uploads.exa\\u200bmple.gov/permits\"]},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}");
+        if (!codes(Apr.validate(hiddenUrl).warnings()).contains("SUBMISSION_URL_FORBIDDEN_CODE_POINT")) throw new AssertionError("a zero-width space in a submission URL must warn SUBMISSION_URL_FORBIDDEN_CODE_POINT");
+
         // APR-TEXT-010: an id outside [A-Za-z0-9_.-] warns, on a section, a prompt or a role.
         AprDocument spaced = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"roles\":[{\"id\":\"the notary\",\"name\":\"N\"}],\"sections\":[{\"id\":\"the applicant\",\"title\":\"S\",\"prompts\":[{\"id\":\"first name\",\"label\":\"P\"}]}]}");
         long idWarnings = Apr.validate(spaced).warnings().stream().filter(w -> "ID_FORBIDDEN_CHARACTER".equals(w.code())).count();

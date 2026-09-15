@@ -214,6 +214,8 @@ class Report:
         "SUBMISSION_URL_UNSUPPORTED": "APR-VAL-030", "NON_NFC_TEXT": "APR-VAL-031",
         "FORBIDDEN_CODE_POINT": "APR-VAL-032", "CONFUSABLE_SCRIPT_MIX": "APR-VAL-035",
         "ID_FORBIDDEN_CHARACTER": "APR-VAL-038",
+        "RESPONSE_FORBIDDEN_CODE_POINT": "APR-VAL-036",
+        "SUBMISSION_URL_FORBIDDEN_CODE_POINT": "APR-VAL-037",
     }
 
     def error(self, code, path, msg, *rules):
@@ -265,6 +267,19 @@ def check_text(report: Report, path: str, value: str) -> None:
             report.warn("FORBIDDEN_CODE_POINT", path,
                         f"U+{point:04X} is a code point the human-facing text floor excludes",
                         "APR-TEXT-011", "APR-TEXT-014")
+
+
+def first_excluded(value: str, also_allowed: str = "") -> int | None:
+    """The first code point the human-facing text floor excludes, as check_text judges
+    it, skipping any character in `also_allowed`."""
+    for char in value:
+        point = ord(char)
+        if char in also_allowed:
+            continue
+        category = unicodedata.category(char)
+        if (category == "Cc" and point not in CONTROL_OK) or category in {"Cs", "Co", "Cn", "Cf"}:
+            return point
+    return None
 
 
 # APR-TEXT-012 asks a validator to apply UTS #39's confusable and mixed-script
@@ -381,6 +396,14 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                      "a response is always a JSON string, never a number or boolean; "
                      "it is refused, never coerced to \"42\"",
                      "APR-MODEL-001", "APR-MODEL-049")
+    # A response is held to the floor under its own code, less a carriage return: a
+    # response keeps the line breaks a person typed (APR-REP-004).
+    if isinstance(prompt.get("response"), str):
+        point = first_excluded(prompt["response"], "\r")
+        if point is not None:
+            report.warn("RESPONSE_FORBIDDEN_CODE_POINT", f"{path}/response",
+                        f"the response carries U+{point:04X}, which the human-facing text "
+                        f"floor excludes", "APR-TEXT-004")
     role = prompt.get("role")
     if isinstance(role, str) and roles and role not in roles:
         report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
@@ -681,6 +704,12 @@ def validate_form(report: Report, form, members) -> None:
             report.error("REQUIRED_FIELD", "/metadata/templateId",
                          "a filled form must name the template it answers", "APR-MODEL-008")
         for index, url in enumerate(metadata.get("submissionUrls") or []):
+            point = first_excluded(url) if isinstance(url, str) else None
+            if point is not None:
+                report.warn("SUBMISSION_URL_FORBIDDEN_CODE_POINT", f"/metadata/submissionUrls/{index}",
+                            f"the entry carries U+{point:04X}, which the human-facing text "
+                            f"floor excludes; it can render as one address while being another",
+                            "APR-TEXT-007")
             if isinstance(url, str) and url.split(":", 1)[0].lower() not in {"https", "mailto"}:
                 report.warn("SUBMISSION_URL_UNSUPPORTED",
                             f"/metadata/submissionUrls/{index}",
