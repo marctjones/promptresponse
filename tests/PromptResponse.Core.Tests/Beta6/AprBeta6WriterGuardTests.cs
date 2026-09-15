@@ -23,6 +23,26 @@ public class AprBeta6WriterGuardTests
     private static Dictionary<string, JsonElement> Member(string name) =>
         new() { [name] = JsonDocument.Parse("\"v\"").RootElement.Clone() };
 
+    [Fact]
+    public void FillingAForm_AddsNothingButTheResponse()
+    {
+        // APR-MODEL-037: no member recording receipt or what happened next.
+        // APR-MODEL-084: no language member added or changed.
+        // APR-MODEL-095: a blank id stays blank; nothing is repaired unless asked.
+        const string source = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\",\"language\":\"en\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"language\":\"fr\","
+            + "\"prompts\":[{\"id\":\"p\",\"label\":\"P\"},{\"id\":\"\",\"label\":\"Blank\"}]}]}";
+        var form = _reader.ReadForm(source, AprRepresentation.Jsonc);
+        form.Sections![0].Prompts![0].Response = "filled";
+
+        var written = System.Text.Json.Nodes.JsonNode.Parse(_reader.WriteForm(form, AprRepresentation.Jsonc));
+        var expected = System.Text.Json.Nodes.JsonNode.Parse(
+            source.Replace("\"label\":\"P\"}", "\"label\":\"P\",\"response\":\"filled\"}", StringComparison.Ordinal));
+
+        System.Text.Json.Nodes.JsonNode.DeepEquals(written, expected).Should().BeTrue(
+            $"filling a form adds nothing but the response, and wrote {written}");
+    }
+
     [Theory]
     [InlineData(AprRepresentation.Jsonc)]
     [InlineData(AprRepresentation.Yaml)]

@@ -180,6 +180,18 @@ test("beta.6 a verifier reports only the paths the manifest carries (APR-DIGEST-
   assert.deepEqual([...result.differingPaths].sort(), [...carried].sort());
 });
 
+test("beta.6 filling a form adds nothing but the response (APR-MODEL-037, APR-MODEL-084, APR-MODEL-095)", () => {
+  const source = {
+    aprVersion: "1.0-beta.6", metadata: { title: "T", language: "en" },
+    sections: [{ id: "s", title: "S", language: "fr", prompts: [{ id: "p", label: "P" }, { id: "", label: "Blank" }] }],
+  };
+  const document = readBeta6Form(JSON.stringify(source), "jsonc");
+  document.sections[0].prompts[0].response = "filled";
+  const expected = JSON.parse(JSON.stringify(source));
+  expected.sections[0].prompts[0].response = "filled";
+  assert.deepEqual(JSON.parse(writeBeta6Form(document, "jsonc")), expected);
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");

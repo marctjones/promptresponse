@@ -146,6 +146,20 @@ def test_beta6_a_verifier_reports_only_the_paths_the_manifest_carries():
     assert set(result["differingPaths"]) == carried
 
 
+def test_beta6_filling_a_form_adds_nothing_but_the_response():
+    # APR-MODEL-037: no member recording receipt or what happened next.
+    # APR-MODEL-084: no language member added or changed.
+    # APR-MODEL-095: a blank id stays blank; nothing is repaired unless asked.
+    source = {"aprVersion": "1.0-beta.6", "metadata": {"title": "T", "language": "en"},
+              "sections": [{"id": "s", "title": "S", "language": "fr",
+                            "prompts": [{"id": "p", "label": "P"}, {"id": "", "label": "Blank"}]}]}
+    document = pr.read_beta6_form(json.dumps(source), "jsonc")
+    document.sections[0].prompts[0].response = "filled"
+    expected = json.loads(json.dumps(source))
+    expected["sections"][0]["prompts"][0]["response"] = "filled"
+    assert json.loads(pr.write_beta6_form(document, "jsonc")) == expected
+
+
 def test_beta6_shared_malformed_corpus_is_rejected():
     for path in (CORPUS.parent / "malformed").iterdir():
         with pytest.raises(pr.AprParseError):

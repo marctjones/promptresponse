@@ -11,6 +11,7 @@ public final class AprConformanceTest {
         versionPresence();
         writerFloors();
         verifierReportsCarriedPaths();
+        fillingAddsNothing();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -30,6 +31,17 @@ public final class AprConformanceTest {
         expectParseError("{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}", "a member name");
         AprDocument kept = AprBeta6.readForm(prefix + "\\t\\r\\n \\ud83d\\ude00" + suffix, AprBeta6.Representation.JSONC);
         if (!("a\t\r\n 😀b").equals(kept.metadata().get("title"))) throw new AssertionError("tab, line breaks and a surrogate pair must be read: " + kept.metadata().get("title"));
+    }
+
+    /** APR-MODEL-037, 084 and 095: filling a form adds no workflow member, no language, and repairs no id. */
+    @SuppressWarnings("unchecked") private static void fillingAddsNothing() {
+        String source = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\",\"language\":\"en\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"language\":\"fr\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"},{\"id\":\"\",\"label\":\"Blank\"}]}]}";
+        AprDocument document = AprBeta6.readForm(source, AprBeta6.Representation.JSONC);
+        var prompts = (java.util.List<java.util.Map<String, Object>>) ((java.util.Map<String, Object>) document.sections().getFirst()).get("prompts");
+        prompts.getFirst().put("response", "filled");
+        Object expected = Json.parse(source.replace("\"label\":\"P\"}", "\"label\":\"P\",\"response\":\"filled\"}"));
+        Object written = Json.parse(AprBeta6.writeForm(document, AprBeta6.Representation.JSONC));
+        if (!expected.equals(written)) throw new AssertionError("filling a form must add nothing but the response: " + written);
     }
 
     /** APR-DIGEST-005: a difference is reported only at paths the manifest carries, the deepest included. */
