@@ -61,6 +61,8 @@ public sealed class AprBeta6Reader
     public AprDocument ReadForm(string source, AprRepresentation representation)
     {
         var records = ReadStream(source, representation);
+        if (records.Count == 0)
+            throw new SerializationException("The source holds no document.") { Code = "NULL_DOCUMENT" };
         if (records.Count != 1 || records[0] is not AprFormRecord form)
             throw new AprStreamRequiresIterationException();
         return form.Form;
@@ -88,7 +90,8 @@ public sealed class AprBeta6Reader
             // make. A record that will not parse is a parse failure, reported as one
             // exception type whichever representation it arrived in.
             throw new SerializationException(
-                "This stream contains a record that is not well-formed.", exception);
+                "This stream contains a record that is not well-formed.", exception)
+            { Code = "PARSE_ERROR" };
         }
     }
 

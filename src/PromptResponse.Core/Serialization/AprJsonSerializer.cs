@@ -120,7 +120,7 @@ public class AprJsonSerializer : IAprSerializer
                     "A form requires `metadata` and `sections`.", ex)
                 { Code = "REQUIRED_FIELD" };
             }
-            throw new SerializationException("Invalid JSON format", ex);
+            throw new SerializationException("Invalid JSON format", ex) { Code = "PARSE_ERROR" };
         }
         catch (OperationCanceledException)
         {
@@ -151,7 +151,7 @@ public class AprJsonSerializer : IAprSerializer
         }
         catch (JsonException ex)
         {
-            throw new SerializationException("Invalid JSON format", ex);
+            throw new SerializationException("Invalid JSON format", ex) { Code = "PARSE_ERROR" };
         }
         catch (OperationCanceledException)
         {

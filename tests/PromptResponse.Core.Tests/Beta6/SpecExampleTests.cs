@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using System.Text.Json;
 using AwesomeAssertions;
 using PromptResponse.Core.Beta6;
+using PromptResponse.Core.Serialization;
 using Xunit;
 
 namespace PromptResponse.Core.Tests.Beta6;
@@ -29,7 +30,7 @@ public sealed class SpecExampleTests
     private static readonly Dictionary<string, string> KnownDivergences = new();
 
     public sealed record Example(
-        string Id, string Rule, string Representation, string Expect, string Document);
+        string Id, string Rule, string Representation, string Expect, string Document, string? Diagnostic);
 
     private static List<Example> ReadExamples()
     {
@@ -41,7 +42,8 @@ public sealed class SpecExampleTests
                 element.GetProperty("rule").GetString()!,
                 element.GetProperty("representation").GetString()!,
                 element.GetProperty("expect").GetString()!,
-                element.GetProperty("document").GetString()!))
+                element.GetProperty("document").GetString()!,
+                element.TryGetProperty("diagnostic", out var diagnostic) ? diagnostic.GetString() : null))
             .ToList();
     }
 
@@ -66,7 +68,7 @@ public sealed class SpecExampleTests
     private static string Framed(string document) => string.Concat(
         Regex.Split(document, "(?m)^---$")
             .Where(part => !string.IsNullOrWhiteSpace(part))
-            .Select(part => "\u001e" + part.Trim('\n') + "\n"));
+            .Select(part => "" + part.Trim('\n') + "\n"));
 
     /// <summary>Whether a single-record example is an attestation rather than a form.</summary>
     private static bool IsAttestation(Example example) =>
@@ -94,6 +96,41 @@ public sealed class SpecExampleTests
         return [reader.ReadForm(example.Document, representation)];
     }
 
+    /// <summary>The codes a rejection reported: the refusal's own, or every validation error's.</summary>
+    private static IReadOnlyList<string> RejectionCodes(Example example, out bool rejected)
+    {
+        try
+        {
+            var forms = Read(example);
+            // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
+            if (forms.Count == 0)
+            {
+                rejected = true;
+                return ["NULL_DOCUMENT"];
+            }
+            // An attestation carries no form to validate, so only a refused read rejects it.
+            var validator = new PromptResponse.Core.Validation.DocumentValidator();
+            var errors = IsAttestation(example)
+                ? []
+                : forms.SelectMany(form => validator.Validate(form).Errors).ToList();
+            rejected = errors.Count > 0;
+            return errors.Select(error => error.ErrorCode ?? "").ToList();
+        }
+        catch (Exception exception)
+        {
+            rejected = true;
+            // A refusal may arrive wrapped; the code belongs to whichever layer named one.
+            for (Exception? current = exception; current is not null; current = current.InnerException)
+            {
+                if (current is SerializationException { Code: { } code })
+                {
+                    return [code];
+                }
+            }
+            return [];
+        }
+    }
+
     [Theory]
     [MemberData(nameof(Examples))]
     public void SpecificationExample_BehavesAsTheSpecificationSays(Example example)
@@ -117,23 +154,14 @@ public sealed class SpecExampleTests
         if (example.Expect == "reject")
         {
             // Rejection is a refused read or a form that fails validation: a missing label
-            // parses and is an error, as the conformance driver reports it.
-            var validator = new PromptResponse.Core.Validation.DocumentValidator();
-            bool rejected;
-            try
-            {
-                // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
-                var forms = Read(example);
-                // An attestation carries no form to validate, so only a refused read rejects it.
-                rejected = !IsAttestation(example)
-                    && (forms.Count == 0 || forms.Any(form => !validator.Validate(form).IsValid));
-            }
-            catch (Exception)
-            {
-                rejected = true;
-            }
+            // parses and is an error, as the conformance driver reports it. Either way the
+            // code has to be the one the example names, or a reader refusing for an
+            // unrelated reason would pass.
+            var codes = RejectionCodes(example, out var rejected);
             rejected.Should().BeTrue(
                 $"{example.Id} demonstrates #{example.Rule} and the specification requires rejection");
+            codes.Should().Contain(example.Diagnostic,
+                $"{example.Id} demonstrates #{example.Rule} and the specification names that diagnostic");
             return;
         }
 
@@ -149,6 +177,20 @@ public sealed class SpecExampleTests
                 $"{example.Id} must cite the specification anchor it demonstrates");
             example.Document.Should().NotBeNullOrWhiteSpace(
                 $"{example.Id} must carry a document");
+            if (example.Expect == "reject")
+            {
+                example.Diagnostic.Should().NotBeNullOrWhiteSpace(
+                    $"{example.Id} must name the diagnostic a rejection reports");
+            }
         }
+    }
+
+    [Fact]
+    public void TheRejectionExamples_NameMoreThanOneDiagnostic()
+    {
+        // A reader that refuses every rejection example with the same code only passes the
+        // comparison above if every example names that code.
+        ReadExamples().Where(example => example.Expect == "reject")
+            .Select(example => example.Diagnostic).Distinct().Should().HaveCountGreaterThan(1);
     }
 }
