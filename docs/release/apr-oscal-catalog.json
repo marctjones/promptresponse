@@ -11062,7 +11062,7 @@
               {
                 "id": "apr-val-002_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not. The renderer suite asks the saving half through renderer:a-hint-mismatch-does-not-block-saving; nothing asks the typing half, and the exhaustive GUI driver types into every editable TextBox without first putting a warned value in one, so it does not reach APR-VAL-033 either. Closing it means a renderer case in tests/Conformance/beta6/renderer/cases.json, which is a fixture rather than specification text. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -11305,7 +11305,7 @@
               {
                 "id": "apr-val-006_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not. The renderer suite asks the saving half through renderer:a-hint-mismatch-does-not-block-saving; nothing asks the typing half, and the exhaustive GUI driver types into every editable TextBox without first putting a warned value in one, so it does not reach APR-VAL-033 either. Closing it means a renderer case in tests/Conformance/beta6/renderer/cases.json, which is a fixture rather than specification text. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -11885,7 +11885,7 @@
               {
                 "id": "apr-val-018_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -11947,7 +11947,7 @@
               {
                 "id": "apr-val-019_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12009,7 +12009,7 @@
               {
                 "id": "apr-val-020_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12071,7 +12071,7 @@
               {
                 "id": "apr-val-021_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12133,7 +12133,7 @@
               {
                 "id": "apr-val-022_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12195,7 +12195,7 @@
               {
                 "id": "apr-val-023_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12257,7 +12257,7 @@
               {
                 "id": "apr-val-024_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12319,7 +12319,7 @@
               {
                 "id": "apr-val-025_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12381,7 +12381,7 @@
               {
                 "id": "apr-val-026_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12443,7 +12443,7 @@
               {
                 "id": "apr-val-027_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12505,7 +12505,7 @@
               {
                 "id": "apr-val-028_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12567,7 +12567,7 @@
               {
                 "id": "apr-val-029_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12629,7 +12629,7 @@
               {
                 "id": "apr-val-030_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12691,7 +12691,7 @@
               {
                 "id": "apr-val-031_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12753,7 +12753,7 @@
               {
                 "id": "apr-val-032_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -12815,7 +12815,7 @@
               {
                 "id": "apr-val-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not. The renderer suite asks the saving half through renderer:a-hint-mismatch-does-not-block-saving; nothing asks the typing half, and the exhaustive GUI driver types into every editable TextBox without first putting a warned value in one, so it does not reach APR-VAL-033 either. Closing it means a renderer case in tests/Conformance/beta6/renderer/cases.json, which is a fixture rather than specification text. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -12877,7 +12877,7 @@
               {
                 "id": "apr-val-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not. The renderer suite asks the saving half through renderer:a-hint-mismatch-does-not-block-saving; nothing asks the typing half, and the exhaustive GUI driver types into every editable TextBox without first putting a warned value in one, so it does not reach APR-VAL-033 either. Closing it means a renderer case in tests/Conformance/beta6/renderer/cases.json, which is a fixture rather than specification text. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -12939,7 +12939,7 @@
               {
                 "id": "apr-val-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -13001,7 +13001,7 @@
               {
                 "id": "apr-val-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -13063,7 +13063,7 @@
               {
                 "id": "apr-val-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           },
@@ -13125,7 +13125,7 @@
               {
                 "id": "apr-val-038_gap",
                 "name": "assessment-gap",
-                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits any of the three. Measured through the driver protocol on a response carrying U+200B, a submissionUrls entry carrying U+200B, and an id carrying a character outside [A-Za-z0-9_.-]: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here; for the id, no reader warns at all, so APR-VAL-038 is the least evidenced of the three. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507, #508)."
               }
             ]
           }
