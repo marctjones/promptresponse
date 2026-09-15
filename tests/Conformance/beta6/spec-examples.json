@@ -1,6 +1,6 @@
 {
   "$comment": "GENERATED from the examples embedded in docs/APR_SPECIFICATION.md. Do not edit. Run scripts/extract-spec-examples.py --write.",
-  "formatVersion": "1.0-beta.6",
+  "formatVersion": "1.0-beta.7",
   "examples": [
     {
       "id": "attestation-before-subject",

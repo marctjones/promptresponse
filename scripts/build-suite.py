@@ -172,7 +172,7 @@ def build() -> dict:
                     "executable examples and the conformance corpus. Do not edit. "
                     "An implementation reads this one file and needs nothing else.",
         "suiteVersion": SUITE_VERSION,
-        "formatVersion": "1.0-beta.6",
+        "formatVersion": aprlib.format_version(),
         "specificationSha256": "sha256:" + hashlib.sha256(
             SPEC.read_bytes()).hexdigest(),
         "outcomes": {

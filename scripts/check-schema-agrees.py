@@ -136,13 +136,6 @@ def check_type_registry(spec_text: str, hints: dict[str, bool], problems: list[s
                 problems.append(
                     f"type registry: `{entry['id']}` names hint `{hint}`, which no specification table declares")
 
-    # The published format version must be the one the specification describes.
-    declared = re.search(r"\*\*Describes format version:\*\* `([^`]+)`", spec_text)
-    if declared and types.get("formatVersion") != declared.group(1):
-        problems.append(
-            f"type registry: publishes formatVersion {types.get('formatVersion')!r}, "
-            f"specification describes {declared.group(1)!r}")
-
     # An enumeration for a retired member is drift.
     retired_enums = sorted(
         key for key in types.get("enumeratedValues", {})

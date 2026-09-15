@@ -1,6 +1,5 @@
 {
   "$comment": "GENERATED-ADJACENT: a derived projection of the APR specification's type registry and enumerated value domains. The specification is normative; where the two disagree this file has the defect. Checked by scripts/check-schema-agrees.py.",
-  "formatVersion": "1.0-beta.7",
   "specification": "docs/APR_SPECIFICATION.md",
   "expectedDataType": {
     "$comment": "An OPEN registry (specification 4.7). An unrecognised value MUST degrade to a text field rather than error - that is what lets this list grow without breaking existing readers. Every hint here is advisory: it never constrains what may be stored, only how a renderer presents the field, what it writes when it controls the value, and what the expression profile can compute with.",

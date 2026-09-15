@@ -466,7 +466,13 @@
       "text": "1.4 Three version numbers",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "version-numbers/heading/bfb92f7ea8",
+        "version-numbers/sentence/c7dd20074a",
+        "version-numbers/sentence/1be85a9dc7"
+      ],
+      "note": "the corpus tag names a corpus revision, not a release, so no retag follows a version bump"
     },
     "version-numbers/sentence/2c4bb05e35": {
       "anchor": "version-numbers",
@@ -519,7 +525,11 @@
       "text": "| **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "version-numbers/table-row/3784b250ec"
+      ],
+      "note": "the corpus tag names a corpus revision, not a release, so no retag follows a version bump"
     },
     "version-numbers/sentence/886acb307b": {
       "anchor": "version-numbers",

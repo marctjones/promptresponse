@@ -21,6 +21,9 @@ import json
 import pathlib
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import aprlib  # noqa: E402
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CASES = ROOT / "tests" / "Conformance" / "beta6" / "renderer" / "cases.json"
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "renderer-suite.json"
@@ -67,7 +70,7 @@ def build() -> dict:
                      "renderer driver reads this one file and needs nothing else; the "
                      "shape of its answer is docs/RENDERER_CONFORMANCE.md."),
         "suiteVersion": SUITE_VERSION,
-        "formatVersion": "1.0-beta.6",
+        "formatVersion": aprlib.format_version(),
         "specificationSha256": "sha256:" + hashlib.sha256(SPEC.read_bytes()).hexdigest(),
         "contractSha256": "sha256:" + hashlib.sha256(CONTRACT.read_bytes()).hexdigest(),
         "cases": cases,
