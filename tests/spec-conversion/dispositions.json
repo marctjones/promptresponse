@@ -3286,7 +3286,15 @@
         "root-object/heading/2034d64368",
         "root-object/sentence/ce4624447a",
         "root-object/sentence/167c4f30e0",
-        "root-object/example/1d1f273acb"
+        "root-object/example/1d1f273acb",
+        "root-object/sentence/5525263e61",
+        "root-object/sentence/774f1cdc47",
+        "root-object/sentence/780b840771",
+        "root-object/example/2a2b473231",
+        "root-object/sentence/8b651556af",
+        "root-object/sentence/c9f9bf2121",
+        "root-object/sentence/5d2758f5c9",
+        "root-object/example/a3a2bc00ef"
       ],
       "note": "examples added so the specification shows each rule it states here (#488)"
     },

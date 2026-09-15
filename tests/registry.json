@@ -2235,6 +2235,14 @@
         {
           "type": "suite",
           "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "AnAbsentOrBlankVersion_IsAMissingMember_NotAnUnsupportedOne"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_an_absent_or_blank_version_is_a_missing_member"
         }
       ],
       "rules": [

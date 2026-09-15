@@ -1688,6 +1688,41 @@ diagnostic: REQUIRED_FIELD
 }
 ```
 
+**Example 5.1-3.** A form that carries no `aprVersion`. It states no version, so
+it is refused as the missing member it is.
+
+```apr-example
+id: form-without-aprversion
+rule: root-object
+violates: APR-MODEL-053
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+**Example 5.1-4.** A form whose `aprVersion` is blank. A blank member states no
+version either.
+
+```apr-example
+id: form-with-blank-aprversion
+rule: root-object
+violates: APR-MODEL-053
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
 ### 5.2 Metadata {#metadata}
 
 Each row below is a requirement on `metadata`.
