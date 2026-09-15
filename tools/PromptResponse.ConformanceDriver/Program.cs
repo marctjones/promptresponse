@@ -24,6 +24,12 @@ using PromptResponse.Core.Validation;
 var reader = new AprBeta6Reader();
 var validator = new DocumentValidator();
 var suite = JsonNode.Parse(await Console.In.ReadToEndAsync())!.AsObject();
+// `core+attestations` is not claimed, because a claim rests on verifying a proof and
+// reporting what verification found, and this driver reports nothing about
+// verification yet. A run that names fewer profiles gets a driver claiming only those.
+string[] supported = ["core", "core+streams", "core+expressions"];
+var run = suite["profiles"]?.AsArray().Select(profile => profile!.GetValue<string>()).ToHashSet(StringComparer.Ordinal);
+var profiles = supported.Where(profile => run?.Contains(profile) ?? true).ToArray();
 var results = new JsonArray();
 
 foreach (var node in suite["cases"]!.AsArray())
@@ -39,10 +45,8 @@ var report = new JsonObject
         ["name"] = "PromptResponse.Core (.NET)",
         ["version"] = AprFormat.CurrentVersion,
         // Claimed deliberately, and binding: every case in a claimed profile must be
-        // answered. `core+attestations` is not claimed, because a claim rests on
-        // verifying a proof and reporting what verification found, and this driver
-        // reports nothing about verification yet.
-        ["profiles"] = new JsonArray("core", "core+streams", "core+expressions"),
+        // answered.
+        ["profiles"] = new JsonArray([.. profiles.Select(profile => (JsonNode)profile!)]),
     },
     ["results"] = results,
 };
@@ -66,7 +70,10 @@ JsonObject Answer(JsonObject testCase)
         // stream of one record, and that record is not necessarily a form: an
         // attestation is an independent record and a case may carry one on its own.
         // ReadForm refuses anything that is not exactly one form, which refused every
-        // standalone attestation in the suite before the library saw it.
+        // standalone attestation in the suite before the library saw it. Without
+        // core+streams a caller asks ReadForm for one form, and the library refuses a
+        // stream rather than choose a record from it. [APR-CONF-001]
+        if (!profiles.Contains("core+streams")) reader.ReadForm(document, kind);
         records = reader.ReadStream(document, kind);
     }
     catch (SerializationException exception)

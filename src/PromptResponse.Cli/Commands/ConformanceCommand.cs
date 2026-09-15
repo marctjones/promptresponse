@@ -36,10 +36,15 @@ public sealed class ConformanceCommand : ICommand
             return 1;
         }
 
+        // A run that names fewer profiles gets a driver claiming only those.
+        string[] supported = ["core", "core+streams", "core+expressions"];
+        var run = suite["profiles"]?.AsArray().Select(profile => profile!.GetValue<string>()).ToHashSet(StringComparer.Ordinal);
+        var profiles = supported.Where(profile => run?.Contains(profile) ?? true).ToArray();
+
         var results = new JsonArray();
         foreach (var node in cases)
         {
-            results.Add(Answer(node!.AsObject(), reader, validator));
+            results.Add(Answer(node!.AsObject(), reader, validator, profiles));
         }
 
         var report = new JsonObject
@@ -51,7 +56,7 @@ public sealed class ConformanceCommand : ICommand
                 // The same claim the library driver makes. A claim is binding: every case
                 // in a claimed profile must be answered, so claiming what this cannot
                 // answer would be worse than claiming less.
-                ["profiles"] = new JsonArray("core", "core+streams", "core+expressions"),
+                ["profiles"] = new JsonArray([.. profiles.Select(profile => (JsonNode)profile!)]),
             },
             ["results"] = results,
         };
@@ -60,7 +65,7 @@ public sealed class ConformanceCommand : ICommand
     }
 
     private static JsonObject Answer(
-        JsonObject testCase, AprBeta6Reader reader, DocumentValidator validator)
+        JsonObject testCase, AprBeta6Reader reader, DocumentValidator validator, string[] profiles)
     {
         var id = testCase["id"]!.GetValue<string>();
         var representation = testCase["representation"]!.GetValue<string>();
@@ -73,6 +78,9 @@ public sealed class ConformanceCommand : ICommand
         IReadOnlyList<AprStreamRecord> records;
         try
         {
+            // Without core+streams a caller asks ReadForm for one form, and the library
+            // refuses a stream rather than choose a record from it. [APR-CONF-001]
+            if (!profiles.Contains("core+streams")) reader.ReadForm(document, kind);
             records = reader.ReadStream(document, kind);
         }
         catch (SerializationException exception)

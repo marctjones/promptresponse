@@ -38,6 +38,7 @@ validate_apr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validate_apr)
 MEMBERS = validate_apr.spec_members()
 suite = json.load(sys.stdin)
+RUN = suite.get("profiles") or ["core", "core+streams", "core+attestations", "core+expressions"]
 results = []
 '''
 
@@ -144,11 +145,56 @@ for case in suite["cases"]:
 for case in suite["cases"]:
     results.append(reference(case))
 '''),
+    "core-reads-streams": (
+        "claims only core, and reads a stream by choosing its records anyway",
+        '''
+for case in suite["cases"]:
+    results.append(reference_driver.answer(case, MEMBERS))
+'''),
+    "core-refuses-expressions": (
+        "claims only core, and refuses a document because it uses expressions",
+        '''
+import re
+for case in suite["cases"]:
+    answer = reference(case)
+    if re.search(r'"?expr[A-Z]', case["document"]):
+        answer = {"id": case["id"], "outcome": "reject", "diagnostic": "EXPRESSIONS_UNSUPPORTED"}
+    results.append(answer)
+'''),
+    "core-drops-expressions": (
+        "claims only core, and drops the expression hints it cannot evaluate when it writes",
+        '''
+def strip_expressions(node):
+    if isinstance(node, dict):
+        return {k: strip_expressions(v) for k, v in node.items() if not k.startswith("expr")}
+    if isinstance(node, list):
+        return [strip_expressions(v) for v in node]
+    return node
+for case in suite["cases"]:
+    answer = reference(case)
+    if case.get("roundTrip") and "written" in answer:
+        records = aprlib.read_records(answer["written"], representation(case))
+        answer["written"] = "".join(
+            json.dumps(strip_expressions(r), indent=2) + "\\n" for r in records)
+    results.append(answer)
+'''),
+    "over-claiming-run": (
+        "answers the core run correctly but claims profiles the run excludes",
+        '''
+for case in suite["cases"]:
+    results.append(reference(case))
+'''),
 }
 PROFILES = {
     "over-claiming": ["core", "core+streams", "core+attestations", "core+expressions"],
     "attestations-without-streams": ["core", "core+attestations"],
+    "over-claiming-run": ["core", "core+streams", "core+attestations", "core+expressions"],
 }
+# Mutants of what core owes the profiles it does not claim are scored the way such an
+# implementation is: as a run limited to core.
+CORE_RUN = ["--profile", "core"]
+RUNS = {name: CORE_RUN for name in ("core-reads-streams", "core-refuses-expressions",
+                                     "core-drops-expressions", "over-claiming-run")}
 
 # Every mutant damages the reference driver's own answer. A hand-kept copy of it
 # drifted: it named the wrong diagnostics and wrote streams that would not read
@@ -162,7 +208,7 @@ def representation(case):
     return "yaml" if case["representation"].startswith("yaml") else "jsonc"
 
 def reference(case):
-    return reference_driver.answer(case, MEMBERS)
+    return reference_driver.answer(case, MEMBERS, RUN)
 '''
 CONTROL = '''
 for case in suite["cases"]:
@@ -171,10 +217,11 @@ for case in suite["cases"]:
 ALL_PROFILES = ["core", "core+streams", "core+attestations", "core+expressions"]
 
 
-def run(driver: pathlib.Path) -> tuple[int, int, str]:
+def run(driver: pathlib.Path, arguments: list[str] = ()) -> tuple[int, int, str]:
     """Score `driver` and return (passed, failed, first failing detail)."""
     completed = subprocess.run(
-        [sys.executable, str(HARNESS), "--driver", f"{sys.executable} {driver}", "--json"],
+        [sys.executable, str(HARNESS), "--driver", f"{sys.executable} {driver}", "--json",
+         *arguments],
         capture_output=True, text=True, cwd=ROOT)
     try:
         report = json.loads(completed.stdout)
@@ -219,8 +266,15 @@ def main() -> int:
                             f"failures can be told from it — {detail}")
         print(f"  {'control':20} {passed:>4} pass {failed:>4} fail   the reference answers, undamaged")
 
+        passed, failed, detail = run(driver("control-core", CONTROL, ["core"]), CORE_RUN)
+        if failed != 0:
+            problems.append(f"the undamaged mutant base fails {failed} cases in a run limited "
+                            f"to core, so no core mutant's failures can be told from it — {detail}")
+        print(f"  {'control-core':20} {passed:>4} pass {failed:>4} fail   the same, claiming only core in a core run")
+
         for name, (description, body) in MUTANTS.items():
-            passed, failed, detail = run(driver(name, body, PROFILES.get(name, ["core"])))
+            passed, failed, detail = run(driver(name, body, PROFILES.get(name, ["core"])),
+                                         RUNS.get(name, ()))
             if failed < 0:
                 problems.append(f"{name}: the mutant did not run — {detail}")
                 continue

@@ -76,6 +76,21 @@ answered, and omitting it fails. A case outside every profile you declare may be
 omitted and is reported as unanswered. Answering one anyway is allowed, and it is
 scored, because you volunteered it.
 
+The suite also carries `profiles` at its root: the profiles this run scores. Claim
+none outside it, or the declaration fails. By default it lists all four, and
+
+    python3 scripts/run-conformance.py --driver "..." --profile core
+
+runs the suite as it is handed to an implementation claiming only `core`. What an
+implementation does with a document using a profile it does not claim is part of
+`core`, so those cases are asked again rather than dropped. A stream that is valid
+under `core+streams` must be refused with `APR_STREAM_REQUIRES_ITERATION`
+[APR-CONF-001]. A document that is valid under `core+expressions` must be accepted
+without being evaluated [APR-CONF-003], and written back with its expressions intact
+where the case asks for a round trip [APR-CONF-013]. A case whose defect only the
+unclaimed profile defines is withheld, as is every attestation case: what `core` owes
+an attestation is what it says about verification, which no case asks yet.
+
 What this still cannot check is whether the profiles you declare are the ones you
 implement, which is why declaring conformance remains a statement a person makes.
 """
@@ -95,6 +110,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
 REGISTRY = ROOT / "tests" / "registry.json"
 NAMESPACE = uuid.UUID("6f1a0c3e-0b7e-5b2a-9c3d-4e5f60718293")
+PROFILES = ("core", "core+streams", "core+attestations", "core+expressions")
 
 
 def option(name: str, default=None):
@@ -177,9 +193,19 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
     # implementation declares must be answered. Skipping it is a failure, not a
     # shrug, or a driver could claim every profile and answer nothing.
     claimed = set(response.get("implementation", {}).get("profiles") or ["core"])
-    by_id = {c["id"]: c for c in suite["cases"]}
     rows: list[dict] = []
     tally = {"pass": 0, "fail": 0, "unanswered": 0, "discrepancy": 0}
+
+    # A run scores the profiles it names. A claim outside them is one this run asked
+    # the driver not to make, and a driver that makes it anyway was not answering as
+    # the implementation the run describes.
+    beyond = sorted(claimed - set(suite.get("profiles") or PROFILES))
+    if beyond:
+        rows.append({"id": "declaration:run-profiles", "rule": "profile-core", "expect": "valid",
+                     "profile": "core", "status": "fail",
+                     "detail": f"claims {', '.join(beyond)} in a run limited to "
+                               f"{', '.join(suite['profiles'])}"})
+        tally["fail"] += 1
 
     # A declaration is held to the specification too: core+attestations is claimed
     # only together with core+streams. [APR-CONF-010]
@@ -362,6 +388,39 @@ ANSWERS = ("expect", "digest", "expects", "warns", "diagnostic", "preserves", "a
            "satisfies", "violates")
 
 
+def constrain(suite: dict, allowed: list[str]) -> dict:
+    """The suite as it is asked of an implementation claiming only `allowed`.
+
+    What an implementation does with a document using a profile it does not claim is
+    part of `core` (specification 3.1), so a case in an excluded profile is asked
+    again as that `core` question rather than dropped. A case whose defect only the
+    excluded profile defines is withheld: a core reader need not know a stream is
+    malformed, or that an expression hint has the wrong type.
+    """
+    cases = []
+    for case in suite["cases"]:
+        profile = case.get("profile", "core")
+        if profile in allowed:
+            cases.append(case)
+        elif case["expect"] != "valid" or profile == "core+attestations":
+            continue
+        elif profile == "core+streams":
+            # Every record of it is valid, so the only reason left to refuse it is
+            # that a reader without core+streams must not choose one. [APR-CONF-001]
+            cases.append({**{k: case[k] for k in ("id", "representation", "document", "source")
+                             if k in case},
+                          "profile": "core", "rule": "profile-core", "rules": ["APR-CONF-001"],
+                          "expect": "reject", "diagnostic": "APR_STREAM_REQUIRES_ITERATION"})
+        else:
+            # Accepted and written back as it is, and never evaluated.
+            # [APR-CONF-003] [APR-CONF-013]
+            asked = {k: v for k, v in case.items()
+                     if k not in ("expects", "evaluate", "teeth", "equivalentTo")}
+            cases.append({**asked, "profile": "core", "rule": "profile-core",
+                          "rules": ["APR-CONF-003"] + (["APR-CONF-013"] if case.get("roundTrip") else [])})
+    return {**suite, "profiles": [p for p in PROFILES if p in allowed], "cases": cases}
+
+
 def blind(suite: dict) -> dict:
     """The suite as a driver sees it: the questions, never the answers.
 
@@ -394,7 +453,20 @@ def main() -> int:
               "run scripts/build-suite.py --write")
         return 2
 
-    suite = json.loads(SUITE.read_text(encoding="utf-8"))
+    allowed = list(PROFILES)
+    if option("--profile"):
+        allowed = option("--profile").split(",")
+        unknown = [p for p in allowed if p not in PROFILES]
+        if unknown or "core" not in allowed:
+            print(f"--profile takes core and any of {', '.join(PROFILES[1:])}, "
+                  f"comma-separated; got {option('--profile')}")
+            return 2
+        if "core+attestations" in allowed and "core+streams" not in allowed:
+            print("--profile names core+attestations without core+streams, which no "
+                  "implementation may claim [APR-CONF-010]")
+            return 2
+
+    suite = constrain(json.loads(SUITE.read_text(encoding="utf-8")), allowed)
     asked = json.dumps(suite if "--with-answers" in sys.argv else blind(suite), indent=2)
     try:
         completed = subprocess.run(shlex.split(driver), input=asked,
@@ -421,13 +493,16 @@ def main() -> int:
 
     if "--json" in sys.argv:
         print(json.dumps({"implementation": implementation, "suiteVersion":
-                          suite["suiteVersion"], "tally": tally, "cases": rows},
+                          suite["suiteVersion"], "profiles": suite["profiles"],
+                          "tally": tally, "cases": rows},
                          indent=2, ensure_ascii=False))
     else:
         name = implementation.get("name", "unnamed implementation")
         version = implementation.get("version", "?")
         profiles = ", ".join(implementation.get("profiles") or []) or "none declared"
         print(f"{name} {version}   profiles: {profiles}")
+        if len(suite["profiles"]) < len(PROFILES):
+            print(f"run limited to {', '.join(suite['profiles'])}")
         print(f"suite {suite['suiteVersion']}, {len(suite['cases'])} cases\n")
         for row in rows:
             if row["status"] == "pass" and "discrepancy" not in row:

@@ -31,25 +31,28 @@ public final class AprConformanceDriver {
         String input = new String(System.in.readAllBytes(), StandardCharsets.UTF_8);
         @SuppressWarnings("unchecked") Map<String, Object> suite = (Map<String, Object>) Json.parse(input);
         @SuppressWarnings("unchecked") List<Object> cases = (List<Object>) suite.get("cases");
+        // A run that names fewer profiles gets an implementation claiming only those.
+        @SuppressWarnings("unchecked") List<Object> run = (List<Object>) suite.getOrDefault("profiles", PROFILES);
+        List<String> profiles = PROFILES.stream().filter(run::contains).toList();
 
         List<Object> results = new ArrayList<>();
         for (Object item : cases) {
             @SuppressWarnings("unchecked") Map<String, Object> testCase = (Map<String, Object>) item;
-            if (!PROFILES.contains(testCase.get("profile"))) continue;
-            results.add(answer(testCase));
+            if (!profiles.contains(testCase.get("profile"))) continue;
+            results.add(answer(testCase, profiles));
         }
 
         Map<String, Object> implementation = new LinkedHashMap<>();
         implementation.put("name", "PromptResponse (Java)");
         implementation.put("version", suite.get("formatVersion"));
-        implementation.put("profiles", PROFILES);
+        implementation.put("profiles", profiles);
         Map<String, Object> output = new LinkedHashMap<>();
         output.put("implementation", implementation);
         output.put("results", results);
         System.out.print(Json.write(output));
     }
 
-    private static Map<String, Object> answer(Map<String, Object> testCase) {
+    private static Map<String, Object> answer(Map<String, Object> testCase, List<String> profiles) {
         String id = (String) testCase.get("id");
         String representationName = (String) testCase.get("representation");
         AprBeta6.Representation representation = representationName.startsWith("yaml")
@@ -65,6 +68,9 @@ public final class AprConformanceDriver {
 
         List<AprBeta6.Record> records;
         try {
+            // Without core+streams a caller asks for one form, and the SDK refuses a
+            // stream rather than choose a record from it. [APR-CONF-001]
+            if (!profiles.contains("core+streams")) AprBeta6.readForm(document, representation);
             records = AprBeta6.readStream(document, representation);
         } catch (RuntimeException failure) {
             return reject(id, diagnostic(failure));

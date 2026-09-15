@@ -245,6 +245,20 @@
       "notes": "Project-local Maven wrapper resolves official CEL-Java. Expressions are evaluated; signatures remain preserved but unchecked."
     },
     {
+      "id": "conformance.profile-core",
+      "component": "Conformance harness, run limited to core",
+      "language": "python",
+      "path": "scripts/run-conformance.py",
+      "runsInCi": true,
+      "gate": "the reference driver and every SDK driver score the suite with --profile core, and check-harness-teeth.py proves a core driver that reads a stream, refuses an expression or drops one when it writes fails",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "na"
+      }
+    },
+    {
       "id": "conformance.renderer",
       "path": "tests/Conformance/beta6/renderer-suite.json",
       "runsInCi": true,
@@ -1396,6 +1410,10 @@
         {
           "type": "test",
           "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.profile-core"
         }
       ],
       "rules": [
@@ -1405,9 +1423,8 @@
         "APR-CONF-012",
         "APR-CONF-013"
       ],
-      "gap": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording.",
+      "gap": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case.",
       "gapRules": [
-        "APR-CONF-001",
         "APR-CONF-005",
         "APR-CONF-012"
       ]

@@ -75,8 +75,8 @@ seven of 171 now.
   `reject` when it was refused. A case expecting rejection accepts either a parse
   failure or a validation failure.
 - `diagnostic` is the code reported. Where the suite names one, a different code
-  is recorded as a discrepancy rather than a failure: a document can be refused
-  for the right reason under another name.
+  fails the case: every code the suite names is stated in the specification, so a
+  different code is a refusal for a different reason.
 - `digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
   proves more than acceptance. Most valid cases state the digest the document
   must produce, and reporting a different one fails the case even though you
@@ -109,6 +109,15 @@ seven of 171 now.
   omitting it fails. A case outside every profile you declare may be omitted and is
   reported as unanswered; answering one anyway is allowed and scored, because you
   volunteered it.
+- The suite carries `profiles` at its root: the profiles the run scores. Claim none
+  outside it, or the declaration fails. It lists all four unless the run is limited,
+  as `--profile core` limits it to an implementation claiming only `core`. What such
+  an implementation does with a profile it does not claim is part of `core`, so those
+  cases are asked again: a stream valid under `core+streams` must be refused with
+  `APR_STREAM_REQUIRES_ITERATION`, and a document valid under `core+expressions` must
+  be accepted, unevaluated, and written back with its expressions intact. Cases whose
+  defect only the unclaimed profile defines, and attestation cases, are withheld.
+  Every driver in this repository is scored both ways in CI.
 
 **What this cannot check** is whether the profiles you declare are the ones you
 implement. Within a run a claim is binding, so declaring `core+attestations` and

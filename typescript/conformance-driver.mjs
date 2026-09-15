@@ -17,7 +17,7 @@
 
 import { readFileSync } from "node:fs";
 import {
-  readBeta6Stream, writeBeta6Form, writeBeta6Stream,
+  readBeta6Form, readBeta6Stream, writeBeta6Form, writeBeta6Stream,
   digestBeta6, beta6FormValue,
   validate, buildExpressionContext, condition, validationMessage, recomputeComputedValues,
 } from "./dist/index.js";
@@ -76,7 +76,7 @@ function written(records) {
   return writeBeta6Stream(typed, "jsonc");
 }
 
-function answer(testCase) {
+function answer(testCase, profiles) {
   const id = testCase.id;
   const representation = testCase.representation.startsWith("yaml") ? "yaml" : "jsonc";
 
@@ -89,6 +89,9 @@ function answer(testCase) {
 
   let records;
   try {
+    // Without core+streams a caller asks for one form, and the SDK refuses a stream
+    // rather than choose a record from it. [APR-CONF-001]
+    if (!profiles.includes("core+streams")) readBeta6Form(testCase.document, representation);
     records = readBeta6Stream(testCase.document, representation);
   } catch (error) {
     return { id, outcome: "reject", diagnostic: diagnostic(error) };
@@ -129,10 +132,12 @@ const PROFILES = ["core", "core+streams", "core+expressions"];
 
 function main() {
   const suite = JSON.parse(readFileSync(0, "utf8"));
-  const claimed = suite.cases.filter(testCase => PROFILES.includes(testCase.profile));
+  // A run that names fewer profiles gets an implementation claiming only those.
+  const profiles = PROFILES.filter(profile => (suite.profiles ?? PROFILES).includes(profile));
+  const claimed = suite.cases.filter(testCase => profiles.includes(testCase.profile));
   process.stdout.write(JSON.stringify({
-    implementation: { name: "PromptResponse (TypeScript)", version: suite.formatVersion, profiles: PROFILES },
-    results: claimed.map(answer),
+    implementation: { name: "PromptResponse (TypeScript)", version: suite.formatVersion, profiles },
+    results: claimed.map(testCase => answer(testCase, profiles)),
   }, null, 2));
 }
 

@@ -84,7 +84,7 @@ def _written(records) -> str:
     return beta6.write_beta6_stream(typed, "jsonc")
 
 
-def answer(case: dict) -> dict:
+def answer(case: dict, profiles: list[str]) -> dict:
     case_id = case["id"]
     representation = "yaml" if case["representation"].startswith("yaml") else "jsonc"
 
@@ -96,6 +96,10 @@ def answer(case: dict) -> dict:
                 "diagnostic": "APR_STREAM_MISSING_RECORD_SEPARATOR"}
 
     try:
+        if "core+streams" not in profiles:
+            # Without core+streams a caller asks for one form, and the SDK refuses a
+            # stream rather than choose a record from it. [APR-CONF-001]
+            beta6.read_beta6_form(case["document"], representation)
         records = beta6.read_beta6_stream(case["document"], representation)
     except Exception as exc:  # noqa: BLE001 - anything unparseable is a rejection
         return {"id": case_id, "outcome": "reject", "diagnostic": _diagnostic(exc)}
@@ -145,15 +149,17 @@ def main() -> int:
     # core+attestations is deliberately unclaimed, matching the .NET drivers:
     # those cases ask a verifier to resolve a manifest and report what it found,
     # which this reads and structurally accepts but does not yet verify. A case
-    # outside every claimed profile is left unanswered rather than guessed at.
-    claimed = [case for case in suite["cases"] if case.get("profile") in PROFILES]
+    # outside every claimed profile is left unanswered rather than guessed at. A run
+    # that names fewer profiles gets an implementation claiming only those.
+    profiles = [p for p in PROFILES if p in (suite.get("profiles") or PROFILES)]
+    claimed = [case for case in suite["cases"] if case.get("profile") in profiles]
     json.dump({
         "implementation": {
             "name": "PromptResponse (Python)",
             "version": suite["formatVersion"],
-            "profiles": PROFILES,
+            "profiles": profiles,
         },
-        "results": [answer(case) for case in claimed],
+        "results": [answer(case, profiles) for case in claimed],
     }, sys.stdout, indent=2, ensure_ascii=False)
     return 0
 

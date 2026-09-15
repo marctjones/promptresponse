@@ -153,7 +153,11 @@ jobs:
         # The suite and the harness that scores it are what make "a validated
         # implementation" mean something. Running the reference driver proves the
         # harness works; a real implementation supplies its own driver.
-        run: python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
+        # The second run scores it as an implementation claiming only core would be:
+        # streams refused rather than read, expressions accepted and kept unevaluated.
+        run: |
+          python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
+          python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py" --profile core
 
       - name: Verify the renderer suite is current
         run: python3 scripts/build-renderer-suite.py
@@ -171,9 +175,9 @@ jobs:
 
       - name: Prove the harness fails a broken driver
         # The harness was exercised by one driver, written by its own author,
-        # which passes everything. Eight mutant drivers — each correct except in
-        # one named way — must each fail at least one case, or the harness is not
-        # checking what that mutant breaks.
+        # which passes everything. Mutant drivers — each correct except in one
+        # named way, some scored in a run limited to core — must each fail at least
+        # one case, or the harness is not checking what that mutant breaks.
         run: python3 scripts/check-harness-teeth.py
 
       - name: Prove the OSCAL generator fails a specification it would misread
@@ -427,10 +431,11 @@ jobs:
         # package (not scripts/aprlib.py's SDK-free oracle), run through the same
         # uv environment `uv sync` just built so it has celpy and PyYAML. Claims
         # core, core+streams and core+expressions; core+attestations is
-        # deliberately unclaimed, matching both .NET drivers below.
-        run: >-
-          python3 scripts/run-conformance.py
-          --driver "python/.venv/bin/python python/conformance_driver.py"
+        # deliberately unclaimed, matching both .NET drivers below. The second run
+        # scores it claiming only core.
+        run: |
+          python3 scripts/run-conformance.py --driver "python/.venv/bin/python python/conformance_driver.py"
+          python3 scripts/run-conformance.py --driver "python/.venv/bin/python python/conformance_driver.py" --profile core
 
       - name: Python dead-code check
         # vulture's default per-kind confidence for an unused function or method is
@@ -458,11 +463,12 @@ jobs:
         # typescript/conformance-driver.mjs answers with the built dist/ output --
         # the actual package a caller installs, not a hand-rolled parser. Claims
         # core, core+streams and core+expressions; core+attestations is
-        # deliberately unclaimed, matching the Python and .NET drivers.
+        # deliberately unclaimed, matching the Python and .NET drivers. The second
+        # run scores it claiming only core.
         if: ${{ !cancelled() }}
-        run: >-
-          python3 scripts/run-conformance.py
-          --driver "node typescript/conformance-driver.mjs"
+        run: |
+          python3 scripts/run-conformance.py --driver "node typescript/conformance-driver.mjs"
+          python3 scripts/run-conformance.py --driver "node typescript/conformance-driver.mjs" --profile core
 
       - name: TypeScript dead-export and unused-dependency check
         # An unused dependency or export doesn't fail a build, so nothing else here
@@ -494,11 +500,12 @@ jobs:
         # java/run-conformance-driver.sh answers with the built org.promptresponse
         # classes -- the actual library a caller depends on. Claims core,
         # core+streams and core+expressions; core+attestations is deliberately
-        # unclaimed, matching the Python, TypeScript and .NET drivers.
+        # unclaimed, matching the Python, TypeScript and .NET drivers. The second run
+        # scores it claiming only core.
         if: ${{ !cancelled() }}
-        run: >-
-          python3 scripts/run-conformance.py
-          --driver "java/run-conformance-driver.sh"
+        run: |
+          python3 scripts/run-conformance.py --driver "java/run-conformance-driver.sh"
+          python3 scripts/run-conformance.py --driver "java/run-conformance-driver.sh" --profile core
 
       - name: Prove the Python, TypeScript and Java drivers fail when they ignore their SDK
         # The harness teeth damage the reference driver, never these. Each driver is
@@ -546,6 +553,9 @@ jobs:
           dotnet build src/PromptResponse.Cli -v q
           python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q"
           python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance"
+          # The same two, claiming only core: streams refused, expressions kept.
+          python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q" --profile core
+          python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance" --profile core
 
       - name: Prove both .NET drivers fail when they ignore their library
         # The harness teeth damage the reference driver, never these. Each driver is

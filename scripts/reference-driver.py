@@ -28,7 +28,10 @@ validate_apr = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(validate_apr)
 
 
-def answer(case, members):
+PROFILES = ["core", "core+streams", "core+attestations", "core+expressions"]
+
+
+def answer(case, members, profiles=PROFILES):
     representation = "yaml" if case["representation"].startswith("yaml") else "jsonc"
     try:
         records = aprlib.read_records(case["document"], representation)
@@ -40,6 +43,13 @@ def answer(case, members):
 
     if not records:
         return {"id": case["id"], "outcome": "reject", "diagnostic": "NULL_DOCUMENT"}
+
+    # Without core+streams a reader reads one form. Handed anything else, it says so
+    # rather than choosing a record by position. [APR-CONF-001]
+    if "core+streams" not in profiles and (
+            len(records) != 1 or (isinstance(records[0], dict) and "recordType" in records[0])):
+        return {"id": case["id"], "outcome": "reject",
+                "diagnostic": "APR_STREAM_REQUIRES_ITERATION"}
 
     # A stream framed as a single document is not a stream: two JSON texts with no
     # record separator between them parse as one, and the second is lost.
@@ -60,7 +70,7 @@ def answer(case, members):
     answer = {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
               "warnings": sorted({f["code"] for f in report.findings
                                   if f["severity"] == "warning"})}
-    if case.get("evaluates") or case.get("expects"):
+    if (case.get("evaluates") or case.get("expects")) and "core+expressions" in profiles:
         import aprexpr
         inputs = case.get("evaluate") or {}
         try:
@@ -82,16 +92,17 @@ def answer(case, members):
 def main() -> int:
     suite = json.loads(sys.stdin.read())
     members = validate_apr.spec_members()
+    # Attestations are checked structurally, streams are framed and read, and
+    # expressions are evaluated through scripts/aprexpr.py. A run that names fewer
+    # profiles gets an implementation claiming only those.
+    claimed = [p for p in PROFILES if p in (suite.get("profiles") or PROFILES)]
     json.dump({
         "implementation": {
             "name": "APR reference tooling driver",
             "version": suite["formatVersion"],
-            # Attestations are checked structurally, streams are framed and read,
-            # and expressions are evaluated through scripts/aprexpr.py.
-            "profiles": ["core", "core+streams", "core+attestations",
-                         "core+expressions"],
+            "profiles": claimed,
         },
-        "results": [answer(case, members) for case in suite["cases"]],
+        "results": [answer(case, members, claimed) for case in suite["cases"]],
     }, sys.stdout, indent=2, ensure_ascii=False)
     return 0
 

@@ -146,7 +146,7 @@
               {
                 "id": "apr-conf-001_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
               }
             ]
           },
@@ -265,7 +265,7 @@
               {
                 "id": "apr-conf-003_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
               }
             ]
           },
@@ -389,7 +389,7 @@
               {
                 "id": "apr-conf-005_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
               }
             ]
           },
@@ -818,7 +818,7 @@
               {
                 "id": "apr-conf-012_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
               }
             ]
           },
@@ -880,7 +880,7 @@
               {
                 "id": "apr-conf-013_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
               }
             ]
           },
