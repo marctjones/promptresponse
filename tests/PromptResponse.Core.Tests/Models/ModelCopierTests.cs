@@ -136,6 +136,29 @@ public class ModelCopierTests
     }
 
     [Fact]
+    public void Copy_Section_StillWritesTheUnprefixedMembersTheSourceCarried()
+    {
+        // The writer refuses an unprefixed member unless it arrived (APR-MODEL-031), so a
+        // copy that forgets what arrived turns an undo into a document that cannot be saved.
+        var document = Reader.ReadForm(
+            """
+            {
+              "aprVersion": "1.0-beta.6",
+              "metadata": { "title": "T" },
+              "sections": [ { "id": "s", "title": "S", "routing": "a",
+                "prompts": [ { "id": "p", "label": "P", "routing": "b", "hints": { "weight": "c" } } ] } ]
+            }
+            """,
+            AprRepresentation.Jsonc);
+
+        document.Sections[0] = ModelCopier.Copy(document.Sections[0]);
+        var written = Reader.WriteForm(document, AprRepresentation.Jsonc);
+
+        written.Should().Contain("\"routing\": \"a\"").And.Contain("\"routing\": \"b\"")
+            .And.Contain("\"weight\": \"c\"");
+    }
+
+    [Fact]
     public void Copy_Prompt_KeepsADeclaredEmptyResponse()
     {
         var prompt = new Prompt { Id = "p", Label = "P", Response = "" };
@@ -214,16 +237,18 @@ public class ModelCopierTests
     public void ModelCopierCopiesEveryPieceOfReaderState()
     {
         // Reader state is [JsonIgnore] and settable only inside the assembly: presence
-        // flags and the computed marker. A copy that loses one writes a document the
-        // source did not say, so these are named here too.
+        // flags, the computed marker, and the extension names that arrived. A copy that
+        // loses one writes a document the source did not say, so these are named here too.
         ReaderState(typeof(Prompt)).Should().Equal(
             Sorted(
                 nameof(Prompt.ResponseIsDeclared), nameof(Prompt.ComputedInThisSession),
-                nameof(Prompt.HintsAreDeclared)));
+                nameof(Prompt.HintsAreDeclared), nameof(Prompt.ArrivedExtensionNames)));
         ReaderState(typeof(PromptHints)).Should().Equal(
-            Sorted(nameof(PromptHints.SuggestedValuesAreDeclared)));
+            Sorted(nameof(PromptHints.SuggestedValuesAreDeclared), nameof(PromptHints.ArrivedExtensionNames)));
         ReaderState(typeof(Section)).Should().Equal(
-            Sorted(nameof(Section.SectionsAreDeclared), nameof(Section.PromptsAreDeclared)));
+            Sorted(
+                nameof(Section.SectionsAreDeclared), nameof(Section.PromptsAreDeclared),
+                nameof(Section.ArrivedExtensionNames)));
     }
 
     private static string[] Written(Type model) => model.GetProperties()

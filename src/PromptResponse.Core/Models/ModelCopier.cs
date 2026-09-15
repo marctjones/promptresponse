@@ -15,7 +15,9 @@ namespace PromptResponse.Core.Models;
 /// Reader state travels with the copy as well. <see cref="Prompt.Response"/> and
 /// the collection properties record on assignment that the member was declared, so
 /// a naive copy makes a prompt whose source said nothing about `response` start
-/// claiming it said <c>""</c> — a different document, and a different digest.
+/// claiming it said <c>""</c> — a different document, and a different digest. The
+/// names of the extension members that arrived travel too, or the writer refuses an
+/// unprefixed member the source carried as though the copy had added it.
 ///
 /// This is the one place model-copy policy lives, so a member added to the models
 /// has a single place to be accounted for. `ModelCopierCopiesEveryMember` in
@@ -43,6 +45,7 @@ public static class ModelCopier
         };
         copy.PromptsAreDeclared = section.PromptsAreDeclared;
         copy.SectionsAreDeclared = section.SectionsAreDeclared;
+        copy.ArrivedExtensionNames = section.ArrivedExtensionNames;
         return copy;
     }
 
@@ -65,6 +68,7 @@ public static class ModelCopier
         copy.ResponseIsDeclared = prompt.ResponseIsDeclared;
         copy.ComputedInThisSession = prompt.ComputedInThisSession;
         copy.HintsAreDeclared = prompt.HintsAreDeclared;
+        copy.ArrivedExtensionNames = prompt.ArrivedExtensionNames;
         return copy;
     }
 
@@ -90,6 +94,7 @@ public static class ModelCopier
             ExprReadOnly = hints.ExprReadOnly,
         };
         copy.SuggestedValuesAreDeclared = hints.SuggestedValuesAreDeclared;
+        copy.ArrivedExtensionNames = hints.ArrivedExtensionNames;
         return copy;
     }
 
