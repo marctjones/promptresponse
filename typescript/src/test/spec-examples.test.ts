@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
+import { AprParseError } from "../errors.js";
 import { readBeta6Form, readBeta6Stream } from "../index.js";
 import { validate } from "../validation.js";
 
@@ -50,7 +51,7 @@ function framed(document: string): string {
   return document
     .split(/^---$/m)
     .filter(part => part.trim().length > 0)
-    .map(part => `\u001e${part.replace(/^\n+|\n+$/g, "")}\n`)
+    .map(part => `${part.replace(/^\n+|\n+$/g, "")}\n`)
     .join("");
 }
 
@@ -100,22 +101,32 @@ test("every specification example behaves as the specification says", async () =
 
     if (example.expect === "reject") {
       // Rejection is a refused read or a form that fails validation: a missing label
-      // parses and is an error, as the conformance driver reports it.
+      // parses and is an error, as the conformance driver reports it. Either way the code
+      // has to be the one the example names, or a reader refusing for an unrelated reason
+      // would pass.
       let accepted = false;
+      let codes: string[] = [];
       try {
         const result = read(example);
         const documents = Array.isArray(result)
           ? result.filter(record => record.type === "form").map(record => record.document)
           : [result];
+        const errors = documents.flatMap(document => validate(document).errors);
         // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
-        accepted = documents.length > 0 && documents.every(document => validate(document).errors.length === 0);
-      } catch {
-        // Rejected, as the specification requires.
+        codes = documents.length === 0 ? ["NULL_DOCUMENT"] : errors.map(error => error.code);
+        accepted = documents.length > 0 && errors.length === 0;
+      } catch (error) {
+        codes = error instanceof AprParseError && error.code ? [error.code] : [];
       }
       if (accepted) {
         failures.push(
           `${example.id} (#${example.rule}): the specification requires rejection ` +
             `(${example.diagnostic ?? "no diagnostic named"}), the reader accepted it`,
+        );
+      } else if (!example.diagnostic || !codes.includes(example.diagnostic)) {
+        failures.push(
+          `${example.id} (#${example.rule}): the specification requires ${example.diagnostic}, ` +
+            `the reader reported ${codes.join(", ") || "no code"}`,
         );
       }
       continue;
@@ -135,4 +146,13 @@ test("every specification example cites a rule and carries a document", async ()
       assert.ok(example.diagnostic, `${example.id} must name a diagnostic`);
     }
   }
+});
+
+test("the rejection examples name more than one diagnostic, so one code for everything fails", async () => {
+  // A reader that refuses every rejection example with the same code only passes the
+  // comparison above if every example names that code.
+  const named = new Set(
+    (await loadExamples()).filter(example => example.expect === "reject").map(example => example.diagnostic),
+  );
+  assert.ok(named.size > 1, `every rejection example names ${[...named].join(", ")}`);
 });

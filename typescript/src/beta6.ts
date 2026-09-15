@@ -41,7 +41,8 @@ function parseJsoncRecord(part: string, isStream: boolean): Beta6Record {
 /** Reads exactly one form; a stream must be handled through readBeta6Stream. */
 export function readBeta6Form(source: string, representation: Beta6Representation): AprDocument {
   const records = readBeta6Stream(source, representation);
-  if (records.length !== 1 || records[0].type !== "form") throw new AprParseError("APR_STREAM_REQUIRES_ITERATION");
+  if (records.length === 0) throw new AprParseError("the source holds no document", "NULL_DOCUMENT");
+  if (records.length !== 1 || records[0].type !== "form") throw new AprParseError("APR_STREAM_REQUIRES_ITERATION", "APR_STREAM_REQUIRES_ITERATION");
   return records[0].document;
 }
 
