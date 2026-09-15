@@ -239,6 +239,35 @@ def rules(text: str) -> list[dict]:
     return out
 
 
+def structure_problems(text: str, extracted: list[dict]) -> list[str]:
+    """What would make the catalog silently wrong rather than visibly stale.
+
+    Checking the committed catalog against a fresh build catches drift, but not a
+    parser that misreads the specification the same way every time. A heading this
+    parser cannot read files its rules under the previous section; an identifier in
+    a form it does not match is left out; one identifier on two paragraphs becomes
+    two controls. Each is refused here instead.
+    """
+    problems = []
+    in_code = False
+    for number, line in enumerate(text.split("\n"), 1):
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        if re.match(r"^#{2,6}\s", line) and not HEADING.match(line):
+            problems.append(f"line {number}: a heading whose anchor this parser cannot read — {line.strip()}")
+        for token in re.findall(r"\[APR-[A-Za-z]+-\d+\]", line):
+            if not RULE.fullmatch(token):
+                problems.append(f"line {number}: {token} looks like a rule identifier but is not one")
+    counts: dict[str, int] = {}
+    for rule in extracted:
+        counts[rule["id"]] = counts.get(rule["id"], 0) + 1
+    problems += [f"{ident} is stated {count} times" for ident, count in counts.items() if count > 1]
+    return problems
+
+
 def registry_index() -> dict[str, dict]:
     data = json.loads(REGISTRY.read_text(encoding="utf-8"))
     index: dict[str, dict] = {}
@@ -258,7 +287,7 @@ def build() -> dict:
     parents, top = outline(text)
     named = profiles(text, top)
     ordered = sorted(rules(text), key=lambda r: (r["area"], r["number"]))
-    problems = []
+    problems = structure_problems(text, ordered)
     for rule in ordered:
         rule["profile"] = next((named[a] for a in [rule["anchor"], *parents.get(rule["anchor"], [])[::-1]]
                                 if a in named), None)

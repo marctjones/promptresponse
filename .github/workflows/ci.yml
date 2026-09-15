@@ -176,6 +176,14 @@ jobs:
         # checking what that mutant breaks.
         run: python3 scripts/check-harness-teeth.py
 
+      - name: Prove the OSCAL generator fails a specification it would misread
+        # Verifying the committed catalog against a fresh build catches drift, not a
+        # parser that misreads the specification the same way every time. Five mutant
+        # specifications — a stripped citation, a duplicated identifier, a broken
+        # anchor, changed text, an identifier the parser cannot match — must each be
+        # refused or leave the catalog visibly stale.
+        run: python3 scripts/check-oscal-teeth.py
+
       - name: Report how much of the specification the suite reaches
         # Passing the suite should mean something, and how much it means is the
         # number of rules it exercises. Coverage itself is not gated; a case that
