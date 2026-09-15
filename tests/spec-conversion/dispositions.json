@@ -3778,7 +3778,10 @@
         "submission/sentence/fb96492d93",
         "submission/example/25595f7e05",
         "submission/sentence/6d2ff8c1e6",
-        "submission/sentence/bcaa9c48a8"
+        "submission/sentence/bcaa9c48a8",
+        "submission/sentence/eaf393ca42",
+        "submission/sentence/8a241fa0d3",
+        "submission/example/f001002e2c"
       ],
       "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418) an example that an entry may be a string (APR-MODEL-133)"
     },
