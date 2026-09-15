@@ -23,7 +23,10 @@ public sealed class AprStreamRequiresIterationException : SerializationException
 {
     /// <summary>Initializes the explicit single-form stream error.</summary>
     public AprStreamRequiresIterationException()
-        : base("APR_STREAM_REQUIRES_ITERATION: iterate stream records instead of selecting one by position.") { }
+        : base("APR_STREAM_REQUIRES_ITERATION: iterate stream records instead of selecting one by position.")
+    {
+        Code = "APR_STREAM_REQUIRES_ITERATION";
+    }
 }
 
 /// <summary>
