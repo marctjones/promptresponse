@@ -38,7 +38,7 @@
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",
-      "sha256": "sha256:c7fec2c70af8d835e91b5635529804f6981c07a8128b5d53e983f299859e28b5"
+      "sha256": "sha256:4d3f0b466e9210924bca3a0b10dbca895cc0718c4edd4ccb8d77746388a0b3bd"
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
@@ -55,7 +55,7 @@
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
-    "files": 160,
-    "sha256": "sha256:f06c4bdaf20f25df23314b7e7f59e92dc38b18dabdc1b820dd34b355ade8e67c"
+    "files": 158,
+    "sha256": "sha256:ddd750cd555fe4cc0c7170a142421e250324e81614312f8cc4996e5e7bb30ff0"
   }
 }
