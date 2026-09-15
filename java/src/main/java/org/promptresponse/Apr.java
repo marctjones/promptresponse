@@ -43,6 +43,12 @@ public final class Apr {
         if("filledForm".equals(document.documentType()) && blank(AprDocument.string(document.metadata().get("templateId")))) issue(errors,"REQUIRED_FIELD","metadata.templateId","A filled form must record templateId.");
         if (document.raw().get("roles") instanceof List<?> roles) for (int i = 0; i < roles.size(); i++)
             if (roles.get(i) instanceof Map<?,?> role && blank(AprDocument.string(role.get("id")))) issue(errors,"REQUIRED_FIELD","roles[" + i + "].id","A role entry names its id.");
+        if (document.metadata().get("submissionUrls") instanceof List<?> entries) for (int i = 0; i < entries.size(); i++) {
+            if (!(entries.get(i) instanceof Map<?,?> entry)) continue;
+            String here = "metadata.submissionUrls[" + i + "]";
+            for (String name : List.of("kind", "url")) if (entry.get(name) == null) issue(errors, "REQUIRED_FIELD", here + "." + name, "A submission entry object carries " + name + ".");
+            if ("post".equals(entry.get("kind")) && entry.get("fields") == null) issue(errors, "REQUIRED_FIELD", here + ".fields", "A post entry carries the policy fields it is sent with.");
+        }
         validateShape(document, errors);
         validateTextFloor(document, warnings);
         checkConfusableScriptMix(document, warnings);
@@ -143,9 +149,8 @@ public final class Apr {
      * the same floor under their own codes, a response less a carriage return.
      */
     @SuppressWarnings("unchecked") private static void validateTextFloor(AprDocument document, List<ValidationIssue> warnings) {
-        if (document.metadata().get("submissionUrls") instanceof List<?> urls) for (int i = 0; i < urls.size(); i++) {
-            if (urls.get(i) instanceof String url) reportExcluded(url, "metadata.submissionUrls[" + i + "]", "SUBMISSION_URL_FORBIDDEN_CODE_POINT", false, warnings);
-        }
+        List<AprDocument.SubmissionTarget> targets = document.submissionTargets();
+        for (int i = 0; i < targets.size(); i++) reportExcluded(targets.get(i).url(), submissionUrlPath(document, i), "SUBMISSION_URL_FORBIDDEN_CODE_POINT", false, warnings);
         holdToTheFloor(AprDocument.string(document.metadata().get("title")), "metadata.title", warnings);
         holdToTheFloor(AprDocument.string(document.metadata().get("description")), "metadata.description", warnings);
         holdToTheFloor(AprDocument.string(document.metadata().get("author")), "metadata.author", warnings);
@@ -270,6 +275,11 @@ public final class Apr {
         "boolean", "color", "currency", "date", "datetime", "email", "multichoice",
         "multiline", "number", "password", "phone", "range", "select", "text", "time", "url");
     private static final Set<String> SUBMISSION_SCHEMES = Set.of("https", "mailto");
+    /** A string entry is its URL; an object entry names it in its url member. */
+    private static String submissionUrlPath(AprDocument document, int index) {
+        String here = "metadata.submissionUrls[" + index + "]";
+        return ((List<?>) document.metadata().get("submissionUrls")).get(index) instanceof Map<?,?> ? here + ".url" : here;
+    }
 
     @SuppressWarnings("unchecked") private static Map<String,Object> hintsOf(Map<String,Object> prompt) {
         return prompt.get("hints") instanceof Map<?,?> hints ? (Map<String,Object>) hints : Map.of();
@@ -357,10 +367,12 @@ public final class Apr {
         Set<String> roles = declaredRoles(document);
         for (String role : roles) idAdvisory(role, "roles", warnings);
         inspectExtensions(document.metadata(), METADATA.keySet(), "metadata", warnings);
-        if (document.metadata().get("submissionUrls") instanceof List<?> urls) for (int i = 0; i < urls.size(); i++) {
-            String url = String.valueOf(urls.get(i));
+        List<AprDocument.SubmissionTarget> targets = document.submissionTargets();
+        for (int i = 0; i < targets.size(); i++) {
+            String url = targets.get(i).url();
+            if (url == null) continue; // An entry object without a url is already REQUIRED_FIELD.
             String scheme = url.contains(":") ? url.substring(0, url.indexOf(':')) : "";
-            if (!SUBMISSION_SCHEMES.contains(scheme.toLowerCase(Locale.ROOT))) issue(warnings, "SUBMISSION_URL_UNSUPPORTED", "metadata.submissionUrls[" + i + "]",
+            if (!SUBMISSION_SCHEMES.contains(scheme.toLowerCase(Locale.ROOT))) issue(warnings, "SUBMISSION_URL_UNSUPPORTED", submissionUrlPath(document, i),
                 "submission entry " + i + " names the scheme '" + scheme + "', which this document does not define; a reader offers the entries it understands.");
         }
         walkSections(document.sections(), "sections", (section, path) -> {
@@ -387,7 +399,13 @@ public final class Apr {
     }
     @SuppressWarnings("unchecked") private static void rejectBadShape(Map<String,Object> root) {
         Map<String,Object> metadata=(Map<String,Object>)root.get("metadata");
-        strings(metadata,"submissionUrls","metadata.submissionUrls");
+        if (metadata.containsKey("submissionUrls")) {
+            if (!(metadata.get("submissionUrls") instanceof List<?> entries)) throw new AprException("metadata.submissionUrls must be an array", "WRONG_TYPE");
+            for (Object entry : entries) {
+                if (entry instanceof Map<?,?> object) structuralTypes((Map<String,Object>) object, SUBMISSION_ENTRY, "/metadata/submissionUrls");
+                else if (!(entry instanceof String)) throw new AprException("/metadata/submissionUrls holds " + spell(entry) + " where the format declares a string or an object; APR values are never coerced.", "WRONG_TYPE");
+            }
+        }
         if(root.containsKey("roles") && !(root.get("roles") instanceof List<?>)) throw new AprException("roles must be an array", "WRONG_TYPE");
         structuralTypes(root, DOCUMENT, "");
         structuralTypes(metadata, METADATA, "/metadata");
@@ -421,6 +439,10 @@ public final class Apr {
         Map.entry("modified", new Class<?>[]{String.class}),
         Map.entry("submissionUrls", new Class<?>[]{List.class}),
         Map.entry("regarding", new Class<?>[]{List.class}));
+    private static final Map<String,Class<?>[]> SUBMISSION_ENTRY = Map.of(
+        "kind", new Class<?>[]{String.class}, "url", new Class<?>[]{String.class},
+        "fields", new Class<?>[]{Map.class}, "expires", new Class<?>[]{String.class},
+        "refresh", new Class<?>[]{String.class});
     private static final Map<String,Class<?>[]> SECTION = Map.of(
         "id", new Class<?>[]{String.class}, "title", new Class<?>[]{String.class},
         "description", new Class<?>[]{String.class}, "role", new Class<?>[]{String.class},

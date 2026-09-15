@@ -25,6 +25,15 @@ public final class AprDocument {
     public String documentType() { return string(root.get("documentType")); }
     @SuppressWarnings("unchecked") public Map<String, Object> metadata() { return (Map<String, Object>) root.get("metadata"); }
     @SuppressWarnings("unchecked") public List<Object> sections() { return (List<Object>) root.get("sections"); }
+    /** Where a filled form may be sent: one target per metadata.submissionUrls entry, in order. */
+    public record SubmissionTarget(String kind, String url) { }
+    /** A string entry is the shorthand for a {@code put} to that URL (APR-MODEL-134); the raw tree keeps it a string. */
+    public List<SubmissionTarget> submissionTargets() {
+        List<SubmissionTarget> targets = new ArrayList<>();
+        if (metadata().get("submissionUrls") instanceof List<?> entries) for (Object entry : entries)
+            targets.add(entry instanceof Map<?,?> object ? new SubmissionTarget(string(object.get("kind")), string(object.get("url"))) : new SubmissionTarget("put", string(entry)));
+        return targets;
+    }
     public String toJson() { return Json.write(root); }
     public void setResponse(String promptId, String response) {
         if (response == null) throw new IllegalArgumentException("APR responses are strings, not null");

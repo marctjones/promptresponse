@@ -9,6 +9,7 @@ public final class AprConformanceTest {
         beta6();
         forbiddenCodePoints();
         versionPresence();
+        submissionTargets();
         writerFloors();
         verifierReportsCarriedPaths();
         fillingAddsNothing();
@@ -116,6 +117,31 @@ public final class AprConformanceTest {
         expectCode("{\"aprVersion\":\"\"," + rest, "REQUIRED_FIELD", "a blank aprVersion");
         expectCode("{\"aprVersion\":\"  \"," + rest, "REQUIRED_FIELD", "a whitespace aprVersion");
         expectCode("{\"aprVersion\":\"2.0\"," + rest, "UNSUPPORTED_VERSION", "a stated version this reader does not accept");
+    }
+
+    /** APR-MODEL-128 to 135: a submission entry is a string shorthand for a put, or an object stating its kind and url. */
+    private static void submissionTargets() {
+        String head = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\",\"submissionUrls\":[", tail = "]},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+        String mixed = head + "{\"kind\":\"post\",\"url\":\"https://uploads.example.gov/\",\"fields\":{\"key\":\"k\"},\"expires\":\"2026-09-08T18:00:00Z\",\"refresh\":\"https://forms.example.gov/t\",\"org.example.note\":1},"
+            + "{\"kind\":\"patch\",\"url\":\"https://uploads.example.gov/abc\"},\"mailto:clerk@example.gov\"" + tail;
+        AprDocument document = AprBeta6.readForm(mixed, AprBeta6.Representation.JSONC);
+        ValidationResult result = Apr.validate(document);
+        if (!result.errors().isEmpty() || !result.warnings().isEmpty()) throw new AssertionError("string and object entries, an unrecognised kind included, are valid without warning: " + codes(result.errors()) + codes(result.warnings()));
+        var expected = java.util.List.of(new AprDocument.SubmissionTarget("post", "https://uploads.example.gov/"), new AprDocument.SubmissionTarget("patch", "https://uploads.example.gov/abc"), new AprDocument.SubmissionTarget("put", "mailto:clerk@example.gov"));
+        if (!document.submissionTargets().equals(expected)) throw new AssertionError("a string entry reads as a put to that URL: " + document.submissionTargets());
+        if (!Json.parse(mixed).equals(Json.parse(AprBeta6.writeForm(document, AprBeta6.Representation.JSONC)))) throw new AssertionError("submission entries round-trip as written, a string entry staying a string and unknown members kept");
+
+        for (String[] missing : new String[][] { { "{\"url\":\"https://a.example/\"}", "metadata.submissionUrls[0].kind" }, { "{\"kind\":\"put\"}", "metadata.submissionUrls[0].url" }, { "{\"kind\":\"post\",\"url\":\"https://a.example/\"}", "metadata.submissionUrls[0].fields" } }) {
+            var errors = Apr.validate(Apr.parse(head + missing[0] + tail)).errors();
+            if (errors.size() != 1 || !"REQUIRED_FIELD".equals(errors.getFirst().code()) || !missing[1].equals(errors.getFirst().path())) throw new AssertionError(missing[0] + " must be REQUIRED_FIELD at " + missing[1] + ": " + errors);
+        }
+        for (String wrong : new String[] { "{\"kind\":1,\"url\":\"https://a.example/\"}", "{\"kind\":\"put\",\"url\":[]}", "{\"kind\":\"post\",\"url\":\"https://a.example/\",\"fields\":\"key=k\"}", "{\"kind\":\"put\",\"url\":\"https://a.example/\",\"expires\":1788890400}", "{\"kind\":\"put\",\"url\":\"https://a.example/\",\"refresh\":{}}", "42" })
+            expectCode(head + wrong + tail, "WRONG_TYPE", "the submission entry " + wrong);
+
+        var unsupported = Apr.validate(Apr.parse(head + "{\"kind\":\"put\",\"url\":\"ftp://example.com/drop\"}" + tail)).warnings();
+        if (unsupported.size() != 1 || !"SUBMISSION_URL_UNSUPPORTED".equals(unsupported.getFirst().code()) || !"metadata.submissionUrls[0].url".equals(unsupported.getFirst().path())) throw new AssertionError("an object entry's ftp url must warn SUBMISSION_URL_UNSUPPORTED at its url: " + unsupported);
+        var hidden = Apr.validate(Apr.parse(head + "{\"kind\":\"put\",\"url\":\"https://uploads.exa\\u200bmple.gov/\"}" + tail)).warnings();
+        if (hidden.size() != 1 || !"SUBMISSION_URL_FORBIDDEN_CODE_POINT".equals(hidden.getFirst().code()) || !"metadata.submissionUrls[0].url".equals(hidden.getFirst().path())) throw new AssertionError("an object entry's url with a zero-width space must warn SUBMISSION_URL_FORBIDDEN_CODE_POINT at its url: " + hidden);
     }
 
     private static void expectCode(String source, String code, String what) {
