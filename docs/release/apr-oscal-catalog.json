@@ -146,7 +146,7 @@
               {
                 "id": "apr-conf-001_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
+                "prose": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score."
               }
             ]
           },
@@ -265,7 +265,7 @@
               {
                 "id": "apr-conf-003_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
+                "prose": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score."
               }
             ]
           },
@@ -389,7 +389,7 @@
               {
                 "id": "apr-conf-005_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
+                "prose": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score."
               }
             ]
           },
@@ -818,7 +818,7 @@
               {
                 "id": "apr-conf-012_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
+                "prose": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score."
               }
             ]
           },
@@ -880,7 +880,7 @@
               {
                 "id": "apr-conf-013_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case."
+                "prose": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score."
               }
             ]
           },
@@ -17077,7 +17077,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -17111,11 +17111,6 @@
                 "id": "apr-attest-001_smt",
                 "name": "statement",
                 "prose": "`recordType` — string — **REQUIRED** — Exactly `attestation`."
-              },
-              {
-                "id": "apr-attest-001_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17139,7 +17134,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -17173,11 +17168,6 @@
                 "id": "apr-attest-002_smt",
                 "name": "statement",
                 "prose": "`aprVersion` — string — **REQUIRED** — `1.0-beta.7`, or `1.0-beta.6` ([Version compatibility](#version-compatibility))."
-              },
-              {
-                "id": "apr-attest-002_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17201,7 +17191,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -17235,11 +17225,6 @@
                 "id": "apr-attest-003_smt",
                 "name": "statement",
                 "prose": "`subject.canonicalization` — string — **REQUIRED** — Exactly `jcs-sha256`."
-              },
-              {
-                "id": "apr-attest-003_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17263,7 +17248,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -17297,11 +17282,6 @@
                 "id": "apr-attest-004_smt",
                 "name": "statement",
                 "prose": "An attestation record **MAY** carry extension members."
-              },
-              {
-                "id": "apr-attest-004_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17363,7 +17343,7 @@
               {
                 "id": "apr-attest-005_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
+                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for."
               }
             ]
           },
@@ -17425,7 +17405,7 @@
               {
                 "id": "apr-attest-006_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
+                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for."
               }
             ]
           },
@@ -17487,7 +17467,7 @@
               {
                 "id": "apr-attest-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -17549,7 +17529,7 @@
               {
                 "id": "apr-attest-008_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -17611,7 +17591,7 @@
               {
                 "id": "apr-attest-009_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
+                "prose": "APR-ATTEST-020, that a verifier holding a form which is not the subject should say so beside `unresolved`, is a second fact the verification report does not carry, so nothing asks for it."
               }
             ]
           },
@@ -17635,7 +17615,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -17669,11 +17649,6 @@
                 "id": "apr-attest-010_smt",
                 "name": "statement",
                 "prose": "A verifier **MUST** report whether a proof verifies separately from whether its certificate is trusted."
-              },
-              {
-                "id": "apr-attest-010_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -17921,7 +17896,7 @@
               {
                 "id": "apr-attest-014_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -17983,7 +17958,7 @@
               {
                 "id": "apr-attest-015_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
+                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for."
               }
             ]
           },
@@ -18045,7 +18020,7 @@
               {
                 "id": "apr-attest-016_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
+                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for."
               }
             ]
           },
@@ -18069,7 +18044,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18103,11 +18078,6 @@
                 "id": "apr-attest-017_smt",
                 "name": "statement",
                 "prose": "A verifier **MUST** resolve a subject by `subject.digest` alone, and never by stream position, filename, or document id."
-              },
-              {
-                "id": "apr-attest-017_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18131,7 +18101,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18165,11 +18135,6 @@
                 "id": "apr-attest-018_smt",
                 "name": "statement",
                 "prose": "A verifier **MUST** report each result independently of the others, so an attestation can be both `unverifiable` and `witnessed`."
-              },
-              {
-                "id": "apr-attest-018_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -18293,7 +18258,7 @@
               {
                 "id": "apr-attest-020_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
+                "prose": "APR-ATTEST-020, that a verifier holding a form which is not the subject should say so beside `unresolved`, is a second fact the verification report does not carry, so nothing asks for it."
               }
             ]
           },
@@ -18317,7 +18282,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18351,11 +18316,6 @@
                 "id": "apr-attest-021_smt",
                 "name": "statement",
                 "prose": "`subject` — object — **REQUIRED** — `digest` and `canonicalization`, and no other member."
-              },
-              {
-                "id": "apr-attest-021_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18379,7 +18339,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18413,11 +18373,6 @@
                 "id": "apr-attest-022_smt",
                 "name": "statement",
                 "prose": "`subject.digest` — string — **REQUIRED** — The digest ([Digests and manifests](#digests)) of the subject form's complete semantic model."
-              },
-              {
-                "id": "apr-attest-022_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18441,7 +18396,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18475,11 +18430,6 @@
                 "id": "apr-attest-023_smt",
                 "name": "statement",
                 "prose": "`scope` — object — **REQUIRED** — `kind` and `fields` ([Scope](#attestation-scope)), and no other member."
-              },
-              {
-                "id": "apr-attest-023_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18503,7 +18453,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18537,11 +18487,6 @@
                 "id": "apr-attest-024_smt",
                 "name": "statement",
                 "prose": "`scope.kind` — string — **REQUIRED** — `document` or `fields`."
-              },
-              {
-                "id": "apr-attest-024_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18565,7 +18510,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18599,11 +18544,6 @@
                 "id": "apr-attest-025_smt",
                 "name": "statement",
                 "prose": "`scope.fields` — array — **REQUIRED** when `kind` is `fields` — One or more prompt ids, none blank."
-              },
-              {
-                "id": "apr-attest-025_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18627,7 +18567,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18661,11 +18601,6 @@
                 "id": "apr-attest-026_smt",
                 "name": "statement",
                 "prose": "`manifest` — object — **REQUIRED** — `root` and `entries`, and no other member."
-              },
-              {
-                "id": "apr-attest-026_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18689,7 +18624,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18723,11 +18658,6 @@
                 "id": "apr-attest-027_smt",
                 "name": "statement",
                 "prose": "`manifest.root` — string — **REQUIRED** — The digest of the subject form."
-              },
-              {
-                "id": "apr-attest-027_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18751,7 +18681,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18785,11 +18715,6 @@
                 "id": "apr-attest-028_smt",
                 "name": "statement",
                 "prose": "`manifest.entries` — array — **REQUIRED** — Entries as [Digests and manifests](#digests) defines them, each with no other member."
-              },
-              {
-                "id": "apr-attest-028_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18813,7 +18738,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18847,11 +18772,6 @@
                 "id": "apr-attest-029_smt",
                 "name": "statement",
                 "prose": "`proofs` — array — **REQUIRED** — Zero or more proofs ([Proofs](#proofs))."
-              },
-              {
-                "id": "apr-attest-029_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18875,7 +18795,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18909,11 +18829,6 @@
                 "id": "apr-attest-030_smt",
                 "name": "statement",
                 "prose": "`witnesses` — array — **REQUIRED** — Zero or more witnesses ([Witnesses](#witnesses))."
-              },
-              {
-                "id": "apr-attest-030_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -18937,7 +18852,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -18971,11 +18886,6 @@
                 "id": "apr-attest-031_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST** preserve an attestation record's extension members across a round trip."
-              },
-              {
-                "id": "apr-attest-031_gap",
-                "name": "assessment-gap",
-                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -19037,7 +18947,7 @@
               {
                 "id": "apr-attest-032_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
+                "prose": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for."
               }
             ]
           },
@@ -19099,7 +19009,7 @@
               {
                 "id": "apr-attest-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19161,7 +19071,7 @@
               {
                 "id": "apr-attest-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19223,7 +19133,7 @@
               {
                 "id": "apr-attest-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19285,7 +19195,7 @@
               {
                 "id": "apr-attest-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19347,7 +19257,7 @@
               {
                 "id": "apr-attest-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19409,7 +19319,7 @@
               {
                 "id": "apr-attest-038_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19471,7 +19381,7 @@
               {
                 "id": "apr-attest-039_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19533,7 +19443,7 @@
               {
                 "id": "apr-attest-040_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19595,7 +19505,7 @@
               {
                 "id": "apr-attest-041_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
+                "prose": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time."
               }
             ]
           },
@@ -19781,7 +19691,7 @@
               {
                 "id": "apr-attest-044_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
+                "prose": "APR-ATTEST-020, that a verifier holding a form which is not the subject should say so beside `unresolved`, is a second fact the verification report does not carry, so nothing asks for it."
               }
             ]
           },
@@ -19843,7 +19753,7 @@
               {
                 "id": "apr-attest-045_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
+                "prose": "APR-ATTEST-020, that a verifier holding a form which is not the subject should say so beside `unresolved`, is a second fact the verification report does not carry, so nothing asks for it."
               }
             ]
           },
@@ -19867,7 +19777,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -19901,11 +19811,6 @@
                 "id": "apr-attest-046_smt",
                 "name": "statement",
                 "prose": "`valid` — The subject resolved, digest and manifest match, and a recognized proof verifies. — **MUST**"
-              },
-              {
-                "id": "apr-attest-046_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -19929,7 +19834,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -19963,11 +19868,6 @@
                 "id": "apr-attest-047_smt",
                 "name": "statement",
                 "prose": "`invalid` — A recognized proof fails, or a resolved subject differs from the attested digest or manifest. — **MUST**"
-              },
-              {
-                "id": "apr-attest-047_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -19991,7 +19891,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -20025,11 +19925,6 @@
                 "id": "apr-attest-048_smt",
                 "name": "statement",
                 "prose": "`unresolved` — No matching form occurrence is available. — **MUST**"
-              },
-              {
-                "id": "apr-attest-048_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20053,7 +19948,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -20087,11 +19982,6 @@
                 "id": "apr-attest-049_smt",
                 "name": "statement",
                 "prose": "`unverifiable` — Required representation, extension, digest, or proof support is unavailable. — **MUST**"
-              },
-              {
-                "id": "apr-attest-049_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20115,7 +20005,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -20149,11 +20039,6 @@
                 "id": "apr-attest-050_smt",
                 "name": "statement",
                 "prose": "`witnessed` — One or more referenced envelopes resolve and match. — **MUST**"
-              },
-              {
-                "id": "apr-attest-050_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },
@@ -20177,7 +20062,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -20211,11 +20096,6 @@
                 "id": "apr-attest-051_smt",
                 "name": "statement",
                 "prose": "A verifier **MUST NOT** report `unresolved` as a failure of the assertion."
-              },
-              {
-                "id": "apr-attest-051_gap",
-                "name": "assessment-gap",
-                "prose": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart."
               }
             ]
           },

@@ -104,6 +104,16 @@ seven of 171 now.
   the contract that tests writing, and preservation is what makes additive change
   safe: a reader that quietly drops an unknown member accepts every document it is
   ever given.
+- `verified` is what verifying the attestations found, required by any case marked
+  `verifies` from a driver claiming `core+attestations`: one object per attestation
+  record, in the order the records occur, as
+  `{"state": "valid", "witnessed": false, "proofs": [{"type": "…", "verifies": true, "trusted": false}]}`.
+  `state` is `valid`, `invalid`, `unresolved` or `unverifiable`; each proof reports
+  whether it verifies separately from whether its certificate is trusted. Only what a
+  case names is checked. A document is valid whatever its attestations say, so this is
+  the only way a verifier that resolves a subject by position rather than by digest is
+  caught. A driver not claiming `core+attestations` need not report it, and fails any
+  case where it reports an attestation `valid`.
 - Every case carries the `profile` it belongs to. A profile is optional to claim and
   **binding once claimed**: a case in a profile you declare must be answered, and
   omitting it fails. A case outside every profile you declare may be omitted and is

@@ -259,6 +259,20 @@
       }
     },
     {
+      "id": "conformance.verification",
+      "component": "Conformance harness, verification reports",
+      "language": "python",
+      "path": "scripts/aprverify.py",
+      "runsInCi": true,
+      "gate": "the reference driver reports what verifying each attestation found; check-harness-teeth.py proves a verifier resolving by position, reporting unverifiable or unresolved as invalid, trusting a certificate because its proof verifies, or reporting valid without claiming core+attestations fails; check-rule-evidence.py credits a verification case only where a wrong verifier fails it",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "na"
+      }
+    },
+    {
       "id": "conformance.renderer",
       "path": "tests/Conformance/beta6/renderer-suite.json",
       "runsInCi": true,
@@ -439,7 +453,7 @@
       "id": "REQ-attestation-members",
       "section": "attestation-catalogue",
       "statement": "Attestation record members, their presence and domains, closed sub-objects, extension members that round-trip, and a subject resolved by digest alone",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "fixture",
@@ -456,6 +470,14 @@
         {
           "type": "fixture",
           "ref": "rules/apr-attest-021-violates.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/changed-form.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -475,10 +497,6 @@
         "APR-ATTEST-029",
         "APR-ATTEST-030",
         "APR-ATTEST-031"
-      ],
-      "gap": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone.",
-      "gapRules": [
-        "APR-ATTEST-017"
       ]
     },
     {
@@ -494,6 +512,14 @@
         {
           "type": "test",
           "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/fields-changed-form.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -503,11 +529,9 @@
         "APR-ATTEST-016",
         "APR-ATTEST-032"
       ],
-      "gap": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333).",
+      "gap": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-016 and 032, that a verifier may compare a fields manifest against a changed form and must not report that comparison as a verification result, concern a per-path diagnostic that no case asks a verifier for.",
       "gapRules": [
         "APR-ATTEST-005",
-        "APR-ATTEST-006",
-        "APR-ATTEST-015",
         "APR-ATTEST-016",
         "APR-ATTEST-032"
       ]
@@ -603,6 +627,10 @@
         {
           "type": "test",
           "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -611,9 +639,8 @@
         "APR-ATTEST-044",
         "APR-ATTEST-045"
       ],
-      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333).",
+      "gap": "APR-ATTEST-020, that a verifier holding a form which is not the subject should say so beside `unresolved`, is a second fact the verification report does not carry, so nothing asks for it.",
       "gapRules": [
-        "APR-ATTEST-009",
         "APR-ATTEST-020"
       ]
     },
@@ -1414,6 +1441,10 @@
         {
           "type": "suite",
           "ref": "conformance.profile-core"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -1423,9 +1454,8 @@
         "APR-CONF-012",
         "APR-CONF-013"
       ],
-      "gap": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it reports of verification. No case asks a driver what verification found, so a run limited to core withholds every attestation case.",
+      "gap": "APR-CONF-012, that an implementation not claiming core+attestations should say attestations are present but unchecked, is about what it tells a person, which the harness does not score.",
       "gapRules": [
-        "APR-CONF-005",
         "APR-CONF-012"
       ]
     },
@@ -1520,6 +1550,18 @@
         {
           "type": "test",
           "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/cms-proof.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/unsupported-proof.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -1536,14 +1578,10 @@
         "APR-ATTEST-040",
         "APR-ATTEST-041"
       ],
-      "gap": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time.",
+      "gap": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time.",
       "gapRules": [
-        "APR-ATTEST-008",
         "APR-ATTEST-033",
         "APR-ATTEST-034",
-        "APR-ATTEST-035",
-        "APR-ATTEST-036",
-        "APR-ATTEST-037",
         "APR-ATTEST-039",
         "APR-ATTEST-040",
         "APR-ATTEST-041"
@@ -2115,7 +2153,7 @@
       "id": "REQ-verification-vocabulary",
       "section": "verification",
       "statement": "A verifier reports valid, invalid, unresolved, unverifiable and witnessed each when its condition holds, independently, never unresolved as a failure, and validity apart from trust",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "fixture",
@@ -2140,6 +2178,14 @@
         {
           "type": "test",
           "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/cms-proof.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "conformance.verification"
         }
       ],
       "rules": [
@@ -2151,10 +2197,6 @@
         "APR-ATTEST-049",
         "APR-ATTEST-050",
         "APR-ATTEST-051"
-      ],
-      "gap": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). Strength read `none` — no test would fail if the rule were broken — while this entry already gated on six things that would: the witnessed, witness-chain and changed-form fixtures, and the .NET and Python resolver tests pinning valid, invalid, unresolved and unverifiable. Corrected to partial. APR-ATTEST-010 is what stays open, and the reason is sharper than \"nothing checks it\": the separation exists in the type. AprAttestationProofVerification carries ContentValid, whether CMS validates against the proof-free envelope, beside Trust, documented as the independent certificate-trust result, and AprAttestationTrustEvaluator produces the second without consulting the first. No test in this repository reads Trust at all. So the two facts are separate in the API and unasserted everywhere, and nothing would fail if a verifier collapsed them into one verdict. Closing it takes a test over a proof whose content validates and whose certificate is not trusted, asserting the two are reported apart.",
-      "gapRules": [
-        "APR-ATTEST-010"
       ]
     },
     {

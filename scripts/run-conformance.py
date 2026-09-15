@@ -60,6 +60,16 @@ the contract that tests writing, and preservation is what makes additive change
 safe: a reader that quietly drops an unknown member accepts every document it is
 ever given.
 
+`verified` is what verifying the attestations found, required by any case marked
+`verifies` from a driver claiming `core+attestations`. Report one object per
+attestation record, in the order the records occur:
+`{"state": "valid", "witnessed": false, "proofs": [{"type": "...", "verifies": true,
+"trusted": false}]}`. `state` is `valid`, `invalid`, `unresolved` or `unverifiable`;
+`witnessed` is whether a witness it names resolves; each proof says whether it verifies
+and, separately, whether its certificate is trusted. Only what a case names is
+checked. A driver not claiming `core+attestations` need not report it, and fails any
+case where it reports an attestation `valid`.
+
 `digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
 proves more than acceptance. Most valid cases state the digest the document must
 produce; if you report one and it differs, the case fails even though you
@@ -187,6 +197,36 @@ def round_trip_ok(case: dict, result: dict) -> tuple[bool, str]:
     return True, ""
 
 
+def verification_ok(case: dict, result: dict) -> tuple[bool, str]:
+    """Did verifying the attestations report what the verification vocabulary requires?
+
+    A document is valid whatever its attestations say, so acceptance cannot tell a
+    verifier that resolves a subject by position from one that resolves it by digest.
+    Only what it reports can. Only what the case names is checked.
+    """
+    reported = result.get("verified")
+    if not isinstance(reported, list):
+        return False, "did not report what verifying the attestations found"
+    for wanted in case["verify"]:
+        index = wanted["record"]
+        got = reported[index] if index < len(reported) else None
+        if not isinstance(got, dict):
+            return False, f"reported nothing for attestation {index}"
+        for fact in ("state", "witnessed"):
+            if fact in wanted and got.get(fact) != wanted[fact]:
+                return False, (f"attestation {index} came back {fact} {got.get(fact)!r}, "
+                               f"not {wanted[fact]!r}")
+        proofs = got.get("proofs") if isinstance(got.get("proofs"), list) else []
+        for number, proof in enumerate(wanted.get("proofs") or []):
+            if number >= len(proofs) or not isinstance(proofs[number], dict):
+                return False, f"reported nothing for proof {number} of attestation {index}"
+            for fact, value in proof.items():
+                if proofs[number].get(fact) != value:
+                    return False, (f"proof {number} of attestation {index} came back {fact} "
+                                   f"{proofs[number].get(fact)!r}, not {value!r}")
+    return True, ""
+
+
 def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
     reported = {r["id"]: r for r in response.get("results", []) if isinstance(r, dict)}
     # "Optional to claim; binding once claimed." A case belonging to a profile the
@@ -299,6 +339,20 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
             if not ok:
                 row["detail"] = detail
 
+        if ok and case.get("verify") and "core+attestations" in claimed:
+            ok, detail = verification_ok(case, result)
+            if not ok:
+                row["detail"] = detail
+
+        # An implementation that does not claim core+attestations verified nothing, so
+        # it may not report anything as verified. [APR-CONF-005]
+        verified = result.get("verified") if isinstance(result.get("verified"), list) else []
+        if ok and "core+attestations" not in claimed and any(
+                isinstance(report, dict) and report.get("state") == "valid" for report in verified):
+            ok = False
+            row["detail"] = ("reports an attestation valid without claiming core+attestations, "
+                             "which is the profile that verifies one")
+
         row["status"] = "pass" if ok else "fail"
         tally["pass" if ok else "fail"] += 1
 
@@ -385,7 +439,7 @@ def oscal(suite: dict, response: dict, rows: list[dict], path: pathlib.Path) -> 
 # Fields that state the answer. A driver receiving them could score a perfect run
 # by echoing what it was told, and nothing here would notice.
 ANSWERS = ("expect", "digest", "expects", "warns", "diagnostic", "preserves", "acceptance",
-           "satisfies", "violates")
+           "satisfies", "violates", "verify")
 
 
 def constrain(suite: dict, allowed: list[str]) -> dict:
@@ -437,6 +491,8 @@ def blind(suite: dict) -> dict:
             projected["evaluates"] = True
         if case.get("warns"):
             projected["reportsWarnings"] = True
+        if case.get("verify"):
+            projected["verifies"] = True
         cases.append(projected)
     return {**suite, "cases": cases,
             "$comment": suite["$comment"] + " Answers are withheld from the copy "

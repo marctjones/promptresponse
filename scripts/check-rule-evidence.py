@@ -34,8 +34,9 @@ which is the easy half.
 not gated at a level nobody has reached; it is prevented from regressing.
 
 `caught` is satisfied by a finding that cites the rule; by the parser raising the
-diagnostic the case declares, for rules decided while reading; by a lossy writer or
-a wrong evaluator failing a round-trip or evaluation case; or, weakest, by
+diagnostic the case declares, for rules decided while reading; by a lossy writer, a
+wrong evaluator or a wrong verifier failing a round-trip, evaluation or verification
+case; or, weakest, by
 `acceptance`, where the rule says a reader must accept something and refusing it is
 the whole of the violation. The second form attributes the rule from the
 case's own citation, so it is weaker, and the matrix marks it `parse`.
@@ -54,6 +55,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 import aprlib  # noqa: E402
 import aprexpr  # noqa: E402
+import aprverify  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("validate_apr", HERE / "validate-apr.py")
 validate_apr = importlib.util.module_from_spec(_spec)
@@ -308,6 +310,65 @@ def lossy(document: str, representation: str, pointers: list[str]) -> str | None
                    for record in damaged)
 
 
+def wrong_verifications(document: str, representation: str) -> list[list[dict]]:
+    """What plausibly wrong verifiers report about these records.
+
+    Each is the reference verifier wrong in one way: resolving a subject by the form
+    nearest it, or by the form before it, rather than by digest; reporting a proof it
+    cannot check as invalid; reporting an absent subject as a failure; reporting a
+    certificate trusted because its proof verifies; checking a proof over bytes other
+    than the proof-free envelope; and never looking at witnesses.
+    """
+    records = aprlib.read_records(document, representation)
+    forms = [(index, record) for index, record in enumerate(records)
+             if not aprlib.is_attestation(record)]
+
+    def resolved_by(choose) -> list[dict]:
+        moved = []
+        for index, record in enumerate(records):
+            if aprlib.is_attestation(record):
+                form = choose(index)
+                digest = aprlib.digest(form) if form is not None else "sha256:" + "0" * 64
+                record = {**record, "subject": {**record["subject"], "digest": digest}}
+            moved.append(record)
+        return aprverify.verify(moved)
+
+    def nearest(index):
+        return min(forms, key=lambda form: abs(form[0] - index))[1] if forms else None
+
+    def before(index):
+        return next((form for at, form in reversed(forms) if at < index), None)
+
+    def restated(change) -> list[dict]:
+        reports = json.loads(json.dumps(aprverify.verify(records)))
+        for report in reports:
+            change(report)
+        return reports
+
+    def renamed(old: str, new: str):
+        def change(report):
+            if report["state"] == old:
+                report["state"] = new
+        return change
+
+    def trusting(report):
+        for proof in report["proofs"]:
+            proof["trusted"] = proof["verifies"]
+
+    def wrong_payload(report):
+        if any(proof["verifies"] for proof in report["proofs"]):
+            for proof in report["proofs"]:
+                proof["verifies"] = False
+            report["state"] = "invalid"
+
+    def unwitnessing(report):
+        report["witnessed"] = False
+
+    return [resolved_by(nearest), resolved_by(before),
+            restated(renamed("unverifiable", "invalid")), restated(renamed("unresolved", "invalid")),
+            restated(trusting), restated(wrong_payload), restated(unwitnessing)]
+
+
 def main() -> int:
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))["catalog"]
     rules = [c["props"][0]["value"] for g in catalog["groups"] for c in g["controls"]]
@@ -353,6 +414,32 @@ def main() -> int:
                 problems.append(
                     f"{case['id']} claims acceptance proves its rule, but the validator "
                     f"refuses it")
+            continue
+
+        if case.get("verify"):
+            # A verification rule has no violating document either: the document is
+            # valid whatever its attestations say, and the violation is by the
+            # verifier. The case is the negative test, and counts only if the
+            # reference verifier satisfies it and a plausibly wrong one does not.
+            for rule in cited:
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                violated[rule] = violated.get(rule, 0) + 1
+            representation = ("yaml" if case["representation"].startswith("yaml")
+                              else "jsonc")
+            right = aprverify.verify(aprlib.read_records(case["document"], representation))
+            if not run_conformance.verification_ok(case, {"verified": right})[0]:
+                problems.append(
+                    f"{case['id']} states a verification result the reference verifier "
+                    f"does not report: {run_conformance.verification_ok(case, {'verified': right})[1]}")
+                continue
+            wrong = wrong_verifications(case["document"], representation)
+            if all(run_conformance.verification_ok(case, {"verified": w})[0] for w in wrong):
+                problems.append(
+                    f"{case['id']} is a verification case that every simulated wrong "
+                    f"verifier still satisfies, so it tests nothing")
+            else:
+                for rule in cited:
+                    caught[rule] = "verification"
             continue
 
         if case.get("expects"):
@@ -508,7 +595,7 @@ def main() -> int:
     # produced, by comparing the digests of a paired form, and by scoring whether a
     # document that must be accepted was.
     enforced = enforced | {r for case in suite["cases"]
-                           if case.get("roundTrip") or case.get("expects")
+                           if case.get("roundTrip") or case.get("expects") or case.get("verify")
                            or case.get("equivalentTo") or case.get("acceptance")
                            for r in (case.get("rules") or [])}
     counts = {

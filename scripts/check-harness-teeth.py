@@ -32,7 +32,7 @@ REFERENCE = ROOT / "scripts" / "reference-driver.py"
 PREAMBLE = '''
 import json, sys, pathlib, importlib.util
 sys.path.insert(0, {scripts!r})
-import aprlib, aprexpr
+import aprlib, aprexpr, aprverify
 spec = importlib.util.spec_from_file_location("va", {validator!r})
 validate_apr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validate_apr)
@@ -178,6 +178,60 @@ for case in suite["cases"]:
             json.dumps(strip_expressions(r), indent=2) + "\\n" for r in records)
     results.append(answer)
 '''),
+    "positional-verifier": (
+        "resolves an attestation against the form nearest it rather than by digest",
+        '''
+for case in suite["cases"]:
+    answer = reference(case)
+    if "verified" in answer:
+        records = aprlib.read_records(case["document"], representation(case))
+        moved = []
+        for index, record in enumerate(records):
+            if aprlib.is_attestation(record):
+                near = sorted(range(len(records)), key=lambda other: abs(other - index))
+                form = next((records[i] for i in near if not aprlib.is_attestation(records[i])), None)
+                if form is not None:
+                    record = {**record, "subject": {**record["subject"], "digest": aprlib.digest(form)}}
+            moved.append(record)
+        answer["verified"] = aprverify.verify(moved)
+    results.append(answer)
+'''),
+    "unverifiable-as-invalid": (
+        "reports a proof it cannot check as a forgery",
+        '''
+for case in suite["cases"]:
+    answer = reference(case)
+    for report in answer.get("verified") or []:
+        if report["state"] == "unverifiable":
+            report["state"] = "invalid"
+    results.append(answer)
+'''),
+    "unresolved-as-failure": (
+        "reports an attestation whose subject is absent as a failed one",
+        '''
+for case in suite["cases"]:
+    answer = reference(case)
+    for report in answer.get("verified") or []:
+        if report["state"] == "unresolved":
+            report["state"] = "invalid"
+    results.append(answer)
+'''),
+    "trusted-because-valid": (
+        "reports a certificate as trusted because the proof it signed verifies",
+        '''
+for case in suite["cases"]:
+    answer = reference(case)
+    for report in answer.get("verified") or []:
+        for proof in report["proofs"]:
+            proof["trusted"] = proof["verifies"]
+    results.append(answer)
+'''),
+    "core-reports-verified": (
+        "reports what verification found without claiming core+attestations",
+        '''
+for case in suite["cases"]:
+    results.append(reference(case))
+'''),
     "over-claiming-run": (
         "answers the core run correctly but claims profiles the run excludes",
         '''
@@ -189,6 +243,11 @@ PROFILES = {
     "over-claiming": ["core", "core+streams", "core+attestations", "core+expressions"],
     "attestations-without-streams": ["core", "core+attestations"],
     "over-claiming-run": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "positional-verifier": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "unverifiable-as-invalid": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "unresolved-as-failure": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "trusted-because-valid": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "core-reports-verified": ["core", "core+streams", "core+expressions"],
 }
 # Mutants of what core owes the profiles it does not claim are scored the way such an
 # implementation is: as a run limited to core.

@@ -22,6 +22,7 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import aprlib  # noqa: E402
+import aprverify  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("validate_apr", HERE / "validate-apr.py")
 validate_apr = importlib.util.module_from_spec(_spec)
@@ -79,6 +80,8 @@ def answer(case, members, profiles=PROFILES):
                 ctx=inputs.get("ctx"))
         except Exception as exc:  # noqa: BLE001
             answer["evaluated"] = {"error": type(exc).__name__}
+    if case.get("verifies") and "core+attestations" in profiles:
+        answer["verified"] = aprverify.verify(records)
     if case.get("roundTrip"):
         # Writing is serializing the semantic model. Nothing is filtered on the way
         # out, which is the whole of what preservation asks for.
