@@ -2,810 +2,1292 @@
   "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead. Read by scripts/check-example-coverage.py.",
   "APR-ATTEST-004": {
     "reason": "A permission, which nothing can violate.",
-    "coveredBy": ["spec:attestation-extension-member"]
+    "coveredBy": [
+      "spec:attestation-extension-member"
+    ]
   },
   "APR-ATTEST-008": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-ATTEST-009": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py"]
+    "coveredBy": [
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-ATTEST-014": {
     "reason": "A permission, which nothing can violate.",
-    "coveredBy": ["tests/Conformance/beta6/attestations/permit.cms.attestation.jsonc"]
+    "coveredBy": [
+      "tests/Conformance/beta6/attestations/permit.cms.attestation.jsonc"
+    ]
   },
   "APR-ATTEST-031": {
     "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
-    "coveredBy": ["spec:attestation-extension-member"]
+    "coveredBy": [
+      "spec:attestation-extension-member"
+    ]
   },
   "APR-ATTEST-015": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
+    ]
   },
   "APR-ATTEST-035": {
     "reason": "A rule on how a proof is computed and checked; no document can make an implementation sign or verify other bytes.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs", "python/tests/test_beta6.py"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs",
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-ATTEST-036": {
     "reason": "A rule on how a proof is computed and checked; no document can make an implementation sign or verify other bytes.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs", "python/tests/test_beta6.py"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs",
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-ATTEST-037": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-ATTEST-038": {
     "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
-    "coveredBy": ["spec:attestation-unknown-proof-preserved", "tests/Conformance/beta6/rules/apr-attest-038-roundtrip.apr.jsonc"]
+    "coveredBy": [
+      "spec:attestation-unknown-proof-preserved",
+      "tests/Conformance/beta6/rules/apr-attest-038-roundtrip.apr.jsonc"
+    ]
   },
   "APR-ATTEST-044": {
     "reason": "A rule on what a reader accepts; no document can make a reader refuse a stream it has to accept.",
-    "coveredBy": ["spec:attestations-several-of-one-form"]
+    "coveredBy": [
+      "spec:attestations-several-of-one-form"
+    ]
   },
   "APR-ATTEST-045": {
     "reason": "A rule on what a reader accepts; no document can make a reader refuse a stream it has to accept.",
-    "coveredBy": ["spec:attestation-before-subject"]
+    "coveredBy": [
+      "spec:attestation-before-subject"
+    ]
   },
   "APR-ATTEST-046": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-ATTEST-047": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-ATTEST-048": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py"]
+    "coveredBy": [
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-ATTEST-049": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-ATTEST-050": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py"]
+    "coveredBy": [
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-ATTEST-018": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
+    ]
   },
   "APR-ATTEST-051": {
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
-    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts",
+      "java/src/test/java/org/promptresponse/AprConformanceTest.java",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
+    ]
   },
   "APR-ATTEST-053": {
     "reason": "A rule on what a validator leaves out of its errors; no document can make a validator report attestation state.",
-    "coveredBy": ["spec:attestation-state-no-error"]
+    "coveredBy": [
+      "spec:attestation-state-no-error"
+    ]
   },
   "APR-CONF-001": {
     "reason": "What a reader reports for a stream depends on the profiles it claims, so no one document example can state the outcome.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-CONF-002": {
     "reason": "A rule scoped to which profiles a reader claims, which no document shows; the document is the same whichever reader reads it.",
-    "coveredBy": ["corpus:rules/apr-conf-002-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs", "python/tests/test_beta6.py"]
+    "coveredBy": [
+      "corpus:rules/apr-conf-002-roundtrip.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs",
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-CONF-011": {
     "reason": "A rule on what a writer emits, which no input document shows.",
-    "coveredBy": ["corpus:rules/apr-conf-002-roundtrip.apr.jsonc"]
+    "coveredBy": [
+      "corpus:rules/apr-conf-002-roundtrip.apr.jsonc"
+    ]
   },
   "APR-CONF-004": {
     "reason": "A statement about what an implementation claims; the harness holds each claimed profile to every case in it.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-REP-001": {
     "reason": "A rule on what an implementation writes after reading, which no input document shows.",
-    "coveredBy": ["corpus:rules/apr-rep-001-roundtrip.apr.jsonc", "corpus:rules/apr-digest-002-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/WriteFormPreservesPresenceTests.cs"]
+    "coveredBy": [
+      "corpus:rules/apr-rep-001-roundtrip.apr.jsonc",
+      "corpus:rules/apr-digest-002-roundtrip.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Beta6/WriteFormPreservesPresenceTests.cs"
+    ]
   },
   "APR-CONF-006": {
     "reason": "Conforming to core is answering every core case; no one document shows it.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-CONF-007": {
     "reason": "A permission to claim a profile, which nothing can violate.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-CONF-008": {
     "reason": "A permission to claim a profile, which nothing can violate.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-CONF-009": {
     "reason": "A permission to claim a profile, which nothing can violate.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-CONF-010": {
     "reason": "A constraint on a declaration, not on a document; the harness refuses a declaration that breaks it.",
-    "coveredBy": ["scripts/run-conformance.py"]
+    "coveredBy": [
+      "scripts/run-conformance.py"
+    ]
   },
   "APR-DIGEST-006": {
     "reason": "A rule on how a digest is computed; no document can make an implementation compute another.",
-    "coveredBy": ["spec:digest-ignores-source-syntax", "spec:digest-same-in-yaml"]
+    "coveredBy": [
+      "spec:digest-ignores-source-syntax",
+      "spec:digest-same-in-yaml"
+    ]
   },
   "APR-DIGEST-002": {
     "reason": "A rule on what an implementation computes, which a document shows only through the digest it expects.",
-    "coveredBy": ["corpus:rules/apr-digest-002-roundtrip.apr.jsonc", "corpus:rules/apr-rep-001-roundtrip.apr.jsonc"]
+    "coveredBy": [
+      "corpus:rules/apr-digest-002-roundtrip.apr.jsonc",
+      "corpus:rules/apr-rep-001-roundtrip.apr.jsonc"
+    ]
   },
   "APR-EXPR-001": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-fallback-value"]
+    "coveredBy": [
+      "spec:expr-fallback-value"
+    ]
   },
   "APR-EXPR-003": {
     "reason": "A rule on how an implementation handles its own evaluation failure; no document can make an implementation propagate an error.",
-    "coveredBy": ["corpus:rules/apr-expr-003-evaluates.apr.jsonc", "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
+    "coveredBy": [
+      "corpus:rules/apr-expr-003-evaluates.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"
+    ]
   },
   "APR-EXPR-004": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-reserved-name"]
+    "coveredBy": [
+      "spec:expr-reserved-name"
+    ]
   },
   "APR-EXPR-005": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-today"]
+    "coveredBy": [
+      "spec:expr-today"
+    ]
   },
   "APR-EXPR-006": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-unbound-empty"]
+    "coveredBy": [
+      "spec:expr-unbound-empty"
+    ]
   },
   "APR-EXPR-008": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-authored-response"]
+    "coveredBy": [
+      "spec:expr-authored-response"
+    ]
   },
   "APR-EXPR-034": {
     "reason": "A permission about a reader's own session state, which the document never records.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"
+    ]
   },
   "APR-EXPR-009": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-dependency-order"]
+    "coveredBy": [
+      "spec:expr-dependency-order"
+    ]
   },
   "APR-EXPR-013": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-extension-function-fails"]
+    "coveredBy": [
+      "spec:expr-extension-function-fails"
+    ]
   },
   "APR-EXPR-014": {
     "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:a-computed-prompt-stays-editable"]
+    "coveredBy": [
+      "renderer:a-computed-prompt-stays-editable"
+    ]
   },
   "APR-EXPR-016": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-invalid-identifier"]
+    "coveredBy": [
+      "spec:expr-invalid-identifier"
+    ]
   },
   "APR-EXPR-017": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-direct-binding"]
+    "coveredBy": [
+      "spec:expr-direct-binding"
+    ]
   },
   "APR-EXPR-018": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-this"]
+    "coveredBy": [
+      "spec:expr-this"
+    ]
   },
   "APR-EXPR-019": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-id"]
+    "coveredBy": [
+      "spec:expr-id"
+    ]
   },
   "APR-EXPR-021": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-today"]
+    "coveredBy": [
+      "spec:expr-today"
+    ]
   },
   "APR-EXPR-022": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-ctx"]
+    "coveredBy": [
+      "spec:expr-ctx"
+    ]
   },
   "APR-EXPR-023": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-bind-currency"]
+    "coveredBy": [
+      "spec:expr-bind-currency"
+    ]
   },
   "APR-EXPR-024": {
     "reason": "A rule on how an implementation binds a response for evaluation; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"
+    ]
   },
   "APR-EXPR-025": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-bind-date"]
+    "coveredBy": [
+      "spec:expr-bind-date"
+    ]
   },
   "APR-EXPR-026": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-bind-multichoice"]
+    "coveredBy": [
+      "spec:expr-bind-multichoice"
+    ]
   },
   "APR-EXPR-027": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-bind-string"]
+    "coveredBy": [
+      "spec:expr-bind-string"
+    ]
   },
   "APR-EXPR-028": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-canonical-result"]
+    "coveredBy": [
+      "spec:expr-canonical-result"
+    ]
   },
   "APR-EXPR-029": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-fallback-hidden"]
+    "coveredBy": [
+      "spec:expr-fallback-hidden"
+    ]
   },
   "APR-EXPR-032": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-fallback-validation"]
+    "coveredBy": [
+      "spec:expr-fallback-validation"
+    ]
   },
   "APR-EXPR-033": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
-    "coveredBy": ["spec:expr-fallback-value"]
+    "coveredBy": [
+      "spec:expr-fallback-value"
+    ]
   },
   "APR-MODEL-012": {
     "reason": "A permission for how a renderer presents a table, which no document can violate because the document does not choose the presentation.",
-    "coveredBy": ["renderer:table-cells-name-their-header"]
+    "coveredBy": [
+      "renderer:table-cells-name-their-header"
+    ]
   },
   "APR-MODEL-018": {
     "reason": "A rule on what a validator does with an unregistered type, which no document can violate; the example and vector are read valid with a warning.",
-    "coveredBy": ["spec:unregistered-data-type-degrades", "corpus:rules/apr-model-018-warns.apr.jsonc"]
+    "coveredBy": [
+      "spec:unregistered-data-type-degrades",
+      "corpus:rules/apr-model-018-warns.apr.jsonc"
+    ]
   },
   "APR-MODEL-115": {
     "reason": "A rule on what a renderer presents, which no input document shows; the unregistered-type example shows only that the document is valid.",
-    "coveredBy": ["typescript/src/test/render.test.ts", "tests/PromptResponse.Desktop.Tests/ViewModels/EveryFieldIsAnswerableTests.cs"]
+    "coveredBy": [
+      "typescript/src/test/render.test.ts",
+      "tests/PromptResponse.Desktop.Tests/ViewModels/EveryFieldIsAnswerableTests.cs"
+    ]
   },
   "APR-MODEL-020": {
     "reason": "A rule on what a reader does with an unknown member, which no document can violate.",
-    "coveredBy": ["spec:extension-member-prefixed", "corpus:rules/apr-model-021-roundtrip.apr.jsonc"]
+    "coveredBy": [
+      "spec:extension-member-prefixed",
+      "corpus:rules/apr-model-021-roundtrip.apr.jsonc"
+    ]
   },
   "APR-MODEL-021": {
     "reason": "Preservation needs a write after a read, which a static document cannot show; the suite's roundTrip harness and unit tests supply it.",
-    "coveredBy": ["corpus:rules/apr-model-021-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Models/ModelCopierTests.cs", "tests/PromptResponse.Desktop.Tests/ViewModels/TableExtensionMemberTests.cs", "python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts"]
+    "coveredBy": [
+      "corpus:rules/apr-model-021-roundtrip.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Models/ModelCopierTests.cs",
+      "tests/PromptResponse.Desktop.Tests/ViewModels/TableExtensionMemberTests.cs",
+      "python/tests/test_beta6.py",
+      "typescript/src/test/beta6.test.ts"
+    ]
   },
   "APR-MODEL-038": {
     "reason": "A rule on what a reader infers, which no document can violate.",
-    "coveredBy": ["spec:table-members-on-a-plain-section", "corpus:rules/apr-model-038-warns.apr.jsonc"]
+    "coveredBy": [
+      "spec:table-members-on-a-plain-section",
+      "corpus:rules/apr-model-038-warns.apr.jsonc"
+    ]
   },
   "APR-MODEL-039": {
     "reason": "A rule on what a reader preserves, which no document can violate.",
-    "coveredBy": ["spec:unusable-hint", "corpus:rules/apr-model-039-warns.apr.jsonc"]
+    "coveredBy": [
+      "spec:unusable-hint",
+      "corpus:rules/apr-model-039-warns.apr.jsonc"
+    ]
   },
   "APR-MODEL-051": {
     "reason": "A rule on what a validator does with an undeclared role, which no document can violate.",
-    "coveredBy": ["spec:undeclared-role", "corpus:rules/apr-model-026-warns.apr.jsonc"]
+    "coveredBy": [
+      "spec:undeclared-role",
+      "corpus:rules/apr-model-026-warns.apr.jsonc"
+    ]
   },
   "APR-MODEL-027": {
     "reason": "A rule on how a reader behaves at fill time, which no input document shows.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"
+    ]
   },
   "APR-MODEL-028": {
     "reason": "A rule on what a reader offers the person, which no input document shows.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"
+    ]
   },
   "APR-MODEL-125": {
     "reason": "A rule on what a reader presents, which no input document shows.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"
+    ]
   },
   "APR-MODEL-097": {
     "reason": "A rule on what a reader preserves, which no document can violate.",
-    "coveredBy": ["spec:table-members-on-a-plain-section"]
+    "coveredBy": [
+      "spec:table-members-on-a-plain-section"
+    ]
   },
   "APR-MODEL-048": {
     "reason": "A rule on the ids a writer chooses, which no input document shows; a cell with any other id is still valid.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/TableSectionViewModelTests.cs", "tests/PromptResponse.Desktop.Tests/ViewModels/TableRowIdUniquenessTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/TableSectionViewModelTests.cs",
+      "tests/PromptResponse.Desktop.Tests/ViewModels/TableRowIdUniquenessTests.cs"
+    ]
   },
   "APR-MODEL-098": {
     "reason": "A rule on how a reader reads an absent member, which no document can violate.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Models/TableSectionTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Models/TableSectionTests.cs"
+    ]
   },
   "APR-MODEL-099": {
     "reason": "A rule on what a validator does with a table over its cap, which no document can violate.",
-    "coveredBy": ["spec:table-over-capacity"]
+    "coveredBy": [
+      "spec:table-over-capacity"
+    ]
   },
   "APR-MODEL-100": {
     "reason": "A rule on what a validator does with a ragged table, which no document can violate.",
-    "coveredBy": ["spec:ragged-table"]
+    "coveredBy": [
+      "spec:ragged-table"
+    ]
   },
   "APR-MODEL-015": {
     "reason": "A document can show the sixteen-level floor and the corpus does; the specification carries no sixteen-level example because it would be long and says nothing a reader of the prose needs.",
-    "coveredBy": ["corpus:rules/apr-model-015-satisfies.apr.jsonc", "renderer:sixteen-levels-render", "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "corpus:rules/apr-model-015-satisfies.apr.jsonc",
+      "renderer:sixteen-levels-render",
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-MODEL-102": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-103": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-104": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-105": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-106": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-107": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-108": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-109": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-110": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-111": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-112": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-113": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-114": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-116": {
     "reason": "A rule on what a validator does with an unusable hint, which no document can violate.",
-    "coveredBy": ["spec:unusable-hint"]
+    "coveredBy": [
+      "spec:unusable-hint"
+    ]
   },
   "APR-MODEL-118": {
     "reason": "A rule on how a reader compares member names, which no document can violate; the example shows its consequence.",
-    "coveredBy": ["spec:member-name-case"]
+    "coveredBy": [
+      "spec:member-name-case"
+    ]
   },
   "APR-MODEL-121": {
     "reason": "A rule on how a reader resolves a prompt's role, which no document can violate.",
-    "coveredBy": ["python/tests/test_format_rules.py"]
+    "coveredBy": [
+      "python/tests/test_format_rules.py"
+    ]
   },
   "APR-MODEL-122": {
     "reason": "A rule on what a reader shows for an undeclared role, which no document can violate.",
-    "coveredBy": ["python/tests/test_format_rules.py"]
+    "coveredBy": [
+      "python/tests/test_format_rules.py"
+    ]
   },
   "APR-MODEL-123": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional.",
-    "coveredBy": ["schemas/apr-1.0.schema.json"]
+    "coveredBy": [
+      "schemas/apr-1.0.schema.json"
+    ]
   },
   "APR-MODEL-124": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional.",
-    "coveredBy": ["schemas/apr-1.0.schema.json"]
+    "coveredBy": [
+      "schemas/apr-1.0.schema.json"
+    ]
   },
   "APR-MODEL-050": {
     "reason": "A rule on what a reader shows, which no input document shows.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs"
+    ]
   },
   "APR-RENDER-001": {
     "reason": "The accessible name is a property of the rendered interface, not of the document.",
-    "coveredBy": ["renderer:accessible-name", "renderer:a-role-does-not-become-the-name", "renderer:a-filled-form-renders-its-answers"]
+    "coveredBy": [
+      "renderer:accessible-name",
+      "renderer:a-role-does-not-become-the-name",
+      "renderer:a-filled-form-renders-its-answers"
+    ]
   },
   "APR-RENDER-002": {
     "reason": "Whether a placeholder is the only label is a property of the rendered interface.",
-    "coveredBy": ["renderer:placeholder-is-not-a-label"]
+    "coveredBy": [
+      "renderer:placeholder-is-not-a-label"
+    ]
   },
   "APR-RENDER-003": {
     "reason": "Associating help text with its control is a property of the rendered interface.",
-    "coveredBy": ["renderer:help-text-associated"]
+    "coveredBy": [
+      "renderer:help-text-associated"
+    ]
   },
   "APR-RENDER-004": {
     "reason": "Conveying nesting structurally is a property of the rendered interface.",
-    "coveredBy": ["renderer:nesting-is-structural"]
+    "coveredBy": [
+      "renderer:nesting-is-structural"
+    ]
   },
   "APR-RENDER-005": {
     "reason": "Keyboard reachability is a property of the rendered interface.",
-    "coveredBy": ["renderer:every-prompt-is-reachable", "renderer:a-hidden-prompt-may-be-absent", "renderer:a-filled-form-renders-its-answers"]
+    "coveredBy": [
+      "renderer:every-prompt-is-reachable",
+      "renderer:a-hidden-prompt-may-be-absent",
+      "renderer:a-filled-form-renders-its-answers"
+    ]
   },
   "APR-RENDER-006": {
     "reason": "Not blocking a save is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
+    "coveredBy": [
+      "renderer:a-hint-mismatch-does-not-block-saving"
+    ]
   },
   "APR-RENDER-007": {
     "reason": "Table cells naming their header is a property of the rendered interface.",
-    "coveredBy": ["renderer:table-cells-name-their-header"]
+    "coveredBy": [
+      "renderer:table-cells-name-their-header"
+    ]
   },
   "APR-RENDER-009": {
     "reason": "Not writing an export back is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:an-export-is-not-written-back"]
+    "coveredBy": [
+      "renderer:an-export-is-not-written-back"
+    ]
   },
   "APR-RENDER-010": {
     "reason": "Presentation order is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:order-is-document-order"]
+    "coveredBy": [
+      "renderer:order-is-document-order"
+    ]
   },
   "APR-RENDER-011": {
     "reason": "Presentation order is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:order-is-document-order"]
+    "coveredBy": [
+      "renderer:order-is-document-order"
+    ]
   },
   "APR-RENDER-012": {
     "reason": "Presentation order is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:own-prompts-before-child-sections"]
+    "coveredBy": [
+      "renderer:own-prompts-before-child-sections"
+    ]
   },
   "APR-RENDER-013": {
     "reason": "A permission, which nothing can violate.",
-    "coveredBy": ["renderer:order-is-document-order"]
+    "coveredBy": [
+      "renderer:order-is-document-order"
+    ]
   },
   "APR-RENDER-014": {
     "reason": "Completing a prompt from the keyboard is a property of the rendered interface.",
-    "coveredBy": ["renderer:every-prompt-is-reachable"]
+    "coveredBy": [
+      "renderer:every-prompt-is-reachable"
+    ]
   },
   "APR-RENDER-015": {
     "reason": "A permission, which nothing can violate.",
-    "coveredBy": ["renderer:an-export-is-not-written-back"]
+    "coveredBy": [
+      "renderer:an-export-is-not-written-back"
+    ]
   },
   "APR-SEC-005": {
     "reason": "A rule on where a reader takes documentType from; the suite passes documents without a filename, so no document case can set one against the member.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs"
+    ]
   },
   "APR-SEC-007": {
     "reason": "A rule on a reader facing a filename that disagrees with the content; the suite passes documents without a filename.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-SEC-009": {
     "reason": "Executing nothing on open is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:nothing-in-a-document-executes"]
+    "coveredBy": [
+      "renderer:nothing-in-a-document-executes"
+    ]
   },
   "APR-SEC-010": {
     "reason": "Fetching nothing on open is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:opening-fetches-nothing"]
+    "coveredBy": [
+      "renderer:opening-fetches-nothing"
+    ]
   },
   "APR-MODEL-002": {
     "reason": "A permission, which nothing can violate; a response contradicting its hints stays valid and draws a warning.",
-    "coveredBy": ["corpus:rules/apr-model-002-satisfies.apr.jsonc", "corpus:rules/apr-model-002-warns.apr.jsonc"]
+    "coveredBy": [
+      "corpus:rules/apr-model-002-satisfies.apr.jsonc",
+      "corpus:rules/apr-model-002-warns.apr.jsonc"
+    ]
   },
   "APR-MODEL-003": {
     "reason": "A rule on what an implementation does with a response, such as saving it. A document can show the mismatch stays valid, but not an implementation refusing to save.",
-    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
+    "coveredBy": [
+      "renderer:a-hint-mismatch-does-not-block-saving"
+    ]
   },
   "APR-REP-002": {
     "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-REP-003": {
     "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-REP-008": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-bare-word-is-a-string", "spec:yaml-leading-zero-is-a-string"]
+    "coveredBy": [
+      "spec:yaml-bare-word-is-a-string",
+      "spec:yaml-leading-zero-is-a-string"
+    ]
   },
   "APR-REP-012": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-leading-zero-is-a-string", "spec:yaml-legacy-boolean-is-a-string"]
+    "coveredBy": [
+      "spec:yaml-leading-zero-is-a-string",
+      "spec:yaml-legacy-boolean-is-a-string"
+    ]
   },
   "APR-REP-013": {
     "reason": "A rule on how a reader is built. A document that would exploit an unsafe loader needs a tag, which the excluded-constructs table already refuses.",
-    "coveredBy": ["spec:yaml-tag"]
+    "coveredBy": [
+      "spec:yaml-tag"
+    ]
   },
   "APR-REP-019": {
     "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-REP-023": {
     "reason": "A rule on what a writer emits, which no input document shows.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-REP-025": {
     "reason": "A rule on what a writer emits, which no input document shows.",
-    "coveredBy": ["python/tests/test_format_rules.py"]
+    "coveredBy": [
+      "python/tests/test_format_rules.py"
+    ]
   },
   "APR-REP-024": {
     "reason": "A rule on what a reader reads a null or absent response as. A document cannot show a reader reading it wrongly; the digest of the satisfying example catches it.",
-    "coveredBy": ["spec:yaml-plain-null-response-is-empty"]
+    "coveredBy": [
+      "spec:yaml-plain-null-response-is-empty"
+    ]
   },
   "APR-REP-026": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-quoted-null-is-a-string"]
+    "coveredBy": [
+      "spec:yaml-quoted-null-is-a-string"
+    ]
   },
   "APR-REP-027": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-plain-null-response-is-empty"]
+    "coveredBy": [
+      "spec:yaml-plain-null-response-is-empty"
+    ]
   },
   "APR-REP-028": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-boolean-and-number"]
+    "coveredBy": [
+      "spec:yaml-boolean-and-number"
+    ]
   },
   "APR-REP-029": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
-    "coveredBy": ["spec:yaml-boolean-and-number"]
+    "coveredBy": [
+      "spec:yaml-boolean-and-number"
+    ]
   },
   "APR-MODEL-033": {
     "reason": "A rule on how an implementation submits, which no document shows.",
-    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"
+    ]
   },
   "APR-MODEL-034": {
     "reason": "A rule on how an implementation hands a message to a mail client, which no document shows.",
-    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/MailHandoffServiceTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/MailHandoffServiceTests.cs"
+    ]
   },
   "APR-MODEL-035": {
     "reason": "A rule on what an implementation does with an entry, which no document shows.",
-    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs", "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs",
+      "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs"
+    ]
   },
   "APR-MODEL-091": {
     "reason": "A document can show this warning and the corpus does; the specification's submission section gives no example because the prose names the code directly.",
-    "coveredBy": ["corpus:rules/apr-model-035-warns.apr.jsonc", "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs"]
+    "coveredBy": [
+      "corpus:rules/apr-model-035-warns.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs"
+    ]
   },
   "APR-MODEL-045": {
     "reason": "A rule on what a reader does with an unresolved reference. A document shows the reference is valid, but not a reader rejecting it.",
-    "coveredBy": ["spec:regarding-reference"]
+    "coveredBy": [
+      "spec:regarding-reference"
+    ]
   },
   "APR-MODEL-054": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-056": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-057": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-058": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-059": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-060": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-061": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-062": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-063": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-064": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-065": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-068": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-069": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-070": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-071": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-072": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-073": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-074": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-075": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-078": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-079": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-080": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-081": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
-    "coveredBy": ["scripts/check-schema-agrees.py"]
+    "coveredBy": [
+      "scripts/check-schema-agrees.py"
+    ]
   },
   "APR-MODEL-082": {
     "reason": "A rule on what a reader does with a templateId, which no document shows. The core library references no HTTP client, so no read can fetch one.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-MODEL-087": {
     "reason": "A rule on how an implementation reads a submission's status, which no document shows.",
-    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"
+    ]
   },
   "APR-MODEL-092": {
     "reason": "A permission to share an id across namespaces, which no document can violate.",
-    "coveredBy": ["spec:id-namespaces"]
+    "coveredBy": [
+      "spec:id-namespaces"
+    ]
   },
   "APR-MODEL-040": {
     "reason": "Preservation needs a write after a read, which a static document cannot show; the suite's roundTrip harness supplies it.",
-    "coveredBy": ["corpus:rules/apr-model-040-roundtrip.apr.jsonc"]
+    "coveredBy": [
+      "corpus:rules/apr-model-040-roundtrip.apr.jsonc"
+    ]
   },
   "APR-SEC-011": {
     "reason": "A rule on how a reader bounds hostile input; every document in the suite is within any bound a reader applies.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-SEC-012": {
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
-    "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs",
+      "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
+    ]
   },
   "APR-SEC-016": {
     "reason": "Contacting no submission target without a user action is renderer behaviour; a document cannot show it.",
-    "coveredBy": ["renderer:opening-fetches-nothing"]
+    "coveredBy": [
+      "renderer:opening-fetches-nothing"
+    ]
   },
   "APR-SEC-019": {
     "reason": "A rule on how a reader fails on hostile input; every document in the suite is within any bound a reader applies.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-SEC-020": {
     "reason": "A rule on how a reader fails on hostile input; no document can make a reader loop.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
+    ]
   },
   "APR-STREAM-004": {
     "reason": "A rule on a reader asked for a single form; the document suite asks every reader to read whole streams.",
-    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+    "coveredBy": [
+      "python/tests/test_beta6.py",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
   },
   "APR-STREAM-008": {
     "reason": "A rule on how a reader tells a record's kind; a document cannot make a reader choose the other.",
-    "coveredBy": ["spec:stream-record-unknown-type", "spec:yaml-stream-two-forms"]
+    "coveredBy": [
+      "spec:stream-record-unknown-type",
+      "spec:yaml-stream-two-forms"
+    ]
   },
   "APR-STREAM-003": {
     "reason": "A rule on the records a reader produces, which an accepted document does not show without asking the reader to write it back.",
-    "coveredBy": ["corpus:rules/apr-stream-003-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs", "python/tests/test_beta6.py"]
+    "coveredBy": [
+      "corpus:rules/apr-stream-003-roundtrip.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs",
+      "python/tests/test_beta6.py"
+    ]
   },
   "APR-TEXT-005": {
     "reason": "A permission to hold authoring members to stricter rules, which no document can violate.",
-    "coveredBy": ["scripts/validate-apr.py"]
+    "coveredBy": [
+      "scripts/validate-apr.py"
+    ]
   },
   "APR-TEXT-008": {
     "reason": "A rule on producing an attestation, which the document suite never asks an implementation to do.",
-    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
+    ]
   },
   "APR-TEXT-012": {
     "reason": "A rule on what a validator reports; a document cannot show a validator that stays silent.",
-    "coveredBy": ["spec:title-confusable-script-mix", "corpus:rules/apr-text-012-warns.apr.jsonc"]
+    "coveredBy": [
+      "spec:title-confusable-script-mix",
+      "corpus:rules/apr-text-012-warns.apr.jsonc"
+    ]
   },
   "APR-TEXT-014": {
     "reason": "A rule on what a validator reports; a document cannot show a validator that stays silent.",
-    "coveredBy": ["spec:title-not-nfc", "spec:title-forbidden-code-point"]
+    "coveredBy": [
+      "spec:title-not-nfc",
+      "spec:title-forbidden-code-point"
+    ]
   },
   "APR-VAL-003": {
     "reason": "A rule on the stage at which a reader refuses input; the suite answers reject for a parse failure and a validation failure alike.",
-    "coveredBy": ["spec:jsonc-missing-separator"]
+    "coveredBy": [
+      "spec:jsonc-missing-separator"
+    ]
   },
   "APR-VAL-004": {
     "reason": "A rule on the stage at which a reader loads a document; the suite answers reject for a parse failure and a validation failure alike.",
-    "coveredBy": ["python/tests/test_spec_examples.py"]
+    "coveredBy": [
+      "python/tests/test_spec_examples.py"
+    ]
   },
   "APR-VAL-005": {
     "reason": "A rule on what a validator does not reject, which no document can violate.",
-    "coveredBy": ["spec:response-contradicts-type", "spec:response-outside-bounds", "spec:response-outside-suggested-values"]
+    "coveredBy": [
+      "spec:response-contradicts-type",
+      "spec:response-outside-bounds",
+      "spec:response-outside-suggested-values"
+    ]
   },
   "APR-TEXT-001": {
     "reason": "A rule on what an implementation does to a response as it reads or writes it, which no input document shows.",
-    "coveredBy": ["corpus:rules/apr-text-001-roundtrip.apr.jsonc", "python/tests/test_format_rules.py", "python/tests/test_unicode_security.py", "tests/PromptResponse.Core.Tests/Serialization/ResponsePreservationTests.cs"]
+    "coveredBy": [
+      "corpus:rules/apr-text-001-roundtrip.apr.jsonc",
+      "python/tests/test_format_rules.py",
+      "python/tests/test_unicode_security.py",
+      "tests/PromptResponse.Core.Tests/Serialization/ResponsePreservationTests.cs"
+    ]
   },
   "APR-VAL-010": {
     "reason": "A rule on the code a reader reports a parse failure under; a document cannot make a reader choose another code.",
-    "coveredBy": ["spec:jsonc-duplicate-member", "corpus:malformed/duplicate-member.apr.jsonc"]
+    "coveredBy": [
+      "spec:jsonc-duplicate-member",
+      "corpus:malformed/duplicate-member.apr.jsonc"
+    ]
   },
   "APR-VAL-011": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:no-document"]
+    "coveredBy": [
+      "spec:no-document"
+    ]
   },
   "APR-VAL-012": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:form-without-metadata", "spec:prompt-without-label"]
+    "coveredBy": [
+      "spec:form-without-metadata",
+      "spec:prompt-without-label"
+    ]
   },
   "APR-VAL-013": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:version-other"]
+    "coveredBy": [
+      "spec:version-other"
+    ]
   },
   "APR-VAL-014": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:duplicate-prompt-id"]
+    "coveredBy": [
+      "spec:duplicate-prompt-id"
+    ]
   },
   "APR-VAL-015": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:empty-section"]
+    "coveredBy": [
+      "spec:empty-section"
+    ]
   },
   "APR-VAL-016": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:table-without-instances"]
+    "coveredBy": [
+      "spec:table-without-instances"
+    ]
   },
   "APR-VAL-017": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:structural-member-wrong-type"]
+    "coveredBy": [
+      "spec:structural-member-wrong-type"
+    ]
   },
   "APR-VAL-018": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:response-contradicts-type"]
+    "coveredBy": [
+      "spec:response-contradicts-type"
+    ]
   },
   "APR-VAL-019": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:pattern-mismatch-is-a-warning"]
+    "coveredBy": [
+      "spec:pattern-mismatch-is-a-warning"
+    ]
   },
   "APR-VAL-020": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:response-outside-bounds"]
+    "coveredBy": [
+      "spec:response-outside-bounds"
+    ]
   },
   "APR-VAL-021": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:response-outside-suggested-values"]
+    "coveredBy": [
+      "spec:response-outside-suggested-values"
+    ]
   },
   "APR-VAL-022": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:unusable-hint"]
+    "coveredBy": [
+      "spec:unusable-hint"
+    ]
   },
   "APR-VAL-023": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:unregistered-data-type-warns"]
+    "coveredBy": [
+      "spec:unregistered-data-type-warns"
+    ]
   },
   "APR-VAL-024": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:undeclared-role"]
+    "coveredBy": [
+      "spec:undeclared-role"
+    ]
   },
   "APR-VAL-025": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:ragged-table"]
+    "coveredBy": [
+      "spec:ragged-table"
+    ]
   },
   "APR-VAL-026": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:ragged-table"]
+    "coveredBy": [
+      "spec:ragged-table"
+    ]
   },
   "APR-VAL-027": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:table-over-capacity"]
+    "coveredBy": [
+      "spec:table-over-capacity"
+    ]
   },
   "APR-VAL-028": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:table-members-on-a-plain-section"]
+    "coveredBy": [
+      "spec:table-members-on-a-plain-section"
+    ]
   },
   "APR-VAL-029": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:unprefixed-member"]
+    "coveredBy": [
+      "spec:unprefixed-member"
+    ]
   },
   "APR-VAL-030": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:submission-scheme-unsupported"]
+    "coveredBy": [
+      "spec:submission-scheme-unsupported"
+    ]
   },
   "APR-VAL-031": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:title-not-nfc"]
+    "coveredBy": [
+      "spec:title-not-nfc"
+    ]
   },
   "APR-VAL-032": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:title-forbidden-code-point"]
+    "coveredBy": [
+      "spec:title-forbidden-code-point"
+    ]
   },
   "APR-VAL-034": {
     "reason": "A permission to report a warning the table does not name, which no document can violate.",
-    "coveredBy": ["scripts/validate-apr.py"]
+    "coveredBy": [
+      "scripts/validate-apr.py"
+    ]
   },
   "APR-VAL-002": {
     "reason": "A rule on how an implementation reports a warning, which a document can only show as valid; the case shows the verdict, the rule governs the reporting.",
-    "coveredBy": ["corpus:rules/apr-val-002-warns.apr.jsonc", "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs", "python/tests/test_unicode_security.py"]
+    "coveredBy": [
+      "corpus:rules/apr-val-002-warns.apr.jsonc",
+      "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs",
+      "python/tests/test_unicode_security.py"
+    ]
   },
   "APR-VAL-006": {
     "reason": "A rule on what a renderer lets a person do, which no input document shows.",
-    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
+    "coveredBy": [
+      "renderer:a-hint-mismatch-does-not-block-saving"
+    ]
   },
   "APR-VAL-035": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
-    "coveredBy": ["spec:title-confusable-script-mix"]
+    "coveredBy": [
+      "spec:title-confusable-script-mix"
+    ]
+  },
+  "APR-CONF-003": {
+    "reason": "A rule on what a reader that does not claim `core+expressions` does with a document that uses them. No document can violate it: the same document is conformant whichever profile the reader claims.",
+    "coveredBy": [
+      "spec:expression-preserved"
+    ]
+  },
+  "APR-CONF-013": {
+    "reason": "A rule on what a writer preserves across a round trip; no document can make a writer drop an expression string.",
+    "coveredBy": [
+      "spec:expression-preserved"
+    ]
   }
 }
