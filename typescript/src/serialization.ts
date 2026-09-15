@@ -1,5 +1,5 @@
 import { AprParseError } from "./errors.js";
-import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RETIRED_MEMBERS, RoleDefinition, Section } from "./model.js";
+import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RoleDefinition, Section } from "./model.js";
 import { normalize } from "./text.js";
 
 export const CURRENT_VERSION = "1.0-beta.6";
@@ -61,7 +61,7 @@ const strings = (value: JsonValue | undefined, what: string): string[] => {
   if (!Array.isArray(value) || value.some(item => typeof item !== "string")) throw new AprParseError(`${what} must be an array of strings`, "WRONG_TYPE");
   return value as string[];
 };
-const rest = (node: JsonObject, known: Set<string>): JsonObject => Object.fromEntries(Object.entries(node).filter(([key]) => !known.has(key) && !RETIRED_MEMBERS.has(key)));
+const rest = (node: JsonObject, known: Set<string>): JsonObject => Object.fromEntries(Object.entries(node).filter(([key]) => !known.has(key)));
 const optionalObject = (value: JsonValue | undefined, what: string): JsonObject | undefined => value === undefined || value === null ? undefined : object(value, what);
 
 function parseHints(value: JsonObject): PromptHints {
@@ -102,8 +102,7 @@ export function loads(text: string): AprDocument {
   // document either declares a kind or leaves the member out entirely.
   if ("documentType" in node && node.documentType === null) throw new AprParseError("documentType, if present, must be a string", "PARSE_ERROR");
   if (node.roles !== undefined && !Array.isArray(node.roles)) throw new AprParseError("roles must be an array", "WRONG_TYPE");
-  if (node.signatures !== undefined) throw new AprParseError("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
-  const known = new Set(["aprVersion", "documentType", "metadata", "sections", "roles", "signatures"]);
+  const known = new Set(["aprVersion", "documentType", "metadata", "sections", "roles"]);
   return { version: string(node, "aprVersion", "document") ?? "", documentType: string(node, "documentType", "document"), metadata: parseMetadata(node.metadata), sections: (node.sections as JsonValue[]).map(parseSection), roles: node.roles === undefined ? undefined : (node.roles as JsonValue[]).map(parseRole), extra: rest(node, known) };
 }
 const compact = (node: Record<string, JsonValue | undefined>): JsonObject => Object.fromEntries(Object.entries(node).filter(([, value]) => value !== undefined && value !== null && !(Array.isArray(value) && value.length === 0) && !(typeof value === "object" && !Array.isArray(value) && Object.keys(value as object).length === 0))) as JsonObject;
@@ -119,7 +118,7 @@ function hintsJson(hints: PromptHints): JsonObject { return { ...compact({ expec
 // still written.
 function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label }; if (prompt.responseIsDeclared || prompt.response) node.response = prompt.response; if (prompt.role) node.role = prompt.role; if (prompt.language) node.language = prompt.language; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; return { ...node, ...prompt.extra }; }
 function sectionJson(section: Section): JsonObject { const node: JsonObject = { id: section.id, title: section.title, ...compact({ description: section.description, kind: section.kind, canAddRows: section.canAddRows, maxRows: section.maxRows, role: section.role, language: section.language }) }; if (section.prompts.length) node.prompts = section.prompts.map(promptJson); if (section.sections.length) node.sections = section.sections.map(sectionJson); return { ...node, ...section.extra }; }
-/** Serialize an APR document while preserving unknown non-retired members. */
+/** Serialize an APR document while preserving unknown members. */
 export function dumps(document: AprDocument, indent = 2): string {
   if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts only ${CURRENT_VERSION}`);
   const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, language: document.metadata.language, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls }), ...document.metadata.extra };

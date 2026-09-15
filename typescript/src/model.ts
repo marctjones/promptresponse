@@ -15,11 +15,9 @@ export interface Prompt {
   /**
    * Whether this filling session computed the response now in `response`.
    *
-   * Not a member, and never written. beta.6 retired `responseMetadata.source`, which
-   * tried to carry this between parties: it rested a prohibition on a marker every
-   * reader was free to drop. Every non-empty response in a document as it was read is
-   * authored, whatever produced it, so what may be recomputed is a fact about this
-   * session rather than about the file.
+   * Not a member, and never written. Every non-empty response in a document as it
+   * was read is authored, whatever produced it, so what may be recomputed is a fact
+   * about this session rather than about the file.
    */
   computedInThisSession?: boolean;
   /**
@@ -50,12 +48,3 @@ export interface AprDocument {
   version: string; documentType?: string; metadata: Metadata; sections: Section[];
   roles?: RoleDefinition[]; extra: JsonObject;
 }
-
-export const RETIRED_MEMBERS = new Set([
-  // Table column presentation, removed before 1.0.
-  "width", "alignment", "color", "background", "fontSize", "bold", "style",
-  // Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
-  // it carried no claim whose silent loss would be worse than its removal, and
-  // preserving it would write it back into a document the format says has none.
-  "responseMetadata",
-]);

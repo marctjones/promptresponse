@@ -102,22 +102,6 @@ test("beta.6 YAML indicator characters inside a plain scalar are ordinary conten
   for (const [source, message] of cases) assert.throws(() => readBeta6Stream(source, "yaml"), message);
 });
 
-test("beta.6 rejects the retired root signatures field", () => {
-  const retired = `${form.slice(0, -1)},"signatures":[]}`;
-  assert.throws(() => readBeta6Form(retired, "jsonc"), (error: unknown) => error instanceof AprParseError && error.code === "RETIRED_EMBEDDED_SIGNATURES");
-});
-
-test("a retired presentation member is dropped, but a name that merely resembles one is preserved", () => {
-  // Specification 5.8.1 retires "width" and its presentation-set siblings, not
-  // the "tableLayout" wrapper that used to carry them -- a name only the
-  // specification retires is dropped; anything merely unfamiliar is preserved
-  // (issue #376).
-  const withExtras = `${form.slice(0, -1).replace('"sections":[{"id":"s","title":"S",', '"sections":[{"id":"s","title":"S","width":40,"tableLayout":{"columns":[]},')}}`;
-  const written = writeBeta6Form(readBeta6Form(withExtras, "jsonc"), "jsonc");
-  assert.doesNotMatch(written, /"width"/);
-  assert.match(written, /"tableLayout"/);
-});
-
 test("beta.6 rejects duplicate JSONC members", () => {
   assert.throws(() => readBeta6Form(form.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc"), /duplicate member/);
 });

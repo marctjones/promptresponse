@@ -79,7 +79,6 @@ function parseRecord(raw: string): Beta6Record {
     validateAttestation(object);
     return { type: "attestation", value: object };
   }
-  if (object.signatures !== undefined) throw new AprParseError("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
   return { type: "form", document: loads(JSON.stringify(object)), value: object };
 }
 

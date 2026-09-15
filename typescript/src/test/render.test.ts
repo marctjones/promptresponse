@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { loads, renderHtml } from "../index.js";
 
-test("generic loader rejects a retired APR version", () => {
+test("generic loader rejects an unsupported APR version", () => {
   assert.throws(() => loads('{"aprVersion":"1.0-beta","metadata":{"title":"T"},"sections":[]}'), /1\.0-beta\.6/);
 });
 
