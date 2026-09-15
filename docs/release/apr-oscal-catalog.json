@@ -13250,7 +13250,7 @@
               {
                 "id": "apr-text-004_gap",
                 "name": "assessment-gap",
-                "prose": "Python, TypeScript and .NET warn, each under HIDDEN_* and BIDI_* codes the warnings table does not name, and each checks a list narrower than the floor; Java and the reference validator report nothing (#506). With no code in the table, no suite case can ask for the warning."
+                "prose": "The blocker moved with beta.7 and this records where it went. Section 7.2 now names RESPONSE_FORBIDDEN_CODE_POINT (APR-VAL-036), so the table no longer lacks a code for this condition; what is missing is a reader that emits it. Measured on a response carrying U+200B: .NET, Python and TypeScript each warn under HIDDEN_ZWSP, a spelling this document does not define, and each checks a list narrower than the section 8.2.3 floor; the reference validator and Java report nothing. A case naming the specified code fails all five, and a case naming HIDDEN_ZWSP would certify the drift rather than the rule (#506)."
               }
             ]
           },
@@ -13426,7 +13426,7 @@
               {
                 "id": "apr-text-007_gap",
                 "name": "assessment-gap",
-                "prose": "Only .NET reports it, as SUBMISSION_URL_HIDDEN_CHARS, a code the warnings table does not name (#507)."
+                "prose": "Section 7.2 now names SUBMISSION_URL_FORBIDDEN_CODE_POINT (APR-VAL-037), so this condition has a code to ask for. Measured on a submissionUrls entry carrying U+200B: only .NET warns, and it reports SUBMISSION_URL_HIDDEN_CHARS, which the warnings table does not name; the reference validator, Python, TypeScript and Java are all silent (#507)."
               }
             ]
           },
@@ -13545,7 +13545,7 @@
               {
                 "id": "apr-text-010_gap",
                 "name": "assessment-gap",
-                "prose": "No implementation reports it, and the warnings table names no code for it (#508)."
+                "prose": "The second half of this gap is out of date and this replaces it: section 7.2 now names ID_FORBIDDEN_CHARACTER (APR-VAL-038), so the warnings table no longer lacks a code for an id outside [A-Za-z0-9_.-]. No implementation reports it. Measured on an id carrying a space and an exclamation mark, all five readers — reference, .NET, Python, TypeScript and Java — accept the document and warn about nothing, which makes this the least evidenced of the three hidden-character conditions: the other two at least draw a differently spelled warning from somebody (#508)."
               }
             ]
           },
@@ -13721,7 +13721,7 @@
               {
                 "id": "apr-text-013_gap",
                 "name": "assessment-gap",
-                "prose": "No renderer case asks how an excluded code point is presented (#110)."
+                "prose": "No renderer case asks how an excluded code point is presented, and none of the seventeen in tests/Conformance/beta6/renderer/cases.json comes close: they ask about accessible names, focus order, table headers, nesting, execution and network access. Closing it means a new case in that fixture that both the Avalonia and the PDF driver answer (#110)."
               }
             ]
           },
