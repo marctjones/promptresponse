@@ -152,6 +152,7 @@ public final class AprConformanceTest {
 
             boolean accepted;
             String detail = "";
+            java.util.List<String> codes = new java.util.ArrayList<>();
             try {
                 // Rejection is a refused read or a form that fails validation: a missing
                 // label parses and is an error, as the conformance driver reports it.
@@ -160,20 +161,27 @@ public final class AprConformanceTest {
                     for (AprBeta6.Record record : AprBeta6.readStream(form == AprBeta6.Representation.JSONC ? framed(document) : document, form))
                         if (record instanceof AprBeta6.FormRecord formRecord) forms.add(formRecord.document());
                 } else forms.add(AprBeta6.readForm(document, form));
-                java.util.List<String> errors = new java.util.ArrayList<>();
-                for (AprDocument read : forms) for (ValidationIssue issue : Apr.validate(read).errors()) errors.add(issue.code());
+                for (AprDocument read : forms) for (ValidationIssue issue : Apr.validate(read).errors()) codes.add(issue.code());
                 // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
-                accepted = !forms.isEmpty() && errors.isEmpty();
-                if (!accepted) detail = String.join(", ", errors);
+                if (forms.isEmpty()) codes.add("NULL_DOCUMENT");
+                accepted = codes.isEmpty();
+                if (!accepted) detail = String.join(", ", codes);
             } catch (RuntimeException rejected) {
                 accepted = false;
                 detail = String.valueOf(rejected.getMessage());
+                if (rejected instanceof AprException refusal && refusal.code() != null) codes.add(refusal.code());
             }
 
             if ("valid".equals(expect) && !accepted)
                 failures.add(id + " (#" + rule + "): specification says valid, it was rejected — " + detail);
+            // The code has to be the one the example names, or a reader refusing for an
+            // unrelated reason would pass.
+            String diagnostic = String.valueOf(example.get("diagnostic"));
             if ("reject".equals(expect) && accepted)
                 failures.add(id + " (#" + rule + "): specification requires rejection, reader accepted it");
+            else if ("reject".equals(expect) && !codes.contains(diagnostic))
+                failures.add(id + " (#" + rule + "): specification names " + diagnostic + ", reader reported "
+                    + (codes.isEmpty() ? "no code — " + detail : String.join(", ", codes)));
         }
         if (!failures.isEmpty()) throw new AssertionError("specification examples failed:\n  " + String.join("\n  ", failures));
         System.out.println("Java specification examples passed: " + checked + " of " + examples.size());

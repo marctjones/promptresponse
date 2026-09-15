@@ -52,6 +52,7 @@ public final class AprBeta6 {
     /** Reads one form, explicitly refusing to select a stream record by position. */
     public static AprDocument readForm(String source, Representation representation) {
         List<Record> records = readStream(source, representation);
+        if (records.isEmpty()) throw new AprException("the source holds no document", "NULL_DOCUMENT");
         if (records.size() != 1 || !(records.getFirst() instanceof FormRecord form)) throw new AprException("a stream must be handled through readStream, not readForm", "APR_STREAM_REQUIRES_ITERATION");
         return form.document();
     }
