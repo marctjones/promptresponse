@@ -213,6 +213,7 @@ class Report:
         "TABLE_MEMBERS_ON_A_PLAIN_SECTION": "APR-VAL-028", "UNPREFIXED_MEMBER": "APR-VAL-029",
         "SUBMISSION_URL_UNSUPPORTED": "APR-VAL-030", "NON_NFC_TEXT": "APR-VAL-031",
         "FORBIDDEN_CODE_POINT": "APR-VAL-032", "CONFUSABLE_SCRIPT_MIX": "APR-VAL-035",
+        "ID_FORBIDDEN_CHARACTER": "APR-VAL-038",
     }
 
     def error(self, code, path, msg, *rules):
@@ -348,11 +349,24 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
                         "APR-MODEL-029", "APR-MODEL-031")
 
 
+ID_CHARACTERS = re.compile(r"[A-Za-z0-9_.-]*")
+
+
+def check_id(report: Report, path: str, identifier) -> None:
+    """Ids are machine keys, carried by manifests, database columns and cell addresses,
+    so a character outside `[A-Za-z0-9_.-]` is worth saying. Never a refusal."""
+    if isinstance(identifier, str) and identifier.strip() and not ID_CHARACTERS.fullmatch(identifier):
+        report.warn("ID_FORBIDDEN_CHARACTER", path,
+                    f"id {identifier!r} carries a character outside [A-Za-z0-9_.-]",
+                    "APR-TEXT-010")
+
+
 def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
     if not isinstance(prompt, dict):
         report.error("WRONG_TYPE", path, "a prompt must be an object")
         return
     check_object(report, prompt, "prompt", path, members)
+    check_id(report, f"{path}/id", prompt.get("id"))
     identifier = prompt.get("id")
     if isinstance(identifier, str) and identifier.strip():
         if identifier in ids["prompt"]:
@@ -438,6 +452,7 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
         report.error("WRONG_TYPE", path, "a section must be an object")
         return
     check_object(report, section, "section", path, members)
+    check_id(report, f"{path}/id", section.get("id"))
     identifier = section.get("id")
     if isinstance(identifier, str) and identifier.strip():
         if identifier in ids["section"]:
@@ -703,6 +718,8 @@ def validate_form(report: Report, form, members) -> None:
             report.error("WRONG_TYPE", f"{where}/id", "a role id is a string", "APR-MODEL-026")
         elif not (role.get("id") or "").strip():
             report.error("REQUIRED_FIELD", f"{where}/id", "a role entry names its id", "APR-MODEL-026")
+        else:
+            check_id(report, f"{where}/id", role["id"])
     roles = {r.get("id") for r in (form.get("roles") or []) if isinstance(r, dict)}
     ids = {"section": set(), "prompt": set()}
     for index, section in enumerate(sections):

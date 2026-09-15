@@ -295,8 +295,14 @@ public final class Apr {
         }
     }
 
+    /** Ids are machine keys, so a character outside [A-Za-z0-9_.-] is worth saying (APR-TEXT-010). */
+    private static void idAdvisory(String id, String path, List<ValidationIssue> warnings) {
+        if (!blank(id) && !id.matches("[A-Za-z0-9_.-]*")) issue(warnings, "ID_FORBIDDEN_CHARACTER", path, "id '" + id + "' carries a character outside [A-Za-z0-9_.-].");
+    }
+
     private static void advisoriesFor(Map<String,Object> prompt, Set<String> roles, List<ValidationIssue> warnings) {
         String id = AprDocument.string(prompt.get("id"));
+        idAdvisory(id, id, warnings);
         String role = AprDocument.string(prompt.get("role"));
         if (role != null && !roles.contains(role)) issue(warnings, "UNDECLARED_ROLE", id, "role '" + role + "' is not declared in roles.");
         inspectExtensions(prompt, PROMPT.keySet(), id, warnings);
@@ -325,6 +331,7 @@ public final class Apr {
 
     @SuppressWarnings("unchecked") private static void documentAdvisories(AprDocument document, List<ValidationIssue> warnings) {
         Set<String> roles = declaredRoles(document);
+        for (String role : roles) idAdvisory(role, "roles", warnings);
         inspectExtensions(document.metadata(), METADATA.keySet(), "metadata", warnings);
         if (document.metadata().get("submissionUrls") instanceof List<?> urls) for (int i = 0; i < urls.size(); i++) {
             String url = String.valueOf(urls.get(i));
@@ -333,6 +340,7 @@ public final class Apr {
                 "submission entry " + i + " names the scheme '" + scheme + "', which this document does not define; a reader offers the entries it understands.");
         }
         walkSections(document.sections(), "sections", (section, path) -> {
+            idAdvisory(AprDocument.string(section.get("id")), path + ".id", warnings);
             if (!"table".equals(section.get("kind")) && (section.get("maxRows") != null || section.get("canAddRows") != null)) issue(warnings, "TABLE_MEMBERS_ON_A_PLAIN_SECTION", path,
                 "maxRows or canAddRows on a section that is not a table; a table is a table only by carrying kind: \"table\".");
             String role = AprDocument.string(section.get("role"));

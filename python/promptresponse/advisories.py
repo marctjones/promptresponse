@@ -17,12 +17,24 @@ _REGISTERED_TYPES = frozenset({
 
 _SUBMISSION_SCHEMES = frozenset({"https", "mailto"})
 
+_ID_CHARACTERS = re.compile(r"[A-Za-z0-9_.-]*")
+
+
+def _id_advisory(identifier, path) -> List[ValidationWarning]:
+    """Ids are machine keys, so a character outside [A-Za-z0-9_.-] is worth saying (APR-TEXT-010)."""
+    if identifier and identifier.strip() and not _ID_CHARACTERS.fullmatch(identifier):
+        return [ValidationWarning(
+            "ID_FORBIDDEN_CHARACTER",
+            f"id {identifier!r} carries a character outside [A-Za-z0-9_.-].", path)]
+    return []
+
 
 def advisories_for(prompt, roles) -> List[ValidationWarning]:
     warnings: List[ValidationWarning] = []
     if prompt.role and prompt.role not in roles:
         warnings.append(ValidationWarning(
             "UNDECLARED_ROLE", f"role {prompt.role!r} is not declared in roles.", prompt.id))
+    warnings.extend(_id_advisory(prompt.id, prompt.id))
     warnings.extend(_inspect_extensions(prompt.extra, prompt.id))
 
     hints = prompt.hints
@@ -69,7 +81,10 @@ def document_advisories(document) -> List[ValidationWarning]:
     roles = {role.id for role in (document.roles or []) if role.id}
     warnings = list(_inspect_extensions(document.metadata.extra, "metadata"))
     warnings.extend(_inspect_submission(document.metadata.submission_urls or []))
+    for index, role in enumerate(document.roles or []):
+        warnings.extend(_id_advisory(role.id, f"roles[{index}].id"))
     for section, path in _walk_sections(document.sections, "sections"):
+        warnings.extend(_id_advisory(section.id, f"{path}.id"))
         if section.kind != "table" and (section.max_rows is not None or section.can_add_rows is not None):
             warnings.append(ValidationWarning(
                 "TABLE_MEMBERS_ON_A_PLAIN_SECTION",

@@ -109,6 +109,28 @@ def test_non_nfc_titles_are_preserved_and_reported_not_silently_cleaned():
     assert any(w.code == "NON_NFC_TEXT" for w in report.warnings)
 
 
+# ── APR-TEXT-010 ids are machine keys ────────────────────────────────────────
+
+@pytest.mark.parametrize("identifier, warns", [
+    ("first name", True), ("café", True), ("q:1", True), ("first_name.v2-A", False)])
+def test_an_id_outside_the_machine_key_characters_warns(identifier, warns):
+    document = pr.loads(json.dumps({
+        "aprVersion": "1.0-beta.6", "metadata": {"title": "T"},
+        "sections": [{"id": "s", "title": "S", "prompts": [{"id": identifier, "label": "L"}]}]}))
+    report = pr.validate(document)
+    assert report.is_valid, "a warning, never a refusal"
+    assert any(w.code == "ID_FORBIDDEN_CHARACTER" for w in report.warnings) is warns
+
+
+def test_a_section_and_a_role_id_outside_the_machine_key_characters_warn():
+    document = pr.loads(json.dumps({
+        "aprVersion": "1.0-beta.6", "metadata": {"title": "T"},
+        "roles": [{"id": "the notary", "name": "Notary"}],
+        "sections": [{"id": "the applicant", "title": "S", "prompts": [{"id": "p", "label": "L"}]}]}))
+    report = pr.validate(document)
+    assert sum(w.code == "ID_FORBIDDEN_CHARACTER" for w in report.warnings) == 2
+
+
 # ── APR-TEXT-012 confusable/mixed-script detection ──────────────────────────
 
 def test_a_cyrillic_letter_hidden_in_a_latin_title_is_reported():

@@ -53,10 +53,30 @@ internal static class AdvisoryVocabulary
         var roles = new HashSet<string>(
             document.Roles?.Select(role => role.Id).Where(id => !string.IsNullOrEmpty(id))
                 ?? [], StringComparer.Ordinal);
+        var roleIndex = 0;
+        foreach (var role in document.Roles ?? [])
+        {
+            Id(role.Id, $"roles[{roleIndex++}].id", result);
+        }
         foreach (var (section, path) in Walk(document))
         {
             InspectSection(section, path, roles, result);
         }
+    }
+
+    // Ids are machine keys, carried by attestation manifests, database columns and cell
+    // addresses, so a character outside [A-Za-z0-9_.-] is worth saying (APR-TEXT-010).
+    // Never a refusal.
+    private static void Id(string? id, string path, ValidationResult result)
+    {
+        if (string.IsNullOrWhiteSpace(id)
+            || id.All(character => character is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z')
+                or (>= '0' and <= '9') or '_' or '.' or '-'))
+        {
+            return;
+        }
+        result.AddWarning(new ValidationWarning(
+            $"id '{id}' carries a character outside [A-Za-z0-9_.-].", path, "ID_FORBIDDEN_CHARACTER"));
     }
 
     private static IEnumerable<(Section Section, string Path)> Walk(AprDocument document)
@@ -90,6 +110,7 @@ internal static class AdvisoryVocabulary
                 + "table only by carrying kind: \"table\".",
                 path, "TABLE_MEMBERS_ON_A_PLAIN_SECTION"));
         }
+        Id(section.Id, $"{path}.id", result);
         Role(section.Role, $"{path}.role", roles, result);
         InspectExtensions(section.Extensions, path, result);
 
@@ -102,6 +123,7 @@ internal static class AdvisoryVocabulary
     private static void InspectPrompt(
         Prompt prompt, string path, HashSet<string> roles, ValidationResult result)
     {
+        Id(prompt.Id, $"{path}.id", result);
         Role(prompt.Role, $"{path}.role", roles, result);
         InspectExtensions(prompt.Extensions, path, result);
 

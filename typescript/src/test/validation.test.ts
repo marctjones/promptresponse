@@ -28,6 +28,22 @@ test("a non-NFC title is preserved exactly and reported, not silently cleaned", 
   assert.deepEqual(codes(validate(document).warnings), ["NON_NFC_TEXT"]);
 });
 
+test("an id outside the machine-key characters warns, never refuses (APR-TEXT-010)", () => {
+  for (const [id, warns] of [["first name", true], ["café", true], ["q:1", true], ["first_name.v2-A", false]] as const) {
+    const result = validate(loads(JSON.stringify({
+      aprVersion: "1.0-beta.6", metadata: { title: "T" },
+      sections: [{ id: "s", title: "S", prompts: [{ id, label: "P" }] }],
+    })));
+    assert.equal(result.errors.length, 0, id);
+    assert.equal(codes(result.warnings).includes("ID_FORBIDDEN_CHARACTER"), warns, id);
+  }
+  const named = validate(loads(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" }, roles: [{ id: "the notary", name: "Notary" }],
+    sections: [{ id: "the applicant", title: "S", prompts: [{ id: "p", label: "P" }] }],
+  })));
+  assert.equal(codes(named.warnings).filter(code => code === "ID_FORBIDDEN_CHARACTER").length, 2);
+});
+
 test("a hidden zero-width space in a title is reported as a forbidden code point", () => {
   const document = loads(JSON.stringify({
     aprVersion: "1.0-beta.6", metadata: { title: "Permit​application" },

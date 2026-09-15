@@ -55,6 +55,13 @@ public final class AprConformanceTest {
         AprDocument legitimate = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Toyota パーツ Order Form\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}"); // Katakana パーツ ("parts")
         if (!Apr.validate(legitimate).warnings().isEmpty()) throw new AssertionError("Latin+Katakana is not a confusable mix: " + codes(Apr.validate(legitimate).warnings()));
 
+        // APR-TEXT-010: an id outside [A-Za-z0-9_.-] warns, on a section, a prompt or a role.
+        AprDocument spaced = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"roles\":[{\"id\":\"the notary\",\"name\":\"N\"}],\"sections\":[{\"id\":\"the applicant\",\"title\":\"S\",\"prompts\":[{\"id\":\"first name\",\"label\":\"P\"}]}]}");
+        long idWarnings = Apr.validate(spaced).warnings().stream().filter(w -> "ID_FORBIDDEN_CHARACTER".equals(w.code())).count();
+        if (idWarnings != 3) throw new AssertionError("a section, a prompt and a role id with a space must each warn ID_FORBIDDEN_CHARACTER, got " + codes(Apr.validate(spaced).warnings()));
+        AprDocument machineKeys = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"applicant.Details-2\",\"title\":\"S\",\"prompts\":[{\"id\":\"first_name.v2-A\",\"label\":\"P\"}]}]}");
+        if (codes(Apr.validate(machineKeys).warnings()).contains("ID_FORBIDDEN_CHARACTER")) throw new AssertionError("ids using only [A-Za-z0-9_.-] must not warn");
+
         AprDocument unregistered = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"hints\":{\"expectedDataType\":\"carrier-pigeon\"}}]}]}");
         if (!codes(Apr.validate(unregistered).warnings()).equals(java.util.List.of("UNREGISTERED_DATA_TYPE"))) throw new AssertionError("an unregistered expectedDataType is a warning, not a rejection");
 

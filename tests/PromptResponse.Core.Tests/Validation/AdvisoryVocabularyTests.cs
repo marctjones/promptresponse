@@ -84,6 +84,32 @@ public class AdvisoryVocabularyTests
                 "bounds describe the control offered, never a limit on the answer");
     }
 
+    [Theory]
+    [InlineData("first name", true)]
+    [InlineData("café", true)]
+    [InlineData("q:1", true)]
+    [InlineData("first_name.v2-A", false)]
+    public void AnIdOutsideTheMachineKeyCharacters_Warns(string id, bool expected)
+    {
+        // APR-TEXT-010. Ids are machine keys; anything outside [A-Za-z0-9_.-] is worth
+        // saying, and never a refusal.
+        var result = Check(Form(new Prompt { Id = id, Label = "P" }));
+
+        result.Warnings.Any(w => w.WarningCode == "ID_FORBIDDEN_CHARACTER").Should().Be(expected);
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ASectionOrRoleIdOutsideTheMachineKeyCharacters_Warns()
+    {
+        var document = Form(new Prompt { Id = "p", Label = "P" });
+        document.Sections![0].Id = "the applicant";
+        document.Roles = [new RoleDefinition { Id = "the notary", Name = "Notary" }];
+
+        Check(document).Warnings.Where(w => w.WarningCode == "ID_FORBIDDEN_CHARACTER")
+            .Should().HaveCount(2);
+    }
+
     [Fact]
     public void AnUndeclaredRole_Warns()
     {

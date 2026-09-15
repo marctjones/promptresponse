@@ -248,9 +248,19 @@ function outOfBounds(prompt: Prompt): ValidationIssue[] {
   return issues;
 }
 
+const ID_CHARACTERS = /^[A-Za-z0-9_.-]*$/;
+
+/** Ids are machine keys, so a character outside [A-Za-z0-9_.-] is worth saying (APR-TEXT-010). */
+function idAdvisory(id: string | undefined, path: string): ValidationIssue[] {
+  return id?.trim() && !ID_CHARACTERS.test(id)
+    ? [{ code: "ID_FORBIDDEN_CHARACTER", message: `id ${JSON.stringify(id)} carries a character outside [A-Za-z0-9_.-].`, path }]
+    : [];
+}
+
 export function advisoriesFor(prompt: Prompt, roles: ReadonlySet<string>): ValidationIssue[] {
   const warnings: ValidationIssue[] = [];
   if (prompt.role && !roles.has(prompt.role)) warnings.push({ code: "UNDECLARED_ROLE", message: `role ${JSON.stringify(prompt.role)} is not declared in roles.`, path: prompt.id });
+  warnings.push(...idAdvisory(prompt.id, prompt.id));
   warnings.push(...inspectExtensions(prompt.extra, prompt.id));
 
   const hints = prompt.hints;
@@ -277,7 +287,9 @@ export function advisoriesFor(prompt: Prompt, roles: ReadonlySet<string>): Valid
 function documentAdvisories(document: AprDocument): ValidationIssue[] {
   const roles = new Set((document.roles ?? []).map(role => role.id).filter(Boolean));
   const warnings: ValidationIssue[] = [...inspectExtensions(document.metadata.extra, "metadata"), ...inspectSubmission(document.metadata.submissionUrls ?? [])];
+  (document.roles ?? []).forEach((role, index) => warnings.push(...idAdvisory(role.id, `roles[${index}].id`)));
   for (const [section, path] of walkSections(document.sections, "sections")) {
+    warnings.push(...idAdvisory(section.id, `${path}.id`));
     if (section.kind !== "table" && (section.maxRows !== undefined || section.canAddRows !== undefined)) warnings.push({
       code: "TABLE_MEMBERS_ON_A_PLAIN_SECTION",
       message: "maxRows or canAddRows on a section that is not a table; a table is a table only by carrying kind: \"table\".",
