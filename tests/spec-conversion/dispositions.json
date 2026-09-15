@@ -3540,8 +3540,9 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "metadata/table-row/76a8fdfbf3"
-      ]
+        "metadata/table-row/374a622863"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "metadata/table-row/c6e8a17936": {
       "anchor": "metadata",
@@ -3577,9 +3578,9 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "metadata/table-row/76a8fdfbf3"
+        "metadata/table-row/374a622863"
       ],
-      "note": "the row's type states it"
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "metadata/sentence/3abf6ccd74": {
       "anchor": "metadata",
@@ -3733,7 +3734,35 @@
       "text": "5.2.1 Submission targets",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "submission/heading/1fe75e26c3",
+        "submission/sentence/6a609404c7",
+        "submission/sentence/b8bdb780a7",
+        "submission/sentence/3b9fefd830",
+        "submission/sentence/9cae6d8849",
+        "submission/sentence/3af3d9a690",
+        "submission/table-header/66a78c1006",
+        "submission/table-row/a05bb5d5c5",
+        "submission/table-row/977786d0f1",
+        "submission/table-row/f6405f0928",
+        "submission/table-row/633fe83e20",
+        "submission/sentence/df24ed4904",
+        "submission/sentence/aec6daade6",
+        "submission/table-row/b5b9c2fa8c",
+        "submission/sentence/0012ab99bc",
+        "submission/sentence/8a63d78e3a",
+        "submission/sentence/76eb736b61",
+        "submission/sentence/009c2a73ef",
+        "submission/sentence/1ececb3368",
+        "submission/sentence/ae1d9b14d0",
+        "submission/sentence/bde61745d3",
+        "submission/sentence/e441625f8d",
+        "submission/sentence/ed2798f253",
+        "submission/sentence/873026214b",
+        "submission/sentence/fb96492d93"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "submission/sentence/6a9238da51": {
       "anchor": "submission",
@@ -3805,11 +3834,12 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/sentence/4ed0d81cd8",
-        "submission/sentence/3ccbff1a4f",
         "submission/table-header/846cfc2998",
-        "submission/table-row/4e71da965c"
-      ]
+        "submission/sentence/4c34c85101",
+        "submission/sentence/fc77556bad",
+        "submission/table-row/13714f3797"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "submission/sentence/83c3c9c97f": {
       "anchor": "submission",
@@ -3818,7 +3848,11 @@
       "text": "The URL is used verbatim, query string included: this is the contract of an S3 pre-signed PUT URL, which carries its own authorisation and expiry in the query, and any receiver that accepts a plain `PUT` of a body satisfies it identically.",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "submission/table-row/67bb8049d1"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "submission/sentence/18ffb1fd05": {
       "anchor": "submission",
@@ -3893,8 +3927,9 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/sentence/43019a8234"
-      ]
+        "submission/sentence/4bda5d7e1e"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "submission/sentence/ad3e0de96f": {
       "anchor": "submission",
@@ -3905,9 +3940,9 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/sentence/43019a8234"
+        "submission/sentence/4bda5d7e1e"
       ],
-      "note": "a receiver is not a class of product this document binds"
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "submission/sentence/acd174d1c0": {
       "anchor": "submission",
@@ -3967,8 +4002,9 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/rationale/9f6bbf18d0"
-      ]
+        "submission/rationale/04d8249d74"
+      ],
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
     },
     "regarding/heading/edd42bd9f7": {
       "anchor": "regarding",

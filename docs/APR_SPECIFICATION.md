@@ -1632,7 +1632,7 @@ Each row below is a requirement on `metadata`.
 | `language` | string | **OPTIONAL** | [APR-MODEL-062] | A BCP 47 language tag for the form's human-facing authoring text. |
 | `templateId` | string | **REQUIRED** when `documentType` is `filledForm` | [APR-MODEL-008] | A URI identifying the template a filled form answers ([Template identity](#template-identity)). Optional on a template. |
 | `templateVersion` | string | **OPTIONAL** | [APR-MODEL-063] | The template revision answered. |
-| `submissionUrls` | array of string | **OPTIONAL** | [APR-MODEL-064] | Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission)). |
+| `submissionUrls` | array of string or object | **OPTIONAL** | [APR-MODEL-064] | Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission)). |
 | `regarding` | array of string | **OPTIONAL** | [APR-MODEL-065] | Digests of the records this form was completed with reference to ([Related records](#regarding)). |
 
 `submissionUrls` is ordered by the author's preferred display order. The order
@@ -1801,24 +1801,71 @@ This document defines no other.
 | `https` | A pre-signed object-store PUT target | HTTP (RFC 9110); the S3 pre-signed URL convention |
 | `mailto` | An email address to attach the document to | RFC 6068 |
 
-**`https`.** The entry is a URL to which the complete document is delivered by a
-single HTTP `PUT`. The URL is used verbatim, query string included: this is the
-contract of an S3 pre-signed PUT URL, which carries its own authorisation and
-expiry in the query, and any receiver that accepts a plain `PUT` of a body
-satisfies it identically. Each row below is a requirement on an implementation
-submitting to an `https` entry.
+**`https`.** The entry names a pre-signed object-store target. Two kinds are
+defined, told apart by the entry's `kind`: a `post`, which carries its policy
+with it, and a `put`, which does not.
+
+A `submissionUrls` entry **MUST** be a string or an object. [APR-MODEL-133]
+
+A reader **MUST** read a string entry as an object whose `kind` is `put` and
+whose `url` is that string. [APR-MODEL-134]
+
+The string form is the shorthand in ordinary use, and it stays. An object entry
+carries these members.
+
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `kind` | string | **REQUIRED** | [APR-MODEL-128] | `put` or `post`. |
+| `url` | string | **REQUIRED** | [APR-MODEL-129] | The target the request is sent to, used verbatim, query string included. |
+| `fields` | object | **OPTIONAL** | [APR-MODEL-130] | The policy fields a `post` target requires, each sent verbatim. |
+| `expires` | string | **OPTIONAL** | [APR-MODEL-131] | An RFC 3339 instant after which the grant is spent. |
+| `refresh` | string | **OPTIONAL** | [APR-MODEL-132] | A URL that issues a replacement entry, described below. |
+
+A `post` entry **MUST** carry `fields`. [APR-MODEL-135]
+
+An implementation **MUST NOT** act on an entry whose `kind` it does not
+recognise or does not implement. [APR-MODEL-139]
+
+Each row below is a requirement on an implementation submitting to an `https`
+entry, of either kind.
 
 | Behaviour | Requirement | Rule |
 | --- | --- | --- |
-| Send the document as the body of one `PUT`, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) | **MUST** | [APR-MODEL-033] |
+| Send the document as the body of one `PUT` to a `put` entry, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) | **MUST** | [APR-MODEL-033] |
+| Send the document to a `post` entry as one `multipart/form-data` POST, every member of `fields` as a form field ahead of the document, the document last and carrying that same media type | **MUST** | [APR-MODEL-136] |
 | Send credentials, cookies, or headers derived from the document | **MUST NOT** | [APR-MODEL-086] |
 | Treat any status other than 2xx as failure | **MUST** | [APR-MODEL-087] |
 | Follow a redirect | **MUST NOT** | [APR-MODEL-088] |
 | Retry without a fresh user action | **MUST NOT** | [APR-MODEL-089] |
 
-What a receiver holds after a `PUT` is the request body, byte for byte: the
-stream as the implementation wrote it, already a valid APR file, needing no
-processing. A WebDAV collection (RFC 4918) is an ordinary `PUT` target.
+A writer **SHOULD** name the stored object by the form's semantic digest, as
+`submissions/` followed by the digest ([Digests](#digests)). [APR-MODEL-138]
+
+What a receiver holds after either request is the document as the implementation
+wrote it, byte for byte: already a valid APR file, needing no processing. A
+WebDAV collection (RFC 4918) is an ordinary `PUT` target.
+
+**Which kind an author chooses.** A `post` entry is the one to reach for where
+the filler is anonymous and untrusted, which is the ordinary case for a public
+form. Its policy travels inside the credential, so the object store enforces a
+size ceiling — `content-length-range`, which has no `PUT` equivalent — and an
+overwrite rule before it accepts a byte. A `put` entry is simpler to issue and
+every S3-compatible store accepts one, but it carries no such conditions: a
+filler can send arbitrarily many gigabytes, and every safeguard against that is
+left to whoever deploys it.
+
+**Refreshing a spent grant.** A pre-signed grant expires. `refresh` names a URL that issues a replacement
+entry, so that a form filled after its target went stale is still deliverable
+without reissuing the form.
+
+An implementation **MUST NOT** fetch `refresh` without an explicit user action.
+[APR-MODEL-137]
+
+What `refresh` returns is one submission entry, of the same shape, to be used in
+place of the spent one. It is a live endpoint of the office that issued the
+form, and it is not `templateId`: nothing here relaxes the rule that a reader
+never fetches a `templateId` ([Metadata](#metadata)), and `refresh` never names
+the document.
 
 **`mailto`.** The entry is an RFC 6068 address, with any header fields it
 carries, such as `subject`, passed through. Submitting composes a message to
@@ -1844,16 +1891,24 @@ An `http` entry is one such scheme.
 
 > Rationale: the format defines *where* a completed form may go and borrows
 > *how* from transports that already exist, rather than specifying one. A
-> pre-signed PUT is the industry's common way to accept an upload without
-> handing out credentials, and every S3-compatible store implements it; a
 > `mailto` address is the way an office without any server at all still
 > receives forms. Redirects are refused for the same reason hidden characters
 > are reported: following one delivers the form to a host the author never
-> named. A pre-signed browser POST is deliberately absent — it needs policy
-> fields beyond the URL, which a string entry cannot carry, and every
-> S3-compatible store accepts a pre-signed PUT. No authentication step is
-> defined because a pre-signed URL *is* the authorisation: the grant travels
-> in the query string, so the implementation never holds a credential.
+> named. No authentication step is defined because a pre-signed grant *is* the
+> authorisation, so the implementation never holds a credential.
+>
+> The object entry exists because a policy does not fit in a URL. A pre-signed
+> POST puts the size ceiling and the overwrite rule inside the credential, where
+> the store enforces them against an anonymous sender; with a bare pre-signed
+> PUT those protections are a fronting service the deployer has to build, and a
+> form nobody is authenticated to send is exactly the case that needs them. The
+> string entry stays because it is what documents in the field carry and because
+> some stores accept no POST at all.
+>
+> Naming the stored object by the form's own digest makes a resubmission of an
+> unchanged form idempotent, gives a changed form a distinct name by itself, and
+> lets a receiver check the name without trusting the sender to have chosen it
+> honestly.
 
 #### 5.2.2 Related records {#regarding}
 

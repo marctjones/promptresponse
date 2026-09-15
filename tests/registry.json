@@ -1148,10 +1148,10 @@
     {
       "id": "REQ-submission",
       "section": "submission",
-      "statement": "A submission entry is an https pre-signed PUT target or a mailto address; delivery is a single PUT or an attachment, on explicit user action, never following a redirect",
+      "statement": "A submission entry is an https pre-signed target, as a put or a post, or a mailto address; delivery is one request or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523).",
+      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418).",
       "rules": [
         "APR-MODEL-033",
         "APR-MODEL-034",
@@ -1162,13 +1162,37 @@
         "APR-MODEL-088",
         "APR-MODEL-089",
         "APR-MODEL-090",
-        "APR-MODEL-091"
+        "APR-MODEL-091",
+        "APR-MODEL-128",
+        "APR-MODEL-129",
+        "APR-MODEL-130",
+        "APR-MODEL-131",
+        "APR-MODEL-132",
+        "APR-MODEL-133",
+        "APR-MODEL-134",
+        "APR-MODEL-135",
+        "APR-MODEL-136",
+        "APR-MODEL-137",
+        "APR-MODEL-138",
+        "APR-MODEL-139"
       ],
       "gapRules": [
         "APR-MODEL-086",
         "APR-MODEL-088",
         "APR-MODEL-089",
-        "APR-MODEL-090"
+        "APR-MODEL-090",
+        "APR-MODEL-128",
+        "APR-MODEL-129",
+        "APR-MODEL-130",
+        "APR-MODEL-131",
+        "APR-MODEL-132",
+        "APR-MODEL-133",
+        "APR-MODEL-134",
+        "APR-MODEL-135",
+        "APR-MODEL-136",
+        "APR-MODEL-137",
+        "APR-MODEL-138",
+        "APR-MODEL-139"
       ]
     },
     {
