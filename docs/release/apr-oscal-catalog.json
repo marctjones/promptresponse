@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "b68005dc-bf25-54ae-bb8e-fac92c9a3c19",
+    "uuid": "8a9d497f-e793-57e6-823a-b3bf5feaf320",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "6868c4ef9d7a65be198f05fec6c088b5baf796338726308ad59b4daf5fd4775a"
+          "value": "3700623c8dacc1ae4672b5aafa3e066b17a00d11fa1ae40b33e2ab9f1e0a4a7e"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -78,7 +78,7 @@
               {
                 "id": "apr-sec-002_smt",
                 "name": "statement",
-                "prose": "A reader **MUST** reject a record whose `aprVersion` is neither `\"1.0-beta.7\"` nor `\"1.0-beta.6\"`, reporting `UNSUPPORTED_VERSION`."
+                "prose": "A reader **MUST** reject a record that states an `aprVersion` other than `\"1.0-beta.7\"` or `\"1.0-beta.6\"`, reporting `UNSUPPORTED_VERSION`."
               }
             ]
           }
@@ -11476,7 +11476,7 @@
               {
                 "id": "apr-val-012_smt",
                 "name": "statement",
-                "prose": "`REQUIRED_FIELD` — `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. — **MUST**"
+                "prose": "`REQUIRED_FIELD` — `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` absent or blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. — **MUST**"
               }
             ]
           },
@@ -11533,7 +11533,7 @@
               {
                 "id": "apr-val-013_smt",
                 "name": "statement",
-                "prose": "`UNSUPPORTED_VERSION` — `aprVersion` is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). — **MUST**"
+                "prose": "`UNSUPPORTED_VERSION` — `aprVersion` is stated and is neither `1.0-beta.7` nor `1.0-beta.6` ([Version compatibility](#version-compatibility)). — **MUST**"
               }
             ]
           },
