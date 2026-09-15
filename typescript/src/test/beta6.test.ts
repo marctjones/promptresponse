@@ -161,6 +161,25 @@ test("beta.6 a manifest carries an entry for every value (APR-DIGEST-010)", () =
   assert.deepEqual([...paths].sort(), [...expected].sort());
 });
 
+test("beta.6 a verifier reports only the paths the manifest carries (APR-DIGEST-005)", () => {
+  const original = JSON.parse(form);
+  const edited = JSON.parse(form);
+  edited.sections[0].prompts[0].response = "Grace";
+  const carried = ["", "/sections/0/prompts/0/response"];
+  const manifest = createBeta6Manifest(edited);
+  const attestation = {
+    recordType: "attestation", aprVersion: "1.0-beta.6",
+    subject: { digest: digestBeta6(original), canonicalization: "jcs-sha256" },
+    scope: { kind: "document" },
+    manifest: { root: manifest.root, entries: manifest.entries.filter(entry => carried.includes(entry.path)) },
+    proofs: [], witnesses: [],
+  };
+  const stream = `${form}\n${JSON.stringify(attestation)}\n`;
+  const [result] = resolveBeta6Attestations(readBeta6Stream(stream, "jsonc"));
+  assert.equal(result.state, "invalid");
+  assert.deepEqual([...result.differingPaths].sort(), [...carried].sort());
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");

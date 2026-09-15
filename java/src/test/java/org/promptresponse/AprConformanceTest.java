@@ -10,6 +10,7 @@ public final class AprConformanceTest {
         forbiddenCodePoints();
         versionPresence();
         writerFloors();
+        verifierReportsCarriedPaths();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -29,6 +30,29 @@ public final class AprConformanceTest {
         expectParseError("{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}", "a member name");
         AprDocument kept = AprBeta6.readForm(prefix + "\\t\\r\\n \\ud83d\\ude00" + suffix, AprBeta6.Representation.JSONC);
         if (!("a\t\r\n 😀b").equals(kept.metadata().get("title"))) throw new AssertionError("tab, line breaks and a surrogate pair must be read: " + kept.metadata().get("title"));
+    }
+
+    /** APR-DIGEST-005: a difference is reported only at paths the manifest carries, the deepest included. */
+    @SuppressWarnings("unchecked") private static void verifierReportsCarriedPaths() {
+        String form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
+        Object original = Json.parse(form);
+        Object edited = Json.parse(form.replace("\"Ada\"", "\"Grace\""));
+        java.util.Set<String> carried = java.util.Set.of("", "/sections/0/prompts/0/response");
+        var manifest = AprBeta6Integrity.createManifest(edited);
+        java.util.List<Object> entries = new java.util.ArrayList<>();
+        for (var entry : manifest.entries()) if (carried.contains(entry.path())) entries.add(java.util.Map.of("path", entry.path(), "digest", entry.digest()));
+        var attestation = new java.util.LinkedHashMap<String, Object>();
+        attestation.put("recordType", "attestation");
+        attestation.put("aprVersion", "1.0-beta.6");
+        attestation.put("subject", java.util.Map.of("digest", AprBeta6Integrity.digest(original), "canonicalization", "jcs-sha256"));
+        attestation.put("scope", java.util.Map.of("kind", "document"));
+        attestation.put("manifest", java.util.Map.of("root", manifest.root(), "entries", entries));
+        attestation.put("proofs", java.util.List.of());
+        attestation.put("witnesses", java.util.List.of());
+        String stream = "" + form + "\n" + Json.write(attestation) + "\n";
+        var result = AprBeta6Integrity.resolve(AprBeta6.readStream(stream, AprBeta6.Representation.JSONC)).getFirst();
+        if (!"invalid".equals(result.state())) throw new AssertionError("a manifest that differs from its resolved subject is invalid, not " + result.state());
+        if (!new java.util.HashSet<>(result.differingPaths()).equals(carried)) throw new AssertionError("a verifier must report exactly the carried paths that differ: " + result.differingPaths());
     }
 
     /** APR-REP-018, APR-MODEL-127 and APR-DIGEST-010: what a writer and a manifest producer emit. */

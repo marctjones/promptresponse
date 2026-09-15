@@ -58,6 +58,21 @@ public class ReorderTests
     }
 
     [Fact]
+    public void MovePrompt_KeepsEveryPromptId()
+    {
+        // APR-MODEL-094: a writer MUST NOT change an id when it reorders prompts.
+        var (vm, model, _) = NewSectionWithPrompts(4);
+        var idByLabel = model.Prompts.ToDictionary(p => p.Label, p => p.Id);
+
+        vm.MovePrompt(0, 3);
+        vm.MovePrompt(2, 1);
+
+        model.Prompts.Should().OnlyContain(p => idByLabel[p.Label] == p.Id,
+            "a reorder moves a prompt; it never renames one");
+        model.Prompts.Select(p => p.Id).Should().OnlyHaveUniqueItems();
+    }
+
+    [Fact]
     public void MovePrompt_BetweenMiddlePositions_Works()
     {
         var (vm, model, _) = NewSectionWithPrompts(4);

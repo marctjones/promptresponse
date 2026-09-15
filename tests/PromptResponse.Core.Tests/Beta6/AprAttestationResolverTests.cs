@@ -26,6 +26,39 @@ public class AprAttestationResolverTests
     }
 
     [Fact]
+    public void AVerifier_ReportsOnlyThePathsTheManifestCarries()
+    {
+        // APR-DIGEST-005: the difference is reported at the most specific path the manifest
+        // carries, and never at a path it does not carry.
+        const string form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
+        using var original = System.Text.Json.JsonDocument.Parse(form);
+        using var edited = System.Text.Json.JsonDocument.Parse(form.Replace("\"Ada\"", "\"Grace\"", StringComparison.Ordinal));
+        string[] carried = ["", "/sections/0/prompts/0/response"];
+        var manifest = AprSemanticDigest.CreateManifest(edited.RootElement);
+        var attestation = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            recordType = "attestation",
+            aprVersion = "1.0-beta.6",
+            subject = new { digest = AprSemanticDigest.Digest(original.RootElement), canonicalization = "jcs-sha256" },
+            scope = new { kind = "document" },
+            manifest = new
+            {
+                root = manifest.Root,
+                entries = manifest.Entries.Where(entry => carried.Contains(entry.Path))
+                    .Select(entry => new { path = entry.Path, digest = entry.Digest }),
+            },
+            proofs = Array.Empty<object>(),
+            witnesses = Array.Empty<string>(),
+        });
+        var records = new AprBeta6Reader().ReadStream("" + form + "\n" + attestation + "\n", AprRepresentation.Jsonc);
+
+        var result = AprAttestationResolver.Resolve(records).Single();
+
+        result.State.Should().Be(AprAttestationState.Invalid);
+        result.DifferingPaths.Should().BeEquivalentTo(carried);
+    }
+
+    [Fact]
     public void MismatchedManifest_IsInvalidButNeverRemovesTheForm()
     {
         var form = FormRecord();

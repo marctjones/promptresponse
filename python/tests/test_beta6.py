@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from pathlib import Path
 
@@ -121,6 +123,27 @@ def test_beta6_a_manifest_carries_an_entry_for_every_value():
     # APR-DIGEST-010: one entry per value at every depth, unknown members included.
     paths = [entry["path"] for entry in pr.create_manifest(MANIFEST_VALUE)["entries"]]
     assert sorted(paths) == sorted(MANIFEST_PATHS)
+
+
+def test_beta6_a_verifier_reports_only_the_paths_the_manifest_carries():
+    # APR-DIGEST-005: the difference is reported at the most specific path the manifest
+    # carries, and never at a path it does not carry.
+    form = json.loads(FORM)
+    edited = json.loads(FORM)
+    edited["sections"][0]["prompts"][0]["response"] = "Grace"
+    carried = {"", "/sections/0/prompts/0/response"}
+    manifest = pr.create_manifest(edited)
+    attestation = {
+        "recordType": "attestation", "aprVersion": "1.0-beta.6",
+        "subject": {"digest": pr.digest(form), "canonicalization": "jcs-sha256"},
+        "scope": {"kind": "document"},
+        "manifest": {"root": manifest["root"], "entries": [e for e in manifest["entries"] if e["path"] in carried]},
+        "proofs": [], "witnesses": [],
+    }
+    stream = "\x1e" + FORM + "\n\x1e" + json.dumps(attestation) + "\n"
+    [result] = pr.resolve_attestations(pr.read_beta6_stream(stream, "jsonc"))
+    assert result["state"] == "invalid"
+    assert set(result["differingPaths"]) == carried
 
 
 def test_beta6_shared_malformed_corpus_is_rejected():
