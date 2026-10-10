@@ -9,12 +9,27 @@
                    Text="{Binding Label}"
                    FontWeight="SemiBold"
                    AutomationProperties.Name="{Binding Label}"/>
-        <TextBox x:Name="ResponseTextBox"
-                 Text="{Binding Response, Mode=TwoWay}"
-                 PlaceholderText="{Binding Placeholder}"
-                 MinHeight="36"
-                 AutomationProperties.Name="{Binding Label}"
-                 AutomationProperties.HelpText="{Binding HelpText}"/>
+        <Grid ColumnDefinitions="*,Auto">
+            <TextBox x:Name="ResponseTextBox"
+                     Text="{Binding Response, Mode=TwoWay}"
+                     PlaceholderText="{Binding Placeholder}"
+                     MinHeight="36"
+                     AutomationProperties.Name="{Binding Label}"
+                     AutomationProperties.HelpText="{Binding HelpText}"/>
+            <!-- A colour field previews what its text means. Decoration only: it has no
+                 accessible name, takes no focus, and the text box remains the answer. -->
+            <Border x:Name="ColorSwatch"
+                    Grid.Column="1"
+                    Width="36" Height="36"
+                    Margin="8,0,0,0"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource Pr.DividerBrush}"
+                    IsVisible="False"
+                    Focusable="False"
+                    IsHitTestVisible="False"
+                    AutomationProperties.AccessibilityView="Raw"/>
+        </Grid>
         <SelectableTextBlock x:Name="HelpText"
                    Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
