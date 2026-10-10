@@ -800,16 +800,20 @@
       "id": "REQ-expr-binding",
       "section": "expr-binding",
       "statement": "A response binds to the CEL type its expectedDataType row gives",
-      "strength": "partial",
-      "gates": [],
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
       "rules": [
         "APR-EXPR-023",
         "APR-EXPR-024",
         "APR-EXPR-025",
         "APR-EXPR-026",
         "APR-EXPR-027"
-      ],
-      "gap": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+      ]
     },
     {
       "id": "REQ-expr-authoring",

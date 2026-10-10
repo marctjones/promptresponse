@@ -5345,6 +5345,43 @@ expects: {"validation": {"check": "12!"}}
 }
 ```
 
+**Example 11.5-5.** A `boolean` response binds as a `bool`, so `false` takes the
+false branch of a conditional.
+
+```apr-example
+id: expr-bind-boolean
+rule: expr-binding
+satisfies: APR-EXPR-024
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"agree": "please agree"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "agree",
+          "label": "Agree",
+          "response": "false",
+          "hints": {
+            "expectedDataType": "boolean",
+            "exprValidation": "agree ? '' : 'please agree'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.6 Values that will not bind {#expr-unbound}
 
 An implementation **MUST** treat a response that cannot be converted to its
@@ -5643,6 +5680,76 @@ expects: {"readOnly": {"reference": true, "details": false}}
           "id": "details",
           "label": "Details",
           "hints": { "exprReadOnly": "nosuch == 'no'" }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-7.** An `exprHidden` that returns a `string` is the wrong type, so
+the prompt is shown; a non-empty string is not true.
+
+```apr-example
+id: expr-fallback-hidden-not-bool
+rule: expr-fallback
+satisfies: APR-EXPR-029
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"hidden": {"details": false}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "details",
+          "label": "Details",
+          "hints": {
+            "exprHidden": "'yes'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-8.** A computed `boolean` is written as `true` or `false`.
+
+```apr-example
+id: expr-canonical-boolean
+rule: expr-fallback
+satisfies: APR-EXPR-028
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"flag": "true"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "flag",
+          "label": "Flag",
+          "hints": {
+            "expectedDataType": "boolean",
+            "exprValue": "1.0 < 2.0"
+          }
         }
       ]
     }

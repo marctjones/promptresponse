@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "8a52821f-bb0c-5930-b41a-5be86e3cab8f",
+    "uuid": "bb9cfb96-8a51-5c16-8395-26582f968799",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "1b3fcc2b742a2a92df7d05c0dedc465c6eaba735141da751ba7fd3620f8e72a1"
+          "value": "96157d8bb34b14c354ad2a76f8dee50967e06e5d4348aa0fa0dcc798e987aa19"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -16090,7 +16090,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16124,11 +16124,6 @@
                 "id": "apr-expr-023_smt",
                 "name": "statement",
                 "prose": "`number`, `currency`, `range` — `double` — **MUST**"
-              },
-              {
-                "id": "apr-expr-023_gap",
-                "name": "assessment-gap",
-                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
               }
             ]
           },
@@ -16152,7 +16147,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16186,11 +16181,6 @@
                 "id": "apr-expr-024_smt",
                 "name": "statement",
                 "prose": "`boolean` — `bool` — **MUST**"
-              },
-              {
-                "id": "apr-expr-024_gap",
-                "name": "assessment-gap",
-                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
               }
             ]
           },
@@ -16214,7 +16204,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16248,11 +16238,6 @@
                 "id": "apr-expr-025_smt",
                 "name": "statement",
                 "prose": "`date`, `time`, `datetime` — `timestamp` — **MUST**"
-              },
-              {
-                "id": "apr-expr-025_gap",
-                "name": "assessment-gap",
-                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
               }
             ]
           },
@@ -16276,7 +16261,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16310,11 +16295,6 @@
                 "id": "apr-expr-026_smt",
                 "name": "statement",
                 "prose": "`multichoice` — `list<string>` — **MUST**"
-              },
-              {
-                "id": "apr-expr-026_gap",
-                "name": "assessment-gap",
-                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
               }
             ]
           },
@@ -16338,7 +16318,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -16372,11 +16352,6 @@
                 "id": "apr-expr-027_smt",
                 "name": "statement",
                 "prose": "everything else, or absent — `string` — **MUST**"
-              },
-              {
-                "id": "apr-expr-027_gap",
-                "name": "assessment-gap",
-                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
               }
             ]
           },

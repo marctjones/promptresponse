@@ -709,6 +709,32 @@
       }
     },
     {
+      "id": "expr-bind-boolean",
+      "number": "11.5-5",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"agree\",\n          \"label\": \"Agree\",\n          \"response\": \"false\",\n          \"hints\": {\n            \"expectedDataType\": \"boolean\",\n            \"exprValidation\": \"agree ? '' : 'please agree'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-024"
+      ],
+      "satisfies": [
+        "APR-EXPR-024"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "agree": "please agree"
+        }
+      }
+    },
+    {
       "id": "expr-bind-currency",
       "number": "11.5-1",
       "rule": "expr-binding",
@@ -809,6 +835,32 @@
       "expects": {
         "validation": {
           "check": "12!"
+        }
+      }
+    },
+    {
+      "id": "expr-canonical-boolean",
+      "number": "11.8-8",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"flag\",\n          \"label\": \"Flag\",\n          \"hints\": {\n            \"expectedDataType\": \"boolean\",\n            \"exprValue\": \"1.0 < 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-028"
+      ],
+      "satisfies": [
+        "APR-EXPR-028"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "flag": "true"
         }
       }
     },
@@ -978,6 +1030,32 @@
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"details\",\n          \"label\": \"Details\",\n          \"hints\": {\n            \"exprHidden\": \"nosuch == 'no'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-029"
+      ],
+      "satisfies": [
+        "APR-EXPR-029"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "hidden": {
+          "details": false
+        }
+      }
+    },
+    {
+      "id": "expr-fallback-hidden-not-bool",
+      "number": "11.8-7",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"details\",\n          \"label\": \"Details\",\n          \"hints\": {\n            \"exprHidden\": \"'yes'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "rules": [
         "APR-EXPR-029"
       ],
