@@ -71,13 +71,13 @@ In order:
 
 1. **Fix what agreement hid.** The JSONC trailing-comma stripper rewrites string
    contents in the oracle and all three SDKs (a response `"1,]"` reads back as
-   `1]`), so a response is no longer byte-for-byte what was written. The
+   `1]`), so a response is no longer byte-for-byte what was written (#550). The
    corpus needs a case with that shape, then the fix everywhere. With it:
    Python boolean binding (#512), naive datetimes binding through the host time
-   zone (Python, TypeScript), the Java driver aborting on deep nesting, a JSON
+   zone (Python, TypeScript; #551), the Java driver aborting on deep nesting, a JSON
    array record reported as a mixed stream (#510), multichoice binding (#515),
    `string(duration)` (#544), and blank submission members (#545).
-2. **Readers accept `1.0-beta.7`.** The specification describes beta.7 and no
+2. **Readers accept `1.0-beta.7`** (#549). The specification describes beta.7 and no
    example, reader or validator carries it; every reader accepts beta.6 only, and
    the Desktop app sniffs the literal string. Collapse each reader's version
    check onto one constant, then add the version pair, the hidden-character
