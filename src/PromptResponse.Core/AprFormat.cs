@@ -15,8 +15,8 @@ namespace PromptResponse.Core;
 ///   <c>docs/APR_SPECIFICATION.md</c>.</item>
 ///   <item><b>Conformance corpus tag</b> — beta.6, in <c>tests/Conformance/beta6</c>.</item>
 /// </list>
-/// This repository has not made a public release, so it deliberately has no wire
-/// compatibility policy: a document must declare the exact current version.
+/// Beta.7 adds no member to a record and removes none, so a reader accepts it
+/// alongside beta.6; a document must declare one of <see cref="AcceptedVersions"/>.
 /// </remarks>
 public static class AprFormat
 {
@@ -25,5 +25,8 @@ public static class AprFormat
 
     /// <summary>Whether this build can read a document declaring the given version.</summary>
     public static bool IsSupported(string? version) =>
-        string.Equals(version, CurrentVersion, StringComparison.Ordinal);
+        version is not null && AcceptedVersions.Contains(version, StringComparer.Ordinal);
+
+    /// <summary>Every format version a reader accepts, current first.</summary>
+    public static IReadOnlyList<string> AcceptedVersions { get; } = ["1.0-beta.7", "1.0-beta.6"];
 }

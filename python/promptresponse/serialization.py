@@ -24,7 +24,7 @@ from .models import (
     SubmissionTarget,
 )
 from .text import normalize
-from .versioning import CURRENT_VERSION, is_supported_version
+from .versioning import ACCEPTED_VERSIONS, is_supported_version
 from .wire import (
     compact_members as _compact,
     require_object as _require_object,
@@ -287,7 +287,7 @@ def loads(text: str) -> AprDocument:
         extra=_rest(node, known),
     )
     if not is_supported_version(document.version):
-        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}", "UNSUPPORTED_VERSION")
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts {' or '.join(ACCEPTED_VERSIONS)}", "UNSUPPORTED_VERSION")
     return document
 
 
@@ -377,7 +377,7 @@ def _submission_json(target: SubmissionTarget) -> Union[str, Dict[str, Any]]:
 def dumps(document: AprDocument, indent: int = 2) -> str:
     """Writes APR JSON, preserving every member this reader did not recognise."""
     if not is_supported_version(document.version):
-        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}", "UNSUPPORTED_VERSION")
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts {' or '.join(ACCEPTED_VERSIONS)}", "UNSUPPORTED_VERSION")
     metadata = {"title": document.metadata.title}
     metadata.update(_compact({
         "description": document.metadata.description,

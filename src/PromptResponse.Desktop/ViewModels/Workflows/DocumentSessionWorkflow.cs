@@ -1,3 +1,4 @@
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Beta6;
 using PromptResponse.Desktop.Services;
@@ -78,7 +79,7 @@ internal sealed class DocumentSessionWorkflow
     {
         if (string.IsNullOrWhiteSpace(path) || !File.Exists(path)) return fallback;
         var source = await File.ReadAllTextAsync(path);
-        if (!source.Contains("1.0-beta.6", StringComparison.Ordinal)) return fallback;
+        if (!AprFormat.AcceptedVersions.Any(version => source.Contains(version, StringComparison.Ordinal))) return fallback;
 
         var records = new AprBeta6Reader().ReadStream(source, AprBeta6Reader.RepresentationOf(source));
         var forms = records.OfType<AprFormRecord>().ToList();

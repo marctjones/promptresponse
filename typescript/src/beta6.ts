@@ -1,13 +1,12 @@
 import { isAlias, isMap, isNode, isPair, isScalar, isSeq, parseAllDocuments, Scalar, stringify, visit, type Document } from "yaml";
 import { AprParseError } from "./errors.js";
 import { AprDocument, JsonObject, JsonValue } from "./model.js";
-import { dumps, loads } from "./serialization.js";
+import { ACCEPTED_VERSIONS, dumps, isSupportedVersion, loads } from "./serialization.js";
 
 /** Source representations defined by APR beta.6. */
 export type Beta6Representation = "jsonc" | "yaml";
 /** An independent beta.6 stream occurrence. */
 export type Beta6Record = { type: "form"; document: AprDocument; /** Full parsed semantic object, including extensions. */ value?: JsonObject } | { type: "attestation"; value: JsonObject };
-const VERSION = "1.0-beta.6";
 
 /** Reads all stream occurrences without assigning meaning from their order. */
 export function readBeta6Stream(source: string, representation: Beta6Representation): Beta6Record[] {
@@ -48,7 +47,7 @@ export function readBeta6Form(source: string, representation: Beta6Representatio
 
 /** Writes one beta.6 form in the requested representation. */
 export function writeBeta6Form(document: AprDocument, representation: Beta6Representation): string {
-  if (document.version !== VERSION) throw new AprParseError(`APR beta.6 writers require version ${VERSION}`);
+  if (!isSupportedVersion(document.version)) throw new AprParseError(`APR writers require version ${ACCEPTED_VERSIONS.join(" or ")}`);
   const json = dumps(document);
   return representation === "jsonc" ? json : stringify(JSON.parse(json));
 }
@@ -80,7 +79,7 @@ function parseRecord(raw: string): Beta6Record {
   if (object.aprVersion === undefined || object.aprVersion === null || (typeof object.aprVersion === "string" && !object.aprVersion.trim())) {
     throw new AprParseError("an APR beta.6 record must state aprVersion", "REQUIRED_FIELD");
   }
-  if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`, "UNSUPPORTED_VERSION");
+  if (typeof object.aprVersion !== "string" || !isSupportedVersion(object.aprVersion)) throw new AprParseError(`APR records must declare aprVersion ${ACCEPTED_VERSIONS.join(" or ")}`, "UNSUPPORTED_VERSION");
   if (object.recordType !== undefined) {
     if (object.recordType !== "attestation") throw new AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE");
     validateAttestation(object);

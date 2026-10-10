@@ -36,7 +36,7 @@ public class DocumentValidator : IValidator<AprDocument>
     {
         if (string.IsNullOrWhiteSpace(document.Version)) { result.AddError(new ValidationError("Version is required", "version", "REQUIRED_FIELD")); return; }
         if (!AprFormat.IsSupported(document.Version))
-            result.AddError(new ValidationError($"Unsupported APR version '{document.Version}'. This build accepts only {AprFormat.CurrentVersion}.", "version", "UNSUPPORTED_VERSION"));
+            result.AddError(new ValidationError($"Unsupported APR version '{document.Version}'. This build accepts {string.Join(" or ", AprFormat.AcceptedVersions)}.", "version", "UNSUPPORTED_VERSION"));
     }
 
     private static void ValidateRoles(AprDocument document, ValidationResult result)

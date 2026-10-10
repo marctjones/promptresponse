@@ -12,7 +12,6 @@ import org.yaml.snakeyaml.resolver.Resolver;
 
 /** APR beta.6 JSONC/YAML representation and independent-stream API. */
 public final class AprBeta6 {
-    public static final String VERSION = "1.0-beta.6";
     public enum Representation { JSONC, YAML }
     public sealed interface Record permits FormRecord, AttestationRecord { }
     public record FormRecord(AprDocument document, Map<String,Object> value) implements Record {
@@ -59,7 +58,7 @@ public final class AprBeta6 {
 
     /** Writes a beta.6 form in the requested representation. */
     public static String writeForm(AprDocument document, Representation representation) {
-        if (!VERSION.equals(document.version())) throw new AprException("APR beta.6 writers require version " + VERSION);
+        if (!Apr.isSupportedVersion(document.version())) throw new AprException("APR writers require version " + String.join(" or ", Apr.ACCEPTED_VERSIONS));
         return writeJson(document.toJson(), representation);
     }
 
@@ -85,7 +84,7 @@ public final class AprBeta6 {
         // is rather than a version this reader does not accept.
         Object stated = value.get("aprVersion");
         if (stated == null || (stated instanceof String text && text.isBlank())) throw new AprException("An APR beta.6 record must state aprVersion", "REQUIRED_FIELD");
-        if (!VERSION.equals(stated)) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION, "UNSUPPORTED_VERSION");
+        if (!Apr.isSupportedVersion(stated)) throw new AprException("APR records must declare aprVersion " + String.join(" or ", Apr.ACCEPTED_VERSIONS), "UNSUPPORTED_VERSION");
         if (value.containsKey("recordType")) {
             if (!"attestation".equals(value.get("recordType"))) throw new AprException("Unknown APR beta.6 stream record type", "WRONG_TYPE");
             validateAttestation(value);

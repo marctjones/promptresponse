@@ -8,7 +8,13 @@ import java.util.*;
 /** Entry point for reading, writing, and structurally validating APR documents. */
 public final class Apr {
     public static final String PROFILE = "core";
+    /** The version a new document states. */
     public static final String VERSION = "1.0-beta.6";
+    /** Every version a reader accepts; beta.7 adds no member, so a beta.6 record is a beta.7 record. */
+    public static final java.util.List<String> ACCEPTED_VERSIONS = java.util.List.of("1.0-beta.7", "1.0-beta.6");
+
+    /** Whether a document states a version this build reads. */
+    public static boolean isSupportedVersion(Object version) { return version instanceof String text && ACCEPTED_VERSIONS.contains(text); }
     private Apr() { }
     public static AprDocument parse(String json) {
         Object parsed = Json.parse(json);
@@ -16,7 +22,7 @@ public final class Apr {
         @SuppressWarnings("unchecked") Map<String,Object> root = (Map<String,Object>) map;
         for (String required : List.of("aprVersion", "metadata", "sections")) if (!root.containsKey(required)) throw new AprException(required + " is required. A document missing it is a structurally wrong shape, which is a parse failure rather than a validation error (specification 6.3).", "REQUIRED_FIELD");
         if (!(root.get("aprVersion") instanceof String)) throw new AprException("aprVersion must be a string", "WRONG_TYPE");
-        if (!VERSION.equals(root.get("aprVersion"))) throw new AprException("Unsupported APR version " + root.get("aprVersion") + "; this build accepts only " + VERSION, "UNSUPPORTED_VERSION");
+        if (!isSupportedVersion(root.get("aprVersion"))) throw new AprException("Unsupported APR version " + root.get("aprVersion") + "; this build accepts " + String.join(" or ", ACCEPTED_VERSIONS), "UNSUPPORTED_VERSION");
         if (!(root.get("metadata") instanceof Map<?, ?>)) throw new AprException("metadata must be an object", "WRONG_TYPE");
         if (!(root.get("sections") instanceof List<?>)) throw new AprException("sections must be an array", "WRONG_TYPE");
         // Present-but-null is a value, and this member has no null spelling: a document
@@ -30,14 +36,14 @@ public final class Apr {
         return parse(json.startsWith("\uFEFF") ? json.substring(1) : json);
     }
     public static void write(AprDocument document, Path path) throws IOException {
-        if (!VERSION.equals(document.version())) throw new AprException("Unsupported APR version " + document.version() + "; this build accepts only " + VERSION, "UNSUPPORTED_VERSION");
+        if (!isSupportedVersion(document.version())) throw new AprException("Unsupported APR version " + document.version() + "; this build accepts " + String.join(" or ", ACCEPTED_VERSIONS), "UNSUPPORTED_VERSION");
         Files.writeString(path, document.toJson(), StandardCharsets.UTF_8);
     }
     public static ValidationResult validate(AprDocument document) {
         List<ValidationIssue> errors = new ArrayList<>();
         List<ValidationIssue> warnings = new ArrayList<>();
         if (blank(document.version())) issue(errors,"REQUIRED_FIELD","aprVersion","aprVersion is required.");
-        else if (!VERSION.equals(document.version())) issue(errors,"UNSUPPORTED_VERSION","aprVersion","Unsupported APR version; this build accepts only " + VERSION + ".");
+        else if (!isSupportedVersion(document.version())) issue(errors,"UNSUPPORTED_VERSION","aprVersion","Unsupported APR version; this build accepts " + String.join(" or ", ACCEPTED_VERSIONS) + ".");
         String title = AprDocument.string(document.metadata().get("title")); if(blank(title)) issue(errors,"REQUIRED_FIELD","metadata.title","metadata.title is required.");
         if(document.sections().isEmpty()) issue(errors,"REQUIRED_FIELD","sections","A document must have at least one section.");
         if("filledForm".equals(document.documentType()) && blank(AprDocument.string(document.metadata().get("templateId")))) issue(errors,"REQUIRED_FIELD","metadata.templateId","A filled form must record templateId.");

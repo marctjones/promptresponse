@@ -49,7 +49,6 @@ public sealed record AprAttestationRecord(JsonElement Value) : AprStreamRecord;
 /// </summary>
 public sealed class AprBeta6Reader
 {
-    private const string Beta6 = "1.0-beta.6";
     private readonly AprJsonSerializer _forms = new();
     private readonly IDeserializer _yaml = new DeserializerBuilder().Build();
     // Without this, a string value that happens to spell a plain-scalar null/bool/number
@@ -133,8 +132,8 @@ public sealed class AprBeta6Reader
     public string WriteForm(AprDocument form, AprRepresentation representation)
     {
         ArgumentNullException.ThrowIfNull(form);
-        if (form.Version != Beta6)
-            throw new SerializationException("APR beta.6 writers require version '1.0-beta.6'.")
+        if (!AprFormat.IsSupported(form.Version))
+            throw new SerializationException($"APR writers require version {string.Join(" or ", AprFormat.AcceptedVersions)}.")
             { Code = "UNSUPPORTED_VERSION" };
         RequirePrefixedExtensions(form);
         return WriteJson(_forms.Serialize(form), representation);
@@ -251,8 +250,8 @@ public sealed class AprBeta6Reader
             || (version.ValueKind == JsonValueKind.String && string.IsNullOrWhiteSpace(version.GetString())))
             throw new SerializationException("APR beta.6 records must state `aprVersion`.")
             { Code = "REQUIRED_FIELD" };
-        if (version.ValueKind != JsonValueKind.String || version.GetString() != Beta6)
-            throw new SerializationException("APR beta.6 records must declare `aprVersion` '1.0-beta.6'.")
+        if (version.ValueKind != JsonValueKind.String || !AprFormat.IsSupported(version.GetString()))
+            throw new SerializationException($"APR records must declare `aprVersion` {string.Join(" or ", AprFormat.AcceptedVersions)}.")
             { Code = "UNSUPPORTED_VERSION" };
     }
 

@@ -2,12 +2,12 @@ using PromptResponse.Core.Models;
 
 namespace PromptResponse.Core.Serialization;
 
-/// <summary>Rejects anything outside the sole supported APR wire format.</summary>
+/// <summary>Rejects any document whose version this build does not read.</summary>
 internal static class AprCompatibilityGuard
 {
     internal static void Validate(AprDocument document)
     {
-        if (!string.Equals(document.Version, AprFormat.CurrentVersion, StringComparison.Ordinal))
-            throw new SerializationException($"Unsupported APR version {document.Version ?? "(missing)"}; this build accepts only {AprFormat.CurrentVersion}");
+        if (!AprFormat.IsSupported(document.Version))
+            throw new SerializationException($"Unsupported APR version {document.Version ?? "(missing)"}; this build accepts {string.Join(" or ", AprFormat.AcceptedVersions)}");
     }
 }

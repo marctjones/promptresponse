@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 from .advisories import document_advisories, submission_urls
 from .models import AprDocument, Section
 from .validation_result import ValidationError, ValidationResult, ValidationWarning
-from .versioning import is_supported_version
+from .versioning import ACCEPTED_VERSIONS, is_supported_version
 
 _DYNAMIC_TABLE = "table"
 _NUMERIC_TYPES = {"number", "currency", "range"}
@@ -290,7 +290,7 @@ def _validate_document_fields(document: AprDocument, result: ValidationResult) -
     if not (document.version or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "aprVersion is required.", "aprVersion"))
     elif not is_supported_version(document.version):
-        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"Unsupported APR version {document.version!r}; this build accepts only 1.0-beta.6.", "aprVersion"))
+        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"Unsupported APR version {document.version!r}; this build accepts {' or '.join(ACCEPTED_VERSIONS)}.", "aprVersion"))
     if not (document.metadata.title or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "metadata.title is required.", "metadata.title"))
     if not document.sections:

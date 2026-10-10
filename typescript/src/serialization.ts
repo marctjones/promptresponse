@@ -3,6 +3,9 @@ import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, Role
 import { normalize } from "./text.js";
 
 export const CURRENT_VERSION = "1.0-beta.6";
+
+/** Every version a reader accepts; beta.7 adds no member, so a beta.6 record is a beta.7 record. */
+export const ACCEPTED_VERSIONS: readonly string[] = ["1.0-beta.7", "1.0-beta.6"];
 const object = (value: unknown, what: string): JsonObject => {
   if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError(`${what} must be a JSON object`);
   return value as JsonObject;
@@ -102,7 +105,7 @@ function parseRole(value: JsonValue): RoleDefinition {
 }
 
 export function isSupportedVersion(version: string | undefined): boolean {
-  return version === CURRENT_VERSION;
+  return version !== undefined && ACCEPTED_VERSIONS.includes(version);
 }
 /** Parse document bytes. Structural defects remain validation errors where APR requires that separation. */
 export function loads(text: string): AprDocument {
@@ -110,7 +113,7 @@ export function loads(text: string): AprDocument {
   const node = object(parsed, "APR document");
   for (const member of ["aprVersion", "metadata", "sections"]) if (!(member in node)) throw new AprParseError(`${member} is required. A document missing it is a structurally wrong shape, which is a parse failure rather than a validation error (specification 6.3).`, "REQUIRED_FIELD");
   if (!Array.isArray(node.sections)) throw new AprParseError("sections must be an array", "WRONG_TYPE");
-  if (!isSupportedVersion(string(node, "aprVersion", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.aprVersion)}; this build accepts only ${CURRENT_VERSION}`, "UNSUPPORTED_VERSION");
+  if (!isSupportedVersion(string(node, "aprVersion", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.aprVersion)}; this build accepts ${ACCEPTED_VERSIONS.join(" or ")}`, "UNSUPPORTED_VERSION");
   // Present-but-null is a value, and this member has no null spelling: a
   // document either declares a kind or leaves the member out entirely.
   if ("documentType" in node && node.documentType === null) throw new AprParseError("documentType, if present, must be a string", "PARSE_ERROR");
@@ -136,7 +139,7 @@ function submissionJson(target: SubmissionTarget): JsonValue { if (target.shorth
 function sectionJson(section: Section): JsonObject { const node: JsonObject = { id: section.id, title: section.title, ...compact({ description: section.description, kind: section.kind, canAddRows: section.canAddRows, maxRows: section.maxRows, role: section.role, language: section.language }) }; if (section.prompts.length) node.prompts = section.prompts.map(promptJson); if (section.sections.length) node.sections = section.sections.map(sectionJson); return { ...node, ...section.extra }; }
 /** Serialize an APR document while preserving unknown members. */
 export function dumps(document: AprDocument, indent = 2): string {
-  if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts only ${CURRENT_VERSION}`);
+  if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts ${ACCEPTED_VERSIONS.join(" or ")}`);
   const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, language: document.metadata.language, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls?.map(submissionJson) }), ...document.metadata.extra };
   const node: JsonObject = { aprVersion: document.version, metadata, sections: document.sections.map(sectionJson) }; if (document.documentType) node.documentType = document.documentType; if (document.roles) node.roles = document.roles.map(role => ({ ...compact({ id: role.id, name: role.name, description: role.description }), ...role.extra })); return JSON.stringify({ ...node, ...document.extra }, null, indent);
 }

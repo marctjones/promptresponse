@@ -11,8 +11,7 @@ from .apr_yaml import AprYamlError, AprYamlLoader, load_all as _load_yaml  # noq
 from .errors import AprParseError
 from .models import AprDocument
 from .serialization import dumps, loads
-
-VERSION = "1.0-beta.6"
+from .versioning import ACCEPTED_VERSIONS, is_supported_version
 
 
 @dataclass(frozen=True)
@@ -87,8 +86,8 @@ def read_beta6_form(source: str, representation: str) -> AprDocument:
 
 def write_beta6_form(document: AprDocument, representation: str) -> str:
     """Write a beta.6 form in canonical JSONC or YAML source."""
-    if document.version != VERSION:
-        raise AprParseError(f"APR beta.6 writers require version {VERSION}")
+    if not is_supported_version(document.version):
+        raise AprParseError(f"APR writers require version {' or '.join(ACCEPTED_VERSIONS)}")
     return _write_json(dumps(document), representation)
 
 
@@ -114,9 +113,9 @@ def _parse_record(raw: str) -> Beta6Record:
         # An absent or blank aprVersion states no version, so it is the missing member
         # it is rather than a version this reader does not accept.
         raise AprParseError("an APR beta.6 record must state aprVersion", "REQUIRED_FIELD")
-    if stated != VERSION:
+    if not is_supported_version(stated):
         raise AprParseError(
-            f"APR beta.6 records must declare aprVersion {VERSION}", "UNSUPPORTED_VERSION")
+            f"APR records must declare aprVersion {' or '.join(ACCEPTED_VERSIONS)}", "UNSUPPORTED_VERSION")
     if "recordType" in value:
         if value["recordType"] != "attestation":
             raise AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE")

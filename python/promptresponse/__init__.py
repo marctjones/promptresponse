@@ -15,7 +15,7 @@ from .models import (
     SubmissionTarget,
 )
 from .serialization import dump, dumps, load, loads
-from .versioning import CURRENT_VERSION
+from .versioning import ACCEPTED_VERSIONS, CURRENT_VERSION
 from .validation import ValidationError, ValidationResult, ValidationWarning, validate
 from .unicode_security import UnicodeFinding, inspect_text
 from .expressions import (
@@ -23,7 +23,7 @@ from .expressions import (
     condition, validation_message, recompute_computed_values,
 )
 from .beta6 import (
-    Beta6AttestationRecord, Beta6FormRecord, Beta6Record, VERSION as BETA6_VERSION,
+    Beta6AttestationRecord, Beta6FormRecord, Beta6Record,
     read_beta6_form, read_beta6_stream, write_beta6_form, write_beta6_stream,
 )
 from .beta6_integrity import CANONICALIZATION, CMS_ECDSA_P256_SHA256, attestation_envelope_digest, canonicalize, create_manifest, digest, form_value, resolve_attestations, verify_cms_proof
@@ -42,7 +42,7 @@ __all__ = [
     "ExpressionContext", "build_expression_context",
     "compute_value", "condition", "validation_message", "recompute_computed_values",
     "CURRENT_VERSION", "PROFILE",
-    "BETA6_VERSION", "Beta6AttestationRecord", "Beta6FormRecord", "Beta6Record",
+    "ACCEPTED_VERSIONS", "Beta6AttestationRecord", "Beta6FormRecord", "Beta6Record",
     "read_beta6_form", "read_beta6_stream", "write_beta6_form", "write_beta6_stream",
     "CANONICALIZATION", "CMS_ECDSA_P256_SHA256", "attestation_envelope_digest", "canonicalize", "create_manifest", "digest", "form_value", "resolve_attestations", "verify_cms_proof",
 ]

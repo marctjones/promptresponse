@@ -52,7 +52,8 @@ TABLES = {
     "hints-object": "hints",
 }
 
-FORMAT_VERSION = "1.0-beta.6"
+FORMAT_VERSION = "1.0-beta.7"
+ACCEPTED_VERSIONS = (FORMAT_VERSION, "1.0-beta.6")
 # Human-facing members: text whose whole purpose is to be read or heard, held to
 # the Unicode floor the text-handling section states.
 HUMAN_TEXT = {
@@ -582,9 +583,9 @@ def validate_attestation(report: Report, record) -> None:
     if version is None or (isinstance(version, str) and not version.strip()):
         report.error("REQUIRED_FIELD", "/aprVersion", "aprVersion is required",
                      "APR-ATTEST-002")
-    elif version != FORMAT_VERSION:
+    elif version not in ACCEPTED_VERSIONS:
         report.error("UNSUPPORTED_VERSION", "/aprVersion",
-                     f"{version!r} is not exactly {FORMAT_VERSION!r}", "APR-ATTEST-002")
+                     f"{version!r} is not one of {' or '.join(ACCEPTED_VERSIONS)}", "APR-ATTEST-002")
 
     def member(node: dict, name: str, where: str, kind: type, rule: str):
         """The member when present and of its row's JSON type; otherwise reported."""
@@ -719,9 +720,9 @@ def validate_form(report: Report, form, members) -> None:
     if isinstance(version, str) and not version.strip():
         report.error("REQUIRED_FIELD", f"/{version_member}",
                      f"{version_member} is blank, so it states no version", "APR-MODEL-053")
-    elif version is not None and version != FORMAT_VERSION:
+    elif version is not None and version not in ACCEPTED_VERSIONS:
         report.error("UNSUPPORTED_VERSION", f"/{version_member}",
-                     f"{version!r} is not exactly {FORMAT_VERSION!r}", "APR-SEC-002")
+                     f"{version!r} is not one of {' or '.join(ACCEPTED_VERSIONS)}", "APR-SEC-002")
 
     check_object(report, form, "form", "", members)
 

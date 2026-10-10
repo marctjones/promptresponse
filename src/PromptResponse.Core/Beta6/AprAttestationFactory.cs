@@ -58,7 +58,7 @@ public static class AprAttestationFactory
         return Record(new JsonObject
         {
             ["recordType"] = "attestation",
-            ["aprVersion"] = "1.0-beta.6",
+            ["aprVersion"] = AprFormat.CurrentVersion,
             ["subject"] = new JsonObject
             {
                 ["digest"] = manifest.Root,
