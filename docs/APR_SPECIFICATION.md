@@ -748,6 +748,35 @@ digest: sha256:2ceb181e7fa718df949ba40c13d8bbb02f3b0385565660166a29b534964cfc16
 }
 ```
 
+**Example 4.4-6.** A comma before a closing bracket inside a string is response
+data, not a trailing comma. Only the comma after the final prompt is removed; the
+response keeps its text exactly.
+
+```apr-example
+id: jsonc-comma-inside-response
+rule: apr-jsonc
+satisfies: APR-REP-005
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /sections/0/prompts/0/response
+digest: sha256:dbf3fd029102c3c067c2242ea2b87552c6a4600136d27b631ecf7d1775ed6c93
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Commas inside responses" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "response": "see [1,] and {a, }" },
+      ],
+    },
+  ],
+}
+```
+
 ### 4.5 APR-YAML {#apr-yaml}
 
 APR-YAML is **YAML 1.2.2 syntax carrying the JSON value space**. Its syntax is

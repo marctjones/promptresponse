@@ -1479,6 +1479,25 @@
       ]
     },
     {
+      "id": "jsonc-comma-inside-response",
+      "number": "4.4-6",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Commas inside responses\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"see [1,] and {a, }\" },\n      ],\n    },\n  ],\n}\n",
+      "rules": [
+        "APR-REP-005"
+      ],
+      "satisfies": [
+        "APR-REP-005"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/response"
+      ],
+      "digest": "sha256:dbf3fd029102c3c067c2242ea2b87552c6a4600136d27b631ecf7d1775ed6c93"
+    },
+    {
       "id": "jsonc-comment-inside-string",
       "number": "4.4-2",
       "rule": "apr-jsonc",
