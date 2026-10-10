@@ -3,6 +3,7 @@
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.SelectPromptView"
              x:DataType="vm:SelectPromptViewModel"
+             Classes="field-short"
              AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}"
@@ -13,9 +14,8 @@
             default and the toggle switches to a plain text box, so any answer remains
             typeable without a second field permanently on screen.
         -->
-        <Grid ColumnDefinitions="Auto,*,Auto">
-            <ComboBox Grid.Column="0"
-                      x:Name="SuggestionsCombo"
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <ComboBox x:Name="SuggestionsCombo"
                       ItemsSource="{Binding SuggestedValues}"
                       SelectedItem="{Binding Response, Mode=TwoWay}"
                       MinHeight="36"
@@ -23,16 +23,15 @@
                       IsVisible="{Binding ShowHintedWidget}"
                       AutomationProperties.Name="{Binding Label}"
                       AutomationProperties.HelpText="Choose a suggested answer"/>
-            <TextBox Grid.Column="1"
-                     x:Name="FreeTextEntry"
+            <TextBox x:Name="FreeTextEntry"
+                     Width="240"
                      Text="{Binding Response, Mode=TwoWay}"
                      PlaceholderText="Type any answer"
-                     Margin="8,0,0,0"
                      MinHeight="36"
                      IsVisible="{Binding ShowRawEditor}"
                      AutomationProperties.Name="Free-text response"
                      AutomationProperties.HelpText="Type any answer; not limited to the suggestion list"/>
-            <Button Grid.Column="2"
+            <Button Classes="raw-toggle"
                     Content="{Binding RawToggleGlyph}"
                     FontSize="{Binding ToggleGlyphSize}"
                     Command="{Binding ToggleRawEditingCommand}"
@@ -42,16 +41,15 @@
                     Padding="0"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Margin="8,0,0,0"
                     VerticalAlignment="Center"
                     ToolTip.Tip="{Binding RawToggleName}"
                     AutomationProperties.Name="{Binding RawToggleName}"
                     AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
 
-        </Grid>
+        </StackPanel>
         <SelectableTextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}" TextWrapping="Wrap"/>
+                   Foreground="{DynamicResource Pr.MutedTextBrush}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

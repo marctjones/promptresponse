@@ -32,7 +32,7 @@ internal sealed class ProfilePresentationState
     public IBrush DividerBrush => BrushFor(ColorRole.Divider);
     public IBrush FocusBrush => BrushFor(ColorRole.Focus);
 
-    public CornerRadius ControlCornerRadius { get; } = new(3);
+    public CornerRadius ControlCornerRadius { get; } = new(4);
     public CornerRadius SurfaceCornerRadius { get; } = new(4);
 
     public ThemeVariant ThemeVariant => ActiveProfile.ColorScheme switch

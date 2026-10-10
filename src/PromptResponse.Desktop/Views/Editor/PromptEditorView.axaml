@@ -5,7 +5,7 @@
              x:DataType="vmp:PromptViewModelBase"
              AutomationProperties.AutomationId="{Binding Id}">
     <Border BorderThickness="1"
-            CornerRadius="3"
+            CornerRadius="4"
             Padding="10"
             Margin="0,2">
         <StackPanel Spacing="8">

@@ -320,7 +320,7 @@
                                         Background="Transparent"
                                         Padding="8,6"
                                         MinHeight="40"
-                                        CornerRadius="3"
+                                        CornerRadius="4"
                                         AutomationProperties.Name="{Binding DisplayName}"
                                         AutomationProperties.HelpText="{Binding Path}">
                                     <StackPanel>
@@ -354,7 +354,7 @@
                                         Background="Transparent"
                                         Padding="8,6"
                                         MinHeight="40"
-                                        CornerRadius="3"
+                                        CornerRadius="4"
                                         AutomationProperties.Name="{Binding DisplayName}"
                                         AutomationProperties.HelpText="Create a new form from this template">
                                     <TextBlock Text="{Binding DisplayName}"/>
@@ -444,7 +444,7 @@
                                  Text="{Binding Search.Query, Mode=TwoWay}"
                                  PlaceholderText="Find a prompt..."
                                  MinHeight="36"
-                                 CornerRadius="3"
+                                 CornerRadius="4"
                                  FontSize="{Binding BodyFontSize}"
                                  AutomationProperties.Name="Search prompts"
                                  AutomationProperties.HelpText="Type to find prompts by label or response"/>
@@ -811,7 +811,7 @@
                                     Click="OnRefreshAdvisoriesClicked"
                                     HorizontalAlignment="Stretch"
                                     MinHeight="32"
-                                    CornerRadius="3"
+                                    CornerRadius="4"
                                     AutomationProperties.Name="Refresh advisories"
                                     AutomationProperties.HelpText="Re-run the type-hint inspection across the form"/>
                             <TextBlock Text="{Binding AdvisorySummary}"

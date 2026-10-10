@@ -4,6 +4,22 @@
              Name="PromptResponse"
              RequestedThemeVariant="Default">
 
+    <Application.Resources>
+        <!--
+            Palette brushes for views that are not bound to the shell (the per-field
+            views and dialogs). App.axaml.cs replaces each with the active profile's
+            brush whenever the profile changes, so Dark and High Contrast reach help
+            text and quiet controls instead of stopping at the shell. These defaults are
+            the FluentTheme colours the views used before, so a view hosted without a
+            profile renders exactly as it did.
+        -->
+        <SolidColorBrush x:Key="Pr.MutedTextBrush" Color="{DynamicResource SystemBaseMediumColor}"/>
+        <SolidColorBrush x:Key="Pr.DividerBrush" Color="{DynamicResource SystemBaseLowColor}"/>
+        <SolidColorBrush x:Key="Pr.SurfaceBrush" Color="{DynamicResource SystemAltHighColor}"/>
+        <SolidColorBrush x:Key="Pr.PrimaryBrush" Color="{DynamicResource SystemAccentColor}"/>
+        <SolidColorBrush x:Key="Pr.OnPrimaryBrush" Color="White"/>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
 
@@ -16,10 +32,12 @@
             consumer app they visit. Three things follow from that and are why these
             values are what they are:
 
-              Small radii. Controls sit at 3, grouped surfaces at 4, structural panels
-              at 0. Large radii read as consumer software, and a global rounding on
-              Border rounds panel edges and dividers too, which is what made every
-              region look like a card.
+              Small radii. Controls sit at 4, grouped surfaces at 4, structural panels
+              at 0. 4 is the Windows 11 value for in-page controls (its 8 is for
+              windows, flyouts and dialogs, which this app does not draw itself) and
+              0 is its value where straight edges meet. Large radii read as consumer
+              software, and a global rounding on Border rounds panel edges and
+              dividers too, which is what made every region look like a card.
 
               No web conventions. A hand cursor means "hyperlink"; on a desktop button
               it is simply wrong, and it was applied to every button in the app.
@@ -30,9 +48,49 @@
               a change of state register without drawing attention to themselves.
         -->
 
+        <!--
+            Field width follows the expected input, not the window (Apple HIG: field
+            widths proportional to what goes in them; Windows 11: 50-60 characters a
+            line). A number or phone is short, so it is not drawn across the whole
+            column. Width, not MaxWidth, so the TextBox inside still fills the field.
+        -->
+        <Style Selector=":is(Control).field-short">
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style Selector=":is(Control).field-medium">
+            <Setter Property="Width" Value="480"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <!--
+            The raw-text toggle sits beside nearly every field and is rarely the thing a
+            person came to do, so it is a quiet icon button: no fill, no outline, muted
+            glyph, a subtle fill only on hover or press. It keeps its size (36, the touch
+            target), command, tooltip and accessible name; the raw-text path is never
+            removed, only made to recede.
+        -->
+        <Style Selector="Button.raw-toggle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource Pr.MutedTextBrush}"/>
+        </Style>
+        <Style Selector="Button.raw-toggle /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button.raw-toggle:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SystemListLowColor}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="Button.raw-toggle:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SystemListMediumColor}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
         <!-- Buttons: flat, dense, no bounce, native cursor. -->
         <Style Selector="Button">
-            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="CornerRadius" Value="4"/>
             <Setter Property="Padding" Value="12,5"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <!-- MinHeight is the accessible touch target and must not shrink with the
@@ -42,7 +100,7 @@
 
         <!-- Text inputs: dense, square-ish, with the focus ring intact. -->
         <Style Selector="TextBox">
-            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="CornerRadius" Value="4"/>
             <Setter Property="Padding" Value="8,5"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="MinHeight" Value="36"/>
@@ -59,7 +117,7 @@
         </Style>
 
         <Style Selector="ComboBox">
-            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="CornerRadius" Value="4"/>
             <Setter Property="MinHeight" Value="36"/>
         </Style>
 

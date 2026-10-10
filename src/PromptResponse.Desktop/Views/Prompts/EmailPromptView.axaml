@@ -10,7 +10,7 @@
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="{Binding Placeholder, FallbackValue='you@example.com'}"
                  MinHeight="36"
-                 CornerRadius="3"
+                 CornerRadius="4"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
         <SelectableTextBlock Text="{Binding HelpText}"

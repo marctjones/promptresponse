@@ -20,6 +20,6 @@
         <SelectableTextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}" TextWrapping="Wrap"/>
+                   Foreground="{DynamicResource Pr.MutedTextBrush}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

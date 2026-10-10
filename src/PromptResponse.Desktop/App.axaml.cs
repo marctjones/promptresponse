@@ -101,6 +101,18 @@ public partial class App : Application
                     }
                 };
 
+                // Publish the profile palette as named resources for views that are not
+                // bound to the shell, and refresh them whenever a profile brush changes.
+                PublishPaletteResources(shellVm);
+                shellVm.PropertyChanged += (_, e) =>
+                {
+                    if (e.PropertyName is { } name && name.StartsWith("ActiveProfile", StringComparison.Ordinal)
+                        && name.EndsWith("Brush", StringComparison.Ordinal))
+                    {
+                        PublishPaletteResources(shellVm);
+                    }
+                };
+
                 var window = new MainWindow { DataContext = shellVm };
                 desktop.MainWindow = window;
 
@@ -150,6 +162,16 @@ public partial class App : Application
             Console.WriteLine(ex.StackTrace);
             throw;
         }
+    }
+
+    /// <summary>Replaces the named palette resources with the active profile's brushes.</summary>
+    private void PublishPaletteResources(MainShellViewModel shell)
+    {
+        Resources["Pr.MutedTextBrush"] = shell.ActiveProfileMutedTextBrush;
+        Resources["Pr.DividerBrush"] = shell.ActiveProfileDividerBrush;
+        Resources["Pr.SurfaceBrush"] = shell.ActiveProfileSurfaceBrush;
+        Resources["Pr.PrimaryBrush"] = shell.ActiveProfilePrimaryBrush;
+        Resources["Pr.OnPrimaryBrush"] = shell.ActiveProfileOnPrimaryBrush;
     }
 
     private static void ApplyWindowSettings(Avalonia.Controls.Window window, ISettingsService settingsService)

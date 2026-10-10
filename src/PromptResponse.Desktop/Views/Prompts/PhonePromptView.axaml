@@ -3,6 +3,7 @@
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.PhonePromptView"
              x:DataType="vm:PhonePromptViewModel"
+             Classes="field-short"
              AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
@@ -10,7 +11,7 @@
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="{Binding Placeholder, FallbackValue='(555) 555-5555'}"
                  MinHeight="36"
-                 CornerRadius="3"
+                 CornerRadius="4"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
         <SelectableTextBlock Text="{Binding HelpText}"

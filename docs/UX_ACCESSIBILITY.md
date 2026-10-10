@@ -22,6 +22,31 @@ boolean affordances. A specialized widget never removes the raw-text path.
 The live palette and profile behavior in `src/PromptResponse.Desktop/Profiles/` are
 the visual implementation source; this document defines their product intent.
 
+## Visual design
+
+The desktop client follows Windows 11 (Fluent) geometry and type values and Apple's
+structural advice for forms, and says plainly that it renders the same on every
+platform rather than imitating native chrome. A document states no layout, so each
+field's presentation is derived from its type, its hints, and the active profile;
+the file format is never extended to describe it.
+
+- **Shape:** controls and in-page surfaces use a 4 px radius; straight edges that
+  meet are not rounded.
+- **Type:** the Windows type ramp — 12/16 caption, 14/20 body, semibold rather than
+  bold for emphasis, sentence case.
+- **Field width follows the expected input.** Short types (number, currency, phone,
+  date, single choice) are drawn at a fixed short width; text, email, URL and
+  multiline use the full measure, which is capped so a line stays near 50 to 60
+  characters.
+- **Colour comes from the active profile.** Views not bound to the shell read
+  `Pr.*` palette resources that the profile publishes, so Dark and High Contrast
+  reach every field.
+- **The raw-text path stays.** The control that switches a specialised widget to a
+  plain text box is a quiet icon button, not removed, and keeps its name, command
+  and 36 px target.
+- **Order is semantic.** Visual order, Tab order and reading order are the document
+  order; no layout rule may reorder them.
+
 ## Accessibility evidence
 
 CI checks contrast, XAML accessibility metadata, keyboard behavior, headless

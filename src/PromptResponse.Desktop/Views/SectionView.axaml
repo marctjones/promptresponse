@@ -69,7 +69,7 @@
                             -->
                             <Border IsVisible="{Binding ShowProvenanceMark}"
                                     Background="{DynamicResource SystemChromeMediumLowColor}"
-                                    CornerRadius="3"
+                                    CornerRadius="4"
                                     Padding="6,1"
                                     HorizontalAlignment="Left">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
@@ -85,7 +85,7 @@
                             </Border>
                             <Border IsVisible="{Binding RoleBadge, Converter={x:Static ObjectConverters.IsNotNull}}"
                                     Background="{DynamicResource SystemChromeMediumLowColor}"
-                                    CornerRadius="3"
+                                    CornerRadius="4"
                                     Padding="6,1"
                                     HorizontalAlignment="Left">
                                 <TextBlock Text="{Binding RoleBadge}"
@@ -157,7 +157,7 @@
              (header + cells + remove button per row). -->
         <Border IsVisible="{Binding IsTableSection}"
                 BorderThickness="1"
-                CornerRadius="3"
+                CornerRadius="4"
                 Padding="0">
             <StackPanel Spacing="0">
                 <!-- Header row: leading blank cell aligns with the row-label

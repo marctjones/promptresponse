@@ -9,7 +9,7 @@
              AutomationProperties.HelpText="{Binding Description}">
 
     <Border BorderThickness="1"
-            CornerRadius="3"
+            CornerRadius="4"
             Padding="12"
             Margin="0,4">
         <StackPanel Spacing="10">
@@ -97,7 +97,7 @@
             <StackPanel IsVisible="{Binding IsTableSection}" Spacing="10">
                 <Border Padding="10"
                         BorderThickness="1"
-                        CornerRadius="3">
+                        CornerRadius="4">
                     <StackPanel Spacing="8">
                         <TextBlock Text="Table layout"
                                    FontWeight="SemiBold"/>

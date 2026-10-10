@@ -3,6 +3,7 @@
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.NumberPromptView"
              x:DataType="vm:NumberPromptViewModel"
+             Classes="field-short"
              AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}"
@@ -12,7 +13,7 @@
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="{Binding Placeholder}"
                  MinHeight="36"
-                 CornerRadius="3"
+                 CornerRadius="4"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
         <!--

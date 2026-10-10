@@ -3,20 +3,21 @@
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.DatePromptView"
              x:DataType="vm:DatePromptViewModel"
+             Classes="field-short"
              AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}"
                    FontWeight="SemiBold"
                    AutomationProperties.Name="{Binding Label}"/>
-        <Grid ColumnDefinitions="*,Auto,Auto">
+        <StackPanel Orientation="Horizontal" Spacing="8">
             <!-- Universal core: free-text input. Any visible text is a valid response. -->
-            <TextBox Grid.Column="0"
-                     x:Name="ResponseTextBox"
+            <TextBox x:Name="ResponseTextBox"
+                     Width="240"
                      IsVisible="{Binding ShowRawEditor}"
                      Text="{Binding Response, Mode=TwoWay}"
                      PlaceholderText="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
                      MinHeight="36"
-                     CornerRadius="3"
+                     CornerRadius="4"
                      AutomationProperties.Name="{Binding Label}"
                      AutomationProperties.HelpText="{Binding HelpText}"/>
             <!--
@@ -25,16 +26,14 @@
                 Typing free text (e.g. "see attached") into the TextBox above
                 clears the picker without breaking the response — vision invariant.
             -->
-            <CalendarDatePicker Grid.Column="1"
-                                x:Name="DatePicker"
-                                Margin="8,0,0,0"
+            <CalendarDatePicker x:Name="DatePicker"
                                 MinHeight="36"
                                 MinWidth="160"
                                 IsVisible="{Binding ShowCalendarPickerNow}"
                                 SelectedDateChanged="OnSelectedDateChanged"
                                 AutomationProperties.Name="Pick a date"
                                 AutomationProperties.HelpText="Calendar picker; you can also type any text in the field on the left"/>
-            <Button Grid.Column="2"
+            <Button Classes="raw-toggle"
                     Content="{Binding RawToggleGlyph}"
                     FontSize="{Binding ToggleGlyphSize}"
                     Command="{Binding ToggleRawEditingCommand}"
@@ -44,12 +43,11 @@
                     Padding="0"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Margin="8,0,0,0"
                     VerticalAlignment="Center"
                     ToolTip.Tip="{Binding RawToggleName}"
                     AutomationProperties.Name="{Binding RawToggleName}"
                     AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
-</Grid>
+</StackPanel>
         <SelectableTextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
