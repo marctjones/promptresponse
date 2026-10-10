@@ -88,6 +88,30 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
 
+        <!--
+            The primary action is drawn once per navigation bar, from the palette's Primary and
+            OnPrimary roles (so Dark and High Contrast reach it), not from the system
+            accent. Hover dims slightly and the disabled state falls back to a quiet
+            outline, so "Next" on the last section reads as unavailable, not as a
+            broken filled button.
+        -->
+        <Style Selector="Button.primary">
+            <Setter Property="Foreground" Value="{DynamicResource Pr.OnPrimaryBrush}"/>
+        </Style>
+        <Style Selector="Button.primary /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource Pr.PrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Pr.PrimaryBrush}"/>
+            <Setter Property="TextElement.Foreground" Value="{DynamicResource Pr.OnPrimaryBrush}"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Pr.DividerBrush}"/>
+            <Setter Property="TextElement.Foreground" Value="{DynamicResource Pr.MutedTextBrush}"/>
+        </Style>
+
         <!-- Buttons: flat, dense, no bounce, native cursor. -->
         <Style Selector="Button">
             <Setter Property="CornerRadius" Value="4"/>

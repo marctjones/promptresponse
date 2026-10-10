@@ -592,7 +592,7 @@
                                 <Button Content="◀ Previous"
                                         Command="{Binding WizardPreviousCommand}"
                                         AutomationProperties.Name="Previous section"/>
-                                <Button Content="Next ▶"
+                                <Button Classes="primary" Content="Next ▶"
                                         Command="{Binding WizardNextCommand}"
                                         AutomationProperties.Name="Next section"/>
                             </StackPanel>
@@ -609,7 +609,7 @@
                                         CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
-                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileDividerBrush}"
                                         AutomationProperties.Name="{Binding Title}">
                                     <Panel>
                                         <editor:SectionEditorView IsVisible="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).IsEditMode}"/>
@@ -635,7 +635,7 @@
                             <Button Content="◀ Previous"
                                     Command="{Binding WizardPreviousCommand}"
                                     AutomationProperties.Name="Previous section (bottom)"/>
-                            <Button Content="Next ▶"
+                            <Button Classes="primary" Content="Next ▶"
                                     Command="{Binding WizardNextCommand}"
                                     AutomationProperties.Name="Next section (bottom)"/>
                         </StackPanel>
@@ -652,7 +652,7 @@
                                         CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
-                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileDividerBrush}"
                                         AutomationProperties.Name="{Binding Title}">
                                     <editor:SectionEditorView/>
                                 </Border>
@@ -685,7 +685,7 @@
                                         CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
-                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileDividerBrush}"
                                         AutomationProperties.Name="{Binding Title}">
                                     <views:SectionView/>
                                 </Border>
