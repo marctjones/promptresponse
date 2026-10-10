@@ -179,7 +179,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "aprVersion": "1.0-beta.6",
+  "aprVersion": "1.0-beta.7",
   "metadata": { "title": "T" },
   "sections": [
     { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
@@ -199,6 +199,25 @@ diagnostic: UNSUPPORTED_VERSION
 ---
 {
   "aprVersion": "2.0",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 1.4.1-3.** A record at the previous format version, which a reader
+accepts alongside the current one.
+
+```apr-example
+id: version-previous
+rule: version-compatibility
+satisfies: APR-SEC-002
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "T" },
   "sections": [
     { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }

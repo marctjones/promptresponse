@@ -2723,7 +2723,7 @@
       "rule": "version-compatibility",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.7\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
       "rules": [
         "APR-SEC-002"
       ],
@@ -2745,6 +2745,20 @@
         "APR-SEC-002"
       ],
       "diagnostic": "UNSUPPORTED_VERSION"
+    },
+    {
+      "id": "version-previous",
+      "number": "1.4.1-3",
+      "rule": "version-compatibility",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-SEC-002"
+      ],
+      "satisfies": [
+        "APR-SEC-002"
+      ]
     },
     {
       "id": "yaml-anchor",
