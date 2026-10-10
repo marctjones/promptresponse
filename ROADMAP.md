@@ -58,24 +58,62 @@ four implementations.
 
 ### What remains
 
-1. ~~Scoring the other three SDKs.~~ **Done.** Conformance is asked two ways, and
-   only one of them is hard. A suite that *exercises* an implementation checks it
-   reads the corpus without failing. A suite that *scores* it withholds the
-   answers, demands a named diagnostic for every rejection and compares a
-   computed digest per case. The .NET library, the command line, the desktop
-   client, the PDF exporter, and now Python, TypeScript, and Java are all scored
-   at 153/153 (#379).
-2. **Reaching every rule.** 97 of 166 rules are named outright by a conformance
-   case; crediting a case with every rule in the section it cites reaches 116.
-   The remaining 50 are reached by nothing, though every one carries a recorded
-   explanation in `tests/registry.json` rather than being silently rounded up
-   (`scripts/check-suite-coverage.py --gaps`, and #323's suggested order).
-3. **Gates that decide what they claim to.** A skipped step, an unapplied fixture
-   and a threshold set below what already passes all report the same green as a
-   working check. Several were found this way (most recently the CLI coverage
-   ratchet, #345) and the class is not exhausted.
-4. **Stabilization** — only after those do cross-platform release and
-   maintainability gates become the final pass.
+Scoring is complete: the .NET library, the command line, the desktop client, the
+PDF exporter, and the Python, TypeScript and Java SDKs all answer the suite with
+zero failures. Conformance is asked two ways. A suite that *exercises* an
+implementation checks it reads the corpus without failing; a suite that *scores*
+it withholds the answers and compares a computed digest and a named diagnostic
+per case. A passing score has one limit: the SDKs share a design with the
+reference oracle, so it shows they agree, not that they are right. Items 1 and 2
+below are bugs that agreement hid.
+
+In order:
+
+1. **Fix what agreement hid.** The JSONC trailing-comma stripper rewrites string
+   contents in the oracle and all three SDKs (a response `"1,]"` reads back as
+   `1]`), so a response is no longer byte-for-byte what was written. The
+   corpus needs a case with that shape, then the fix everywhere. With it:
+   Python boolean binding (#512), naive datetimes binding through the host time
+   zone (Python, TypeScript), the Java driver aborting on deep nesting, a JSON
+   array record reported as a mixed stream (#510), multichoice binding (#515),
+   `string(duration)` (#544), and blank submission members (#545).
+2. **Readers accept `1.0-beta.7`.** The specification describes beta.7 and no
+   example, reader or validator carries it; every reader accepts beta.6 only, and
+   the Desktop app sniffs the literal string. Collapse each reader's version
+   check onto one constant, then add the version pair, the hidden-character
+   warning codes, and the diagnostic for an absent `aprVersion`, with an example
+   at the current version. This is the precondition for scoring beta.7.
+3. **Reach every rule.** The specification carries 356 rules and the suite 327
+   cases. 207 rules are named outright by a case; crediting each case with every
+   rule in the section it cites reaches 319. 37 are reached by nothing, 3 of those
+   with no recorded gap (`scripts/check-suite-coverage.py --gaps`).
+4. **Gates that decide what they claim to.** The example-coverage gate accepts
+   258 of 356 rules as excepted and checks only that a reason was typed, and a
+   bare file path as `coveredBy` (#546). Stream cases withhold their digests, so a
+   reader that accepts everything and reads nothing passes 18 valid cases. The
+   driver-teeth check tries one mutation per SDK. The GUI activation floor counts
+   by label (#391). The ROADMAP and conformance figures are stated by hand and
+   checked by nothing. Each is the same defect: a green check that measures
+   nothing.
+5. **Attestations: claim what is implemented.** The Python, TypeScript, Java and .NET
+   libraries all verify CMS proofs, but none claims the profile (#439). No driver
+   reports `verified` (#538), so chapter 12 is scored against the oracle alone. Python requires a P-256 key and SHA-256; Java and
+   TypeScript accept any signer or algorithm, and the .NET verifier does not bind
+   the proof type to the algorithm.
+6. **Safe-to-open evidence.** The parser fuzz tests exercise the typed serializer,
+   not the hand-written JSONC and YAML scanner every real file passes through.
+   No SDK sets an expression-evaluation budget (#542, #358).
+7. **Specification defects found in review**, in the specification and then in its
+   derived artifacts: the JSON Schema rejects a `kind` and `documentType` the
+   specification accepts; `1.0-beta.6` is stated as normative in one line and
+   derived in another; expressions cannot name table cells, so a fixed table
+   cannot be totalled either (the dynamic-table case is #337); date and time
+   binding and double formatting in the expressions profile are underspecified;
+   the comment grammar has no derivation for `/***/`; the key-attachment rule for
+   submission transports does not fit a pre-signed request.
+8. **Stabilization** — the accessibility proof, host-port rules, supply-chain
+   controls and desktop workflows. These are the final pass before a release
+   candidate, and they follow items 1 to 6 rather than run beside them.
 
 Planning lives in GitHub milestones and issues, which this document does not
 restate. Existing refactoring and dependency milestones support this work; they
