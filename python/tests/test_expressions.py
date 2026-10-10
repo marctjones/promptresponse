@@ -58,3 +58,37 @@ def test_temporal_names_are_unbound_when_the_caller_supplies_nothing():
     for prompt in document.all_prompts():
         if prompt.id in {"echo_today", "echo_now", "now_year"}:
             assert pr.compute_value(prompt, context) is None, prompt.id
+
+
+def _boolean_document():
+    return pr.loads(json.dumps({
+        "aprVersion": "1.0-beta.6",
+        "metadata": {"title": "T"},
+        "sections": [{"id": "s", "title": "S", "prompts": [
+            {"id": "agree", "label": "A", "response": "false",
+             "hints": {"expectedDataType": "boolean", "exprValidation": "agree ? '' : 'please agree'"}},
+            {"id": "details", "label": "D", "hints": {"exprHidden": "'yes'"}},
+            {"id": "flag", "label": "F", "hints": {"expectedDataType": "boolean", "exprValue": "1.0 < 2.0"}},
+        ]}],
+    }))
+
+
+def test_a_false_boolean_response_takes_the_false_branch_of_a_conditional():
+    document = _boolean_document()
+    context = pr.build_expression_context(document)
+    agree = next(p for p in document.all_prompts() if p.id == "agree")
+    assert pr.validation_message(agree, context) == "please agree"
+
+
+def test_a_condition_that_is_not_a_bool_applies_the_fallback_and_does_not_hide_the_prompt():
+    document = _boolean_document()
+    context = pr.build_expression_context(document)
+    details = next(p for p in document.all_prompts() if p.id == "details")
+    assert pr.condition(details, details.hints.expr_hidden, context) is False
+
+
+def test_a_computed_boolean_is_written_in_its_canonical_form():
+    document = _boolean_document()
+    context = pr.build_expression_context(document)
+    flag = next(p for p in document.all_prompts() if p.id == "flag")
+    assert pr.compute_value(flag, context) == "true"

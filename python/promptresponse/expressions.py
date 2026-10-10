@@ -39,10 +39,12 @@ def _bind(response: str, expected: Optional[str]):
             return None
     if kind == "boolean":
         normalized = value.strip().lower()
+        # A CEL bool, not a Python one: celpy accepts a plain bool in `&&` but rejects
+        # it in `?:` and `!`, where the expression then degrades to the stored response.
         if normalized in {"true", "yes", "y", "1", "on", "x", "checked"}:
-            return True
+            return celtypes.BoolType(True)
         if normalized in {"false", "no", "n", "0", "off", "unchecked"}:
-            return False
+            return celtypes.BoolType(False)
         return None
     if kind in {"date", "time", "datetime"}:
         if not value.strip():
@@ -66,7 +68,8 @@ def _bind(response: str, expected: Optional[str]):
 
 
 def _stored(value) -> str:
-    if isinstance(value, bool):
+    # BoolType is an int subclass, not a bool, so it is named before the int-like checks.
+    if isinstance(value, (bool, celtypes.BoolType)):
         return "true" if value else "false"
     if isinstance(value, float):
         return format(value, ".15g")
@@ -152,7 +155,12 @@ def compute_value(prompt: Prompt, context: ExpressionContext) -> Optional[str]:
 
 
 def condition(prompt: Prompt, expression: Optional[str], context: ExpressionContext) -> bool:
-    return bool(context.evaluate(prompt, expression)) if expression and expression.strip() else False
+    if not expression or not expression.strip():
+        return False
+    result = context.evaluate(prompt, expression)
+    # A condition is typed bool: a result of any other type is the same failure as a
+    # compile error and applies the fallback, not Python truthiness ('yes' is not true).
+    return bool(result) if isinstance(result, (bool, celtypes.BoolType)) else False
 
 
 def validation_message(prompt: Prompt, context: ExpressionContext) -> Optional[str]:
