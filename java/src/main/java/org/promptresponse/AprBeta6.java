@@ -251,7 +251,19 @@ public final class AprBeta6 {
             if (c=='/' && i+1<input.length() && input.charAt(i+1)=='*') { i+=2; while(i+1<input.length() && !(input.charAt(i)=='*' && input.charAt(i+1)=='/')) i++; if(i+1>=input.length()) throw new AprException("Unterminated JSONC comment", "PARSE_ERROR"); i++; continue; }
             output.append(c);
         }
-        return output.toString().replaceAll(",(\\s*[}\\]])", "$1");
+        return dropTrailingCommas(output.toString());
+    }
+
+    /** Removes a comma followed only by whitespace and a closing bracket; a comma inside a string is response data. */
+    private static String dropTrailingCommas(String text) {
+        StringBuilder output = new StringBuilder(); boolean quote = false, escaped = false;
+        for (int i = 0; i < text.length(); i++) { char c = text.charAt(i);
+            if (quote) { output.append(c); if (escaped) escaped=false; else if(c=='\\') escaped=true; else if(c=='"') quote=false; continue; }
+            if (c=='"') quote=true;
+            else if (c==',') { int j=i+1; while (j<text.length() && " \t\n\r".indexOf(text.charAt(j))>=0) j++; if (j<text.length() && (text.charAt(j)=='}' || text.charAt(j)==']')) continue; }
+            output.append(c);
+        }
+        return output.toString();
     }
 
     /** JSON parsers commonly use last-key-wins; APR JSONC rejects duplicates first. */

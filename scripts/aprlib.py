@@ -134,7 +134,29 @@ def strip_jsonc(text: str) -> str:
         else:
             out.append(ch)
         i += 1
-    return re.sub(r",(\s*[}\]])", r"\1", "".join(out))
+    return _drop_trailing_commas("".join(out))
+
+
+def _drop_trailing_commas(text: str) -> str:
+    """Remove a comma followed only by whitespace and a closing bracket, outside strings."""
+    out: list[str] = []
+    quoted = escaped = False
+    for i, ch in enumerate(text):
+        if quoted:
+            out.append(ch)
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                quoted = False
+            continue
+        if ch == '"':
+            quoted = True
+        elif ch == "," and text[i + 1:].lstrip(" \t\n\r")[:1] in ("}", "]"):
+            continue
+        out.append(ch)
+    return "".join(out)
 
 
 def _no_duplicates(pairs):

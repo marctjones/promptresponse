@@ -260,5 +260,22 @@ function stripJsonc(source: string): string {
     if (c === "/" && source[i + 1] === "*") { i += 2; while (i + 1 < source.length && !(source[i] === "*" && source[i + 1] === "/")) i++; if (i + 1 >= source.length) throw new AprParseError("unterminated JSONC comment"); i++; continue; }
     result += c;
   }
-  return result.replace(/,(\s*[}\]])/g, "$1");
+  return dropTrailingCommas(result);
+}
+
+/** Remove a comma followed only by whitespace and a closing bracket. String-aware: a comma inside a string is response data. */
+function dropTrailingCommas(text: string): string {
+  let result = "", quote = false, escaped = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quote) { result += c; if (escaped) escaped = false; else if (c === "\\") escaped = true; else if (c === '"') quote = false; continue; }
+    if (c === '"') quote = true;
+    else if (c === ",") {
+      let j = i + 1;
+      while (j < text.length && " \t\n\r".includes(text[j])) j++;
+      if (text[j] === "}" || text[j] === "]") continue;
+    }
+    result += c;
+  }
+  return result;
 }
