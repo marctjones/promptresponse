@@ -4349,6 +4349,22 @@ diagnostic: WRONG_TYPE
 {"recordType":"note","aprVersion":"1.0-beta.6"}
 ```
 
+**Example 9-2.** A record that is well-formed JSON but not an object is neither a form
+nor an attestation. It is not a second representation, and not a parse failure.
+
+```apr-example
+id: stream-record-not-an-object
+rule: streams
+violates: APR-STREAM-007
+representation: jsonc-stream
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+[1, 2]
+```
+
 A reader **MUST** reject a stream that mixes representations. [APR-STREAM-001]
 
 A reader **MUST NOT** deduplicate repeated form occurrences, even when their
@@ -4412,6 +4428,23 @@ diagnostic: PARSE_ERROR
 ---
 {"aprVersion":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
 {"aprVersion":"1.0-beta.6","metadata":{"title":"second"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+```
+
+**Example 9.1-3.** A record that opens with a comment is still a JSONC record: a comment
+is trivia, not a sign of another representation.
+
+```apr-example
+id: stream-record-opens-with-comment
+rule: jsonc-framing
+satisfies: APR-REP-005
+representation: jsonc-stream
+expect: valid
+---
+// the first record
+{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+// the second record
+{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
 ```
 
 ### 9.2 YAML framing {#yaml-framing}

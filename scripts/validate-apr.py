@@ -709,7 +709,8 @@ def validate_form(report: Report, form, members) -> None:
         report.error("NULL_DOCUMENT", "", "no document")
         return
     if not isinstance(form, dict):
-        report.error("WRONG_TYPE", "", "a form must be an object")
+        report.error("WRONG_TYPE", "", "a record must be an object: it is neither a form nor an attestation",
+                     "APR-STREAM-007")
         return
 
     version_member = next((m for m in members["form"] if m.lower().endswith("version")), None)

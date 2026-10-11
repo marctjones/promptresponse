@@ -2298,6 +2298,70 @@
         {
           "type": "test",
           "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
+        },
+        {
+          "type": "test",
+          "ref": "MalformedSource_IsAParseError"
+        },
+        {
+          "type": "test",
+          "ref": "NonObjectRecord_IsWrongType_NotAParseFailure"
+        },
+        {
+          "type": "test",
+          "ref": "AJsonArrayAfterAForm_IsWrongType_NotMixedRepresentations"
+        },
+        {
+          "type": "test",
+          "ref": "AYamlRecordInAJsoncStream_IsStillMixedRepresentations"
+        },
+        {
+          "type": "test",
+          "ref": "ARecordThatOpensWithAComment_IsStillARecord"
+        },
+        {
+          "type": "test",
+          "ref": "MissingAprVersion_IsRequiredField_NotUnsupportedVersion"
+        },
+        {
+          "type": "test",
+          "ref": "WrongAprVersion_IsUnsupportedVersion"
+        },
+        {
+          "type": "test",
+          "ref": "UnknownRecordType_IsWrongType"
+        },
+        {
+          "type": "test",
+          "ref": "Validator_ReturnsRequiredField_ForMissingTitle_WithoutRefusing"
+        },
+        {
+          "type": "test",
+          "ref": "test_malformed_source_is_a_parse_error"
+        },
+        {
+          "type": "test",
+          "ref": "test_non_object_record_is_wrong_type_not_a_parse_failure"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_json_array_after_a_form_is_wrong_type_not_mixed_representations"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_yaml_record_in_a_jsonc_stream_is_still_mixed_representations"
+        },
+        {
+          "type": "test",
+          "ref": "test_missing_apr_version_is_required_field_not_unsupported"
+        },
+        {
+          "type": "test",
+          "ref": "test_wrong_version_is_unsupported"
+        },
+        {
+          "type": "test",
+          "ref": "test_unknown_record_type_is_wrong_type"
         }
       ],
       "gap": "APR-VAL-003 and 004 concern the stage at which a reader refuses or loads a document. The suite cannot observe the stage: a parse failure and a validation failure both answer reject.",
