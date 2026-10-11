@@ -813,6 +813,62 @@
       }
     },
     {
+      "id": "expr-bind-multichoice-bare-comma",
+      "number": "11.5-7",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"colours\",\n          \"label\": \"Colours\",\n          \"response\": \"red,green\",\n          \"hints\": {\n            \"expectedDataType\": \"multichoice\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"size(colours) == 1 ? 'one' : 'other'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-026",
+        "APR-MODEL-023"
+      ],
+      "satisfies": [
+        "APR-EXPR-026",
+        "APR-MODEL-023"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "one"
+        }
+      }
+    },
+    {
+      "id": "expr-bind-multichoice-comma-space",
+      "number": "11.5-6",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"colours\",\n          \"label\": \"Colours\",\n          \"response\": \"red, green\",\n          \"hints\": {\n            \"expectedDataType\": \"multichoice\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"size(colours) == 2 ? 'two' : 'other'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-026",
+        "APR-MODEL-023"
+      ],
+      "satisfies": [
+        "APR-EXPR-026",
+        "APR-MODEL-023"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "two"
+        }
+      }
+    },
+    {
       "id": "expr-bind-string",
       "number": "11.5-4",
       "rule": "expr-binding",

@@ -5415,6 +5415,91 @@ expects: {"validation": {"agree": "please agree"}}
 }
 ```
 
+**Example 11.5-6.** A `multichoice` response on one line, separated by comma and space,
+is read as that many selections.
+
+```apr-example
+id: expr-bind-multichoice-comma-space
+rule: expr-binding
+satisfies: APR-EXPR-026, APR-MODEL-023
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "two"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "colours",
+          "label": "Colours",
+          "response": "red, green",
+          "hints": {
+            "expectedDataType": "multichoice"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "size(colours) == 2 ? 'two' : 'other'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.5-7.** A comma with no space after it is not a separator, so the response is one selection.
+
+```apr-example
+id: expr-bind-multichoice-bare-comma
+rule: expr-binding
+satisfies: APR-EXPR-026, APR-MODEL-023
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "one"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "colours",
+          "label": "Colours",
+          "response": "red,green",
+          "hints": {
+            "expectedDataType": "multichoice"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "size(colours) == 1 ? 'one' : 'other'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.6 Values that will not bind {#expr-unbound}
 
 An implementation **MUST** treat a response that cannot be converted to its
