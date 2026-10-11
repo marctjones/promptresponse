@@ -178,8 +178,12 @@ public sealed class AprBeta6Reader
                 "A string carries an unpaired surrogate.", exception)
             { Code = "PARSE_ERROR" };
         }
+        // Well-formed JSON that is not an object parsed, so it is not a parse failure
+        // (APR-VAL-003); it is a record that is neither a form nor an attestation
+        // (APR-STREAM-007), reported WRONG_TYPE.
         if (root.ValueKind != JsonValueKind.Object)
-            throw new SerializationException("An APR beta.6 record must be an object.");
+            throw new SerializationException("An APR record must be an object.")
+            { Code = "WRONG_TYPE" };
         if (root.TryGetProperty("recordType", out var kind))
         {
             if (kind.ValueKind != JsonValueKind.String || kind.GetString() != "attestation")
@@ -491,13 +495,34 @@ public sealed class AprBeta6Reader
             // One stream is one representation. A record that is not JSON in a
             // record-separated stream is a YAML document somebody concatenated, and
             // reading it would mean guessing per record which spelling was meant.
-            if (record.StartsWith('{')) continue;
+            if (IsJsonRecord(record)) continue;
             throw new SerializationException(
                 "An APR JSONC stream carries JSONC records only; this stream mixes "
                 + "representations.")
             { Code = "APR_STREAM_MIXED_REPRESENTATIONS" };
         }
         return records;
+    }
+
+    // Whether a record-separated record is written as JSONC. Comments are trivia and may
+    // open a record, so they are stripped first. Anything that parses as a JSON value is
+    // JSON: a value that is not an object is then refused as WRONG_TYPE, not mistaken for
+    // another representation (APR-STREAM-007). A record that opens like JSON but is
+    // malformed stays JSON, so the parse failure is reported as one.
+    private static bool IsJsonRecord(string record)
+    {
+        var stripped = StripJsonc(record).TrimStart();
+        if (stripped.Length == 0) return false;
+        if (stripped[0] is '{' or '[' or '"') return true;
+        try
+        {
+            using var _ = JsonDocument.Parse(stripped);
+            return true;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
     }
 
     private static IReadOnlyList<string> SplitYamlDocuments(string source)

@@ -72,7 +72,10 @@ function parseRecord(raw: string): Beta6Record {
     throw new AprParseError(`not valid beta.6 representation: ${message}`, code);
   }
   refuseForbiddenCodePoints(value);
-  if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR");
+  if (value === null || typeof value !== "object" || Array.isArray(value)) // Well-formed JSON that is not an object parsed, so it is neither a parse failure (APR-VAL-003)
+    // nor a candidate for the YAML retry: it is a record that is neither a form nor an attestation
+    // (APR-STREAM-007), reported WRONG_TYPE.
+    throw new AprParseError("an APR record must be an object", "WRONG_TYPE");
   const object = value as JsonObject;
   // An absent or blank aprVersion states no version, so it is the missing member it is
   // rather than a version this reader does not accept.

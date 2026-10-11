@@ -78,7 +78,7 @@ public final class AprBeta6 {
         rejectDuplicateObjectMembers(json);
         Object parsed = Json.parse(json);
         refuseForbiddenCodePoints(parsed);
-        if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object", "PARSE_ERROR");
+        if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR record must be an object", "WRONG_TYPE");
         Map<String,Object> value = (Map<String,Object>) raw;
         // An absent or blank aprVersion states no version, so it is the missing member it
         // is rather than a version this reader does not accept.

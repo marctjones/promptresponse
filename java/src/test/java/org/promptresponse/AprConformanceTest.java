@@ -7,6 +7,7 @@ public final class AprConformanceTest {
     public static void main(String[] args) throws Exception {
         expressionBinding();
         beta6();
+        readerStages();
         forbiddenCodePoints();
         versionPresence();
         submissionTargets();
@@ -159,6 +160,40 @@ public final class AprConformanceTest {
             AprBeta6.readStream(source, AprBeta6.Representation.JSONC);
         } catch (AprException refused) {
             if (!"PARSE_ERROR".equals(refused.code())) throw new AssertionError(what + " must be refused as PARSE_ERROR, not " + refused.code());
+            return;
+        }
+        throw new AssertionError(what + " must be refused while reading");
+    }
+
+    /**
+     * APR-VAL-003/004: the portable suite cannot observe the stage at which a
+     * reader refuses a document — a parse failure and a validation failure both
+     * answer reject — so each reader asserts its own refusal taxonomy here.
+     */
+    private static void readerStages() {
+        String form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+        expectRefusal("{not json", "PARSE_ERROR", "malformed source");
+        expectRefusal("[1, 2,", "PARSE_ERROR", "truncated source");
+        // Well-formed JSON parses (APR-VAL-003), so a value that is not an object is a record that
+        // is neither a form nor an attestation (APR-STREAM-007), not a parse failure.
+        expectRefusal("[1, 2, 3]", "WRONG_TYPE", "non-object record");
+        expectRefusal("\"just a string\"", "WRONG_TYPE", "string record");
+        expectRefusal("\u001e" + form + "\n\u001e[1, 2]\n", "WRONG_TYPE", "JSON array after a form");
+        expectRefusal("\u001e" + form + "\n\u001eaprVersion: 1.0-beta.6\nmetadata:\n  title: T\n", "APR_STREAM_MIXED_REPRESENTATIONS", "YAML record in a JSONC stream");
+        // An absent or blank aprVersion states no version, so it is the missing
+        // member it is rather than a version this reader does not accept.
+        expectRefusal(form.replace("\"aprVersion\":\"1.0-beta.6\",", ""), "REQUIRED_FIELD", "missing aprVersion");
+        expectRefusal(form.replace("1.0-beta.6", ""), "REQUIRED_FIELD", "blank aprVersion");
+        expectRefusal(form.replace("1.0-beta.6", "  "), "REQUIRED_FIELD", "whitespace aprVersion");
+        expectRefusal(form.replace("1.0-beta.6", "1.0-beta.3"), "UNSUPPORTED_VERSION", "wrong version");
+        expectRefusal(form.replace("\"aprVersion\"", "\"recordType\":\"signature\",\"aprVersion\""), "WRONG_TYPE", "unknown record type");
+    }
+
+    private static void expectRefusal(String source, String code, String what) {
+        try {
+            AprBeta6.readStream(source, AprBeta6.Representation.JSONC);
+        } catch (AprException refused) {
+            if (!code.equals(refused.code())) throw new AssertionError(what + " must be refused as " + code + ", not " + refused.code());
             return;
         }
         throw new AssertionError(what + " must be refused while reading");

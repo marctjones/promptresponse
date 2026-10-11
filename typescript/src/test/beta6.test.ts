@@ -366,3 +366,54 @@ test("temporal names are unbound when the caller supplies nothing", () => {
   const context = buildExpressionContext(document);
   assert.equal(computeValue(document.sections[0].prompts[0], context), undefined);
 });
+
+// APR-VAL-003/004: the portable suite cannot observe the stage at which a
+// reader refuses a document — a parse failure and a validation failure both
+// answer reject — so each reader asserts its own refusal taxonomy here.
+const STAGE_FORM = `{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}`;
+
+function refusalCode(source: string, representation: "jsonc" | "yaml" = "jsonc"): string | undefined {
+  try {
+    readBeta6Stream(source, representation);
+  } catch (error) {
+    assert.ok(error instanceof AprParseError);
+    return error.code;
+  }
+  throw new Error("expected the source to be refused");
+}
+
+test("a malformed source is a parse error", () => {
+  assert.equal(refusalCode("{not json"), "PARSE_ERROR");
+  assert.equal(refusalCode("[1, 2,"), "PARSE_ERROR");
+});
+
+test("a non-object record is a wrong type, not a parse failure", () => {
+  // Well-formed JSON parses (APR-VAL-003), so a value that is not an object is a record that
+  // is neither a form nor an attestation (APR-STREAM-007).
+  assert.equal(refusalCode("[1, 2, 3]"), "WRONG_TYPE");
+  assert.equal(refusalCode(`"just a string"`), "WRONG_TYPE");
+});
+
+test("a JSON array after a form is a wrong type, not mixed representations", () => {
+  assert.equal(refusalCode(`\u001e${STAGE_FORM}\n\u001e[1, 2]\n`), "WRONG_TYPE");
+});
+
+test("a YAML record in a JSONC stream is still mixed representations", () => {
+  assert.equal(refusalCode(`\u001e${STAGE_FORM}\n\u001eaprVersion: 1.0-beta.6\nmetadata:\n  title: T\n`), "APR_STREAM_MIXED_REPRESENTATIONS");
+});
+
+test("a missing aprVersion is a required field, not an unsupported version", () => {
+  // An absent or blank aprVersion states no version, so it is the missing
+  // member it is rather than a version this reader does not accept.
+  assert.equal(refusalCode(STAGE_FORM.replace(`"aprVersion":"1.0-beta.6",`, "")), "REQUIRED_FIELD");
+  assert.equal(refusalCode(STAGE_FORM.replace("1.0-beta.6", "")), "REQUIRED_FIELD");
+  assert.equal(refusalCode(STAGE_FORM.replace("1.0-beta.6", "  ")), "REQUIRED_FIELD");
+});
+
+test("a wrong version is unsupported", () => {
+  assert.equal(refusalCode(STAGE_FORM.replace("1.0-beta.6", "1.0-beta.3")), "UNSUPPORTED_VERSION");
+});
+
+test("an unknown record type is a wrong type", () => {
+  assert.equal(refusalCode(STAGE_FORM.replace(`"aprVersion"`, `"recordType":"signature","aprVersion"`)), "WRONG_TYPE");
+});

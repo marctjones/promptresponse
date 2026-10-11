@@ -107,7 +107,10 @@ def _parse_record(raw: str) -> Beta6Record:
         raise AprParseError(f"not valid beta.6 representation: {exc}", "PARSE_ERROR") from exc
     _refuse_forbidden_code_points(value)
     if not isinstance(value, dict):
-        raise AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR")
+        # Well-formed JSON that is not an object parsed, so it is not a parse failure
+        # (APR-VAL-003) and must not fall through to the YAML retry; it is a record that
+        # is neither a form nor an attestation (APR-STREAM-007), reported WRONG_TYPE.
+        raise AprParseError("an APR record must be an object", "WRONG_TYPE")
     stated = value.get("aprVersion")
     if stated is None or (isinstance(stated, str) and not stated.strip()):
         # An absent or blank aprVersion states no version, so it is the missing member

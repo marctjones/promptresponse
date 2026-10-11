@@ -1,7 +1,9 @@
 using System.Text.Json;
 using AwesomeAssertions;
 using PromptResponse.Core.Beta6;
+using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Validation;
 using Xunit;
 
 namespace PromptResponse.Core.Tests.Beta6;
@@ -448,5 +450,108 @@ public class AprBeta6ReaderTests
 
         roundTripped.Should().HaveCount(3);
         roundTripped.Count(record => record is AprFormRecord).Should().Be(2);
+    }
+
+    // APR-VAL-003/004: the portable suite cannot observe the stage at which a
+    // reader refuses a document — a parse failure and a validation failure both
+    // answer reject — so each reader asserts its own refusal taxonomy here.
+    // A malformed source never reaches validation: it is refused while reading.
+    [Theory]
+    [InlineData("{not json")]
+    [InlineData("[1, 2,")]
+    public void MalformedSource_IsAParseError(string source)
+    {
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
+    }
+
+    // Well-formed JSON parses (APR-VAL-003), so a value that is not an object is a record
+    // that is neither a form nor an attestation (APR-STREAM-007), not a parse failure.
+    [Theory]
+    [InlineData("[1, 2, 3]")]
+    [InlineData("\"just a string\"")]
+    public void NonObjectRecord_IsWrongType_NotAParseFailure(string source)
+    {
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("WRONG_TYPE");
+    }
+
+    private const string Form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+    [Fact]
+    public void AJsonArrayAfterAForm_IsWrongType_NotMixedRepresentations()
+    {
+        var act = () => _reader.ReadStream("\u001e" + Form + "\n\u001e[1, 2]\n", AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("WRONG_TYPE");
+    }
+
+    [Fact]
+    public void AYamlRecordInAJsoncStream_IsStillMixedRepresentations()
+    {
+        var yaml = "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\n";
+        var act = () => _reader.ReadStream("\u001e" + Form + "\n\u001e" + yaml, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("APR_STREAM_MIXED_REPRESENTATIONS");
+    }
+
+    [Fact]
+    public void ARecordThatOpensWithAComment_IsStillARecord()
+    {
+        var records = _reader.ReadStream("\u001e// a leading comment\n" + Form + "\n\u001e" + Form + "\n", AprRepresentation.Jsonc);
+
+        records.Should().HaveCount(2);
+    }
+
+    // An absent or blank aprVersion states no version, so it is the missing
+    // member it is rather than a version this reader does not accept.
+    [Theory]
+    [InlineData("{\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}")]
+    [InlineData("{\"aprVersion\":\"\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}")]
+    [InlineData("{\"aprVersion\":\"  \",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}")]
+    public void MissingAprVersion_IsRequiredField_NotUnsupportedVersion(string source)
+    {
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("REQUIRED_FIELD");
+    }
+
+    [Fact]
+    public void WrongAprVersion_IsUnsupportedVersion()
+    {
+        const string source = "{\"aprVersion\":\"1.0-beta.3\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("UNSUPPORTED_VERSION");
+    }
+
+    [Fact]
+    public void UnknownRecordType_IsWrongType()
+    {
+        const string source = "{\"recordType\":\"signature\",\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("WRONG_TYPE");
+    }
+
+    // The validation stage returns its diagnostics rather than refusing while
+    // reading: a missing title is a REQUIRED_FIELD error, not a refusal.
+    [Fact]
+    public void Validator_ReturnsRequiredField_ForMissingTitle_WithoutRefusing()
+    {
+        var document = new AprDocument
+        {
+            Metadata = new Metadata { Title = "" },
+            Sections = [new Section { Id = "s", Title = "S", Prompts = [new Prompt { Id = "p", Label = "P" }] }],
+        };
+
+        var result = new DocumentValidator().Validate(document);
+
+        result.IsValid.Should().BeFalse("a missing title is a structural error");
+        result.Errors.Should().Contain(error => error.ErrorCode == "REQUIRED_FIELD");
     }
 }
