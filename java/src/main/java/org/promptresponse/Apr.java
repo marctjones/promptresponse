@@ -9,7 +9,7 @@ import java.util.*;
 public final class Apr {
     public static final String PROFILE = "core";
     /** The version a new document states. */
-    public static final String VERSION = "1.0-beta.6";
+    public static final String VERSION = "1.0-beta.7";
     /** Every version a reader accepts; beta.7 adds no member, so a beta.6 record is a beta.7 record. */
     public static final java.util.List<String> ACCEPTED_VERSIONS = java.util.List.of("1.0-beta.7", "1.0-beta.6");
 

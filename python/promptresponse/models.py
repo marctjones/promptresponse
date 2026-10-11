@@ -144,7 +144,7 @@ class Metadata:
 class AprDocument:
     """An APR document."""
 
-    version: str = "1.0-beta.6"
+    version: str = "1.0-beta.7"
     document_type: Optional[str] = None
     metadata: Metadata = field(default_factory=Metadata)
     sections: List[Section] = field(default_factory=list)

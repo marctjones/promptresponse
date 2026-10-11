@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Signing;
@@ -168,7 +169,7 @@ public class FileServiceTests : IDisposable
 
         await service.SaveFileAsync(document, filePath);
 
-        (await File.ReadAllTextAsync(filePath)).Should().Contain("\"aprVersion\": \"1.0-beta.6\"");
+        (await File.ReadAllTextAsync(filePath)).Should().Contain($"\"aprVersion\": \"{AprFormat.CurrentVersion}\"");
     }
 
     [Fact]

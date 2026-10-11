@@ -40,7 +40,7 @@ public partial class DocumentIntegrationTests
     {
         // Fixtures are normalized through the active beta.6 reader/writer boundary.
         var document = _serializer.Deserialize(File.ReadAllText(GetExampleFilePath(filename)));
-        document.Version = "1.0-beta.6";
+        document.Version = AprFormat.CurrentVersion;
         var reader = new AprBeta6Reader();
         return reader.ReadForm(reader.WriteForm(document, AprRepresentation.Jsonc), AprRepresentation.Jsonc);
     }

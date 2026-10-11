@@ -71,3 +71,13 @@ def test_wrong_version_is_unsupported():
 
 def test_unknown_record_type_is_wrong_type():
     assert _refusal_code(FORM.replace('"aprVersion"', '"recordType":"signature","aprVersion"')) == "WRONG_TYPE"
+
+
+def test_a_new_document_states_the_current_version_and_an_older_one_is_read_as_stated():
+    from promptresponse import ACCEPTED_VERSIONS, CURRENT_VERSION, loads
+    from promptresponse.models import AprDocument
+
+    assert CURRENT_VERSION == "1.0-beta.7" and CURRENT_VERSION in ACCEPTED_VERSIONS
+    assert AprDocument().version == CURRENT_VERSION
+    older = loads(FORM)
+    assert older.version == "1.0-beta.6", "a reader keeps the version a document states"

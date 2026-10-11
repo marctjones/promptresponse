@@ -1,11 +1,11 @@
 {
-  "aprVersion": "1.0-beta.6",
+  "aprVersion": "1.0-beta.7",
   "documentType": "template",
   "metadata": {
     "title": "ct-dmv-b225p",
     "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
     "templateId": "tag:skpt.cl,2026:imported/ct-dmv-b225p",
-    "templateVersion": "1.0-beta.6"
+    "templateVersion": "1.0-beta.7"
   },
   "sections": [
     {

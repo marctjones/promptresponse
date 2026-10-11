@@ -21,7 +21,7 @@ namespace PromptResponse.Core;
 public static class AprFormat
 {
     /// <summary>The format version written into newly created documents.</summary>
-    public const string CurrentVersion = "1.0-beta.6";
+    public const string CurrentVersion = "1.0-beta.7";
 
     /// <summary>Whether this build can read a document declaring the given version.</summary>
     public static bool IsSupported(string? version) =>

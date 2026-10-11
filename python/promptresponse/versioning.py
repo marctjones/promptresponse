@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-CURRENT_VERSION = "1.0-beta.6"
+CURRENT_VERSION = "1.0-beta.7"
 """The version a new document states."""
 
 ACCEPTED_VERSIONS = ("1.0-beta.7", "1.0-beta.6")

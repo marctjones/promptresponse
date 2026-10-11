@@ -15,7 +15,7 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
         { "aprVersion": "1.0-beta.6", "documentType": "template", "metadata": { "title": "Test Form" }, "sections": [] }
         """);
         document.Should().NotBeNull();
-        document.Version.Should().Be(AprFormat.CurrentVersion);
+        document.Version.Should().Be("1.0-beta.6", "a reader keeps the version the document states, and beta.6 is accepted alongside the current one");
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Test Form");
     }

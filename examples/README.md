@@ -34,7 +34,7 @@ These templates showcase the flexibility and power of the APR format for represe
 - **Use Case**: Reference for data type validation and hints
 
 #### `hints-and-widgets-showcase.apr.jsonc` and `hints-and-widgets-showcase.apr.yaml`
-- **Purpose**: Matched beta.6 JSONC and YAML representations of one semantic template
+- **Purpose**: Matched beta.7 JSONC and YAML representations of one semantic template
 - **Features**: Every registered `expectedDataType`, plus placeholders, help text,
   suggested values, regex, range bounds, and every `expr*` hint
 - **Use Case**: Representation and renderer-affordance reference; the two files
@@ -271,7 +271,7 @@ Minimum required structure:
 
 ```json
 {
-  "aprVersion": "1.0-beta.6",
+  "aprVersion": "1.0-beta.7",
   "documentType": "template",
   "metadata": {
     "title": "My Form",

@@ -2,7 +2,7 @@ import { AprParseError } from "./errors.js";
 import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RoleDefinition, Section, SubmissionTarget } from "./model.js";
 import { normalize } from "./text.js";
 
-export const CURRENT_VERSION = "1.0-beta.6";
+export const CURRENT_VERSION = "1.0-beta.7";
 
 /** Every version a reader accepts; beta.7 adds no member, so a beta.6 record is a beta.7 record. */
 export const ACCEPTED_VERSIONS: readonly string[] = ["1.0-beta.7", "1.0-beta.6"];

@@ -192,6 +192,9 @@ public final class AprConformanceTest {
         expectRefusal(form.replace("1.0-beta.6", ""), "REQUIRED_FIELD", "blank aprVersion");
         expectRefusal(form.replace("1.0-beta.6", "  "), "REQUIRED_FIELD", "whitespace aprVersion");
         expectRefusal(form.replace("1.0-beta.6", "1.0-beta.3"), "UNSUPPORTED_VERSION", "wrong version");
+        // The current version is the first accepted one, and an older document is read as it states itself.
+        if (!"1.0-beta.7".equals(Apr.VERSION) || !Apr.ACCEPTED_VERSIONS.contains(Apr.VERSION)) throw new AssertionError("the current version must be 1.0-beta.7 and accepted");
+        if (!"1.0-beta.6".equals(((AprBeta6.FormRecord) AprBeta6.readStream(form, AprBeta6.Representation.JSONC).getFirst()).document().version())) throw new AssertionError("a reader must keep the version a document states");
         expectRefusal(form.replace("\"aprVersion\"", "\"recordType\":\"signature\",\"aprVersion\""), "WRONG_TYPE", "unknown record type");
     }
 

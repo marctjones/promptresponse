@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildExpressionContext, computeValue, validationMessage, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
+import { ACCEPTED_VERSIONS, CURRENT_VERSION, loads, buildExpressionContext, computeValue, validationMessage, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
 import { readFile } from "node:fs/promises";
 
 const form = `{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
@@ -421,6 +421,12 @@ test("a missing aprVersion is a required field, not an unsupported version", () 
   assert.equal(refusalCode(STAGE_FORM.replace(`"aprVersion":"1.0-beta.6",`, "")), "REQUIRED_FIELD");
   assert.equal(refusalCode(STAGE_FORM.replace("1.0-beta.6", "")), "REQUIRED_FIELD");
   assert.equal(refusalCode(STAGE_FORM.replace("1.0-beta.6", "  ")), "REQUIRED_FIELD");
+});
+
+test("the current version is the first accepted one, and an older one is read as stated", () => {
+  assert.equal(CURRENT_VERSION, "1.0-beta.7");
+  assert.ok(ACCEPTED_VERSIONS.includes(CURRENT_VERSION));
+  assert.equal(loads(STAGE_FORM).version, "1.0-beta.6", "a reader keeps the version a document states");
 });
 
 test("a wrong version is unsupported", () => {
