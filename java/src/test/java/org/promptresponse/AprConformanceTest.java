@@ -9,6 +9,7 @@ public final class AprConformanceTest {
         beta6();
         readerStages();
         nestingIsBounded();
+        readerBoundaryFuzz(Path.of(args[0]).resolve("spec-examples.json"));
         forbiddenCodePoints();
         versionPresence();
         submissionTargets();
@@ -175,6 +176,10 @@ public final class AprConformanceTest {
         String form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
         expectRefusal("{not json", "PARSE_ERROR", "malformed source");
         expectRefusal("[1, 2,", "PARSE_ERROR", "truncated source");
+        // A closer with nothing open used to pop an empty stack and surface a NoSuchElementException.
+        expectRefusal("}", "PARSE_ERROR", "a stray closing brace");
+        expectRefusal("]", "PARSE_ERROR", "a stray closing bracket");
+        expectRefusal(form + "}", "PARSE_ERROR", "a form followed by a stray closing brace");
         // Well-formed JSON parses (APR-VAL-003), so a value that is not an object is a record that
         // is neither a form nor an attestation (APR-STREAM-007), not a parse failure.
         expectRefusal("[1, 2, 3]", "WRONG_TYPE", "non-object record");
@@ -213,6 +218,52 @@ public final class AprConformanceTest {
             throw new AssertionError("20,000 levels of nesting overflowed the stack instead of being refused");
         }
         throw new AssertionError("20,000 levels of nesting must be refused");
+    }
+
+    /**
+     * For any input the reader either returns records or throws AprException, and terminates
+     * promptly. A library or collection exception reaching the caller is a defect, because a
+     * caller told the format is safe to open cannot defend against what it was never told about.
+     * Seeded from the specification's executable examples in every representation, with fixed
+     * seeds so a failure reproduces; the same corpus and mutations as the other SDKs' suites.
+     */
+    @SuppressWarnings("unchecked")
+    private static void readerBoundaryFuzz(Path examples) throws Exception {
+        var seeds = (java.util.List<Object>) ((java.util.Map<String, Object>) Json.parse(Files.readString(examples))).get("examples");
+        var rng = new java.util.Random(20261010);
+        var poison = "\"{}[],:\\/*\u001e\u0000\ud800\uffff&!%@`#|>-?<'\n\t ";
+        var defects = new java.util.TreeMap<String, String>();
+        var attempts = 0;
+        for (Object seed : seeds) {
+            var example = (java.util.Map<String, Object>) seed;
+            var representation = ((String) example.get("representation")).startsWith("yaml") ? AprBeta6.Representation.YAML : AprBeta6.Representation.JSONC;
+            var document = (String) example.get("document");
+            var id = (String) example.get("id");
+            var mutations = new java.util.ArrayList<String>();
+            for (int n = 0; n < document.length(); n += Math.max(1, document.length() / 80)) mutations.add(document.substring(0, n));
+            for (int i = 0; i < 80; i++) {
+                int at = rng.nextInt(document.length());
+                mutations.add(document.substring(0, at) + poison.charAt(rng.nextInt(poison.length())) + document.substring(at + 1));
+            }
+            for (int i = 0; i < 40; i++) {
+                int from = rng.nextInt(document.length());
+                mutations.add(document.substring(0, from) + document.substring(Math.min(document.length(), from + 1 + rng.nextInt(Math.max(1, document.length() / 4)))));
+                mutations.add(document.substring(0, rng.nextInt(document.length())) + "\u001e" + document.substring(rng.nextInt(document.length())));
+            }
+            for (String mutated : mutations) {
+                attempts++;
+                var started = System.currentTimeMillis();
+                try {
+                    AprBeta6.readStream(mutated, representation);
+                } catch (AprException refused) {
+                    // The designed outcome for bad input.
+                } catch (Throwable leaked) {
+                    defects.putIfAbsent(leaked.getClass().getSimpleName() + ": " + leaked.getMessage(), id);
+                }
+                if (System.currentTimeMillis() - started > 5000) defects.putIfAbsent("took too long (a document that hangs a reader is a denial of service)", id);
+            }
+        }
+        if (!defects.isEmpty()) throw new AssertionError("the reader must refuse bad input with AprException and nothing else; kinds found over " + attempts + " inputs (first seen on): " + defects);
     }
 
     private static void expectRefusal(String source, String code, String what) {

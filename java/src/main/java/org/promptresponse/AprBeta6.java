@@ -274,7 +274,11 @@ public final class AprBeta6 {
             if (Character.isWhitespace(current) || current == ',' || current == ':') { i++; continue; }
             if (current == '{') { containers.push(true); objects.push(new HashSet<>()); i++; continue; }
             if (current == '[') { containers.push(false); i++; continue; }
-            if (current == '}' || current == ']') { if (containers.pop()) objects.pop(); i++; continue; }
+            if (current == '}' || current == ']') {
+                // A closer with nothing open is a malformed file, not a state this scan may assume away.
+                if (containers.isEmpty()) throw new AprException("Unbalanced closing bracket at offset " + i, "PARSE_ERROR");
+                if (containers.pop()) objects.pop(); i++; continue;
+            }
             if (current == '"') {
                 int start = i++; boolean escaped = false;
                 while (i < source.length()) { char c = source.charAt(i++); if (escaped) escaped = false; else if (c == '\\') escaped = true; else if (c == '"') break; }
