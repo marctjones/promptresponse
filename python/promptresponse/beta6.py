@@ -100,7 +100,36 @@ def write_beta6_stream(records: Iterable[Beta6Record], representation: str) -> s
     return "".join("\x1e" + record + "\n" for record in encoded) if representation == "jsonc" else "---\n".join(encoded)
 
 
+# Deepest object/array nesting a reader accepts (APR-SEC-011, APR-SEC-019). The specification
+# fixes a floor of sixteen section levels and leaves the bound to the implementation; 128 clears
+# it several times over and keeps every later recursive walk well inside the interpreter's limit.
+MAX_NESTING = 128
+
+
+def _refuse_excess_nesting(raw: str) -> None:
+    """Refuse a record nested past MAX_NESTING before anything recurses over it."""
+    depth = 0
+    quote = escaped = False
+    for char in raw:
+        if quote:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                quote = False
+        elif char == '"':
+            quote = True
+        elif char in "[{":
+            depth += 1
+            if depth > MAX_NESTING:
+                raise AprParseError(f"nesting exceeds {MAX_NESTING} levels", "PARSE_ERROR")
+        elif char in "]}":
+            depth -= 1
+
+
 def _parse_record(raw: str) -> Beta6Record:
+    _refuse_excess_nesting(raw)
     try:
         value = json.loads(raw, object_pairs_hook=_unique_object)
     except (json.JSONDecodeError, TypeError) as exc:

@@ -127,6 +127,13 @@ function carriesForbiddenCodePoint(text: string): boolean {
 }
 
 /** Lightweight JSON member scanner used before JSON.parse's otherwise silent last-key-wins behavior. */
+/**
+ * Deepest object/array nesting a reader accepts (APR-SEC-011, APR-SEC-019). The specification
+ * fixes a floor of sixteen section levels and leaves the bound to the implementation; 128 clears
+ * it several times over, and refusing here keeps JSON.parse from throwing a bare RangeError.
+ */
+const MAX_NESTING = 128;
+
 function rejectDuplicateObjectMembers(source: string): void {
   const stack: Array<Set<string> | null> = [];
   let i = 0;
@@ -138,8 +145,8 @@ function rejectDuplicateObjectMembers(source: string): void {
   };
   while (i < source.length) {
     const c = source[i]; if (whitespace.test(c) || c === "," || c === ":") { i++; continue; }
-    if (c === "{") { stack.push(new Set()); i++; continue; }
-    if (c === "[") { stack.push(null); i++; continue; }
+    if (c === "{") { stack.push(new Set()); i++; if (stack.length > MAX_NESTING) throw new Error(`nesting exceeds ${MAX_NESTING} levels`); continue; }
+    if (c === "[") { stack.push(null); i++; if (stack.length > MAX_NESTING) throw new Error(`nesting exceeds ${MAX_NESTING} levels`); continue; }
     if (c === "}" || c === "]") { stack.pop(); i++; continue; }
     if (c === '"') {
       const value = string(); let next = i; while (next < source.length && whitespace.test(source[next])) next++;

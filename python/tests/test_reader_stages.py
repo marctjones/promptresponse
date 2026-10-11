@@ -43,6 +43,20 @@ def test_a_yaml_record_in_a_jsonc_stream_is_still_mixed_representations():
     assert _refusal_code(stream) == "APR_STREAM_MIXED_REPRESENTATIONS"
 
 
+def test_excess_nesting_is_refused_cleanly_and_ordinary_nesting_is_not():
+    # APR-SEC-011 and APR-SEC-019: a reader bounds nesting depth and refuses past the bound,
+    # rather than recursing until the interpreter gives out.
+    hostile = "[" * 20_000 + "]" * 20_000
+    assert _refusal_code('{"aprVersion":"1.0-beta.6","x":' + hostile + "}") == "PARSE_ERROR"
+    ordinary = "[" * 100 + "]" * 100
+    assert _refusal_code('{"aprVersion":"1.0-beta.6","x":' + ordinary + "}") != "PARSE_ERROR"
+
+
+def test_a_bracket_inside_a_string_does_not_count_as_nesting():
+    records = read_beta6_stream(FORM.replace('"T"', '"' + "[" * 500 + '"'), "jsonc")
+    assert len(records) == 1
+
+
 def test_missing_apr_version_is_required_field_not_unsupported():
     # An absent or blank aprVersion states no version, so it is the missing
     # member it is rather than a version this reader does not accept.

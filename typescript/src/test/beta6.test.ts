@@ -402,6 +402,19 @@ test("a YAML record in a JSONC stream is still mixed representations", () => {
   assert.equal(refusalCode(`\u001e${STAGE_FORM}\n\u001eaprVersion: 1.0-beta.6\nmetadata:\n  title: T\n`), "APR_STREAM_MIXED_REPRESENTATIONS");
 });
 
+test("excess nesting is refused cleanly and ordinary nesting is not", () => {
+  // APR-SEC-011 and APR-SEC-019: a reader bounds nesting depth and refuses past the bound,
+  // rather than letting JSON.parse throw a bare RangeError.
+  const hostile = "[".repeat(20_000) + "]".repeat(20_000);
+  assert.equal(refusalCode(`{"aprVersion":"1.0-beta.6","x":${hostile}}`), "PARSE_ERROR");
+  const ordinary = "[".repeat(100) + "]".repeat(100);
+  assert.notEqual(refusalCode(`{"aprVersion":"1.0-beta.6","x":${ordinary}}`), "PARSE_ERROR");
+});
+
+test("a bracket inside a string does not count as nesting", () => {
+  assert.equal(readBeta6Stream(STAGE_FORM.replace('"T"', `"${"[".repeat(500)}"`), "jsonc").length, 1);
+});
+
 test("a missing aprVersion is a required field, not an unsupported version", () => {
   // An absent or blank aprVersion states no version, so it is the missing
   // member it is rather than a version this reader does not accept.

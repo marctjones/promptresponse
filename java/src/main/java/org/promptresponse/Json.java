@@ -4,8 +4,17 @@ import java.util.*;
 
 /** Small dependency-free JSON reader/writer for the APR core SDK. */
 final class Json {
+    /**
+     * Deepest object/array nesting this reader accepts (APR-SEC-011, APR-SEC-019). The
+     * specification fixes a floor of sixteen section levels and leaves the bound to the
+     * implementation; 128 clears that floor several times over while keeping the parser's
+     * recursion well inside the stack, so a hostile document is refused, not a crash.
+     */
+    static final int MAX_DEPTH = 128;
+
     private final String input;
     private int at;
+    private int depth;
     private Json(String input) { this.input = input; }
 
     static Object parse(String input) {
@@ -32,19 +41,20 @@ final class Json {
         };
     }
     private Map<String, Object> object() {
-        take('{'); LinkedHashMap<String, Object> result = new LinkedHashMap<>(); white();
-        if (peek('}')) { at++; return result; }
+        take('{'); enter(); LinkedHashMap<String, Object> result = new LinkedHashMap<>(); white();
+        if (peek('}')) { at++; depth--; return result; }
         while (true) {
             white(); if (!peek('"')) throw error("object key must be a string");
             String key = string(); white(); take(':'); result.put(key, value()); white();
-            if (peek('}')) { at++; return result; } take(',');
+            if (peek('}')) { at++; depth--; return result; } take(',');
         }
     }
     private List<Object> array() {
-        take('['); ArrayList<Object> result = new ArrayList<>(); white();
-        if (peek(']')) { at++; return result; }
-        while (true) { result.add(value()); white(); if (peek(']')) { at++; return result; } take(','); }
+        take('['); enter(); ArrayList<Object> result = new ArrayList<>(); white();
+        if (peek(']')) { at++; depth--; return result; }
+        while (true) { result.add(value()); white(); if (peek(']')) { at++; depth--; return result; } take(','); }
     }
+    private void enter() { if (++depth > MAX_DEPTH) throw error("nesting exceeds " + MAX_DEPTH + " levels"); }
     private String string() {
         take('"'); StringBuilder out = new StringBuilder();
         while (at < input.length()) {

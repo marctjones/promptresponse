@@ -8,6 +8,7 @@ public final class AprConformanceTest {
         expressionBinding();
         beta6();
         readerStages();
+        nestingIsBounded();
         forbiddenCodePoints();
         versionPresence();
         submissionTargets();
@@ -187,6 +188,31 @@ public final class AprConformanceTest {
         expectRefusal(form.replace("1.0-beta.6", "  "), "REQUIRED_FIELD", "whitespace aprVersion");
         expectRefusal(form.replace("1.0-beta.6", "1.0-beta.3"), "UNSUPPORTED_VERSION", "wrong version");
         expectRefusal(form.replace("\"aprVersion\"", "\"recordType\":\"signature\",\"aprVersion\""), "WRONG_TYPE", "unknown record type");
+    }
+
+    /**
+     * APR-SEC-011 and APR-SEC-019: a reader bounds nesting depth and refuses a document that
+     * exceeds the bound cleanly. Unbounded recursion used to end in a StackOverflowError,
+     * which is an Error and escaped every RuntimeException handler, aborting the caller.
+     */
+    private static void nestingIsBounded() {
+        String ordinary = "[".repeat(100) + "]".repeat(100);
+        try {
+            Json.parse(ordinary);
+        } catch (AprException refused) {
+            throw new AssertionError("100 levels of nesting is ordinary and must parse: " + refused.getMessage());
+        }
+        String hostile = "[".repeat(20_000) + "]".repeat(20_000);
+        try {
+            Json.parse(hostile);
+        } catch (AprException refused) {
+            if (!"PARSE_ERROR".equals(refused.code())) throw new AssertionError("excess nesting must be PARSE_ERROR, not " + refused.code());
+            expectRefusal("{\"aprVersion\":\"1.0-beta.6\",\"x\":" + hostile + "}", "PARSE_ERROR", "a hostile nested document");
+            return;
+        } catch (StackOverflowError overflow) {
+            throw new AssertionError("20,000 levels of nesting overflowed the stack instead of being refused");
+        }
+        throw new AssertionError("20,000 levels of nesting must be refused");
     }
 
     private static void expectRefusal(String source, String code, String what) {

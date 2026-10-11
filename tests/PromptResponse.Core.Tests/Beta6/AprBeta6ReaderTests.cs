@@ -505,6 +505,27 @@ public class AprBeta6ReaderTests
         records.Should().HaveCount(2);
     }
 
+    // APR-SEC-011 and APR-SEC-019: a reader bounds nesting depth and refuses past the bound,
+    // under the format's own code, rather than letting the parser's exception escape.
+    [Fact]
+    public void ExcessNesting_IsRefusedCleanly_UnderParseError()
+    {
+        var hostile = new string('[', 20_000) + new string(']', 20_000);
+        var act = () => _reader.ReadStream("{\"aprVersion\":\"1.0-beta.6\",\"x\":" + hostile + "}", AprRepresentation.Jsonc);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
+    }
+
+    [Fact]
+    public void OrdinaryNesting_IsNotRefusedAsExcess()
+    {
+        var ordinary = new string('[', 40) + new string(']', 40);
+        var act = () => _reader.ReadStream("{\"aprVersion\":\"1.0-beta.6\",\"x\":" + ordinary + "}", AprRepresentation.Jsonc);
+
+        // Refused for the missing metadata, which is a different fault from nesting.
+        act.Should().Throw<SerializationException>().Which.Code.Should().NotBe("PARSE_ERROR");
+    }
+
     // An absent or blank aprVersion states no version, so it is the missing
     // member it is rather than a version this reader does not accept.
     [Theory]
