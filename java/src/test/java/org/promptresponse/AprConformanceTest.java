@@ -542,6 +542,51 @@ public final class AprConformanceTest {
         if (!(metadata.get("com.example.count") instanceof Long) || !"012".equals(metadata.get("com.example.lead")) || !"5".equals(metadata.get("com.example.quoted")))
             throw new AssertionError("APR YAML integer resolution differs from JSON: " + metadata);
     }
+    /**
+     * APR-ATTEST-037: the proof type cms/ecdsa-p256-sha256 names ECDSA over P-256 with SHA-256. A CMS
+     * signature that verifies but was made another way is a real signature that is not that proof
+     * type, so it must not verify as one. The same envelope is signed the right way and three wrong
+     * ways; only the right way may resolve valid.
+     */
+    @SuppressWarnings("unchecked")
+    private static void cmsProofIsHeldToItsType(AprBeta6.FormRecord form, AprBeta6.AttestationRecord corpusAttestation) throws Exception {
+        java.util.Map<String, Object> envelope = new java.util.LinkedHashMap<>(corpusAttestation.value());
+        envelope.remove("proofs");
+        byte[] payload = AprBeta6Integrity.canonicalize(envelope).getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
+        record Variant(String name, String keyAlgorithm, String keySpec, String signatureAlgorithm, boolean verifies) {}
+        for (Variant variant : java.util.List.of(
+                new Variant("ECDSA P-256 with SHA-256", "EC", "secp256r1", "SHA256withECDSA", true),
+                new Variant("RSA with SHA-256", "RSA", "2048", "SHA256withRSA", false),
+                new Variant("ECDSA P-384 with SHA-384", "EC", "secp384r1", "SHA384withECDSA", false),
+                new Variant("ECDSA P-256 with SHA-384", "EC", "secp256r1", "SHA384withECDSA", false))) {
+            var generator = java.security.KeyPairGenerator.getInstance(variant.keyAlgorithm());
+            if ("EC".equals(variant.keyAlgorithm())) generator.initialize(new java.security.spec.ECGenParameterSpec(variant.keySpec()));
+            else generator.initialize(Integer.parseInt(variant.keySpec()));
+            var pair = generator.generateKeyPair();
+            var name = new org.bouncycastle.asn1.x500.X500Name("CN=signer");
+            var now = System.currentTimeMillis();
+            var signerBuilder = new org.bouncycastle.operator.jcajce.JcaContentSignerBuilder(variant.signatureAlgorithm());
+            var certificate = new org.bouncycastle.cert.jcajce.JcaX509CertificateConverter().getCertificate(
+                new org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder(name, java.math.BigInteger.ONE,
+                    new java.util.Date(now - 86_400_000L), new java.util.Date(now + 86_400_000L), name, pair.getPublic())
+                    .build(signerBuilder.build(pair.getPrivate())));
+            var cmsGenerator = new org.bouncycastle.cms.CMSSignedDataGenerator();
+            cmsGenerator.addSignerInfoGenerator(new org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder(
+                new org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder().build())
+                .build(signerBuilder.build(pair.getPrivate()), certificate));
+            cmsGenerator.addCertificates(new org.bouncycastle.cert.jcajce.JcaCertStore(java.util.List.of(certificate)));
+            String proof = java.util.Base64.getEncoder().encodeToString(
+                cmsGenerator.generate(new org.bouncycastle.cms.CMSProcessableByteArray(payload), false).getEncoded());
+
+            java.util.Map<String, Object> signed = new java.util.LinkedHashMap<>(envelope);
+            signed.put("proofs", java.util.List.of(java.util.Map.of("type", "cms/ecdsa-p256-sha256", "value", proof)));
+            String state = AprBeta6Integrity.resolve(java.util.List.of(form, new AprBeta6.AttestationRecord(signed))).getFirst().state();
+            if (variant.verifies() && !"valid".equals(state)) throw new AssertionError(variant.name() + " is the proof type's algorithm and must verify, was " + state);
+            if (!variant.verifies() && "valid".equals(state)) throw new AssertionError(variant.name() + " is not the proof type's algorithm and must not verify");
+        }
+    }
+
     private static void beta6Corpus() throws Exception {
         Path beta6 = Path.of("..", "tests", "Conformance", "beta6");
         AprDocument jsonc = AprBeta6.readForm(Files.readString(beta6.resolve("forms/permit.apr.jsonc")), AprBeta6.Representation.JSONC);
@@ -570,6 +615,7 @@ public final class AprConformanceTest {
         if (!"unverifiable".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(jsonc), fields.getFirst())).getFirst().state())) throw new AssertionError("fields scope corpus vector did not bind context");
         var unsupported = AprBeta6.readStream(Files.readString(beta6.resolve("attestations/permit.unsupported.attestation.jsonc")), AprBeta6.Representation.JSONC);
         if (!"unverifiable".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(jsonc), unsupported.getFirst())).getFirst().state())) throw new AssertionError("unsupported proof was not unverifiable");
+        cmsProofIsHeldToItsType(new AprBeta6.FormRecord(jsonc), (AprBeta6.AttestationRecord) cms.getFirst());
         try (var malformed = Files.list(beta6.resolve("malformed"))) {
             for (Path path : malformed.filter(Files::isRegularFile).toList()) {
                 try { AprBeta6.readStream(Files.readString(path), AprBeta6.Representation.JSONC); throw new AssertionError("malformed beta.6 stream parsed: " + path); } catch (AprException expected) { }

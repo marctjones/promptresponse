@@ -1,0 +1,38 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { verifyBeta6CmsProof } from "../beta6-integrity.js";
+import type { JsonObject } from "../model.js";
+
+// APR-ATTEST-037: the proof type cms/ecdsa-p256-sha256 names ECDSA over P-256 with SHA-256. A CMS
+// signature that verifies but was made another way is a real signature that is not that proof
+// type, so it must not verify as one. These are the same envelope signed the right way and three
+// wrong ways, generated once with the Python cryptography stack (scripts/requirements.txt) and
+// checked against the reference verifier, scripts/aprverify.py, which agrees on every one.
+const ENVELOPE: JsonObject = {"recordType": "attestation", "aprVersion": "1.0-beta.6", "subject": {"digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "canonicalization": "jcs-sha256"}, "scope": {"kind": "document"}, "manifest": {"root": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "entries": []}, "witnesses": []};
+
+const PROOFS = {
+  control: "MIICHwYJKoZIhvcNAQcCoIICEDCCAgwCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggEVMIIBETCBt6ADAgECAgEBMAoGCCqGSM49BAMCMBExDzANBgNVBAMMBnNpZ25lcjAgFw0yNjAxMDEwMDAwMDBaGA8yMTI1MTIwODAwMDAwMFowETEPMA0GA1UEAwwGc2lnbmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFb7U7C8SmnpIWz+9OEO+KFy8a8R5fh1ouGiwPg+89Z2koLZjLDpVGp8HbwJo6X9HRGjUsSofE4G0c/lVkso76TAKBggqhkjOPQQDAgNJADBGAiEA+QdZw6bRLQg6L2brVTPymDAlOh+SxCGYAnSyvnIY1dMCIQDbcioiF7rnoo15P5SUAxBNS+lQ3IrSLC0AwRvgIMxoYzGBzzCBzAIBATAWMBExDzANBgNVBAMMBnNpZ25lcgIBATANBglghkgBZQMEAgEFAKBLMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwLwYJKoZIhvcNAQkEMSIEIPsvsuCxJWt23hgVxvqo9M1hi1RVRcqIgZvHsGsrqX0nMAoGCCqGSM49BAMCBEcwRQIgGC305LRArugiG3tR4otq6h+HcLNJvjhfX7JKxTpU9nQCIQD7NcpgBjQp9OmjUIcOKes+axp1tmpZdKbQT6JvCZBw9g==",
+  rsa: "MIIEawYJKoZIhvcNAQcCoIIEXDCCBFgCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggKhMIICnTCCAYWgAwIBAgIBATANBgkqhkiG9w0BAQsFADARMQ8wDQYDVQQDDAZzaWduZXIwIBcNMjYwMTAxMDAwMDAwWhgPMjEyNTEyMDgwMDAwMDBaMBExDzANBgNVBAMMBnNpZ25lcjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ4KAsDbUbIbIz17Li6XYIRe1/P4XGtaJBIKUllvCm8+vdqaMEoyHx8/SqTG4t4U9Q0+tJ7KdQ+7mogWxByuArimFjAML7vhpiKtlWw0qKRukMU8ZFoZ3VIDtmEmAlQH2cajcLlCZ/3kyuDE2riQMnGO5XZU8VFjejo1bBFiivYQGAvQUZJuNeCLDVvA8hpuY7N5+BH8SABD4BE/2R6R4vqGj2op8tUX+5t49p2gRrhKcDMz3pnD0QGnVTZBHcL2qV3vMdUnoblyOD0zim3n2xMripArh7HNsqcHWzCsc3l0iT2fb3u+5VLrlHvqX+K+4HV3AyOnVTnPkNQazZiTR68CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAmf363Recv1nOTh9d3PqYMVa1Q2H8lpNsqa7cwXfLKCugngEUGlO4poIt81P/uy+wHFjUvXpv233Q6fHJvnjBuh/7D7+ZnjPDa3Y4+e8Sc+kT8acZ3AL9DiLJBwU3PUZCOPUEZcYOTaA3J+vyAjaFkIKqKRYqnaFAXJPx+jEQbt2WRJPCAbJTzBEI0knKuNBcJ5KSJ43cCfBagp/6G+324sgTNh5RgqDYboppepz4N6QsuS/cBdkBQvFjXt1LDfgpT+4KZT3ahkMiDpxKuW3tDetvRHNdx+oMcK5jN1jc9ou6uWT7XWxACUZeZU30BfgOb+OnopFuNEOEZTGRgipaiTGCAY4wggGKAgEBMBYwETEPMA0GA1UEAwwGc2lnbmVyAgEBMA0GCWCGSAFlAwQCAQUAoEswGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAvBgkqhkiG9w0BCQQxIgQg+y+y4LEla3beGBXG+qj0zWGLVFVFyoiBm8ewayupfScwDQYJKoZIhvcNAQELBQAEggEAE6hLopuEVpNj8VzTnvkuggH1IU+GQlZLO/do6CQU1TXjSl4hLmj4Itq+r3G4+N/VkUtYoeKez2n9yOFDqUhEE1D1Hk1xdVPO8ZNe8QqrhkrKyy4PgNramdKo5aTM7lpyN2jAB0EE/wvMJlhqyJ8zLza0X2fDM116zaRa+TlVvW+vLbQd9vXfetnTDxWXTTer1IyhFaFtlcdk3BQ5HoAI+JhbirIaxRe9Unzwv5YESn2GUv7Qf5nD8ZTaihC5eGbeA+mP9aCZOZVFwd+E3zwC0Kp42LWO/2zMtC2gDKS7yGDUjGIP90MEqjmEb011pBvRZbT7pb2+1YKQxBh+JJnDNg==",
+  p384: "MIICjAYJKoZIhvcNAQcCoIICfTCCAnkCAQExDzANBglghkgBZQMEAgIFADALBgkqhkiG9w0BBwGgggFSMIIBTjCB1KADAgECAgEBMAoGCCqGSM49BAMDMBExDzANBgNVBAMMBnNpZ25lcjAgFw0yNjAxMDEwMDAwMDBaGA8yMTI1MTIwODAwMDAwMFowETEPMA0GA1UEAwwGc2lnbmVyMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAExZcz4mS3GNKgg8Sk2F+xjqCdb+OmFetbwacS5qtsvTVKVcZRvme3jlenWSZcCDygRydDbzWWwAfjz/rw7ZhSy6qCVRRTnSaMTDTidcQfM3YhtLIVamoUECMjreJk1WHfMAoGCCqGSM49BAMDA2kAMGYCMQDZjpSfBpGPOEyUMzN4ylVlL8uNJYqbafKYgMgEZp7wLAai5CIjyGpfpnZ3Fkc4p6MCMQCepBUiJNObLVe05TvJzTUY6C5IB/88w/1vf9UfjlgzR9hrx3WUasNSDPkc767VVTAxgf8wgfwCAQEwFjARMQ8wDQYDVQQDDAZzaWduZXICAQEwDQYJYIZIAWUDBAICBQCgWzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMD8GCSqGSIb3DQEJBDEyBDBpsSKptjOLu70t5SV3VMumsAXnixvBNdIfe1JGtBx2nvbwf27m7f+APcay+WewTyUwCgYIKoZIzj0EAwMEZzBlAjEA04PsQUH8/J/TmebRDV62i6UapNW/tSS2thb+qxtE/KLscbWcmET2Av/Lkvh/ghyXAjBpD/Vh6EzR70wmvDvTtALaYRu7pLk5YbiRnou7eK9kbyUz/sBArrJS9e1gahrmr+w=",
+  sha384: "MIICLQYJKoZIhvcNAQcCoIICHjCCAhoCAQExDzANBglghkgBZQMEAgIFADALBgkqhkiG9w0BBwGgggETMIIBDzCBt6ADAgECAgEBMAoGCCqGSM49BAMDMBExDzANBgNVBAMMBnNpZ25lcjAgFw0yNjAxMDEwMDAwMDBaGA8yMTI1MTIwODAwMDAwMFowETEPMA0GA1UEAwwGc2lnbmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFb7U7C8SmnpIWz+9OEO+KFy8a8R5fh1ouGiwPg+89Z2koLZjLDpVGp8HbwJo6X9HRGjUsSofE4G0c/lVkso76TAKBggqhkjOPQQDAwNHADBEAiB+UXa8n+BwbodH2BI2LvQF9u5W/6TJiMC6NWvcj0lELQIgMBm5D0JmCA3e+E9ti1ocVRw6mZYWlyzFuHrkIjxMTzYxgd8wgdwCAQEwFjARMQ8wDQYDVQQDDAZzaWduZXICAQEwDQYJYIZIAWUDBAICBQCgWzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMD8GCSqGSIb3DQEJBDEyBDBpsSKptjOLu70t5SV3VMumsAXnixvBNdIfe1JGtBx2nvbwf27m7f+APcay+WewTyUwCgYIKoZIzj0EAwMERzBFAiA+N+R5bMVBRf8qA/7eBv278sxMnOKLDAxLkNyFjL21CAIhAPdfaH6439UPtiZfI8Yt1IcmM6VsVxhGTfECBPYzETZI",
+};
+
+async function verifies(name: keyof typeof PROOFS): Promise<boolean> {
+  return verifyBeta6CmsProof({ ...ENVELOPE, proofs: [{ type: "cms/ecdsa-p256-sha256", value: PROOFS[name] }] });
+}
+
+test("ECDSA P-256 with SHA-256 is the proof type's algorithm and verifies", async () => {
+  assert.equal(await verifies("control"), true);
+});
+
+test("a valid RSA signature is not this proof type", async () => {
+  assert.equal(await verifies("rsa"), false);
+});
+
+test("a valid ECDSA P-384 signature is not this proof type", async () => {
+  assert.equal(await verifies("p384"), false);
+});
+
+test("a valid P-256 signature over a SHA-384 digest is not this proof type", async () => {
+  assert.equal(await verifies("sha384"), false);
+});

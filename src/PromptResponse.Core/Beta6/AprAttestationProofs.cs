@@ -18,6 +18,9 @@ public static class AprAttestationProofs
     /// <summary>The beta.6 CMS proof identifier.</summary>
     public const string CmsEcdsaP256Sha256 = "cms/ecdsa-p256-sha256";
 
+    private const string Sha256Oid = "2.16.840.1.101.3.4.2.1";
+    private const string P256Oid = "1.2.840.10045.3.1.7";
+
     /// <summary>Verifies every recognized and unsupported proof independently.</summary>
     public static IReadOnlyList<AprAttestationProofVerification> Verify(
         AprAttestationRecord attestation, AprAttestationTrustOptions? options = null)
@@ -49,10 +52,29 @@ public static class AprAttestationProofs
                 return new(type, false, AprAttestationTrust.Invalid, "invalid — empty CMS proof");
             var cms = new SignedCms(new ContentInfo(payload), detached: true);
             cms.Decode(Convert.FromBase64String(encoded));
-            cms.CheckSignature(verifySignatureOnly: true);
-            var certificate = cms.SignerInfos.Count > 0 ? cms.SignerInfos[0].Certificate : null;
+            // The type names an algorithm (APR-ATTEST-037): ECDSA over P-256 with SHA-256. A CMS
+            // signature that verifies but is made another way is a real signature that is not
+            // this proof type, so it does not verify as one. One signer, because the trust result
+            // is about one certificate and a second signer's would otherwise go unexamined.
+            if (cms.SignerInfos.Count != 1)
+                return new(type, false, AprAttestationTrust.Invalid,
+                    $"invalid — {type} proof carries {cms.SignerInfos.Count} signers, not exactly one");
+            var signer = cms.SignerInfos[0];
+            if (signer.DigestAlgorithm.Value != Sha256Oid)
+                return new(type, false, AprAttestationTrust.Invalid,
+                    $"invalid — signed with digest {signer.DigestAlgorithm.Value ?? "(none)"}, not SHA-256");
+            var certificate = signer.Certificate;
             if (certificate is null)
                 return new(type, false, AprAttestationTrust.Invalid, "invalid — CMS proof has no signer certificate");
+            using (var key = certificate.GetECDsaPublicKey())
+            {
+                if (key is null)
+                    return new(type, false, AprAttestationTrust.Invalid, "invalid — signer key is not ECDSA");
+                var curve = key.ExportParameters(includePrivateParameters: false).Curve.Oid;
+                if (curve.Value != P256Oid && curve.FriendlyName is not ("nistP256" or "ECDSA_P256" or "secp256r1"))
+                    return new(type, false, AprAttestationTrust.Invalid, "invalid — signer key is not on the P-256 curve");
+            }
+            cms.CheckSignature(verifySignatureOnly: true);
             var (trust, status) = AprAttestationTrustEvaluator.Evaluate(certificate, options);
             return new(type, true, trust, status);
         }

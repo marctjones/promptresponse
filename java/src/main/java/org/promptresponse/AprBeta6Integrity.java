@@ -115,6 +115,10 @@ public final class AprBeta6Integrity {
         return attestation.get("proofs") instanceof List<?> proofs && proofs.stream().anyMatch(item -> item instanceof Map<?,?> proof && "cms/ecdsa-p256-sha256".equals(proof.get("type")));
     }
 
+    private static final String SHA256_OID = "2.16.840.1.101.3.4.2.1";
+    private static final String EC_PUBLIC_KEY_OID = "1.2.840.10045.2.1";
+    private static final String P256_OID = "1.2.840.10045.3.1.7";
+
     @SuppressWarnings("unchecked") private static boolean verifyProofs(Map<String,Object> attestation) {
         if (!(attestation.get("proofs") instanceof List<?> proofs)) return false;
         Map<String,Object> envelope = new LinkedHashMap<>(attestation); envelope.remove("proofs");
@@ -123,10 +127,19 @@ public final class AprBeta6Integrity {
             if (!(item instanceof Map<?,?> proof) || !"cms/ecdsa-p256-sha256".equals(proof.get("type")) || !(proof.get("value") instanceof String encoded)) continue;
             CMSSignedData cms = new CMSSignedData(new CMSProcessableByteArray(payload), Base64.getDecoder().decode(encoded));
             Store<X509CertificateHolder> certificates = cms.getCertificates();
-            for (SignerInformation signer : cms.getSignerInfos().getSigners()) {
-                var matches = certificates.getMatches(signer.getSID());
-                if (!matches.isEmpty() && signer.verify(new JcaSimpleSignerInfoVerifierBuilder().build((X509CertificateHolder) matches.iterator().next()))) return true;
-            }
+            // The proof type names an algorithm (APR-ATTEST-037): ECDSA over P-256 with SHA-256. A CMS
+            // signature that verifies but was made another way is a real signature that is not this
+            // proof type. Exactly one signer, so that no second signer's certificate goes unexamined.
+            var signers = cms.getSignerInfos().getSigners();
+            if (signers.size() != 1) continue;
+            SignerInformation signer = signers.iterator().next();
+            if (!SHA256_OID.equals(signer.getDigestAlgOID())) continue;
+            var matches = certificates.getMatches(signer.getSID());
+            if (matches.isEmpty()) continue;
+            var holder = (X509CertificateHolder) matches.iterator().next();
+            var keyAlgorithm = holder.getSubjectPublicKeyInfo().getAlgorithm();
+            if (!EC_PUBLIC_KEY_OID.equals(keyAlgorithm.getAlgorithm().getId()) || !P256_OID.equals(String.valueOf(keyAlgorithm.getParameters()))) continue;
+            if (signer.verify(new JcaSimpleSignerInfoVerifierBuilder().build(holder))) return true;
         } catch (Exception ignored) { }
         return false;
     }

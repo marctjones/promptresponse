@@ -74,6 +74,23 @@ export function attestationEnvelopeDigest(value: JsonObject): string {
   return digestBeta6(envelope);
 }
 
+const SHA256_OID = "2.16.840.1.101.3.4.2.1";
+const ECDSA_SHA256_OID = "1.2.840.10045.4.3.2";
+const EC_PUBLIC_KEY_OID = "1.2.840.10045.2.1";
+const P256_OID = "1.2.840.10045.3.1.7";
+
+function curveOf(parameters: unknown): string | undefined {
+  const block = (parameters as { valueBlock?: { toString(): string } } | undefined)?.valueBlock;
+  return block?.toString();
+}
+
+function signerCertificate(signed: pkijs.SignedData, signer: pkijs.SignerInfo): pkijs.Certificate | undefined {
+  const sid = signer.sid;
+  if (!(sid instanceof pkijs.IssuerAndSerialNumber)) return undefined;
+  return (signed.certificates ?? []).find((candidate): candidate is pkijs.Certificate =>
+    candidate instanceof pkijs.Certificate && candidate.issuer.isEqual(sid.issuer) && candidate.serialNumber.isEqual(sid.serialNumber));
+}
+
 /** Verifies a detached CMS proof over the canonical proof-free envelope. */
 export async function verifyBeta6CmsProof(value: JsonObject): Promise<boolean> {
   const proof = Array.isArray(value.proofs) ? value.proofs.find(item => isObject(item) && item.type === "cms/ecdsa-p256-sha256") as JsonObject | undefined : undefined;
@@ -83,6 +100,16 @@ export async function verifyBeta6CmsProof(value: JsonObject): Promise<boolean> {
     const content = pkijs.ContentInfo.fromBER(der.slice().buffer as ArrayBuffer);
     if (content.contentType !== pkijs.ContentInfo.SIGNED_DATA) return false;
     const signed = new pkijs.SignedData({ schema: content.content });
+    // The proof type names an algorithm (APR-ATTEST-037): ECDSA over P-256 with SHA-256. A CMS
+    // signature that verifies but was made another way is a real signature that is not this proof
+    // type. Exactly one signer, so that no second signer's certificate goes unexamined.
+    if (signed.signerInfos.length !== 1) return false;
+    const signer = signed.signerInfos[0];
+    if (signer.digestAlgorithm.algorithmId !== SHA256_OID || signer.signatureAlgorithm.algorithmId !== ECDSA_SHA256_OID) return false;
+    const certificate = signerCertificate(signed, signer);
+    if (!certificate) return false;
+    const key = certificate.subjectPublicKeyInfo.algorithm;
+    if (key.algorithmId !== EC_PUBLIC_KEY_OID || curveOf(key.algorithmParams) !== P256_OID) return false;
     const envelope: JsonObject = { ...value }; delete envelope.proofs;
     const data = new TextEncoder().encode(canonical(envelope));
     return await signed.verify({ signer: 0, checkChain: false, data: data.slice().buffer as ArrayBuffer });
