@@ -57,7 +57,9 @@ function bind(value: string, expected?: string): unknown | undefined {
     const timestamp = new Date(source);
     return Number.isNaN(timestamp.valueOf()) ? undefined : timestamp;
   }
-  if (kind === "multichoice") return (value.includes("\n") ? value.split("\n") : value.split(",")).map(x => x.trim()).filter(Boolean);
+  // Canonical form is one selection per line; on a single line the specification also reads
+  // comma-and-space (APR-MODEL-023). A bare comma is not a separator.
+  if (kind === "multichoice") return (value.includes("\n") ? value.split("\n") : value.split(", ")).map(x => x.trim()).filter(Boolean);
   return value;
 }
 function stored(value: unknown): string {

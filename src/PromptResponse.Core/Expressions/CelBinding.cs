@@ -63,10 +63,11 @@ internal static class CelBinding
         }
         if (declared == CelType.ListDyn)
         {
-            // Canonical multichoice is newline-separated; the legacy comma form is
-            // still read. An empty response is no selection, which is a real answer.
+            // Canonical multichoice is newline-separated; on a single line the specification
+            // also reads comma-and-space (APR-MODEL-023). A bare comma is not a separator.
+            // An empty response is no selection, which is a real answer.
             if (value.Length == 0) return Array.Empty<object?>();
-            var parts = value.Contains('\n') ? value.Split('\n') : value.Split(',');
+            var parts = value.Contains('\n') ? value.Split('\n') : value.Split(", ");
             return parts.Select(p => (object?)p.Trim()).Where(p => ((string)p!).Length > 0).ToArray();
         }
         if (value.Trim().Length == 0)

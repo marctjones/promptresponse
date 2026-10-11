@@ -161,7 +161,10 @@ def bind(response, declared: str | None):
             return celtypes.TimestampType(parsed)
         raise Unbound(f"{text!r} is not a date, time or datetime")
     if kind == "list":
-        lines = [l for l in text.split("\n") if l != ""]
+        # One selection per line; on a single line the specification also reads comma-and-space
+        # (APR-MODEL-023). A bare comma is not a separator.
+        parts = text.split("\n") if "\n" in text else text.split(", ")
+        lines = [p.strip() for p in parts if p.strip() != ""]
         return celtypes.ListType([celtypes.StringType(l) for l in lines])
     return celtypes.StringType(text)
 

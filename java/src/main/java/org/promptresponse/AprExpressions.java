@@ -144,7 +144,7 @@ public final class AprExpressions {
                 case "boolean" -> bool(value);
                 case "date" -> value.trim().isEmpty() ? null : LocalDate.parse(value.trim()).atStartOfDay().toInstant(java.time.ZoneOffset.UTC);
                 case "datetime" -> value.trim().isEmpty() ? null : OffsetDateTime.parse(value.replace("Z", "+00:00")).toInstant();
-                case "multichoice" -> Arrays.stream(value.contains("\n") ? value.split("\n") : value.split(",")).map(String::trim).filter(s -> !s.isEmpty()).toList();
+                case "multichoice" -> Arrays.stream(value.contains("\n") ? value.split("\n") : value.split(", ")).map(String::trim).filter(s -> !s.isEmpty()).toList();
                 default -> value;
             };
         } catch (Exception ignored) { return null; }

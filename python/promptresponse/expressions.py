@@ -63,7 +63,10 @@ def _bind(response: str, expected: Optional[str]):
         except ValueError:
             return None
     if kind == "multichoice":
-        return [part.strip() for part in (value.split("\n") if "\n" in value else value.split(",")) if part.strip()]
+        # Canonical form is one selection per line; on a single line the specification also
+        # reads comma-and-space (APR-MODEL-023). A bare comma is not a separator, so a
+        # selection such as "Bloomfield,CT" stays one.
+        return [part.strip() for part in (value.split("\n") if "\n" in value else value.split(", ")) if part.strip()]
     return value
 
 
