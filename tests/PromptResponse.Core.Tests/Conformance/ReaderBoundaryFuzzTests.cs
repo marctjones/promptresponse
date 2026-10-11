@@ -28,6 +28,7 @@ namespace PromptResponse.Core.Tests.Conformance;
 /// so a failure reproduces exactly.
 /// </para>
 /// </remarks>
+[Collection(Collections.HostileInput)]
 public class ReaderBoundaryFuzzTests
 {
     private const int BudgetMs = 5000;

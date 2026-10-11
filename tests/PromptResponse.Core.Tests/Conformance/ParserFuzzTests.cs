@@ -29,6 +29,10 @@ namespace PromptResponse.Core.Tests.Conformance;
 /// seed - so a failure reproduces exactly rather than appearing once in CI and never again.
 /// </para>
 /// </remarks>
+// Both hostile-input suites carry wall-clock budgets and allocate heavily. xUnit runs different
+// classes in parallel, so on a small CI runner one of them starved the other and a budget that
+// holds with room to spare in isolation was exceeded. One collection runs them one after the other.
+[Collection(Collections.HostileInput)]
 public class ParserFuzzTests
 {
     private static readonly AprJsonSerializer Serializer = new();
