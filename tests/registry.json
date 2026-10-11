@@ -1686,6 +1686,30 @@
           "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
         },
         {
+          "type": "test",
+          "ref": "EcdsaP256WithSha256_Verifies"
+        },
+        {
+          "type": "test",
+          "ref": "ARsaSignature_IsNotThisProofType"
+        },
+        {
+          "type": "test",
+          "ref": "AnEcdsaP384Key_IsNotThisProofType"
+        },
+        {
+          "type": "test",
+          "ref": "ASha384Digest_IsNotThisProofType"
+        },
+        {
+          "type": "test",
+          "ref": "ASecondSigner_IsNotThisProofType_BecauseItsTrustWouldGoUnexamined"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_valid_signature_made_another_way_is_not_this_proof_type"
+        },
+        {
           "type": "fixture",
           "ref": "streams/cms-proof.apr.jsonc"
         },
