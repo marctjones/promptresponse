@@ -221,6 +221,7 @@ python3 scripts/build-suite.py          # the suite is current
 python3 scripts/validate-apr.py --spec-examples   # the examples agree with a validator
 python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
 python3 scripts/check-rule-evidence.py  # per-rule: enforced, satisfied, violated, caught
+python3 scripts/conformance-tasks.py --json  # per-implementation custom tests the suite cannot set
 ```
 
 `check-rule-evidence.py` is the one that says whether a rule is genuinely

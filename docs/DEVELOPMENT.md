@@ -28,6 +28,13 @@ reports the absence as a defect in a document — but a gate that cannot run has
 not passed, so check that the environment is the one you think it is before
 trusting a green run.
 
+Editing the specification, or `tests/registry.json` (which the manifest digests), makes
+the corpus, both suites, the OSCAL catalog, the conformance statement, the review rubric
+and the specification manifest stale, and CI fails on any one that is. Run
+`scripts/regenerate-derived.sh` after the last such edit: it writes each in dependency
+order and then runs the deterministic gates (`--check` writes nothing). It does not score
+an implementation; run the SDK drivers with `scripts/run-conformance.py` afterwards.
+
 The specification has a completeness review with a deterministic half and a
 judgement half. `scripts/check-spec-completeness.py` is the deterministic half and
 runs in CI: every concept the registry cites resolves to a substantive section,
