@@ -74,6 +74,7 @@ public sealed class AprBeta6Reader
     public IReadOnlyList<AprStreamRecord> ReadStream(string source, AprRepresentation representation)
     {
         ArgumentNullException.ThrowIfNull(source);
+        RefuseUnpairedSurrogates(source);
         try
         {
             var records = representation switch
@@ -94,6 +95,22 @@ public sealed class AprBeta6Reader
             throw new SerializationException(
                 "This stream contains a record that is not well-formed.", exception)
             { Code = "PARSE_ERROR" };
+        }
+    }
+
+    // An unpaired surrogate is not text (APR-REP-004). It is refused here, in the source and in
+    // either representation, because left to the parsers it surfaces as System.Text.Json's
+    // ArgumentException from the UTF-16 to UTF-8 transcoder, or as nothing at all in YAML, and a
+    // reader that only handled the escaped spelling would refuse one spelling of a fault and
+    // crash on the other.
+    private static void RefuseUnpairedSurrogates(string source)
+    {
+        for (var i = 0; i < source.Length; i++)
+        {
+            var ch = source[i];
+            if (char.IsHighSurrogate(ch) && i + 1 < source.Length && char.IsLowSurrogate(source[i + 1])) { i++; continue; }
+            if (char.IsSurrogate(ch))
+                throw new SerializationException("The source carries an unpaired surrogate.") { Code = "PARSE_ERROR" };
         }
     }
 
@@ -527,7 +544,11 @@ public sealed class AprBeta6Reader
 
     private static IReadOnlyList<string> SplitYamlDocuments(string source)
     {
-        RejectYamlFeatures(source);
+        try { RejectYamlFeatures(source); }
+        catch (Exception exception) when (exception is InvalidOperationException or ArgumentException)
+        {
+            throw YamlLibraryFailure(exception);
+        }
         // A document holding only blank lines and comments holds no record, so a YAML
         // stream of nothing else is an empty stream, not one record that fails as a form.
         return System.Text.RegularExpressions.Regex.Split(source, "(?m)^---\\s*$")
@@ -546,11 +567,20 @@ public sealed class AprBeta6Reader
     private static readonly System.Text.RegularExpressions.Regex JsonNumber =
         new(@"^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?$", System.Text.RegularExpressions.RegexOptions.CultureInvariant);
 
+    // YamlDotNet's scanner and node parser throw their own InvalidOperationException and
+    // ArgumentException on some damaged input instead of a YamlException. Which library reads the
+    // YAML is not part of this one's contract, so the failure is reported as the parse failure it
+    // is. Applied only around the calls into YamlDotNet, so a defect in this reader's own code is
+    // not renamed into one.
+    private static SerializationException YamlLibraryFailure(Exception exception) =>
+        new("This stream contains a record that is not well-formed.", exception) { Code = "PARSE_ERROR" };
+
     private static string YamlToJson(string source)
     {
         var stream = new YamlDotNet.RepresentationModel.YamlStream();
         try { stream.Load(new StringReader(source)); }
         catch (YamlDotNet.Core.YamlException exception) { throw new SerializationException("Invalid APR YAML: " + exception.Message, exception); }
+        catch (Exception exception) when (exception is InvalidOperationException or ArgumentException) { throw YamlLibraryFailure(exception); }
         using var buffer = new MemoryStream();
         using (var writer = new Utf8JsonWriter(buffer))
         {
