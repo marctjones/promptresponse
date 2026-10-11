@@ -320,7 +320,7 @@
     {
       "kind": "fuzzing",
       "status": "present",
-      "notes": "Deterministic mutation fuzzing of the parser (ParserFuzzTests): every truncation and 200 seeded single-character corruptions per corpus fixture, plus hand-built exhaustion structures. Fixed seed so a failure reproduces. ReaderBoundaryFuzzTests does the same to AprBeta6Reader, the reader every JSONC and YAML file and stream passes through, seeded from the specification's executable examples in every representation, and found three leaks of non-SerializationException failures (a lone surrogate in the source text and two YamlDotNet exceptions) that are now refused cleanly; PROMPTRESPONSE_FUZZ_ROUNDS deepens the search. Not coverage-guided - a real fuzzer (SharpFuzz) would explore further."
+      "notes": "Deterministic mutation fuzzing of the parser (ParserFuzzTests): every truncation and 200 seeded single-character corruptions per corpus fixture, plus hand-built exhaustion structures. Fixed seed so a failure reproduces. ReaderBoundaryFuzzTests does the same to AprBeta6Reader, the reader every JSONC and YAML file and stream passes through, seeded from the specification's executable examples in every representation, and found three leaks of non-SerializationException failures (a lone surrogate in the source text and two YamlDotNet exceptions) that are now refused cleanly; PROMPTRESPONSE_FUZZ_ROUNDS deepens the search. The Java, Python and TypeScript SDKs run the same contract over the same corpus; Java's scan leaked a NoSuchElementException on an unmatched closing bracket, now refused as PARSE_ERROR. Not coverage-guided - a real fuzzer (SharpFuzz) would explore further."
     },
     {
       "kind": "property-based",

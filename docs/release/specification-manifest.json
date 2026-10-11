@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:2c454e732d688c5fbc6564504c6b89643dd7ddccb0dff610714d6e117a53bf17"
+      "sha256": "sha256:3f80d4728fbf56b407e1580a84fd3e92f6919c5a7db3cd680b2c56cdb19b2ce1"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
