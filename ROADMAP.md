@@ -69,22 +69,21 @@ below are bugs that agreement hid.
 
 In order:
 
-1. **Fix what agreement hid.** The JSONC trailing-comma stripper rewrites string
-   contents in the oracle and all three SDKs (a response `"1,]"` reads back as
-   `1]`), so a response is no longer byte-for-byte what was written (#550). The
-   corpus needs a case with that shape, then the fix everywhere. With it:
-   Python boolean binding (#512), naive datetimes binding through the host time
-   zone (Python, TypeScript; #551), the Java driver aborting on deep nesting, a JSON
-   array record reported as a mixed stream (#510), multichoice binding (#515),
-   `string(duration)` (#544), and blank submission members (#545).
-2. **Readers accept `1.0-beta.7`** (#549). The specification describes beta.7 and no
-   example, reader or validator carries it; every reader accepts beta.6 only, and
-   the Desktop app sniffs the literal string. Collapse each reader's version
-   check onto one constant, then add the version pair, the hidden-character
-   warning codes, and the diagnostic for an absent `aprVersion`, with an example
-   at the current version. This is the precondition for scoring beta.7.
-3. **Reach every rule.** The specification carries 356 rules and the suite 327
-   cases. 207 rules are named outright by a case; crediting each case with every
+1. **Fix what agreement hid.** Done: the JSONC trailing-comma stripper that rewrote string
+   contents (#550), Python boolean binding (#512), a JSON array record reported as a
+   mixed stream (#510), the multichoice read form (#515), the Java driver aborting on deep
+   nesting (every SDK now bounds nesting and refuses past it, APR-SEC-011), and readers
+   leaking library exceptions on hostile input (found by new reader-boundary fuzzing in all
+   four SDKs). Still open: `string(duration)` giving three spellings (#544, which needs a
+   specification choice), blank submission members (#545), and naive datetimes binding
+   through the host time zone (#551, which needs the specification to say what instant a
+   date denotes).
+2. **Readers accept `1.0-beta.7`** (#549). Done: every reader and the reference
+   validator accept the pair through one accepted set, the specification's examples carry
+   both versions, and a new document states `1.0-beta.7`; a document that states
+   `1.0-beta.6` is read and kept as stated.
+3. **Reach every rule.** The specification carries 356 rules and the suite 336
+   cases. 208 rules are named outright by a case; crediting each case with every
    rule in the section it cites reaches 319. 37 are reached by nothing, 3 of those
    with no recorded gap (`scripts/check-suite-coverage.py --gaps`).
 4. **Gates that decide what they claim to.** The example-coverage gate accepts
@@ -96,13 +95,13 @@ In order:
    checked by nothing. Each is the same defect: a green check that measures
    nothing.
 5. **Attestations: claim what is implemented.** The Python, TypeScript, Java and .NET
-   libraries all verify CMS proofs, but none claims the profile (#439). No driver
-   reports `verified` (#538), so chapter 12 is scored against the oracle alone. Python requires a P-256 key and SHA-256; Java and
-   TypeScript accept any signer or algorithm, and the .NET verifier does not bind
-   the proof type to the algorithm.
-6. **Safe-to-open evidence.** The parser fuzz tests exercise the typed serializer,
-   not the hand-written JSONC and YAML scanner every real file passes through.
-   No SDK sets an expression-evaluation budget (#542, #358).
+   libraries all verify CMS proofs, and all four now hold a proof to its declared
+   algorithm (ECDSA P-256 with SHA-256, one signer) as the reference verifier does. None
+   claims the profile (#439), and no driver reports `verified` (#538), so chapter 12 is
+   scored against the oracle alone.
+6. **Safe-to-open evidence.** Reader-boundary fuzzing now runs in every SDK. Still open:
+   no SDK sets an expression-evaluation budget (#542, #358), and nothing bounds
+   document size or stream length (APR-SEC-018).
 7. **Specification defects found in review**, in the specification and then in its
    derived artifacts: the JSON Schema rejects a `kind` and `documentType` the
    specification accepts; `1.0-beta.6` is stated as normative in one line and
